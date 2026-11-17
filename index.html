@@ -203,6 +203,10 @@ select,textarea{width:100%;border:2px solid var(--line);border-radius:16px;paddi
 @keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 .nomo *{animation:none!important;transition:none!important}
 .cw td.f{background:#fff}
+.cw td.f.hint{background:#fff1c2}
+.cw td.f.ok,.cw td.f.hl.ok{background:#bfe6c3;border-color:#2f7d3a}
+.cw td.f.no,.cw td.f.hl.no{background:#f8c9c5;border-color:#b3261e}
+.cw td.f.ok input{color:#1f5f2a}.cw td.f.no input{color:#b3261e}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .dcl{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:6px}
 .dcl button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px;border:1.5px solid var(--line);border-radius:16px;background:#fff;font:inherit;font-size:14px;color:var(--ink);cursor:pointer}
@@ -997,10 +1001,29 @@ function cwSel(r,k,toggle){var c=G.m[r][k],idx=-1,i;
 function cwTap(r,k){if(G.wf&&G.last&&G.last.r===r&&G.last.k===k){cwSel(r,k,true);}}
 function cwStep(r,k,delta){var w=CW.words[G.cur];if(!w)return;var j=(w.d==="A"?k-w.k:r-w.r)+delta;if(j<0||j>=w.a.length)return;
   var a=w.r+(w.d==="D"?j:0),b=w.k+(w.d==="A"?j:0),el=cwCell(a,b);if(el){el.focus();return {r:a,k:b};}}
-function cwIn(r,k,el){el.value=el.value.toUpperCase().replace(/[^A-Z]/g,"").slice(-1);document.getElementById("c"+r+"_"+k).classList.remove("ok","no");if(el.value)cwStep(r,k,1);}
+function cwWords(r,k){return G.m[r][k].ws;}
+function cwWordOk(i){var w=CW.words[i];for(var j=0;j<w.a.length;j++){var a=w.r+(w.d==="D"?j:0),b=w.k+(w.d==="A"?j:0);if(cwCell(a,b).value!==w.a.charAt(j))return false;}return true;}
+function cwMarkWord(i){var w=CW.words[i];for(var j=0;j<w.a.length;j++){var a=w.r+(w.d==="D"?j:0),b=w.k+(w.d==="A"?j:0),td=document.getElementById("c"+a+"_"+b);td.classList.remove("no");td.classList.add("ok");}}
+function cwAfter(r,k){
+  var ws=cwWords(r,k),got=false;
+  for(var i=0;i<ws.length;i++){if(cwWordOk(ws[i])){cwMarkWord(ws[i]);got=true;}}
+  var all=true,rr,kk;for(rr=0;rr<CW.h&&all;rr++)for(kk=0;kk<CW.w;kk++){if(G.m[rr][kk]&&cwCell(rr,kk).value!==G.m[rr][kk].ch){all=false;break;}}
+  if(all){cwCheck();return;}
+  if(got){document.getElementById("res").innerHTML='<p class="small"><b>Palavra certa!</b> Fica verde.</p>';}}
+function cwIn(r,k,el){el.value=el.value.toUpperCase().replace(/[^A-Z]/g,"").slice(-1);var td=document.getElementById("c"+r+"_"+k);td.classList.remove("ok","no","hint");if(el.value){cwStep(r,k,1);}cwAfter(r,k);}
 function cwKey(e,r,k){if(e.key==="Backspace"&&!e.target.value){var p=cwStep(r,k,-1);if(p){cwCell(p.r,p.k).value="";}}}
-function cwHint(){if(!G.last){document.getElementById("res").innerHTML='<p class="small">Toque primeiro em um quadradinho.</p>';return;}
-  cwCell(G.last.r,G.last.k).value=G.m[G.last.r][G.last.k].ch;}
+function cwHint(){
+  var res=document.getElementById("res"),order=[],i,j;
+  if(G.cur>=0)order.push(G.cur);
+  for(i=0;i<CW.words.length;i++){if(order.indexOf(i)<0)order.push(i);}
+  for(i=0;i<order.length;i++){var w=CW.words[order[i]];
+    for(j=0;j<w.a.length;j++){var a=w.r+(w.d==="D"?j:0),b=w.k+(w.d==="A"?j:0),el=cwCell(a,b);
+      if(el.value!==w.a.charAt(j)){
+        el.value=w.a.charAt(j);var td=document.getElementById("c"+a+"_"+b);td.classList.remove("no","ok");td.classList.add("hint");
+        cwSel(a,b);
+        res.innerHTML='<p class="small"><b>Dica:</b> coloquei uma letra amarela para você. Palavra: '+w.c+' ('+w.a.length+' letras).</p>';
+        cwAfter(a,b);return;}}}
+  res.innerHTML='<p class="small">Todas as letras já estão certas. Toque em Conferir.</p>';}
 function cwClear(){var n=0;for(var r=0;r<CW.h;r++)for(var k=0;k<CW.w;k++){if(!G.m[r][k])continue;var td=document.getElementById("c"+r+"_"+k);if(td.classList.contains("no")){cwCell(r,k).value="";td.classList.remove("no");n++;}}
   document.getElementById("res").innerHTML='<p class="small">'+(n?"Apaguei as erradas. Pode escrever de novo.":"Não tem nenhuma errada marcada. Toque em Conferir primeiro.")+'</p>';}
 function cwCheck(){var ok=0,tot=0;
