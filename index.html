@@ -1277,6 +1277,11 @@ function needAcc(){
   return h+'</div></div>';
 }
 function pickNeed(i,b){needSel=NEEDS[i];document.getElementById("needlbl").textContent=needSel;var bs=document.getElementById("needbody").querySelectorAll(".opt");for(var j=0;j<bs.length;j++){bs[j].classList.toggle("on",j===i);}var a=b.closest(".acc");if(a)a.classList.remove("open");}
+function gSend(o,cb){try{var fr=document.getElementById("gfr");if(!fr){fr=document.createElement("iframe");fr.name="gfr";fr.id="gfr";fr.style.display="none";document.body.appendChild(fr);}
+  var f=document.createElement("form");f.method="POST";f.action=FORM.url;f.target="gfr";f.acceptCharset="UTF-8";f.style.display="none";
+  o["fvv"]="1";o["pageHistory"]="0";
+  for(var k in o){var i=document.createElement("input");i.type="hidden";i.name=k;i.value=o[k];f.appendChild(i);}
+  document.body.appendChild(f);f.submit();setTimeout(function(){try{document.body.removeChild(f);}catch(e){}cb(true);},1500);}catch(e){cb(false);}}
 function sendForm(){
   var n=document.getElementById("fn").value.trim(),w=document.getElementById("fw").value.replace(/\D/g,""),a=document.getElementById("fa").value,fo=document.getElementById("fother"),nd=needSel,m=document.getElementById("fm").value.trim(),c=document.getElementById("fc").checked,e=document.getElementById("fe");
   if(!n){e.textContent="Escreva o seu nome.";return;}
@@ -1285,8 +1290,8 @@ function sendForm(){
   if(!c){e.textContent="Marque a caixinha para eu poder te chamar.";return;}
   var done_=function(msg){app.innerHTML='<h2>Recebi!</h2><div class="card"><p style="margin:0">'+msg+'</p></div><button class="primary" onclick="go(\'home\')">Voltar ao início</button>'+foot();window.scrollTo(0,0);};
   var txt="Oi, Eve! Sou "+n+" ("+a+"). Procuro: "+nd+"."+(m?" "+m:"")+" Meu WhatsApp: "+w;
-  if(FORM.url){var fd=new FormData();fd.append(FORM.f.name,n);fd.append(FORM.f.whats,w);fd.append(FORM.f.area,a||"-");fd.append(FORM.f.need,nd);fd.append(FORM.f.msg,m||"-");
-    fetch(FORM.url,{method:"POST",mode:"no-cors",body:fd}).then(function(){done_("Seu contato chegou. Eu respondo pelo WhatsApp em breve.");}).catch(function(){window.open(waUrl(txt),"_blank");done_("Abri o seu WhatsApp com a mensagem pronta. É só enviar.");});
+  if(FORM.url){var o={};o[FORM.f.name]=n;o[FORM.f.whats]=w;o[FORM.f.area]=a||"-";o[FORM.f.need]=nd;o[FORM.f.msg]=m||"-";
+    gSend(o,function(ok){if(ok)done_("Seu contato chegou. Eu respondo pelo WhatsApp em breve.");else{window.open(waUrl(txt),"_blank");done_("Abri o seu WhatsApp com a mensagem pronta. É só enviar.");}});
   }else{window.open(waUrl(txt),"_blank");done_("Abri o seu WhatsApp com a mensagem pronta. É só enviar.");}
 }
 
@@ -1310,8 +1315,8 @@ function fbSend(){
   var fin=function(m){if(!prog.fb){prog.fb=1;ls("cg_prog",prog);addPts(5);}app.innerHTML='<h2>Obrigada!</h2><div class="card"><p style="margin:0">'+m+'</p></div><button class="primary" onclick="go(\'home\')">Voltar ao início</button>'+foot();window.scrollTo(0,0);};
   var need="Opinião: nota "+FB.n+" de 5",msg=(tx||"(sem texto)")+" | "+(au?"Autoriza divulgar":"Não autoriza divulgar");
   var wa="Oi, Eve! Minha opinião sobre o app da Corage: nota "+FB.n+" de 5."+(tx?" "+tx:"")+(nm?" Sou "+nm+".":"")+(au?" Autorizo divulgar.":"");
-  if(FORM.url){var fd=new FormData();fd.append(FORM.f.name,nm||"Sem nome");if(FORM.f.whats)fd.append(FORM.f.whats,"-");fd.append(FORM.f.area,profile.area||"-");fd.append(FORM.f.need,need);if(FORM.f.msg)fd.append(FORM.f.msg,msg);
-    fetch(FORM.url,{method:"POST",mode:"no-cors",body:fd}).then(function(){fin("Sua opinião chegou. Isso ajuda a Corage a melhorar.");}).catch(function(){window.open(waUrl(wa),"_blank");fin("Abri o seu WhatsApp com a mensagem pronta. É só enviar.");});
+  if(FORM.url){var o={};o[FORM.f.name]=nm||"Sem nome";o[FORM.f.whats]="-";o[FORM.f.area]=profile.area||"-";o[FORM.f.need]=need;o[FORM.f.msg]=msg||"-";
+    gSend(o,function(ok){if(ok)fin("Sua opinião chegou. Isso ajuda a Corage a melhorar.");else{window.open(waUrl(wa),"_blank");fin("Abri o seu WhatsApp com a mensagem pronta. É só enviar.");}});
   }else{window.open(waUrl(wa),"_blank");fin("Abri o seu WhatsApp com a mensagem pronta. É só enviar.");}
 }
 
