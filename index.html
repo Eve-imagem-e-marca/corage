@@ -106,6 +106,42 @@ label.l{display:block;font-weight:600;color:var(--marsala);margin:6px 0 8px}
 .qrbox svg{display:block;width:100%;height:auto}
 footer{margin-top:26px;text-align:center;font-size:16px;color:var(--soft)}
 .sp{height:10px}
+.cv{display:block;width:100%;max-width:340px;margin:0 auto 12px;background:#fff;border:2px solid var(--marsala);border-radius:16px;touch-action:none}
+.dpad{display:grid;grid-template-columns:repeat(3,68px);grid-template-rows:repeat(2,56px);gap:8px;justify-content:center;margin:6px 0 14px}
+.dpad button{border:1.5px solid var(--marsala);background:#fff;color:var(--marsala);border-radius:16px;font-size:24px;cursor:pointer}
+.dpad button:active{background:var(--rose2)}
+.dpad .u{grid-column:2;grid-row:1}.dpad .l{grid-column:1;grid-row:2}.dpad .d{grid-column:2;grid-row:2}.dpad .r{grid-column:3;grid-row:2}
+.score{display:flex;justify-content:space-between;font-weight:700;color:var(--marsala);margin-bottom:10px}
+.cw{border-collapse:separate;border-spacing:2px;margin:0 auto 14px}
+.cw td{width:36px;height:36px;padding:0;position:relative}
+.cw td.f{background:#fff;border:1.5px solid var(--marsala);border-radius:6px}
+.cw td.f.hl{background:var(--rose2)}
+.cw td.ok{background:#e3f2e5}.cw td.no{background:#fbe0de}
+.cw input{width:100%;height:100%;border:0;background:transparent;text-align:center;font:700 20px ui-rounded,-apple-system,sans-serif;color:var(--marsala);text-transform:uppercase;padding:0;border-radius:6px;caret-color:transparent}
+.cw input:focus{outline:none}
+.cw sup{position:absolute;left:3px;top:1px;font-size:11px;font-weight:700;color:var(--soft);pointer-events:none}
+select,textarea{width:100%;border:2px solid var(--line);border-radius:16px;padding:14px 16px;font:inherit;color:var(--ink);background:#fff;margin-bottom:18px}
+.chk{display:flex;gap:12px;align-items:flex-start;margin-bottom:18px;font-size:17px;color:var(--soft)}
+.chk input{width:26px;height:26px;flex:none;margin-top:2px;accent-color:#7a2e3f}
+.iafab{position:fixed;right:14px;bottom:88px;z-index:40;display:flex;align-items:center;gap:8px;background:var(--marsala);color:#fff;border:0;border-radius:999px;padding:8px 16px 8px 8px;font:inherit;font-weight:700;box-shadow:0 8px 22px rgba(122,46,63,.35);cursor:pointer}
+.iafab span,.iaav{width:34px;height:34px;border-radius:50%;background:var(--rose);color:var(--marsala);display:grid;place-items:center;font-family:ui-rounded,Georgia,serif;font-weight:800;flex:none}
+.iabox{position:fixed;left:0;right:0;bottom:0;z-index:60;max-width:520px;margin:0 auto;height:78vh;background:var(--rose3);border-radius:26px 26px 0 0;box-shadow:0 -10px 40px rgba(58,35,39,.35);display:none;flex-direction:column}
+.iabox.on{display:flex;animation:up .3s both}
+.iahead{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.iahead div:nth-child(2){flex:1}.iahead b{display:block;color:var(--marsala)}.iahead small{color:#6b4a50}
+.iamsgs{flex:1;overflow:auto;padding:14px 16px}
+.iam{max-width:88%;padding:12px 14px;border-radius:18px;margin-bottom:10px;line-height:1.4}
+.ii{background:#fff;border:1px solid var(--line);border-bottom-left-radius:6px}
+.iu{background:var(--marsala);color:#fff;margin-left:auto;border-bottom-right-radius:6px}
+.iaact{display:block;margin-top:10px;background:var(--rose);color:var(--marsala);border:0;border-radius:999px;padding:10px 16px;font:inherit;font-weight:700;cursor:pointer}
+.iaopts{padding:8px 16px;max-height:34%;overflow:auto;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.iachip{display:block;text-align:center;text-decoration:none;background:#fff;color:var(--marsala);border:1.5px solid var(--marsala);border-radius:999px;padding:11px 16px;font:inherit;font-weight:600;cursor:pointer}
+.iachip.main{background:var(--marsala);color:#fff}
+.ianame,#iain{width:100%;border:2px solid var(--line);border-radius:14px;padding:12px;font:inherit;background:#fff}
+.iaform{display:flex;gap:8px;padding:8px 16px 16px}
+.iaform button{background:var(--marsala);color:#fff;border:0;border-radius:14px;padding:0 18px;font:inherit;font-weight:700}
+.nomo *{animation:none!important;transition:none!important}
+.cw td.f{background:#fff}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -127,7 +163,7 @@ footer{margin-top:26px;text-align:center;font-size:16px;color:var(--soft)}
 <div class="modal" id="modal" onclick="if(event.target===this)closeQR()">
   <div class="sheet">
     <h2>Abra o app da Corage</h2>
-    <div class="qrbox"><svg viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="QR Code do app da Corage"><path fill="#7a2e3f" d="M0 0h7v1h-7zM12 0h1v1h-1zM15 0h3v1h-3zM21 0h1v1h-1zM23 0h1v1h-1zM26 0h1v1h-1zM28 0h1v1h-1zM30 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM9 1h1v1h-1zM12 1h3v1h-3zM16 1h1v1h-1zM19 1h2v1h-2zM25 1h2v1h-2zM28 1h1v1h-1zM30 1h1v1h-1zM36 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h2v1h-2zM22 2h1v1h-1zM24 2h4v1h-4zM30 2h1v1h-1zM32 2h3v1h-3zM36 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM8 3h1v1h-1zM10 3h1v1h-1zM13 3h2v1h-2zM16 3h5v1h-5zM22 3h1v1h-1zM24 3h2v1h-2zM27 3h2v1h-2zM30 3h1v1h-1zM32 3h3v1h-3zM36 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM10 4h3v1h-3zM15 4h2v1h-2zM18 4h3v1h-3zM22 4h2v1h-2zM30 4h1v1h-1zM32 4h3v1h-3zM36 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM11 5h1v1h-1zM14 5h2v1h-2zM17 5h1v1h-1zM21 5h4v1h-4zM30 5h1v1h-1zM36 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM28 6h1v1h-1zM30 6h7v1h-7zM9 7h1v1h-1zM12 7h1v1h-1zM14 7h1v1h-1zM17 7h1v1h-1zM19 7h2v1h-2zM22 7h4v1h-4zM27 7h2v1h-2zM3 8h2v1h-2zM6 8h2v1h-2zM10 8h1v1h-1zM14 8h1v1h-1zM16 8h2v1h-2zM20 8h5v1h-5zM26 8h1v1h-1zM28 8h1v1h-1zM33 8h2v1h-2zM0 9h4v1h-4zM5 9h1v1h-1zM7 9h1v1h-1zM9 9h1v1h-1zM13 9h3v1h-3zM18 9h1v1h-1zM21 9h2v1h-2zM24 9h4v1h-4zM31 9h3v1h-3zM0 10h2v1h-2zM6 10h4v1h-4zM12 10h1v1h-1zM15 10h5v1h-5zM21 10h1v1h-1zM23 10h3v1h-3zM27 10h1v1h-1zM29 10h3v1h-3zM33 10h2v1h-2zM36 10h1v1h-1zM1 11h1v1h-1zM4 11h1v1h-1zM7 11h5v1h-5zM13 11h2v1h-2zM16 11h1v1h-1zM20 11h1v1h-1zM22 11h1v1h-1zM26 11h9v1h-9zM36 11h1v1h-1zM0 12h1v1h-1zM3 12h1v1h-1zM5 12h5v1h-5zM11 12h4v1h-4zM20 12h1v1h-1zM23 12h2v1h-2zM27 12h2v1h-2zM30 12h2v1h-2zM33 12h1v1h-1zM1 13h3v1h-3zM8 13h1v1h-1zM11 13h1v1h-1zM13 13h4v1h-4zM19 13h1v1h-1zM22 13h2v1h-2zM26 13h4v1h-4zM32 13h1v1h-1zM34 13h1v1h-1zM2 14h2v1h-2zM5 14h3v1h-3zM9 14h3v1h-3zM17 14h1v1h-1zM21 14h2v1h-2zM24 14h4v1h-4zM30 14h1v1h-1zM32 14h3v1h-3zM36 14h1v1h-1zM1 15h5v1h-5zM7 15h4v1h-4zM17 15h4v1h-4zM22 15h3v1h-3zM27 15h1v1h-1zM29 15h2v1h-2zM32 15h5v1h-5zM2 16h2v1h-2zM5 16h2v1h-2zM12 16h2v1h-2zM17 16h1v1h-1zM23 16h3v1h-3zM27 16h1v1h-1zM30 16h1v1h-1zM34 16h1v1h-1zM36 16h1v1h-1zM0 17h1v1h-1zM2 17h2v1h-2zM7 17h1v1h-1zM9 17h1v1h-1zM12 17h1v1h-1zM17 17h2v1h-2zM21 17h1v1h-1zM23 17h2v1h-2zM27 17h1v1h-1zM29 17h1v1h-1zM31 17h1v1h-1zM33 17h1v1h-1zM35 17h1v1h-1zM2 18h1v1h-1zM6 18h2v1h-2zM9 18h1v1h-1zM11 18h2v1h-2zM14 18h1v1h-1zM18 18h1v1h-1zM20 18h2v1h-2zM23 18h1v1h-1zM25 18h1v1h-1zM27 18h1v1h-1zM29 18h2v1h-2zM32 18h1v1h-1zM34 18h1v1h-1zM36 18h1v1h-1zM4 19h1v1h-1zM8 19h4v1h-4zM13 19h1v1h-1zM15 19h2v1h-2zM20 19h1v1h-1zM22 19h5v1h-5zM28 19h3v1h-3zM33 19h1v1h-1zM36 19h1v1h-1zM0 20h1v1h-1zM3 20h1v1h-1zM5 20h3v1h-3zM9 20h2v1h-2zM12 20h2v1h-2zM16 20h1v1h-1zM20 20h2v1h-2zM24 20h1v1h-1zM26 20h3v1h-3zM30 20h1v1h-1zM32 20h2v1h-2zM35 20h1v1h-1zM3 21h1v1h-1zM5 21h1v1h-1zM10 21h1v1h-1zM12 21h1v1h-1zM14 21h3v1h-3zM20 21h5v1h-5zM26 21h3v1h-3zM31 21h2v1h-2zM34 21h1v1h-1zM1 22h2v1h-2zM4 22h1v1h-1zM6 22h4v1h-4zM12 22h1v1h-1zM14 22h1v1h-1zM17 22h1v1h-1zM19 22h1v1h-1zM21 22h1v1h-1zM24 22h2v1h-2zM27 22h1v1h-1zM29 22h2v1h-2zM32 22h1v1h-1zM35 22h2v1h-2zM0 23h1v1h-1zM3 23h2v1h-2zM7 23h1v1h-1zM11 23h1v1h-1zM15 23h2v1h-2zM18 23h3v1h-3zM24 23h1v1h-1zM26 23h3v1h-3zM31 23h1v1h-1zM33 23h3v1h-3zM2 24h1v1h-1zM6 24h2v1h-2zM10 24h6v1h-6zM20 24h5v1h-5zM30 24h2v1h-2zM35 24h2v1h-2zM0 25h3v1h-3zM4 25h2v1h-2zM8 25h2v1h-2zM11 25h2v1h-2zM14 25h1v1h-1zM16 25h1v1h-1zM18 25h1v1h-1zM22 25h1v1h-1zM24 25h5v1h-5zM31 25h2v1h-2zM34 25h1v1h-1zM0 26h3v1h-3zM4 26h1v1h-1zM6 26h1v1h-1zM9 26h2v1h-2zM12 26h1v1h-1zM16 26h2v1h-2zM21 26h1v1h-1zM25 26h3v1h-3zM30 26h1v1h-1zM32 26h1v1h-1zM34 26h3v1h-3zM0 27h1v1h-1zM5 27h1v1h-1zM7 27h2v1h-2zM10 27h7v1h-7zM18 27h1v1h-1zM20 27h4v1h-4zM27 27h1v1h-1zM29 27h1v1h-1zM31 27h1v1h-1zM33 27h4v1h-4zM0 28h1v1h-1zM2 28h2v1h-2zM6 28h1v1h-1zM9 28h1v1h-1zM12 28h1v1h-1zM17 28h1v1h-1zM19 28h3v1h-3zM24 28h2v1h-2zM28 28h7v1h-7zM8 29h2v1h-2zM12 29h4v1h-4zM26 29h1v1h-1zM28 29h1v1h-1zM32 29h4v1h-4zM0 30h7v1h-7zM8 30h5v1h-5zM14 30h1v1h-1zM16 30h1v1h-1zM18 30h1v1h-1zM20 30h2v1h-2zM23 30h1v1h-1zM25 30h1v1h-1zM28 30h1v1h-1zM30 30h1v1h-1zM32 30h3v1h-3zM36 30h1v1h-1zM0 31h1v1h-1zM6 31h1v1h-1zM9 31h1v1h-1zM13 31h1v1h-1zM16 31h1v1h-1zM19 31h4v1h-4zM25 31h1v1h-1zM27 31h2v1h-2zM32 31h2v1h-2zM0 32h1v1h-1zM2 32h3v1h-3zM6 32h1v1h-1zM8 32h2v1h-2zM11 32h4v1h-4zM16 32h1v1h-1zM19 32h1v1h-1zM21 32h2v1h-2zM24 32h1v1h-1zM27 32h6v1h-6zM35 32h2v1h-2zM0 33h1v1h-1zM2 33h3v1h-3zM6 33h1v1h-1zM8 33h1v1h-1zM10 33h2v1h-2zM13 33h1v1h-1zM16 33h2v1h-2zM20 33h1v1h-1zM22 33h5v1h-5zM30 33h1v1h-1zM0 34h1v1h-1zM2 34h3v1h-3zM6 34h1v1h-1zM10 34h2v1h-2zM13 34h1v1h-1zM16 34h2v1h-2zM20 34h1v1h-1zM23 34h1v1h-1zM26 34h1v1h-1zM28 34h1v1h-1zM31 34h2v1h-2zM35 34h2v1h-2zM0 35h1v1h-1zM6 35h1v1h-1zM9 35h1v1h-1zM13 35h2v1h-2zM16 35h1v1h-1zM18 35h1v1h-1zM20 35h4v1h-4zM30 35h1v1h-1zM32 35h5v1h-5zM0 36h7v1h-7zM9 36h1v1h-1zM11 36h5v1h-5zM17 36h3v1h-3zM22 36h2v1h-2zM28 36h1v1h-1zM31 36h3v1h-3zM36 36h1v1h-1z"/><circle cx="18.5" cy="18.5" r="4.5" fill="#fff"/><circle cx="18.5" cy="18.5" r="3.7" fill="#f7dcd9" stroke="#7a2e3f" stroke-width="0.6"/><text x="18.5" y="19.906" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="4.62" fill="#7a2e3f">C</text>"/></svg></div>
+    <div class="qrbox"><svg viewBox="0 0 37 37" shape-rendering="crispEdges" role="img" aria-label="QR Code do app da Corage"><path fill="#7a2e3f" d="M0 0h7v1h-7zM12 0h1v1h-1zM15 0h3v1h-3zM21 0h1v1h-1zM23 0h1v1h-1zM26 0h1v1h-1zM28 0h1v1h-1zM30 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM9 1h1v1h-1zM12 1h3v1h-3zM16 1h1v1h-1zM19 1h2v1h-2zM25 1h2v1h-2zM28 1h1v1h-1zM30 1h1v1h-1zM36 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h2v1h-2zM22 2h1v1h-1zM24 2h4v1h-4zM30 2h1v1h-1zM32 2h3v1h-3zM36 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM8 3h1v1h-1zM10 3h1v1h-1zM13 3h2v1h-2zM16 3h5v1h-5zM22 3h1v1h-1zM24 3h2v1h-2zM27 3h2v1h-2zM30 3h1v1h-1zM32 3h3v1h-3zM36 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM10 4h3v1h-3zM15 4h2v1h-2zM18 4h3v1h-3zM22 4h2v1h-2zM30 4h1v1h-1zM32 4h3v1h-3zM36 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM11 5h1v1h-1zM14 5h2v1h-2zM17 5h1v1h-1zM21 5h4v1h-4zM30 5h1v1h-1zM36 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM28 6h1v1h-1zM30 6h7v1h-7zM9 7h1v1h-1zM12 7h1v1h-1zM14 7h1v1h-1zM17 7h1v1h-1zM19 7h2v1h-2zM22 7h4v1h-4zM27 7h2v1h-2zM3 8h2v1h-2zM6 8h2v1h-2zM10 8h1v1h-1zM14 8h1v1h-1zM16 8h2v1h-2zM20 8h5v1h-5zM26 8h1v1h-1zM28 8h1v1h-1zM33 8h2v1h-2zM0 9h4v1h-4zM5 9h1v1h-1zM7 9h1v1h-1zM9 9h1v1h-1zM13 9h3v1h-3zM18 9h1v1h-1zM21 9h2v1h-2zM24 9h4v1h-4zM31 9h3v1h-3zM0 10h2v1h-2zM6 10h4v1h-4zM12 10h1v1h-1zM15 10h5v1h-5zM21 10h1v1h-1zM23 10h3v1h-3zM27 10h1v1h-1zM29 10h3v1h-3zM33 10h2v1h-2zM36 10h1v1h-1zM1 11h1v1h-1zM4 11h1v1h-1zM7 11h5v1h-5zM13 11h2v1h-2zM16 11h1v1h-1zM20 11h1v1h-1zM22 11h1v1h-1zM26 11h9v1h-9zM36 11h1v1h-1zM0 12h1v1h-1zM3 12h1v1h-1zM5 12h5v1h-5zM11 12h4v1h-4zM20 12h1v1h-1zM23 12h2v1h-2zM27 12h2v1h-2zM30 12h2v1h-2zM33 12h1v1h-1zM1 13h3v1h-3zM8 13h1v1h-1zM11 13h1v1h-1zM13 13h4v1h-4zM19 13h1v1h-1zM22 13h2v1h-2zM26 13h4v1h-4zM32 13h1v1h-1zM34 13h1v1h-1zM2 14h2v1h-2zM5 14h3v1h-3zM9 14h3v1h-3zM17 14h1v1h-1zM21 14h2v1h-2zM24 14h4v1h-4zM30 14h1v1h-1zM32 14h3v1h-3zM36 14h1v1h-1zM1 15h5v1h-5zM7 15h4v1h-4zM17 15h4v1h-4zM22 15h3v1h-3zM27 15h1v1h-1zM29 15h2v1h-2zM32 15h5v1h-5zM2 16h2v1h-2zM5 16h2v1h-2zM12 16h2v1h-2zM17 16h1v1h-1zM23 16h3v1h-3zM27 16h1v1h-1zM30 16h1v1h-1zM34 16h1v1h-1zM36 16h1v1h-1zM0 17h1v1h-1zM2 17h2v1h-2zM7 17h1v1h-1zM9 17h1v1h-1zM12 17h1v1h-1zM17 17h2v1h-2zM21 17h1v1h-1zM23 17h2v1h-2zM27 17h1v1h-1zM29 17h1v1h-1zM31 17h1v1h-1zM33 17h1v1h-1zM35 17h1v1h-1zM2 18h1v1h-1zM6 18h2v1h-2zM9 18h1v1h-1zM11 18h2v1h-2zM14 18h1v1h-1zM18 18h1v1h-1zM20 18h2v1h-2zM23 18h1v1h-1zM25 18h1v1h-1zM27 18h1v1h-1zM29 18h2v1h-2zM32 18h1v1h-1zM34 18h1v1h-1zM36 18h1v1h-1zM4 19h1v1h-1zM8 19h4v1h-4zM13 19h1v1h-1zM15 19h2v1h-2zM20 19h1v1h-1zM22 19h5v1h-5zM28 19h3v1h-3zM33 19h1v1h-1zM36 19h1v1h-1zM0 20h1v1h-1zM3 20h1v1h-1zM5 20h3v1h-3zM9 20h2v1h-2zM12 20h2v1h-2zM16 20h1v1h-1zM20 20h2v1h-2zM24 20h1v1h-1zM26 20h3v1h-3zM30 20h1v1h-1zM32 20h2v1h-2zM35 20h1v1h-1zM3 21h1v1h-1zM5 21h1v1h-1zM10 21h1v1h-1zM12 21h1v1h-1zM14 21h3v1h-3zM20 21h5v1h-5zM26 21h3v1h-3zM31 21h2v1h-2zM34 21h1v1h-1zM1 22h2v1h-2zM4 22h1v1h-1zM6 22h4v1h-4zM12 22h1v1h-1zM14 22h1v1h-1zM17 22h1v1h-1zM19 22h1v1h-1zM21 22h1v1h-1zM24 22h2v1h-2zM27 22h1v1h-1zM29 22h2v1h-2zM32 22h1v1h-1zM35 22h2v1h-2zM0 23h1v1h-1zM3 23h2v1h-2zM7 23h1v1h-1zM11 23h1v1h-1zM15 23h2v1h-2zM18 23h3v1h-3zM24 23h1v1h-1zM26 23h3v1h-3zM31 23h1v1h-1zM33 23h3v1h-3zM2 24h1v1h-1zM6 24h2v1h-2zM10 24h6v1h-6zM20 24h5v1h-5zM30 24h2v1h-2zM35 24h2v1h-2zM0 25h3v1h-3zM4 25h2v1h-2zM8 25h2v1h-2zM11 25h2v1h-2zM14 25h1v1h-1zM16 25h1v1h-1zM18 25h1v1h-1zM22 25h1v1h-1zM24 25h5v1h-5zM31 25h2v1h-2zM34 25h1v1h-1zM0 26h3v1h-3zM4 26h1v1h-1zM6 26h1v1h-1zM9 26h2v1h-2zM12 26h1v1h-1zM16 26h2v1h-2zM21 26h1v1h-1zM25 26h3v1h-3zM30 26h1v1h-1zM32 26h1v1h-1zM34 26h3v1h-3zM0 27h1v1h-1zM5 27h1v1h-1zM7 27h2v1h-2zM10 27h7v1h-7zM18 27h1v1h-1zM20 27h4v1h-4zM27 27h1v1h-1zM29 27h1v1h-1zM31 27h1v1h-1zM33 27h4v1h-4zM0 28h1v1h-1zM2 28h2v1h-2zM6 28h1v1h-1zM9 28h1v1h-1zM12 28h1v1h-1zM17 28h1v1h-1zM19 28h3v1h-3zM24 28h2v1h-2zM28 28h7v1h-7zM8 29h2v1h-2zM12 29h4v1h-4zM26 29h1v1h-1zM28 29h1v1h-1zM32 29h4v1h-4zM0 30h7v1h-7zM8 30h5v1h-5zM14 30h1v1h-1zM16 30h1v1h-1zM18 30h1v1h-1zM20 30h2v1h-2zM23 30h1v1h-1zM25 30h1v1h-1zM28 30h1v1h-1zM30 30h1v1h-1zM32 30h3v1h-3zM36 30h1v1h-1zM0 31h1v1h-1zM6 31h1v1h-1zM9 31h1v1h-1zM13 31h1v1h-1zM16 31h1v1h-1zM19 31h4v1h-4zM25 31h1v1h-1zM27 31h2v1h-2zM32 31h2v1h-2zM0 32h1v1h-1zM2 32h3v1h-3zM6 32h1v1h-1zM8 32h2v1h-2zM11 32h4v1h-4zM16 32h1v1h-1zM19 32h1v1h-1zM21 32h2v1h-2zM24 32h1v1h-1zM27 32h6v1h-6zM35 32h2v1h-2zM0 33h1v1h-1zM2 33h3v1h-3zM6 33h1v1h-1zM8 33h1v1h-1zM10 33h2v1h-2zM13 33h1v1h-1zM16 33h2v1h-2zM20 33h1v1h-1zM22 33h5v1h-5zM30 33h1v1h-1zM0 34h1v1h-1zM2 34h3v1h-3zM6 34h1v1h-1zM10 34h2v1h-2zM13 34h1v1h-1zM16 34h2v1h-2zM20 34h1v1h-1zM23 34h1v1h-1zM26 34h1v1h-1zM28 34h1v1h-1zM31 34h2v1h-2zM35 34h2v1h-2zM0 35h1v1h-1zM6 35h1v1h-1zM9 35h1v1h-1zM13 35h2v1h-2zM16 35h1v1h-1zM18 35h1v1h-1zM20 35h4v1h-4zM30 35h1v1h-1zM32 35h5v1h-5zM0 36h7v1h-7zM9 36h1v1h-1zM11 36h5v1h-5zM17 36h3v1h-3zM22 36h2v1h-2zM28 36h1v1h-1zM31 36h3v1h-3zM36 36h1v1h-1z"/><circle cx="18.5" cy="18.5" r="4.5" fill="#fff"/><circle cx="18.5" cy="18.5" r="3.7" fill="#f7dcd9" stroke="#7a2e3f" stroke-width="0.6"/><text x="18.5" y="19.906" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="4.62" fill="#7a2e3f">C</text><g id="x""/></svg></div>
     <p class="small">Aponte a câmera do celular para o quadrado.</p>
     <button class="primary" onclick="shareApp()">Compartilhar o link</button>
     <div class="sp"></div>
@@ -142,14 +178,22 @@ var SITE = "https://eve-imagem-e-marca.github.io/corage/";
 var PORTFOLIO = "https://eve-imagem-e-marca.github.io/portfolio";
 // Valores dos planos: deixe vazio para mostrar "Valor combinado na conversa". Ex.: "R$ 000"
 var PRICES = {simples:"", completo:"", medida:""};
+// Formulário do Google (opcional). Enquanto url estiver vazio, o contato abre o seu WhatsApp com a mensagem pronta.
+var FORM = {url:"", f:{name:"", whats:"", area:"", need:"", msg:""}};
 
 function ls(k,v){try{if(v===undefined){return JSON.parse(localStorage.getItem(k));}localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}}
 var app=document.getElementById("app");
 var profile=ls("cg_profile")||{};
 var prog=ls("cg_prog")||{};
+var pts=ls("cg_pts")||0;
+function addPts(n){pts+=n;ls("cg_pts",pts);}
 var seen=ls("cg_seen");
 var state={view:seen?"home":"profile",step:0,answers:[],match:{},filter:"Todos",compare:"app",spun:null,rot:0,spinning:false};
-var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var ui=ls("cg_ui")||{zoom:1,nomo:false};
+var sysReduce=!!(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+var reduce=sysReduce||!!ui.nomo;
+function applyUI(){reduce=sysReduce||!!ui.nomo;document.documentElement.classList.toggle("nomo",!!ui.nomo);app.style.zoom=ui.zoom||1;}
+applyUI();
 
 /* ---------- dados ---------- */
 var areas=["Psicologia","Nutrição","Odontologia","Estética","Arquitetura","Terapias e arteterapia","Outra área"];
@@ -212,15 +256,16 @@ var wheel=[
 ];
 var works=[
  {c:"Apps",t:"Método EVEC",d:"Plataforma para a mulher que empreende cuidar da imagem e criar o conteúdo dela sem surtar. Da roupa e da presença digital até os posts, tudo pronto em minutos, no celular.",u:"https://metodoevec.com.br",b:"Conhecer"},
- {c:"Apps",t:"App para nutricionista",d:"Quiz, calculadora de IMC e de água, desafio de 7 dias, cardápio com lista de compras e cadastro de interessados. Para a profissional atrair, se aproximar e fazer a lista de contatos crescer.",u:PORTFOLIO,b:"Ver no portfólio"},
- {c:"Apps",t:"App para psicóloga",d:"Quiz, roda das emoções, respiração com sons relaxantes, diário, desafio de 7 dias, frase do dia e QR Code. Tem também uma área só da profissional, com calendário e roteiros de posts.",u:PORTFOLIO,b:"Ver no portfólio"},
+ {c:"Apps",tg:"Modelo de app",t:"App para nutricionista",d:"Quiz, calculadora de IMC e de água, desafio de 7 dias, cardápio com lista de compras e cadastro de interessados. Para a profissional atrair, se aproximar e fazer a lista de contatos crescer.",u:PORTFOLIO,b:"Ver no portfólio"},
+ {c:"Apps",tg:"Modelo de app",t:"App para psicóloga",d:"Quiz, roda das emoções, respiração com sons relaxantes, diário, desafio de 7 dias, frase do dia e QR Code. Tem também uma área só da profissional, com calendário e roteiros de posts.",u:PORTFOLIO,b:"Ver no portfólio"},
  {c:"Apps",t:"Colorev",d:"App só de cores: ajuda a pessoa a descobrir as cores que ficam bem nela e a comprar com mais segurança.",tg:"Em breve"},
  {c:"Podcast",t:"Podleve",d:"Podcast para quem cuida de gente, com a Eve como host. Entrevistas com profissionais do cuidado, com edição, roteiro e cortes feitos por ela.",u:"https://www.youtube.com/@podleve_cast",b:"Ver no YouTube"},
  {c:"Conteúdo",t:"E-books para quem cuida",d:"A Imagem que Acolhe, Instagram que Acolhe, O Carrossel que Cuida e Alcance que Acolhe: guias de imagem e de conteúdo para profissionais do cuidado."},
  {c:"Conteúdo",t:"Produção de conteúdo",d:"Posts e estratégia para perfis de psicólogas, esteticistas e dentistas, e para o próprio perfil, desde que me formei em Marketing, em 2012."},
+ {c:"Cases",tg:"Em breve",t:"Cases com clientes",d:"Estou fechando os primeiros projetos de app. Quando ficarem prontos, os resultados reais aparecem aqui. Quer ser um dos primeiros?"},
  {c:"Imagem",t:"Imagem e marca pessoal",d:"Atendimento e mentoria de imagem desde 2018, com formação em Marketing e pós em marca pessoal e influência digital."}
 ];
-var chipsList=["Todos","Apps","Conteúdo","Podcast","Imagem"];
+var chipsList=["Todos","Apps","Conteúdo","Podcast","Imagem","Cases"];
 
 /* ---------- ícones ---------- */
 var I={
@@ -228,16 +273,17 @@ var I={
  match:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10 9l2 2 3-4"/></svg>',
  cases:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>',
  wheel:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="M12 3v7M12 14v7M3 12h7M14 12h7"/></svg>'
+,game:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7" width="19" height="11" rx="5"/><path d="M7 10.5v4M5 12.5h4M16 11.5h.01M18 13.5h.01"/></svg>'
 };
 
 /* ---------- utilitários ---------- */
-function done(k){if(!prog[k]){prog[k]=1;ls("cg_prog",prog);}}
+function done(k){if(!prog[k]){prog[k]=1;ls("cg_prog",prog);addPts(10);}}
 function count(){return (prog.quiz?1:0)+(prog.match?1:0)+(prog.cases?1:0)+(prog.wheel?1:0);}
 function waUrl(msg){return WHATSAPP?"https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg):INSTAGRAM;}
 function contactBtn(txt,msg,cls){return '<a class="'+(cls||"primary")+'" href="'+waUrl(msg||"Oi, Eve! Vi o app da Corage e quero conversar.")+'" target="_blank" rel="noopener">'+txt+'</a>';}
-function go(v){state.view=v;state.step=0;state.answers=[];if(v==="match"){state.match={g:profile.goalIdx};}render();window.scrollTo(0,0);}
+function go(v){stopGame();state.view=v;state.step=0;state.answers=[];if(v==="match"){state.match={g:profile.goalIdx};}render();window.scrollTo(0,0);}
 function back(title,to){return '<div class="top"><button class="link" onclick="go(\''+(to||"home")+'\')">← Voltar</button><span class="small">'+(title||"")+'</span></div>';}
-function foot(){return '<footer>Corage, por Eve, imagem e marca 🤎</footer>';}
+function foot(){return '<footer>Corage, por Eve, imagem e marca 🤎<br><button class="link" onclick="go(\'privacy\')">Privacidade e segurança</button> · <button class="link" onclick="go(\'access\')">Uso e acessibilidade</button></footer>';}
 function toggle(el){var all=document.querySelectorAll(".acc");for(var i=0;i<all.length;i++){if(all[i]===el){all[i].classList.toggle("open");}else{all[i].classList.remove("open");}}
   var c=el.getAttribute("data-big");if(c&&el.classList.contains("open")){runCount(el.querySelector(".num"));}}
 function runCount(n){if(!n)return;var to=parseFloat(n.getAttribute("data-to")),dec=parseInt(n.getAttribute("data-dec")),pre=n.getAttribute("data-pre")||"",suf=n.getAttribute("data-suf")||"";
@@ -255,11 +301,12 @@ function vHome(){
   var n=count(),C=2*Math.PI*30,off=C-(C*n/4);
   var nm=profile.name?"Oi, "+profile.name+"!":"Oi!";
   var h='<section class="hero"><div class="badge">C</div><h1>'+nm+'</h1><p>Descubra se um app ajuda o seu negócio e veja o que a Corage já criou.</p></section>';
-  h+='<div class="card ring"><svg viewBox="0 0 76 76"><circle class="bg" cx="38" cy="38" r="30"/><circle class="fg" cx="38" cy="38" r="30" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'" id="fg"/></svg><div><h3 style="margin:0">Seu Raio-X: '+n+' de 4</h3><span class="small">'+(n===4?"Você viu tudo. Vamos conversar?":"Faça no seu tempo, na ordem que quiser.")+'</span></div></div>';
-  var tools=[["quiz","quiz","Seu negócio precisa de um app?","6 perguntas rápidas"],["match","match","Que app combina com você?","2 escolhas"],["wheel","wheel","Roda do conteúdo","Gire e ganhe uma ideia de post"],["cases","cases","Cases de sucesso","Apps reais, com números e fonte"]];
+  h+='<div class="card ring"><svg viewBox="0 0 76 76"><circle class="bg" cx="38" cy="38" r="30"/><circle class="fg" cx="38" cy="38" r="30" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'" id="fg"/></svg><div><h3 style="margin:0">Seu Raio-X: '+n+' de 4</h3><span class="small">'+(n===4?"Você viu tudo. Vamos conversar?":"Faça no seu tempo, na ordem que quiser.")+'</span><br><span class="tag" style="margin:8px 0 0">★ '+pts+' pontos</span></div></div>';
+  var tools=[["quiz","quiz","Seu negócio precisa de um app?","6 perguntas rápidas"],["match","match","Que app combina com você?","2 escolhas"],["wheel","wheel","Roda do conteúdo","Gire e ganhe uma ideia de post"],["games","game","Jogos","Empreendedora, cobrinha, labirinto e cruzadas"],["cases","cases","Cases de sucesso","Apps reais, com números e fonte"]];
   for(var i=0;i<tools.length;i++){var t=tools[i];h+='<button class="tool" onclick="go(\''+t[0]+'\')"><div class="ic">'+I[t[1]]+'</div><div><b>'+t[2]+'</b><span>'+t[3]+'</span></div>'+(prog[t[0]]?'<span class="ok">feito</span>':'')+'</button>';}
   if(n===4){h+=contactBtn("Conversar com a Corage","Oi, Eve! Fiz o Raio-X completo e quero conversar.","primary pulse");h+='<div class="sp"></div>';}
   h+='<div class="acc" onclick="if(event.target.closest(\'button\'))toggle(this)"><button><div><b>Deixe no seu celular</b><span>Abre como um app, sem baixar nada</span></div><em>+</em></button><div class="body"><p><b>iPhone:</b> abra no Safari, toque em Compartilhar e em "Adicionar à Tela de Início".</p><p><b>Android:</b> abra no Chrome, toque no menu (três pontinhos) e em "Instalar aplicativo".</p></div></div>';
+  h+='<button class="ghost" onclick="go(\'contact\')">Deixar meu contato</button>';
   h+=foot();
   app.innerHTML=h;
   setTimeout(function(){var f=document.getElementById("fg");if(f)f.style.strokeDashoffset=off;},150);
@@ -383,7 +430,7 @@ function vPortfolio(){
   h+='</div>';
   for(var k=0;k<works.length;k++){var w=works[k];if(state.filter!=="Todos"&&w.c!==state.filter)continue;
     h+='<div class="card"><span class="tag">'+(w.tg||w.c)+'</span><h3>'+w.t+'</h3><p'+(w.u?'':' style="margin:0"')+'>'+w.d+'</p>'+(w.u?'<a class="ghost" href="'+w.u+'" target="_blank" rel="noopener">'+w.b+'</a>':'')+'</div>';}
-  h+='<div class="sp"></div><a class="primary" href="'+PORTFOLIO+'" target="_blank" rel="noopener">Ver o portfólio completo</a>'+foot();
+  h+='<div class="sp"></div><a class="primary" href="'+PORTFOLIO+'" target="_blank" rel="noopener">Ver o portfólio completo</a><div class="sp"></div><button class="ghost" onclick="go(\'contact\')">Deixar meu contato</button>'+foot();
   app.innerHTML=h;
 }
 function setFilter(f){state.filter=f;render();}
@@ -412,20 +459,345 @@ function vPlans(){
     for(var j=0;j<p[3].length;j++){h+='<li>'+p[3][j]+'</li>';}
     h+='</ul><div class="price">'+(PRICES[p[0]]||"Valor combinado na conversa")+'</div>'+contactBtn("Quero este","Oi, Eve! Quero saber mais sobre o plano "+p[1]+" da Corage."+(profile.area?" Minha área: "+profile.area+".":""),"primary")+'</div>';}
   h+='<h3 style="margin-top:22px">Como funciona</h3><div class="card"><ul class="list app"><li><b>A gente conversa.</b> Você conta o seu trabalho e o que as clientes mais pedem.</li><li><b>Eu desenho o app.</b> Simples, com as suas cores.</li><li><b>Você recebe pronto.</b> Abre no celular, sem baixar nada, e é só mandar o link.</li></ul></div>'+
-   '<button class="ghost" onclick="openQR()">Mostrar o QR Code da Corage</button>'+foot();
+   '<button class="ghost" onclick="openQR()">Mostrar o QR Code da Corage</button><div class="sp"></div><button class="ghost" onclick="go(\'contact\')">Deixar meu contato</button>'+foot();
   app.innerHTML=h;
 }
 function acc(t,p){return '<div class="acc" onclick="if(event.target.closest(\'button\')&&!event.target.closest(\'.body\'))toggle(this)"><button><div><b>'+t+'</b></div><em>+</em></button><div class="body"><p style="margin:0">'+p+'</p></div></div>';}
 function setCmp(c){state.compare=c;render();}
+
+/* ---------- JOGOS ---------- */
+var G={};
+function stopGame(){clearInterval(G.t);clearInterval(G.iv);clearInterval(G.tm);G.t=G.iv=G.tm=null;G.dir=null;G.busy=false;}
+document.addEventListener("keydown",function(e){var m={ArrowUp:"u",ArrowDown:"d",ArrowLeft:"l",ArrowRight:"r"}[e.key];if(m&&G.dir&&(state.view==="snake"||state.view==="maze")){e.preventDefault();G.dir(m);}});
+function dpad(){return '<div class="dpad"><button class="u" onclick="if(G.dir)G.dir(\'u\')" aria-label="Cima">▲</button><button class="l" onclick="if(G.dir)G.dir(\'l\')" aria-label="Esquerda">◀</button><button class="d" onclick="if(G.dir)G.dir(\'d\')" aria-label="Baixo">▼</button><button class="r" onclick="if(G.dir)G.dir(\'r\')" aria-label="Direita">▶</button></div>';}
+function swipe(cv){var sx,sy;cv.addEventListener("touchstart",function(e){var t=e.changedTouches[0];sx=t.clientX;sy=t.clientY;},{passive:true});
+  cv.addEventListener("touchend",function(e){var t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.max(Math.abs(dx),Math.abs(dy))<24||!G.dir)return;if(Math.abs(dx)>Math.abs(dy)){G.dir(dx>0?"r":"l");}else{G.dir(dy>0?"d":"u");}},{passive:true});}
+function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
+function badge(x,cx,cy,r){x.fillStyle="#f7dcd9";x.beginPath();x.arc(cx,cy,r,0,7);x.fill();x.lineWidth=Math.max(1.5,r*.18);x.strokeStyle="#7a2e3f";x.stroke();x.fillStyle="#7a2e3f";x.font="700 "+Math.round(r*1.35)+"px Georgia,serif";x.textAlign="center";x.textBaseline="middle";x.fillText("C",cx,cy+r*.06);}
+
+function vGames(){
+  app.innerHTML=backBar("Jogos","home")+'<h2>Jogos</h2><p>Jogue um pouquinho. Cada jogo muda a cada vez e dá pontos.</p><span class="tag">★ '+pts+' pontos</span>'+
+   '<button class="tool" onclick="go(\'biz\')"><div class="ic">'+I.game+'</div><div><b>Empreendedora</b><span>Pegue clientes, parcerias e posts</span></div></button>'+
+   '<button class="tool" onclick="go(\'snake\')"><div class="ic">'+I.game+'</div><div><b>Cobrinha</b><span>Pegue as bolinhas sem bater em você</span></div></button>'+
+   '<button class="tool" onclick="go(\'maze\')"><div class="ic">'+I.game+'</div><div><b>Labirinto</b><span>Leve o C até a estrela</span></div></button>'+
+   '<button class="tool" onclick="go(\'cross\')"><div class="ic">'+I.game+'</div><div><b>Palavras cruzadas</b><span>Sobre app e marca</span></div></button>'+foot();
+}
+function backBar(t,to){return back(t,to);}
+
+/* Cobrinha */
+var SN=14,FOODS=["🤝","💼","📸","💬"];
+function snakeNew(){var dirs=[{x:1,y:0},{x:-1,y:0},{x:0,y:1},{x:0,y:-1}],d=dirs[Math.floor(Math.random()*4)],hx=4+Math.floor(Math.random()*(SN-8)),hy=4+Math.floor(Math.random()*(SN-8));
+  return {s:[{x:hx,y:hy},{x:hx-d.x,y:hy-d.y},{x:hx-2*d.x,y:hy-2*d.y}],d:d};}
+function vSnake(){
+  var best=ls("cg_best_snake")||0;
+  app.innerHTML=back("Cobrinha","games")+'<div class="score"><span>Pontos: <b id="sc">0</b></span><span>Recorde: <b id="bs">'+best+'</b></span></div><canvas id="cv" class="cv" width="320" height="320"></canvas>'+dpad()+'<button class="primary pulse" id="go" onclick="snakeStart()">Jogar</button><div id="res" style="margin-top:12px"></div><p class="small" style="margin-top:12px">Sem medo: a cobrinha atravessa as bordas. Só não bata em você mesma. Cada jogo começa de um jeito diferente.</p>'+foot();
+  var cv=document.getElementById("cv");swipe(cv);var n=snakeNew();snakeDraw(cv,n.s,{x:Math.floor(Math.random()*SN),y:Math.floor(Math.random()*SN)},FOODS[0]);
+}
+function snakeDraw(cv,s,f,emo){var x=cv.getContext("2d"),S=cv.width/SN;x.fillStyle="#fff";x.fillRect(0,0,320,320);
+  x.fillStyle="#fbeceb";for(var i=0;i<SN;i++)for(var j=0;j<SN;j++){if((i+j)%2===0)x.fillRect(i*S,j*S,S,S);}
+  x.fillStyle="#f7dcd9";x.beginPath();x.arc(f.x*S+S/2,f.y*S+S/2,S*.46,0,7);x.fill();x.font=Math.round(S*.7)+"px sans-serif";x.textAlign="center";x.textBaseline="middle";x.fillText(emo,f.x*S+S/2,f.y*S+S/2+1);
+  for(var k=s.length-1;k>=0;k--){x.fillStyle=k===0?"#5b1f2d":"#7a2e3f";rr(x,s[k].x*S+1.5,s[k].y*S+1.5,S-3,S-3,6);x.fill();}}
+function snakeStart(){
+  stopGame();document.getElementById("res").innerHTML="";var gb=document.getElementById("go");gb.classList.remove("pulse");gb.style.display="none";
+  var cv=document.getElementById("cv"),n=snakeNew(),s=n.s,d=n.d,nd=d,sc=0,speed=260,f,emo=FOODS[0];
+  function food(){var p;do{p={x:Math.floor(Math.random()*SN),y:Math.floor(Math.random()*SN)};}while(s.some(function(q){return q.x===p.x&&q.y===p.y;}));return p;}
+  f=food();
+  G.dir=function(k){var m={u:{x:0,y:-1},d:{x:0,y:1},l:{x:-1,y:0},r:{x:1,y:0}}[k];if(m.x===-d.x&&m.y===-d.y)return;nd=m;};
+  function end(){stopGame();var best=ls("cg_best_snake")||0;if(sc>best){best=sc;ls("cg_best_snake",best);}addPts(sc);
+    document.getElementById("bs").textContent=best;var b=document.getElementById("go");b.style.display="block";b.textContent="Jogar de novo";
+    document.getElementById("res").innerHTML='<div class="card"><b>Fim de jogo.</b> Você fez '+sc+' pontos.</div>'+contactBtn("Quero um app com jogos","Oi, Eve! Joguei a cobrinha e quero um app com jogos para o meu negócio.","ghost");}
+  function tick(){d=nd;var h={x:(s[0].x+d.x+SN)%SN,y:(s[0].y+d.y+SN)%SN};
+    if(s.some(function(q){return q.x===h.x&&q.y===h.y;})){end();return;}
+    s.unshift(h);if(h.x===f.x&&h.y===f.y){sc++;document.getElementById("sc").textContent=sc;f=food();emo=FOODS[Math.floor(Math.random()*FOODS.length)];
+      if(sc%6===0&&speed>140){speed-=20;clearInterval(G.t);G.t=setInterval(tick,speed);}}else{s.pop();}
+    snakeDraw(cv,s,f,emo);}
+  G.snake=function(){return {s:s,f:f,sc:sc,speed:speed};};
+  G.t=setInterval(tick,speed);snakeDraw(cv,s,f,emo);
+}
+
+/* Labirinto */
+function vMaze(){
+  app.innerHTML=back("Labirinto","games")+'<div class="score"><span>Fase <b id="lv">1</b></span><span>Tempo: <b id="tm">0</b>s</span></div><canvas id="cv" class="cv" width="320" height="320"></canvas>'+dpad()+'<div id="res"></div>'+foot();
+  swipe(document.getElementById("cv"));mazeStart(1);
+}
+function mazeGen(n){var T=2*n+1,g=[],i;for(i=0;i<T;i++){g.push([]);for(var j=0;j<T;j++)g[i].push(1);}
+  var st=[[1,1]];g[1][1]=0;
+  while(st.length){var c=st[st.length-1],ds=[[0,-2],[0,2],[-2,0],[2,0]].sort(function(){return Math.random()-.5;}),mv=false;
+    for(var q=0;q<4;q++){var nx=c[0]+ds[q][0],ny=c[1]+ds[q][1];
+      if(nx>0&&ny>0&&nx<T-1&&ny<T-1&&g[ny][nx]===1){g[c[1]+ds[q][1]/2][c[0]+ds[q][0]/2]=0;g[ny][nx]=0;st.push([nx,ny]);mv=true;break;}}
+    if(!mv)st.pop();}
+  return g;}
+function mazeStart(lvl){
+  stopGame();
+  var n=Math.min(4+lvl,9),T=2*n+1,g=mazeGen(n),p={x:1,y:1},ex={x:T-2,y:T-2},cv=document.getElementById("cv"),x=cv.getContext("2d"),S=cv.width/T,sec=0,busy=false;
+  document.getElementById("lv").textContent=lvl;document.getElementById("tm").textContent=0;document.getElementById("res").innerHTML="";
+  var V={u:{x:0,y:-1},d:{x:0,y:1},l:{x:-1,y:0},r:{x:1,y:0}};
+  function open(a,b){return a>=0&&b>=0&&a<T&&b<T&&g[b][a]===0;}
+  function draw(){x.fillStyle="#fff";x.fillRect(0,0,320,320);x.fillStyle="#7a2e3f";
+    for(var j=0;j<T;j++)for(var i=0;i<T;i++){if(g[j][i]===1)x.fillRect(i*S,j*S,S+.5,S+.5);}
+    x.fillStyle="#7a2e3f";x.font="700 "+Math.round(S*1.3)+"px Georgia,serif";x.textAlign="center";x.textBaseline="middle";x.fillText("★",ex.x*S+S/2,ex.y*S+S/2+1);
+    badge(x,p.x*S+S/2,p.y*S+S/2,S*.46);}
+  function win(){clearInterval(G.tm);var pt=10*lvl;addPts(pt);G.dir=null;
+    document.getElementById("res").innerHTML='<div class="card"><b>Fase '+lvl+' concluída em '+sec+'s.</b> Você ganhou '+pt+' pontos.</div><button class="primary pulse" onclick="mazeStart('+(lvl+1)+')">Próxima fase</button>';}
+  G.dir=function(k){if(busy)return;var v=V[k];if(!open(p.x+v.x,p.y+v.y))return;busy=true;var cur=v;
+    G.iv=setInterval(function(){p.x+=cur.x;p.y+=cur.y;draw();
+      if(p.x===ex.x&&p.y===ex.y){clearInterval(G.iv);busy=false;win();return;}
+      var nx=[];for(var kk in V){var dd=V[kk];if(dd.x===-cur.x&&dd.y===-cur.y)continue;if(open(p.x+dd.x,p.y+dd.y))nx.push(dd);}
+      if(nx.length===1){cur=nx[0];}else{clearInterval(G.iv);busy=false;}},45);};
+  G.maze=function(){return {g:g,p:p,ex:ex,busy:busy};};
+  G.tm=setInterval(function(){sec++;document.getElementById("tm").textContent=sec;},1000);
+  draw();
+}
+
+/* Empreendedora no labirinto */
+var BIZ=["🤝","💼","📸","💬"];
+function vBiz(){
+  app.innerHTML=back("Empreendedora","games")+'<div class="score"><span>Fase <b id="lv">1</b></span><span>Vidas: <b id="lf">3</b></span></div><canvas id="cv" class="cv" width="320" height="320"></canvas>'+dpad()+
+   '<div class="card"><p style="margin:0">Leve o <b>C</b> até 🤝 parcerias, 💼 negócios, 📸 posts e 💬 clientes. Fuja do ⏰ prazo e do ⚠️ imprevisto. Toque numa seta para começar.</p></div><div id="res"></div>'+foot();
+  swipe(document.getElementById("cv"));bizStart(1,3);
+}
+function bizStart(lvl,lives){
+  stopGame();
+  var T=15,g=mazeGen(7),i,k;
+  for(k=0;k<16;k++){var rx=1+Math.floor(Math.random()*(T-2)),ry=1+Math.floor(Math.random()*(T-2));
+    if(g[ry][rx]===1){var hz=g[ry][rx-1]===0&&g[ry][rx+1]===0&&g[ry-1][rx]===1&&g[ry+1][rx]===1,vt=g[ry-1][rx]===0&&g[ry+1][rx]===0&&g[ry][rx-1]===1&&g[ry][rx+1]===1;if(hz||vt)g[ry][rx]=0;}}
+  var cv=document.getElementById("cv"),x=cv.getContext("2d"),S=cv.width/T,free=[];
+  for(var j=0;j<T;j++)for(i=0;i<T;i++){if(g[j][i]===0&&Math.abs(i-1)+Math.abs(j-1)>3)free.push({x:i,y:j});}
+  free.sort(function(){return Math.random()-.5;});
+  var p={x:1,y:1},cur={x:0,y:0},want=null,started=false,tc=0,items=[],cnt=Math.min(6+lvl,12);
+  for(i=0;i<cnt;i++){items.push({x:free[i].x,y:free[i].y,t:BIZ[i%BIZ.length]});}
+  var starts=[{x:T-2,y:T-2},{x:T-2,y:1},{x:1,y:T-2}],ne=lvl<2?1:(lvl<4?2:3),es=[];
+  function resetEnemies(){es=[];for(var q=0;q<ne;q++){es.push({x:starts[q].x,y:starts[q].y,d:{x:0,y:0},t:q%2?"⚠️":"⏰"});}}
+  resetEnemies();
+  var V={u:{x:0,y:-1},d:{x:0,y:1},l:{x:-1,y:0},r:{x:1,y:0}};
+  document.getElementById("lv").textContent=lvl;document.getElementById("lf").textContent=lives;document.getElementById("res").innerHTML="";
+  function open(a,b){return a>=0&&b>=0&&a<T&&b<T&&g[b][a]===0;}
+  function draw(){x.fillStyle="#fff";x.fillRect(0,0,320,320);x.fillStyle="#7a2e3f";
+    for(var b=0;b<T;b++)for(var a=0;a<T;a++){if(g[b][a]===1)x.fillRect(a*S,b*S,S+.5,S+.5);}
+    x.font=Math.round(S*.78)+"px sans-serif";x.textAlign="center";x.textBaseline="middle";
+    items.forEach(function(it){x.fillText(it.t,it.x*S+S/2,it.y*S+S/2+1);});
+    es.forEach(function(e){x.fillText(e.t,e.x*S+S/2,e.y*S+S/2+1);});
+    badge(x,p.x*S+S/2,p.y*S+S/2,S*.46);}
+  function hit(){return es.some(function(e){return e.x===p.x&&e.y===p.y;});}
+  function lose(){lives--;document.getElementById("lf").textContent=lives;
+    if(lives<=0){stopGame();document.getElementById("res").innerHTML='<div class="card"><b>Fim de jogo.</b> Dá para tentar de novo.</div><button class="primary pulse" onclick="bizStart(1,3)">Jogar de novo</button>'+contactBtn("Quero um app com jogos","Oi, Eve! Joguei o labirinto da empreendedora e quero um app com jogos para o meu negócio.","ghost");return true;}
+    p.x=1;p.y=1;cur={x:0,y:0};want=null;resetEnemies();draw();return false;}
+  function win(){stopGame();addPts(20);document.getElementById("res").innerHTML='<div class="card"><b>Fase '+lvl+' concluída.</b> Você ganhou 20 pontos.</div><button class="primary pulse" onclick="bizStart('+(lvl+1)+','+lives+')">Próxima fase</button>';}
+  function moveEnemies(){es.forEach(function(e){var opts=[],kk;
+    for(kk in V){var dd=V[kk];if(open(e.x+dd.x,e.y+dd.y)&&!(dd.x===-e.d.x&&dd.y===-e.d.y))opts.push(dd);}
+    if(!opts.length){for(kk in V){var d2=V[kk];if(open(e.x+d2.x,e.y+d2.y))opts.push(d2);}}
+    var c;if(Math.random()<.55){opts.sort(function(a,b){return (Math.abs(e.x+a.x-p.x)+Math.abs(e.y+a.y-p.y))-(Math.abs(e.x+b.x-p.x)+Math.abs(e.y+b.y-p.y));});c=opts[0];}else{c=opts[Math.floor(Math.random()*opts.length)];}
+    if(c){e.d=c;e.x+=c.x;e.y+=c.y;}});}
+  function tick(){
+    if(want&&open(p.x+want.x,p.y+want.y)){cur=want;}
+    if(open(p.x+cur.x,p.y+cur.y)){p.x+=cur.x;p.y+=cur.y;}
+    for(var q=items.length-1;q>=0;q--){if(items[q].x===p.x&&items[q].y===p.y){items.splice(q,1);addPts(5);}}
+    if(hit()&&lose())return;
+    tc++;if(lvl<3?tc%2===0:tc%3!==0){moveEnemies();if(hit()&&lose())return;}
+    draw();if(items.length===0){win();}}
+  G.dir=function(kk){want=V[kk];if(!started){started=true;G.t=setInterval(tick,170);}};
+  G.biz=function(){return {items:items,p:p,es:es,g:g,lives:lives};};
+  draw();
+}
+
+/* Palavras cruzadas (sorteadas a cada jogo) */
+var CWB=[["MARCA","Nome, cores e jeito de falar do seu negócio"],["APP","Programa que fica no celular, com o seu ícone"],["LINK","Endereço que você manda para abrir o app"],["QUIZ","Teste de perguntas rápidas"],["CLIENTE","Quem contrata ou compra o seu trabalho"],["LOGO","Símbolo que identifica a marca"],["FEED","Onde ficam as suas publicações no Instagram"],["CORES","Marsala e rosé são as da Corage"],["IMAGEM","O que as pessoas veem e sentem sobre você"],["POST","Publicação nas redes"],["CADASTRO","Registro do contato de quem se interessou"],["REELS","Vídeos curtos do Instagram"],["PARCERIA","Quando duas profissionais trabalham juntas"],["NEGOCIO","O trabalho que você faz e vende"],["META","Objetivo que você quer alcançar"],["VENDA","Quando alguém compra de você"],["BIO","Texto curto no topo do perfil"],["CELULAR","Aparelho onde o app abre"],["AGENDA","Onde ficam os seus horários"],["STORIES","Publicações do Instagram que somem em 24 horas"],["CONTATO","Como a cliente fala com você"],["NOME","Como o seu negócio é chamado"]];
+function cwGen(){
+  var N=9,best=null,t;
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),x=a[i];a[i]=a[j];a[j]=x;}return a;}
+  function can(grid,w,r,c,d){var dr=d==="A"?0:1,dc=d==="A"?1:0,er=r+dr*w.length,ec=c+dc*w.length;
+    if(r<0||c<0||er>N||ec>N)return 0;
+    if(d==="A"?(c>0&&grid[r+","+(c-1)]):(r>0&&grid[(r-1)+","+c]))return 0;
+    if(grid[er+","+ec])return 0;
+    var cross=0;
+    for(var i=0;i<w.length;i++){var a=r+dr*i,b=c+dc*i,ex=grid[a+","+b];
+      if(ex){if(ex.ch!==w.charAt(i)||ex.dirs.indexOf(d)>=0)return 0;cross++;}
+      else if(d==="A"){if(grid[(a-1)+","+b]||grid[(a+1)+","+b])return 0;}
+      else{if(grid[a+","+(b-1)]||grid[a+","+(b+1)])return 0;}}
+    return cross;}
+  function put(grid,w,r,c,d){var dr=d==="A"?0:1,dc=d==="A"?1:0;for(var i=0;i<w.length;i++){var key=(r+dr*i)+","+(c+dc*i);if(grid[key]){grid[key].dirs.push(d);}else{grid[key]={ch:w.charAt(i),dirs:[d]};}}}
+  for(t=0;t<260;t++){
+    var ws=shuffle(CWB.slice()).slice(0,12),grid={},placed=[],first=ws[0],fr=Math.floor(Math.random()*N),fc=Math.floor(Math.random()*(N-first[0].length+1));
+    put(grid,first[0],fr,fc,"A");placed.push({a:first[0],c:first[1],r:fr,k:fc,d:"A"});
+    for(var q=1;q<ws.length;q++){var w=ws[q][0],opts=[];
+      for(var dd=0;dd<2;dd++){var d=dd?"D":"A";for(var r=0;r<N;r++)for(var c=0;c<N;c++){if(can(grid,w,r,c,d)>0)opts.push([r,c,d]);}}
+      if(!opts.length)continue;var o=opts[Math.floor(Math.random()*opts.length)];put(grid,w,o[0],o[1],o[2]);placed.push({a:w,c:ws[q][1],r:o[0],k:o[1],d:o[2]});}
+    var mr=99,mc=99,xr=0,xc=0;for(var key in grid){var pr=key.split(",");mr=Math.min(mr,+pr[0]);mc=Math.min(mc,+pr[1]);xr=Math.max(xr,+pr[0]);xc=Math.max(xc,+pr[1]);}
+    var sc=placed.length*10-((xr-mr+1)+(xc-mc+1));
+    if(placed.length>=8&&(!best||sc>best.sc)){best={sc:sc,placed:placed,mr:mr,mc:mc,h:xr-mr+1,w:xc-mc+1};}
+    if(best&&best.sc>=85)break;}
+  if(!best)return cwGen();
+  var words=best.placed.map(function(p){return {a:p.a,c:p.c,r:p.r-best.mr,k:p.k-best.mc,d:p.d};});
+  var nums={},n=0;words.slice().sort(function(a,b){return a.r-b.r||a.k-b.k;}).forEach(function(w){var key=w.r+","+w.k;if(!nums[key]){n++;nums[key]=n;}w.n=nums[key];});
+  return {h:best.h,w:best.w,words:words};
+}
+var CW=null;
+function cwMap(){var m=[],r,k;for(r=0;r<CW.h;r++){m.push([]);for(k=0;k<CW.w;k++)m[r].push(null);}
+  CW.words.forEach(function(w,i){for(var j=0;j<w.a.length;j++){var a=w.r+(w.d==="D"?j:0),b=w.k+(w.d==="A"?j:0);if(!m[a][b])m[a][b]={ch:w.a.charAt(j),ws:[],num:0};m[a][b].ws.push(i);if(j===0)m[a][b].num=w.n;}});return m;}
+function vCross(){
+  CW=cwGen();G.m=cwMap();G.cur=-1;G.cd="A";G.last=null;G.cwDone=false;
+  var h=back("Palavras cruzadas","games")+'<div class="card" id="clue">Toque em um quadradinho para ver a dica. Pode apagar e escrever de novo quantas vezes quiser.</div><table class="cw">';
+  for(var r=0;r<CW.h;r++){h+='<tr>';for(var k=0;k<CW.w;k++){var c=G.m[r][k];
+    if(!c){h+='<td class="b"></td>';}else{h+='<td class="f" id="c'+r+'_'+k+'">'+(c.num?'<sup>'+c.num+'</sup>':'')+'<input autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" onpointerdown="G.wf=(document.activeElement===this)" onclick="cwTap('+r+','+k+')" onfocus="this.select();cwSel('+r+','+k+')" oninput="cwIn('+r+','+k+',this)" onkeydown="cwKey(event,'+r+','+k+')"></td>';}}
+    h+='</tr>';}
+  h+='</table><div style="display:flex;gap:10px"><button class="ghost" onclick="cwHint()">Dica</button><button class="primary" onclick="cwCheck()">Conferir</button></div>'+
+   '<div style="display:flex;gap:10px;margin-top:10px"><button class="ghost" onclick="cwClear()">Apagar erradas</button><button class="ghost" onclick="go(\'cross\')">Novo jogo</button></div><div id="res" style="margin-top:12px"></div><div class="sp"></div>';
+  var hz="",vt="";CW.words.slice().sort(function(a,b){return a.n-b.n;}).forEach(function(w){var l='<p><b>'+w.n+'.</b> '+w.c+' ('+w.a.length+' letras)</p>';if(w.d==="A")hz+=l;else vt+=l;});
+  h+='<h3>Na horizontal</h3>'+hz+'<h3 style="margin-top:14px">Na vertical</h3>'+vt+foot();
+  app.innerHTML=h;
+}
+function cwCell(r,k){return document.querySelector("#c"+r+"_"+k+" input");}
+function cwSel(r,k,toggle){var c=G.m[r][k],idx=-1,i;
+  for(i=0;i<c.ws.length;i++){if(CW.words[c.ws[i]].d===G.cd){idx=c.ws[i];break;}}
+  if(toggle&&c.ws.length>1&&G.cur>=0&&c.ws.indexOf(G.cur)>=0){idx=c.ws[0]===G.cur?c.ws[1]:c.ws[0];}
+  if(idx<0)idx=c.ws[0];
+  G.cur=idx;G.cd=CW.words[idx].d;G.last={r:r,k:k};
+  var all=document.querySelectorAll(".cw td.f");for(i=0;i<all.length;i++)all[i].classList.remove("hl");
+  var w=CW.words[idx];for(i=0;i<w.a.length;i++){var a=w.r+(w.d==="D"?i:0),b=w.k+(w.d==="A"?i:0);document.getElementById("c"+a+"_"+b).classList.add("hl");}
+  document.getElementById("clue").innerHTML='<b>'+w.n+' '+(w.d==="A"?"na horizontal":"na vertical")+':</b> '+w.c+' ('+w.a.length+' letras)';}
+function cwTap(r,k){if(G.wf&&G.last&&G.last.r===r&&G.last.k===k){cwSel(r,k,true);}}
+function cwStep(r,k,delta){var w=CW.words[G.cur];if(!w)return;var j=(w.d==="A"?k-w.k:r-w.r)+delta;if(j<0||j>=w.a.length)return;
+  var a=w.r+(w.d==="D"?j:0),b=w.k+(w.d==="A"?j:0),el=cwCell(a,b);if(el){el.focus();return {r:a,k:b};}}
+function cwIn(r,k,el){el.value=el.value.toUpperCase().replace(/[^A-Z]/g,"").slice(-1);document.getElementById("c"+r+"_"+k).classList.remove("ok","no");if(el.value)cwStep(r,k,1);}
+function cwKey(e,r,k){if(e.key==="Backspace"&&!e.target.value){var p=cwStep(r,k,-1);if(p){cwCell(p.r,p.k).value="";}}}
+function cwHint(){if(!G.last){document.getElementById("res").innerHTML='<p class="small">Toque primeiro em um quadradinho.</p>';return;}
+  cwCell(G.last.r,G.last.k).value=G.m[G.last.r][G.last.k].ch;}
+function cwClear(){var n=0;for(var r=0;r<CW.h;r++)for(var k=0;k<CW.w;k++){if(!G.m[r][k])continue;var td=document.getElementById("c"+r+"_"+k);if(td.classList.contains("no")){cwCell(r,k).value="";td.classList.remove("no");n++;}}
+  document.getElementById("res").innerHTML='<p class="small">'+(n?"Apaguei as erradas. Pode escrever de novo.":"Não tem nenhuma errada marcada. Toque em Conferir primeiro.")+'</p>';}
+function cwCheck(){var ok=0,tot=0;
+  for(var r=0;r<CW.h;r++)for(var k=0;k<CW.w;k++){var c=G.m[r][k];if(!c)continue;tot++;var td=document.getElementById("c"+r+"_"+k),v=cwCell(r,k).value;td.classList.remove("ok","no");
+    if(v){if(v===c.ch){ok++;td.classList.add("ok");}else{td.classList.add("no");}}}
+  var res=document.getElementById("res");
+  if(ok===tot){var first=!G.cwDone;if(first){G.cwDone=true;addPts(30);}
+    res.innerHTML='<div class="card"><b>Completo!</b> '+(first?'Você ganhou 30 pontos.':'Os pontos já foram somados.')+'</div><button class="primary pulse" onclick="go(\'cross\')">Novo jogo</button><div class="sp"></div>'+contactBtn("Quero um app com jogos","Oi, Eve! Completei as palavras cruzadas e quero um app com jogos para o meu negócio.","ghost");}
+  else{res.innerHTML='<div class="card">Certas: <b>'+ok+' de '+tot+'</b>. Verde está certo, vermelho está errado, e as vazias ainda faltam. Toque em "Apagar erradas" para tentar de novo.</div>';}}
+
+/* ---------- IASMIN, assistente virtual ---------- */
+var IA={open:false,log:[],mt:{}};
+var IA_TXT={
+ app:["Um app é um atendimento aberto o dia todo, no celular da cliente, com as suas cores e o seu jeito de falar. Ela usa uma ferramenta útil, confia em você e deixa o contato.","Ver como funciona","plans"],
+ planos:["Tem três jeitos: App Simples (para começar), App Completo (com desafio de 7 dias e ferramentas da sua área) e Sob medida (para um projeto maior). O valor é combinado na conversa com a Eve.","Ver os planos","plans"],
+ valor:["Os valores ainda não ficam na tela. A Eve combina na conversa, de acordo com o que o seu app precisa ter.","Marcar uma conversa","mt"],
+ prazo:["O prazo depende do que o seu app vai ter. A Eve te passa o tempo certo na conversa, sem prometer o que não dá.","Marcar uma conversa","mt"],
+ instalar:["O app abre pelo link ou pelo QR Code, sem baixar nada. Dá para deixar o ícone na tela do celular. A explicação passo a passo está no Início, na caixa Deixe no seu celular.","Ir para o Início","home"],
+ cases:["Ainda não tenho cases de clientes para mostrar, e não vou inventar nenhum. No app você vê cases reais de empresas conhecidas, com as fontes, e os modelos de app que a Eve criou.","Ver cases de mercado","cases"],
+ dados:["O seu perfil e os seus pontos ficam só no seu celular. Esta conversa comigo não é guardada. Se você enviar o formulário, o contato chega só à Eve.","Ler a política completa","privacy"],
+ quem:["A Eve é mentora de imagem e marca pessoal e está criando a Corage para fazer apps e estratégia para empreendedoras. A Corage ainda está começando.","Ver o portfólio","portfolio"],
+ jogos:["Os jogos são para você relaxar e juntar pontos. Cada vez que abre, eles mudam.","Ir para os jogos","games"]
+};
+var IA_MENU=[["app","O que é um app para mim?"],["planos","Quais são os planos?"],["valor","Quanto custa?"],["prazo","Quanto tempo leva?"],["instalar","Como a cliente abre o app?"],["cases","Tem cases de clientes?"],["dados","Meus dados estão seguros?"],["quem","Quem é a Eve?"],["mt","Quero marcar uma conversa"]];
+var IA_KEY=[["valor",["valor","preço","preco","custa","quanto","pagar","cobra"]],["prazo",["prazo","tempo","demora","quando fica"]],["planos",["plano","pacote","simples","completo","medida"]],["instalar",["instalar","baixar","celular","abrir","link","qr"]],["cases",["case","cliente","resultado","exemplo"]],["dados",["dado","privacidade","lgpd","segur","senha"]],["quem",["eve","quem é","quem e","corage"]],["jogos",["jogo","pontos","game"]],["app",["app","aplicativo","site"]],["mt",["reunião","reuniao","conversa","marcar","agendar","horário","horario","falar com"]]];
+function iaEl(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+function iaAdd(who,text,act){IA.log.push({w:who,t:text,a:act||null});}
+function iaBtn(txt,fn,cls){var b=iaEl("button",cls||"iachip",txt);b.type="button";b.addEventListener("click",fn);return b;}
+function iaIntro(){IA.log=[];IA.mt={};iaAdd("i","Oi! Eu sou a Iasmin, assistente virtual da Corage. Tenho respostas prontas e posso ajudar a marcar uma conversa com a Eve. Escolha uma pergunta:");IA.step="menu";}
+function iaOpen(){IA.open=true;if(!IA.log.length)iaIntro();document.getElementById("iabox").classList.add("on");iaDraw();}
+function iaClose(){IA.open=false;document.getElementById("iabox").classList.remove("on");}
+function iaAsk(k){
+  var q=null;IA_MENU.forEach(function(m){if(m[0]===k)q=m[1];});
+  if(q)iaAdd("u",q);
+  if(k==="mt"){IA.mt={};IA.step="mt1";iaAdd("i","Vamos marcar! Sobre o que você quer falar?");iaDraw();return;}
+  var r=IA_TXT[k];iaAdd("i",r[0],[r[1],r[2]]);IA.step="menu";iaDraw();
+}
+function iaType(){
+  var inp=document.getElementById("iain");var v=(inp.value||"").trim();if(!v)return;inp.value="";
+  iaAdd("u",v);var low=v.toLowerCase(),hit=null;
+  for(var i=0;i<IA_KEY.length&&!hit;i++){for(var j=0;j<IA_KEY[i][1].length;j++){if(low.indexOf(IA_KEY[i][1][j])>-1){hit=IA_KEY[i][0];break;}}}
+  if(hit==="mt"){IA.mt={};IA.step="mt1";iaAdd("i","Vamos marcar! Sobre o que você quer falar?");}
+  else if(hit){var r=IA_TXT[hit];iaAdd("i",r[0],[r[1],r[2]]);IA.step="menu";}
+  else{iaAdd("i","Ainda não sei responder essa. Escolha uma das perguntas abaixo ou fale direto com a Eve.");IA.step="menu";}
+  iaDraw();
+}
+function iaMt(key,val,next,label){IA.mt[key]=val;iaAdd("u",label||val);IA.step=next;
+  if(next==="mt2")iaAdd("i","Qual dia fica melhor para você?");
+  else if(next==="mt3")iaAdd("i","E em qual período?");
+  else if(next==="mt4")iaAdd("i","Como posso te chamar? Se preferir, deixe em branco.");
+  iaDraw();}
+function iaMsg(){var m=IA.mt,n=m.nome||profile.name||"";
+  return "Oi, Eve! "+(n?"Sou "+n+". ":"")+"Falei com a Iasmin no app da Corage e quero marcar uma conversa.\nAssunto: "+m.assunto+"\nDia: "+m.dia+"\nPeríodo: "+m.per+(profile.area?"\nMinha área: "+profile.area:"")+"\nPode me confirmar o horário?";}
+function iaDraw(){
+  var box=document.getElementById("iamsgs");box.innerHTML="";
+  IA.log.forEach(function(m){var d=iaEl("div","iam "+(m.w==="i"?"ii":"iu"));d.appendChild(iaEl("span",null,m.t));
+    if(m.a){var a=iaBtn(m.a[0]==="mt"?"":"Abrir",function(){});a=iaBtn(IA_ACT(m.a[0]),function(){iaClose();if(m.a[0]==="mt"){iaAsk("mt");iaOpen();}else go(m.a[0]);},"iaact");d.appendChild(a);}
+    box.appendChild(d);});
+  var o=document.getElementById("iaopts");o.innerHTML="";var s=IA.step;
+  if(s==="mt1"){["Quero um app para mim","Parceria com social media","Tirar dúvidas","Outro assunto"].forEach(function(t){o.appendChild(iaBtn(t,function(){iaMt("assunto",t,"mt2");}));});}
+  else if(s==="mt2"){["Segunda a sexta","Sábado","Qualquer dia"].forEach(function(t){o.appendChild(iaBtn(t,function(){iaMt("dia",t,"mt3");}));});}
+  else if(s==="mt3"){["Manhã","Tarde","Noite"].forEach(function(t){o.appendChild(iaBtn(t,function(){iaMt("per",t,"mt4");}));});}
+  else if(s==="mt4"){var i=iaEl("input","ianame");i.id="ianame";i.placeholder="Seu nome";i.value=profile.name||"";i.setAttribute("aria-label","Seu nome");o.appendChild(i);
+    o.appendChild(iaBtn("Continuar",function(){IA.mt.nome=(document.getElementById("ianame").value||"").trim();IA.step="mt5";iaAdd("u",IA.mt.nome||"Sem nome");iaAdd("i","Pronto! Toque no botão para enviar o pedido no WhatsApp da Eve. Ela confirma o horário com você.");iaDraw();},"iachip main"));}
+  else if(s==="mt5"){var a=iaEl("a","iachip main","Enviar pelo WhatsApp");a.href=waUrl(iaMsg());a.target="_blank";a.rel="noopener";o.appendChild(a);o.appendChild(iaBtn("Voltar ao menu",function(){IA.step="menu";iaDraw();}));}
+  else{IA_MENU.forEach(function(m){o.appendChild(iaBtn(m[1],function(){iaAsk(m[0]);}));});}
+  box.scrollTop=box.scrollHeight;
+}
+function IA_ACT(k){return {plans:"Ver os planos",cases:"Ver cases de mercado",privacy:"Ler a política completa",portfolio:"Ver o portfólio",games:"Ir para os jogos",home:"Ir para o Início",mt:"Marcar uma conversa"}[k]||"Abrir";}
+function iaInit(){
+  var f=iaEl("button","iafab");f.id="iafab";f.type="button";f.setAttribute("aria-label","Falar com a Iasmin, assistente virtual");f.innerHTML='<span>I</span><b>Iasmin</b>';f.addEventListener("click",iaOpen);document.body.appendChild(f);
+  var b=iaEl("div","iabox");b.id="iabox";b.innerHTML='<div class="iahead"><div class="iaav">I</div><div><b>Iasmin</b><small>Assistente virtual da Corage</small></div><button class="ib" id="iax" type="button" aria-label="Fechar">✕</button></div><div class="iamsgs" id="iamsgs" aria-live="polite"></div><div class="iaopts" id="iaopts"></div><form class="iaform" id="iaform"><input id="iain" placeholder="Ou escreva sua dúvida" aria-label="Escreva sua dúvida" autocomplete="off"><button type="submit">Enviar</button></form>';
+  document.body.appendChild(b);
+  document.getElementById("iax").addEventListener("click",iaClose);
+  document.getElementById("iaform").addEventListener("submit",function(e){e.preventDefault();iaType();});
+}
+iaInit();
+
+/* Privacidade, segurança e uso */
+function vPrivacy(){
+  var h=back("Privacidade","home")+'<h2>Privacidade e segurança</h2><p>Aqui você vê, em palavras simples, o que o app guarda e como cuidamos disso. Atualizado em 17/11/2026.</p>'+
+   acc("Quem é responsável","<p style='margin:0'>Eve, imagem e marca. Você fala comigo pelo WhatsApp (11) 98100-4617.</p>")+
+   acc("Quais dados o app usa","<p><b>Só no seu celular:</b> o seu nome, área, objetivo, pontos, recordes e o que você respondeu nos testes. Isso não sai do seu aparelho.</p><p><b>Se você enviar o formulário:</b> nome, WhatsApp, área, o que procura, a mensagem e a sua autorização.</p><p><b>Dados técnicos:</b> o app fica hospedado no GitHub Pages, que pode registrar dados de acesso, como o endereço IP.</p><p style='margin:0'><b>Não pedimos:</b> CPF, documentos, senhas, cartão nem dados de saúde.</p>")+
+   acc("Para que usamos","<p style='margin:0'>Só para responder ao seu contato e conversar sobre o seu app. Não vendemos os seus dados e não usamos para propaganda de terceiros.</p>")+
+   acc("Por que podemos usar","<p style='margin:0'>Com o seu consentimento, que você dá ao marcar a caixinha do formulário, como pede a Lei Geral de Proteção de Dados (LGPD).</p>")+
+   acc("Onde os dados ficam","<p style='margin:0'>Quando você envia o formulário, o contato chega até a Eve pelo WhatsApp ou por um Google Formulário que só ela acessa. Guardamos enquanto a conversa durar e apagamos se você pedir.</p>")+
+   acc("Como protegemos","<ul class='list app'><li>O link é seguro (https).</li><li>O app não tem login nem senha, então não há senha para vazar.</li><li>O perfil e os pontos ficam só no seu aparelho, e você pode apagá-los quando quiser.</li><li>Não usamos cookies de propaganda nem rastreadores.</li><li>A conversa com a Iasmin não é guardada.</li><li>Não escreva dados de saúde, documentos ou senhas na mensagem.</li></ul>")+
+   acc("Seus direitos","<p style='margin:0'>Você pode pedir para confirmar se tratamos os seus dados, ver, corrigir, apagar ou retirar o consentimento, quando quiser. É só chamar pelo WhatsApp.</p>")+
+   '<div class="sp"></div>'+contactBtn("Falar sobre os meus dados","Oi, Eve! Quero falar sobre os meus dados no app da Corage.","ghost")+'<div class="sp"></div><button class="ghost" onclick="wipeData()">Apagar meus dados deste celular</button>'+foot();
+  app.innerHTML=h;
+}
+function wipeData(){if(!confirm("Apagar perfil, pontos e recordes deste celular?"))return;try{["cg_profile","cg_prog","cg_pts","cg_seen","cg_best_snake","cg_cw","cg_ui"].forEach(function(k){localStorage.removeItem(k);});}catch(e){}location.reload();}
+function vAccess(){
+  var z=ui.zoom||1;
+  var h=back("Uso","home")+'<h2>Uso e acessibilidade</h2><p>Deixe o app do seu jeito.</p><label class="l">Tamanho do texto</label>';
+  [["Normal",1],["Grande",1.12],["Muito grande",1.25]].forEach(function(o,i){h+='<button class="opt'+(z===o[1]?' on':'')+'" onclick="setZoom('+o[1]+')">'+o[0]+'</button>';});
+  h+='<label class="l">Movimento na tela</label><button class="opt'+(!ui.nomo?' on':'')+'" onclick="setMotion(false)">Com movimento</button><button class="opt'+(ui.nomo?' on':'')+'" onclick="setMotion(true)">Parado, sem animação</button>'+
+   '<div class="sp"></div>'+acc("Como usar o app","<ul class='list app'><li>Toque nos cartões para abrir.</li><li>A seta Voltar fica sempre no alto da tela.</li><li>Nos jogos, use as setas ou deslize o dedo no quadro.</li><li>Para deixar no celular, veja a caixa Deixe no seu celular, no Início.</li><li>Se algo travar, feche e abra o app de novo.</li></ul>")+foot();
+  app.innerHTML=h;
+}
+function setZoom(z){ui.zoom=z;ls("cg_ui",ui);applyUI();vAccess();}
+function setMotion(v){ui.nomo=v;ls("cg_ui",ui);applyUI();vAccess();}
+
+/* Contato */
+function vContact(){
+  var opts=function(a,sel){var s='';for(var i=0;i<a.length;i++){s+='<option'+(a[i]===sel?' selected':'')+'>'+a[i]+'</option>';}return s;};
+  app.innerHTML=back("Contato","home")+'<h2>Deixe seu contato</h2><p>Eu respondo pelo WhatsApp.</p>'+
+   '<label class="l" for="fn">Seu nome</label><input type="text" id="fn" value="'+(profile.name||"")+'" autocomplete="given-name">'+
+   '<label class="l" for="fw">Seu WhatsApp, com DDD</label><input type="text" inputmode="tel" id="fw" placeholder="11 90000-0000" autocomplete="tel">'+
+   '<label class="l" for="fa">Sua área de atuação</label><select id="fa">'+opts(areas,profile.area)+'</select>'+
+   '<label class="l" for="fneed">O que você procura?</label><select id="fneed">'+opts(["Um teste ou quiz","App completo","Projeto sob medida","Só quero conhecer"])+'</select>'+
+   '<label class="l" for="fm">Quer contar mais? (opcional)</label><textarea id="fm" rows="3"></textarea>'+
+   '<label class="chk"><input type="checkbox" id="fc"><span>Concordo em ser contatada pela Corage para falar sobre o meu app. Uso o seu contato só para isso.</span></label><button class="link" type="button" onclick="go(\'privacy\')" style="margin:-8px 0 12px">Ler a política de privacidade</button><p class="small">Não escreva dados de saúde, documentos ou senhas na mensagem.</p>'+
+   '<div id="fe" style="color:#b3261e;font-weight:600;margin-bottom:10px"></div><button class="primary pulse" onclick="sendForm()">Enviar</button>'+foot();
+}
+function sendForm(){
+  var n=document.getElementById("fn").value.trim(),w=document.getElementById("fw").value.replace(/\D/g,""),a=document.getElementById("fa").value,nd=document.getElementById("fneed").value,m=document.getElementById("fm").value.trim(),c=document.getElementById("fc").checked,e=document.getElementById("fe");
+  if(!n){e.textContent="Escreva o seu nome.";return;}
+  if(w.length<10){e.textContent="Confira o WhatsApp, com DDD.";return;}
+  if(!c){e.textContent="Marque a caixinha para eu poder te chamar.";return;}
+  var done_=function(msg){app.innerHTML='<h2>Recebi!</h2><div class="card"><p style="margin:0">'+msg+'</p></div><button class="primary" onclick="go(\'home\')">Voltar ao início</button>'+foot();window.scrollTo(0,0);};
+  var txt="Oi, Eve! Sou "+n+" ("+a+"). Procuro: "+nd+"."+(m?" "+m:"")+" Meu WhatsApp: "+w;
+  if(FORM.url){var fd=new FormData();fd.append(FORM.f.name,n);fd.append(FORM.f.whats,w);fd.append(FORM.f.area,a);fd.append(FORM.f.need,nd);if(FORM.f.msg)fd.append(FORM.f.msg,m);
+    fetch(FORM.url,{method:"POST",mode:"no-cors",body:fd}).then(function(){done_("Seu contato chegou. Eu respondo pelo WhatsApp em breve.");}).catch(function(){window.open(waUrl(txt),"_blank");done_("Abri o seu WhatsApp com a mensagem pronta. É só enviar.");});
+  }else{window.open(waUrl(txt),"_blank");done_("Abri o seu WhatsApp com a mensagem pronta. É só enviar.");}
+}
 
 /* ---------- render ---------- */
 var noA=false;function noAnim(){noA=true;}
 function render(){
   var v=state.view;
   app.className="view";
-  if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();
+  if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="biz")vBiz();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
   var kids=app.children;for(var i=0;i<kids.length;i++){if(noA){kids[i].style.animation="none";}else{kids[i].style.animationDelay=(i*55)+"ms";}}
   noA=false;
+  var fb=document.getElementById("iafab");if(fb)fb.style.display=(v==="biz"||v==="snake"||v==="maze")?"none":"flex";
   var tab=(v==="portfolio"||v==="plans")?v:"home";
   var bs=document.querySelectorAll("#tabs button");for(var j=0;j<bs.length;j++){bs[j].classList.toggle("on",bs[j].getAttribute("data-t")===tab);}
   var av=document.getElementById("av");av.textContent=profile.name?profile.name.charAt(0).toUpperCase():"·";
