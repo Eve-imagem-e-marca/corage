@@ -123,7 +123,8 @@ footer{margin-top:26px;text-align:center;font-size:16px;color:var(--soft)}
 select,textarea{width:100%;border:2px solid var(--line);border-radius:16px;padding:14px 16px;font:inherit;color:var(--ink);background:#fff;margin-bottom:18px}
 .chk{display:flex;gap:12px;align-items:flex-start;margin-bottom:18px;font-size:17px;color:var(--soft)}
 .chk input{width:26px;height:26px;flex:none;margin-top:2px;accent-color:#7a2e3f}
-.iafab{position:fixed;right:14px;bottom:88px;z-index:40;display:flex;align-items:center;gap:8px;background:var(--marsala);color:#fff;border:0;border-radius:999px;padding:8px 16px 8px 8px;font:inherit;font-weight:700;box-shadow:0 8px 22px rgba(122,46,63,.35);cursor:pointer}
+.iahb{background:var(--marsala)!important;color:#fff!important;border-color:var(--marsala)!important}
+.iafab_old{position:fixed;right:14px;bottom:88px;z-index:40;display:flex;align-items:center;gap:8px;background:var(--marsala);color:#fff;border:0;border-radius:999px;padding:8px 16px 8px 8px;font:inherit;font-weight:700;box-shadow:0 8px 22px rgba(122,46,63,.35);cursor:pointer}
 .iafab span,.iaav{width:34px;height:34px;border-radius:50%;background:var(--rose);color:var(--marsala);display:grid;place-items:center;font-family:ui-rounded,Georgia,serif;font-weight:800;flex:none}
 .iabox{position:fixed;left:0;right:0;bottom:0;z-index:60;max-width:520px;margin:0 auto;height:78vh;background:var(--rose3);border-radius:26px 26px 0 0;box-shadow:0 -10px 40px rgba(58,35,39,.35);display:none;flex-direction:column}
 .iabox.on{display:flex;animation:up .3s both}
@@ -177,7 +178,7 @@ var INSTAGRAM = "https://www.instagram.com/eve.imagememarca/";
 var SITE = "https://eve-imagem-e-marca.github.io/corage/";
 var PORTFOLIO = "https://eve-imagem-e-marca.github.io/portfolio";
 // Valores dos planos: deixe vazio para mostrar "Valor combinado na conversa". Ex.: "R$ 000"
-var PRICES = {simples:"", completo:"", medida:""};
+var PRICES = {simples:"", completo:"", plataforma:"", medida:""};
 // Formulário do Google (opcional). Enquanto url estiver vazio, o contato abre o seu WhatsApp com a mensagem pronta.
 var FORM = {url:"", f:{name:"", whats:"", area:"", need:"", msg:""}};
 
@@ -196,12 +197,16 @@ function applyUI(){reduce=sysReduce||!!ui.nomo;document.documentElement.classLis
 applyUI();
 
 /* ---------- dados ---------- */
-var areas=["Psicologia","Nutrição","Odontologia","Estética","Arquitetura","Terapias e arteterapia","Outra área"];
+var areas=["Psicologia","Nutrição","Odontologia","Estética e beleza","Fisioterapia","Pilates","Mentoria e consultoria","Arquitetura","Terapias e arteterapia","Outra área"];
+if(profile.area==="Estética"){profile.area="Estética e beleza";ls("cg_profile",profile);}
 var areaIdeas={
  "Psicologia":"um espaço de respiração, um diário e uma frase do dia",
  "Nutrição":"um quiz de rotina, calculadora de água e desafio de 7 dias",
  "Odontologia":"um teste de cuidados, lembrete de retorno e botão de agendamento",
- "Estética":"um quiz de rotina de cuidados e botão de agendamento",
+ "Estética e beleza":"um quiz de rotina de cuidados, antes e depois dos seus trabalhos e botão de agendamento",
+ "Fisioterapia":"exercícios guiados curtos, lembrete de retorno e botão de agendamento",
+ "Pilates":"uma aula curta em vídeo, desafio de 7 dias e botão para agendar a aula experimental",
+ "Mentoria e consultoria":"um teste de diagnóstico para quem quer te contratar e botão para marcar uma conversa",
  "Arquitetura":"uma vitrine de projetos e pedido de orçamento",
  "Terapias e arteterapia":"um exercício guiado curto e a agenda dos seus encontros",
  "Outra área":"um teste curto que mostre o seu jeito de trabalhar"
@@ -262,10 +267,9 @@ var works=[
  {c:"Podcast",t:"Podleve",d:"Podcast para quem cuida de gente, com a Eve como host. Entrevistas com profissionais do cuidado, com edição, roteiro e cortes feitos por ela.",u:"https://www.youtube.com/@podleve_cast",b:"Ver no YouTube"},
  {c:"Conteúdo",t:"E-books para quem cuida",d:"A Imagem que Acolhe, Instagram que Acolhe, O Carrossel que Cuida e Alcance que Acolhe: guias de imagem e de conteúdo para profissionais do cuidado."},
  {c:"Conteúdo",t:"Produção de conteúdo",d:"Posts e estratégia para perfis de psicólogas, esteticistas e dentistas, e para o próprio perfil, desde que me formei em Marketing, em 2012."},
- {c:"Cases",tg:"Em breve",t:"Cases com clientes",d:"Estou fechando os primeiros projetos de app. Quando ficarem prontos, os resultados reais aparecem aqui. Quer ser um dos primeiros?"},
  {c:"Imagem",t:"Imagem e marca pessoal",d:"Atendimento e mentoria de imagem desde 2018, com formação em Marketing e pós em marca pessoal e influência digital."}
 ];
-var chipsList=["Todos","Apps","Conteúdo","Podcast","Imagem","Cases"];
+var chipsList=["Todos","Apps","Conteúdo","Podcast","Imagem"];
 
 /* ---------- ícones ---------- */
 var I={
@@ -302,7 +306,7 @@ function vHome(){
   var nm=profile.name?"Oi, "+profile.name+"!":"Oi!";
   var h='<section class="hero"><div class="badge">C</div><h1>'+nm+'</h1><p>Descubra se um app ajuda o seu negócio e veja o que a Corage já criou.</p></section>';
   h+='<div class="card ring"><svg viewBox="0 0 76 76"><circle class="bg" cx="38" cy="38" r="30"/><circle class="fg" cx="38" cy="38" r="30" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'" id="fg"/></svg><div><h3 style="margin:0">Seu Raio-X: '+n+' de 4</h3><span class="small">'+(n===4?"Você viu tudo. Vamos conversar?":"Faça no seu tempo, na ordem que quiser.")+'</span><br><span class="tag" style="margin:8px 0 0">★ '+pts+' pontos</span></div></div>';
-  var tools=[["quiz","quiz","Seu negócio precisa de um app?","6 perguntas rápidas"],["match","match","Que app combina com você?","2 escolhas"],["wheel","wheel","Roda do conteúdo","Gire e ganhe uma ideia de post"],["games","game","Jogos","Empreendedora, cobrinha, labirinto e cruzadas"],["cases","cases","Cases de sucesso","Apps reais, com números e fonte"]];
+  var tools=[["quiz","quiz","Seu negócio precisa de um app?","6 perguntas rápidas"],["match","match","Que app combina com você?","2 escolhas"],["wheel","wheel","Roda do conteúdo","Gire e ganhe uma ideia de post"],["games","game","Jogos","Empreendedora, cobrinha, labirinto e cruzadas"],["cases","cases","Apps que deram certo","Apps reais, com números e fonte"]];
   for(var i=0;i<tools.length;i++){var t=tools[i];h+='<button class="tool" onclick="go(\''+t[0]+'\')"><div class="ic">'+I[t[1]]+'</div><div><b>'+t[2]+'</b><span>'+t[3]+'</span></div>'+(prog[t[0]]?'<span class="ok">feito</span>':'')+'</button>';}
   if(n===4){h+=contactBtn("Conversar com a Corage","Oi, Eve! Fiz o Raio-X completo e quero conversar.","primary pulse");h+='<div class="sp"></div>';}
   h+='<div class="acc" onclick="if(event.target.closest(\'button\'))toggle(this)"><button><div><b>Deixe no seu celular</b><span>Abre como um app, sem baixar nada</span></div><em>+</em></button><div class="body"><p><b>iPhone:</b> abra no Safari, toque em Compartilhar e em "Adicionar à Tela de Início".</p><p><b>Android:</b> abra no Chrome, toque no menu (três pontinhos) e em "Instalar aplicativo".</p></div></div>';
@@ -365,7 +369,7 @@ function vMatch(){
     done("match");
     var g=goals[state.match.g],a=asks[state.match.a];
     var h3=back("Resultado")+'<span class="tag">Combina com você</span><h2>'+g[1]+'</h2><p>'+g[2]+'</p><div class="card"><h3>Por onde começar</h3><p style="margin:0">'+a[1]+'</p></div>';
-    if(profile.area){h3+='<div class="card"><h3>Ideias para '+profile.area+'</h3><p style="margin:0">'+areaIdeas[profile.area]+'.</p></div>';}
+    if(profile.area){h3+='<div class="card"><h3>Ideias para '+profile.area+'</h3><p style="margin:0">'+(areaIdeas[profile.area]||areaIdeas["Outra área"])+'.</p></div>';}
     h3+='<p class="small">É uma sugestão geral. O melhor caminho aparece numa conversa sobre o seu trabalho.</p>'+contactBtn("Conversar com a Corage","Oi, Eve! No Raio-X deu: "+g[1]+". Quero conversar.","primary pulse")+foot();
     app.innerHTML=h3;
   }
@@ -375,7 +379,7 @@ function ma(k){state.match.a=k;noAnim();render();}
 
 function vCases(){
   done("cases");
-  var h=back("Cases")+'<h2>Apps que deram certo</h2><p class="small">Números da época indicada, com link da fonte. Confira lá para ver dados mais novos.</p>';
+  var h=back("Apps de sucesso")+'<h2>Apps que deram certo</h2><p class="small">Números da época indicada, com link da fonte. Confira lá para ver dados mais novos.</p>';
   for(var i=0;i<cases.length;i++){
     var c=cases[i],b=c.big;
     h+='<div class="acc" data-big="1" onclick="if(event.target.closest(\'button\')&&event.target.closest(\'.acc\')===this&&!event.target.closest(\'.body\'))toggle(this)"><button><div><b>'+c.n+'</b><span>'+c.s+'</span></div><em>+</em></button><div class="body">'+
@@ -452,6 +456,7 @@ function vPlans(){
   var plans=[
    ["simples","App Simples","Para começar",["Um teste ou quiz da sua área","Cadastro de quem se interessar","Botão para o seu WhatsApp","Link e QR Code para divulgar","As suas cores e o seu jeito de falar"]],
    ["completo","App Completo","Para se aproximar de quem te segue",["Tudo do App Simples","Desafio de 7 dias","Calculadoras ou ferramentas da sua área","Instalação no celular, com o seu ícone","Área só sua, com ideias de posts e calendário"]],
+   ["plataforma","Plataforma de ensino","Para quem ensina e tem vídeos",["Aulas em vídeo, em etapas","Exercícios e acompanhamento do progresso","Acesso só para quem comprou","Pensada nos moldes do Método EVEC, com a sua marca","Funciona no celular, com o seu ícone"]],
    ["medida","Sob medida","Para um projeto maior",["Plataforma pensada para o seu negócio","Conversa para entender o que suas clientes precisam","A gente combina o que entra"]]
   ];
   for(var i=0;i<plans.length;i++){var p=plans[i];
@@ -676,16 +681,16 @@ function cwCheck(){var ok=0,tot=0;
 var IA={open:false,log:[],mt:{}};
 var IA_TXT={
  app:["Um app é um atendimento aberto o dia todo, no celular da cliente, com as suas cores e o seu jeito de falar. Ela usa uma ferramenta útil, confia em você e deixa o contato.","Ver como funciona","plans"],
- planos:["Tem três jeitos: App Simples (para começar), App Completo (com desafio de 7 dias e ferramentas da sua área) e Sob medida (para um projeto maior). O valor é combinado na conversa com a Eve.","Ver os planos","plans"],
+ planos:["Tem quatro jeitos: App Simples (para começar), App Completo (com desafio de 7 dias e ferramentas da sua área), Plataforma de ensino (para quem tem aulas em vídeo) e Sob medida (para um projeto maior). O valor é combinado na conversa com a Eve.","Ver os planos","plans"],
  valor:["Os valores ainda não ficam na tela. A Eve combina na conversa, de acordo com o que o seu app precisa ter.","Marcar uma conversa","mt"],
  prazo:["O prazo depende do que o seu app vai ter. A Eve te passa o tempo certo na conversa, sem prometer o que não dá.","Marcar uma conversa","mt"],
  instalar:["O app abre pelo link ou pelo QR Code, sem baixar nada. Dá para deixar o ícone na tela do celular. A explicação passo a passo está no Início, na caixa Deixe no seu celular.","Ir para o Início","home"],
- cases:["Ainda não tenho cases de clientes para mostrar, e não vou inventar nenhum. No app você vê cases reais de empresas conhecidas, com as fontes, e os modelos de app que a Eve criou.","Ver cases de mercado","cases"],
+ cases:["Veja no portfólio os modelos de app que a Eve criou e, no app, histórias reais de apps que deram certo no mercado, com as fontes.","Ver histórias de sucesso","cases"],
  dados:["O seu perfil e os seus pontos ficam só no seu celular. Esta conversa comigo não é guardada. Se você enviar o formulário, o contato chega só à Eve.","Ler a política completa","privacy"],
  quem:["A Eve é mentora de imagem e marca pessoal e está criando a Corage para fazer apps e estratégia para empreendedoras. A Corage ainda está começando.","Ver o portfólio","portfolio"],
  jogos:["Os jogos são para você relaxar e juntar pontos. Cada vez que abre, eles mudam.","Ir para os jogos","games"]
 };
-var IA_MENU=[["app","O que é um app para mim?"],["planos","Quais são os planos?"],["valor","Quanto custa?"],["prazo","Quanto tempo leva?"],["instalar","Como a cliente abre o app?"],["cases","Tem cases de clientes?"],["dados","Meus dados estão seguros?"],["quem","Quem é a Eve?"],["mt","Quero marcar uma conversa"]];
+var IA_MENU=[["app","O que é um app para mim?"],["planos","Quais são os planos?"],["valor","Quanto custa?"],["prazo","Quanto tempo leva?"],["instalar","Como a cliente abre o app?"],["cases","Posso ver exemplos?"],["dados","Meus dados estão seguros?"],["quem","Quem é a Eve?"],["mt","Quero marcar uma conversa"]];
 var IA_KEY=[["valor",["valor","preço","preco","custa","quanto","pagar","cobra"]],["prazo",["prazo","tempo","demora","quando fica"]],["planos",["plano","pacote","simples","completo","medida"]],["instalar",["instalar","baixar","celular","abrir","link","qr"]],["cases",["case","cliente","resultado","exemplo"]],["dados",["dado","privacidade","lgpd","segur","senha"]],["quem",["eve","quem é","quem e","corage"]],["jogos",["jogo","pontos","game"]],["app",["app","aplicativo","site"]],["mt",["reunião","reuniao","conversa","marcar","agendar","horário","horario","falar com"]]];
 function iaEl(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
 function iaAdd(who,text,act){IA.log.push({w:who,t:text,a:act||null});}
@@ -730,9 +735,10 @@ function iaDraw(){
   else{IA_MENU.forEach(function(m){o.appendChild(iaBtn(m[1],function(){iaAsk(m[0]);}));});}
   box.scrollTop=box.scrollHeight;
 }
-function IA_ACT(k){return {plans:"Ver os planos",cases:"Ver cases de mercado",privacy:"Ler a política completa",portfolio:"Ver o portfólio",games:"Ir para os jogos",home:"Ir para o Início",mt:"Marcar uma conversa"}[k]||"Abrir";}
+function IA_ACT(k){return {plans:"Ver os planos",cases:"Ver histórias de sucesso",privacy:"Ler a política completa",portfolio:"Ver o portfólio",games:"Ir para os jogos",home:"Ir para o Início",mt:"Marcar uma conversa"}[k]||"Abrir";}
 function iaInit(){
-  var f=iaEl("button","iafab");f.id="iafab";f.type="button";f.setAttribute("aria-label","Falar com a Iasmin, assistente virtual");f.innerHTML='<span>I</span><b>Iasmin</b>';f.addEventListener("click",iaOpen);document.body.appendChild(f);
+  var f=iaEl("button","ib iahb");f.id="iafab";f.type="button";f.setAttribute("aria-label","Falar com a Iasmin, assistente virtual");f.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9 11h.01M12 11h.01M15 11h.01"/></svg>';f.addEventListener("click",iaOpen);
+  var qb=document.querySelector("header .ib");qb.parentNode.insertBefore(f,qb);
   var b=iaEl("div","iabox");b.id="iabox";b.innerHTML='<div class="iahead"><div class="iaav">I</div><div><b>Iasmin</b><small>Assistente virtual da Corage</small></div><button class="ib" id="iax" type="button" aria-label="Fechar">✕</button></div><div class="iamsgs" id="iamsgs" aria-live="polite"></div><div class="iaopts" id="iaopts"></div><form class="iaform" id="iaform"><input id="iain" placeholder="Ou escreva sua dúvida" aria-label="Escreva sua dúvida" autocomplete="off"><button type="submit">Enviar</button></form>';
   document.body.appendChild(b);
   document.getElementById("iax").addEventListener("click",iaClose);
@@ -797,7 +803,6 @@ function render(){
   if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="biz")vBiz();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
   var kids=app.children;for(var i=0;i<kids.length;i++){if(noA){kids[i].style.animation="none";}else{kids[i].style.animationDelay=(i*55)+"ms";}}
   noA=false;
-  var fb=document.getElementById("iafab");if(fb)fb.style.display=(v==="biz"||v==="snake"||v==="maze")?"none":"flex";
   var tab=(v==="portfolio"||v==="plans")?v:"home";
   var bs=document.querySelectorAll("#tabs button");for(var j=0;j<bs.length;j++){bs[j].classList.toggle("on",bs[j].getAttribute("data-t")===tab);}
   var av=document.getElementById("av");av.textContent=profile.name?profile.name.charAt(0).toUpperCase():"·";
