@@ -1186,7 +1186,7 @@ function dRoll(){var pal=DPAL[DEMO.area]||DPALDEF,n=pal[Math.floor(Math.random()
 function dKeep(){var b=document.getElementById("dbiz"),o=document.getElementById("dother");if(b)DEMO.biz=b.value.trim();if(o)DEMO.other=o.value.trim();dSave();}
 function dArea(i){dKeep();DEMO.area=areas[i];dRoll();dSave();vDemo();}
 function dShow(){dKeep();var e=document.getElementById("de");
-  if(!DEMO.biz){e.textContent="Escreva o nome do negócio.";return;}
+  if(!DEMO.biz)DEMO.biz=profile.name||"Seu trabalho";
   if(DEMO.area==null){e.textContent="Escolha a área de atuação.";return;}
   if(DEMO.area==="Outra área"&&!DEMO.other){e.textContent="Escreva a sua área.";return;}
   if(!DEMO.col)dRoll();dSave();dMode="prev";done("demo");vDemo();window.scrollTo(0,0);}
@@ -1247,8 +1247,8 @@ function vDemo(){
      contactBtn("Quero liberar o meu app","Oi, Eve! Vi a prévia do app de "+DEMO.biz+" ("+ar+") e quero o meu Primeiro app.","primary pulse")+
      '<div class="sp"></div><button class="ghost" onclick="dNewCol()">Sortear outra cor</button><div class="sp"></div><button class="ghost" onclick="dEdit()">Mudar nome ou área</button><div class="sp"></div><button class="ghost" onclick="dAgain()">Fazer para outra pessoa</button>'+foot();
   }else{
-    h=back("Veja o seu app","home")+'<h2>Veja o seu app</h2><p>Responda em 2 toques e veja uma prévia com o seu nome.</p>'+
-     '<label class="l" for="dbiz">Nome do seu negócio</label><input type="text" id="dbiz" maxlength="40" value="'+dEsc(DEMO.biz)+'" autocomplete="organization">'+
+    h=back("Veja o seu app","home")+'<h2>Veja o seu app</h2><p>Responda em 2 toques e veja uma prévia do seu app.</p>'+
+     '<label class="l" for="dbiz">Nome do seu trabalho (ou o seu nome)</label><input type="text" id="dbiz" maxlength="40" placeholder="Pode deixar em branco" value="'+dEsc(DEMO.biz)+'" autocomplete="organization">'+
      '<label class="l">Sua área de atuação</label><div class="acc" '+AC+'><button><div><span>Escolha uma</span><b>'+(DEMO.area==null?"Toque para escolher":dEsc(ar))+'</b></div><em>+</em></button><div class="body">';
     for(var a=0;a<areas.length;a++){h+='<button class="opt'+(DEMO.area===areas[a]?' on':'')+'" onclick="dArea('+a+')">'+areas[a]+'</button>';}
     h+='</div></div>'+(isO?'<input type="text" id="dother" maxlength="40" placeholder="Escreva a sua área" value="'+dEsc(DEMO.other)+'">':'')+
