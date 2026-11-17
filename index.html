@@ -741,6 +741,7 @@ function mazeStart(lvl){
 function E(t,a,i){var s="<"+t;for(var k in a)s+=" "+k+"='"+a[k]+"'";return s+(i==null?"/>":">"+i+"</"+t+">");}
 var SKIN=["#fbe0cf","#f3c9a8","#e0a97d","#c68642","#9b633a","#6b4226"];
 var HAIRC=["#2b1a14","#5a3825","#8c5a36","#c9a064","#b5483a","#7a2e3f","#d8d2cc"];
+var GLC=["#3a2327","#7b5a45","#d4a24c","#7a2e3f","#2d4a7a","#d9647a","#2f6f73","#9aa0a6"];
 var HAIRS=["Longo liso","Cacheado","Coque","Curto","Rabo de cavalo","Afro","Chanel","Curtinho","Cachos longos"];
 var CLR=["#7a2e3f","#f4b6c2","#ffffff","#2f6f73","#7b5a45","#4f8fb8","#b58bd6","#c08a5a","#27385a","#e8705f","#d9a441"];
 var PROF=[
@@ -799,13 +800,15 @@ function dollHairFront(st,hc){
 }
 function dollSvg(s){
   var P=PROF[s.p],oc=OCC[s.oc||0][3],sk=SKIN[s.sk],hc=HAIRC[s.hc],c1=CLR[s.cl],g="",sh="#3a2327";
+  var K=[1,1.22,1.45][s.bd==null?1:s.bd],GO="<g transform='translate(150 0) scale("+K+" 1) translate(-150 0)'>";
   if(oc){P=Object.assign({},P,{t:oc.t,bt:oc.bt,bot:oc.bot,inner:oc.inner,bg:oc.bgc});}
   g+=E("rect",{width:300,height:440,rx:28,fill:P.bg});
   g+=E("circle",{cx:150,cy:230,r:150,fill:"#fff",opacity:.35});
   g+=E("ellipse",{cx:150,cy:408,rx:96,ry:12,fill:"#000",opacity:.08});
-  if(P.prop==="ball")g+=E("circle",{cx:236,cy:376,r:34,fill:c1})+E("path",{d:"M214 360c10-8 22-8 30-4",stroke:"#fff",opacity:.5,"stroke-width":6,fill:"none","stroke-linecap":"round"});
+  if(P.prop==="ball")g+=E("circle",{cx:236+Math.round((K-1)*47),cy:376,r:34,fill:c1})+E("path",{d:"M214 360c10-8 22-8 30-4",stroke:"#fff",opacity:.5,"stroke-width":6,fill:"none","stroke-linecap":"round"});
   g+=dollHairBack(s.hs,hc);
   /* pernas */
+  g+=GO;
   var legc=(P.t==="coat"||P.t==="sport"||(P.t==="blazer"&&P.bt==="pants"))?P.bot:sk;
   g+=E("rect",{x:127,y:255,width:22,height:144,rx:9,fill:legc})+E("rect",{x:151,y:255,width:22,height:144,rx:9,fill:legc});
   g+=E("path",{d:"M120 396c0 12 20 12 30 6v-8zM180 396c0 12-20 12-30 6v-8z",fill:sh});
@@ -832,6 +835,7 @@ function dollSvg(s){
   /* braços */
   g+=E("rect",{x:94,y:178,width:20,height:102,rx:10,fill:sk,transform:"rotate(3 104 180)"})+E("rect",{x:186,y:178,width:20,height:102,rx:10,fill:sk,transform:"rotate(-3 196 180)"});
   if(sl!=="none"){g+=E("rect",{x:92,y:176,width:24,height:slen,rx:10,fill:sl,transform:"rotate(3 104 180)"})+E("rect",{x:184,y:176,width:24,height:slen,rx:10,fill:sl,transform:"rotate(-3 196 180)"});}
+  g+="</g>";
   /* pescoço, orelhas, cabeça */
   g+=E("rect",{x:139,y:146,width:22,height:34,rx:8,fill:sk})+E("ellipse",{cx:150,cy:176,rx:14,ry:6,fill:"#000",opacity:.07});
   g+=E("circle",{cx:106,cy:114,r:9,fill:sk})+E("circle",{cx:194,cy:114,r:9,fill:sk});
@@ -842,7 +846,7 @@ function dollSvg(s){
   g+=E("path",{d:"M139 136Q150 147 161 136",stroke:"#b23a52","stroke-width":4.5,fill:"none","stroke-linecap":"round"})+E("circle",{cx:124,cy:130,r:8,fill:"#f08a9a",opacity:.32})+E("circle",{cx:176,cy:130,r:8,fill:"#f08a9a",opacity:.32});
   g+=dollHairFront(s.hs,hc);
   /* detalhes */
-  if(s.gl){var gs="#3a2327",gf="none";if(s.gl===3){gs="#d9647a";}
+  if(s.gl){var gs=(s.gc!=null?GLC[s.gc]:(s.gl===3?"#d9647a":"#3a2327")),gf="none";
     if(s.gl===1||s.gl===3)g+=E("circle",{cx:134,cy:112,r:13,fill:gf,stroke:gs,"stroke-width":3})+E("circle",{cx:166,cy:112,r:13,fill:gf,stroke:gs,"stroke-width":3});
     else if(s.gl===2)g+=E("rect",{x:121,y:100,width:27,height:23,rx:5,fill:gf,stroke:gs,"stroke-width":3})+E("rect",{x:152,y:100,width:27,height:23,rx:5,fill:gf,stroke:gs,"stroke-width":3});
     else if(s.gl===4)g+=E("path",{d:"M120 114Q120 102 130 101L147 105Q148 121 138 123Q123 124 120 114z",fill:gf,stroke:gs,"stroke-width":3,"stroke-linejoin":"round"})+E("path",{d:"M180 114Q180 102 170 101L153 105Q152 121 162 123Q177 124 180 114z",fill:gf,stroke:gs,"stroke-width":3,"stroke-linejoin":"round"});
@@ -850,16 +854,18 @@ function dollSvg(s){
   if(s.br)g+=E("circle",{cx:106,cy:128,r:5,fill:"#d4a24c"})+E("circle",{cx:194,cy:128,r:5,fill:"#d4a24c"})+E("path",{d:"M106 133v8M194 133v8",stroke:"#d4a24c","stroke-width":3,"stroke-linecap":"round"});
   if(s.co)g+=E("path",{d:"M132 178Q150 202 168 178",stroke:"#d4a24c","stroke-width":3,fill:"none","stroke-linecap":"round"})+E("circle",{cx:150,cy:195,r:5,fill:"#d4a24c"});
   /* mão direita com objeto */
-  g+="<g transform='translate(197 284)'>"+dollProp(P.prop,c1)+"</g>";
+  g+="<g transform='translate("+Math.round(150+47*K)+" 284)'>"+dollProp(P.prop,c1)+"</g>";
+  g+=GO;
   if(s.bg)g+=E("path",{d:"M96 296Q106 262 116 296",stroke:"#8a5a3c","stroke-width":4,fill:"none","stroke-linecap":"round"})+E("rect",{x:80,y:294,width:52,height:38,rx:9,fill:"#b5835a"})+E("path",{d:"M80 306h52",stroke:"#8a5a3c","stroke-width":2.5})+E("circle",{cx:106,cy:306,r:3.5,fill:"#d4a24c"});
   g+=E("circle",{cx:106,cy:284,r:10,fill:sk})+E("circle",{cx:197,cy:284,r:10,fill:sk});
   if(s.wa)g+=E("rect",{x:196,y:268,width:20,height:9,rx:3,fill:"#d4a24c","transform":"rotate(0)"})+E("circle",{cx:206,cy:272.5,r:5.5,fill:"#fff",stroke:"#d4a24c","stroke-width":2})+E("path",{d:"M206 270v3h2",stroke:"#7a2e3f","stroke-width":1.2,fill:"none"});
+  g+="</g>";
   g+=dollOcc(s.oc||0);
   g+=E("text",{x:150,y:430,"text-anchor":"middle","font-family":"Georgia,serif","font-size":15,"font-weight":700,fill:"#7a2e3f",opacity:.8},"Corage");
   g+=E("path",{d:"M40 60l4 10 10 4-10 4-4 10-4-10-10-4 10-4z",fill:"#fff",opacity:.9,"class":"spk"})+E("path",{d:"M256 96l3 7 7 3-7 3-3 7-3-7-7-3 7-3z",fill:"#fff",opacity:.9,"class":"spk s2"})+E("path",{d:"M52 300l3 7 7 3-7 3-3 7-3-7-7-3 7-3z",fill:"#fff",opacity:.9,"class":"spk s3"});
   return "<svg id='dsv' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 440' role='img' aria-label='Bonequinha empreendedora: "+P.n+"'>"+g+"</svg>";
 }
-function dollNew(){var r=function(n){return Math.floor(Math.random()*n);};var p=r(PROF.length);return {p:p,hs:r(HAIRS.length),hc:r(HAIRC.length),sk:r(SKIN.length),cl:dollCol(p),gl:(Math.random()<.5?0:1+r(4)),br:r(2)===1,co:r(2)===1,bg:r(3)===0,wa:r(3)===0,oc:0,saved:false};}
+function dollNew(){var r=function(n){return Math.floor(Math.random()*n);};var p=r(PROF.length);return {p:p,hs:r(HAIRS.length),hc:r(HAIRC.length),sk:r(SKIN.length),cl:dollCol(p),gl:(Math.random()<.5?0:1+r(4)),br:r(2)===1,co:r(2)===1,bg:r(3)===0,wa:r(3)===0,oc:0,bd:1,gc:null,saved:false};}
 var OCC=[["Dia a dia","sun","Roupa confortável que combina com o seu trabalho.",null],
 ["Fechar contrato","file","",{cl:8,t:"blazer",bt:"pants",bot:"#2b2b2f",inner:"#ffffff",bgc:"#e3e8f1",acc:{gl:0,br:false,co:false,wa:true,bg:true},why:"Azul-marinho passa confiança e seriedade. O branco por dentro traz clareza, e o relógio e a bolsa de trabalho mostram compromisso."}],
 ["Conquistar clientes","chat","",{cl:9,t:"dress",bt:"skirt",bot:"#3a2327",inner:"#ffffff",bgc:"#fde6df",acc:{gl:0,br:true,co:false,wa:false,bg:false},why:"Coral é uma cor calorosa: passa simpatia e deixa as pessoas à vontade para conversar. Brincos discretos dão um toque de cuidado."}],
@@ -893,8 +899,12 @@ function dollDraw(){
   SKIN.forEach(function(q,i){h+='<button class="dsw'+(s.sk===i?' on':'')+'" style="background:'+q+'" aria-label="Tom de pele '+(i+1)+'" onclick="dollSet(\'sk\','+i+')"></button>';});
   h+='</div><label class="l">Cor da roupa</label><div class="drow">';
   CLR.forEach(function(q,i){h+='<button class="dsw'+(s.cl===i?' on':'')+'" style="background:'+q+'" aria-label="Cor da roupa '+(i+1)+'" onclick="dollSet(\'cl\','+i+')"></button>';});
+  h+='</div><div class="drow" style="margin-top:8px">';
+  [10,14,19].forEach(function(w,i){var on=((s.bd==null?1:s.bd)===i);h+='<button class="dpill'+(on?' on':'')+'" style="padding:8px 14px" aria-label="Corpo '+(i+1)+'" onclick="dollSet(\'bd\','+i+')"><svg viewBox="0 0 40 48" width="30" height="36" fill="currentColor" aria-hidden="true"><circle cx="20" cy="8" r="6"/><path d="M'+(20-w)+' 18Q20 14 '+(20+w)+' 18L'+(20+w+2)+' 34 '+(20-w-2)+' 34Z"/><rect x="'+(19-w/2)+'" y="34" width="'+(w/2)+'" height="12" rx="3"/><rect x="21" y="34" width="'+(w/2)+'" height="12" rx="3"/></svg></button>';});
   h+='</div><div class="acc" '+AC+'><button><div><span>Acessórios</span><b>Óculos, bolsa e mais</b></div><em>+</em></button><div class="body"><label class="l" style="margin-top:4px">Óculos</label><div class="drow">';
   ["Sem óculos","Redondo","Quadrado","Colorido","Gatinho"].forEach(function(q,i){h+='<button class="dpill'+(s.gl===i?' on':'')+'" onclick="dollSet(\'gl\','+i+')">'+q+'</button>';});
+  h+='</div><label class="l">Cor do óculos</label><div class="drow">';
+  GLC.forEach(function(q,i){h+='<button class="dsw'+(s.gc===i?' on':'')+'" style="background:'+q+'" aria-label="Cor do óculos '+(i+1)+'" onclick="dollSet(\'gc\','+i+')"></button>';});
   h+='</div><label class="l">Mais</label><div class="drow">';
   [["br","Brincos"],["co","Colar"],["bg","Bolsa"],["wa","Relógio"]].forEach(function(q){h+='<button class="dpill'+(s[q[0]]?' on':'')+'" onclick="dollTog(\''+q[0]+'\')">'+q[1]+'</button>';});
   h+='</div></div></div>';
