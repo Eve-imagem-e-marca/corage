@@ -299,7 +299,7 @@ function level(){return pts<20?"Começando":pts<60?"Em crescimento":pts<120?"Emp
 function ptsTag(){return '<span class="tag">'+pts+' pontos · '+level()+'</span>';}
 var STEPS=[["quiz","Seu trabalho precisa de um app?","6 perguntas rápidas","quiz"],["match","Que app combina com você?","2 escolhas","phone"],["wheel","Roda do conteúdo","Gire e ganhe uma ideia de post","wheel"],["games","Jogos com recompensas","Vista a empreendedora, cobrinha e mais","game"],["cases","Apps que deram certo","Com números e link para abrir","trophy"]];
 function nextAfter(cur){var i=-1;STEPS.forEach(function(s,j){if(s[0]===cur)i=j;});var n=STEPS[i+1];
-  if(!n)return '<div class="sp"></div>'+contactBtn("Conversar com a Corage","Oi, Eve! Fiz o passo a passo do app da Corage e quero conversar.","primary pulse");
+  if(!n)return '<div class="sp"></div><h2 style="margin:6px 0 4px">E você também pode ter o seu</h2><p>Veja agora uma prévia do seu app, com o seu nome e as suas cores. É de graça.</p><button class="primary pulse" onclick="go(\'demo\')">Veja o seu app</button><div class="sp"></div>'+contactBtn("Conversar com a Corage","Oi, Eve! Fiz o passo a passo do app da Corage e quero conversar.","ghost");
   return '<div class="sp"></div><button class="primary" onclick="go(\''+n[0]+'\')">Próximo: '+n[1]+' →</button>';}
 var seen=1;
 var state={view:"home",step:0,answers:[],match:{},filter:"Todos",compare:"app",spun:null,rot:0,spinning:false};
