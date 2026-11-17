@@ -394,6 +394,8 @@ var I={
 };
 
 var LI={
+calendar:'<rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+users:'<circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><circle cx="17" cy="9.5" r="2.4"/><path d="M16.5 14.2c2.4 0 4 1.6 4 4"/>',
 lock:'<rect x="5" y="11" width="14" height="9.5" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
 hanger:'<path d="M12 7.5a2 2 0 1 0-2-2M12 7.5v2.2L3.5 16a1.5 1.5 0 0 0 1 2.7h15a1.5 1.5 0 0 0 1-2.7L12 9.7"/>',
 phone:'<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>',
@@ -1193,6 +1195,44 @@ function dNewCol(){dRoll();dSave();vDemo();}
 function dTap(i,lk){var r=document.getElementById("dres");if(!r)return;
   if(lk){r.innerHTML='<div class="card" style="animation:up .35s both"><b>'+ico("lock",18)+' Esta parte vem no app completo.</b><p style="margin:6px 0 0">Aqui ela abre com os seus textos, as suas fotos e a sua marca.</p></div>';}
   else{r.innerHTML='<div class="card" style="animation:up .35s both"><b>'+ico("chat",18)+' Esta já está liberada.</b><p style="margin:6px 0 0">Assim a sua cliente chama você direto no WhatsApp.</p></div>';}}
+
+var DEXTRA={
+"Psicologia":["Diário de emoções com lembretes","Pausa guiada de respiração","Lista de leituras e materiais"],
+"Nutrição":["Calculadora de água","Lista de compras da semana","Diário de refeições"],
+"Odontologia":["Lembrete de limpeza a cada 6 meses","Antes e depois dos casos","Guia de cuidados após procedimentos"],
+"Estética e beleza":["Antes e depois dos trabalhos","Agenda de manutenção","Vitrine de serviços e pacotes"],
+"Fisioterapia":["Exercícios em vídeo curtos","Lembrete de retorno","Diário de dor e evolução"],
+"Pilates":["Aulas curtas em vídeo","Grade de horários","Desafio de 7 dias"],
+"Fonoaudiologia":["Exercícios guiados","Lembrete de retorno","Materiais para a família"],
+"Medicina":["Orientações gerais para o dia a dia","Lembrete de retorno","Lista de exames para levar"],
+"Mentoria e consultoria":["Plano de ação com metas","Diagnóstico rápido","Biblioteca de materiais"],
+"Coaching":["Roda da vida","Metas e hábitos","Sessão experimental"],
+"Advocacia":["Guia de documentos","Dúvidas frequentes","Linha do tempo do processo"],
+"Contabilidade":["Calendário de prazos","Calculadoras simples","Lista de documentos do mês"],
+"Marketing e redes sociais":["Calendário de conteúdo","Banco de ideias de post","Relatório simples de resultados"],
+"Arquitetura":["Vitrine de projetos","Quiz do seu espaço","Pedido de orçamento"],
+"Moda e estilo":["Vitrine de looks","Quiz de estilo","Lista de desejos"],
+"Culinária e confeitaria":["Cardápio com fotos","Pedido de encomenda","Calendário de datas comemorativas"],
+"Fotografia":["Portfólio de ensaios","Escolha de pacote","Galeria privada para a cliente"],
+"Educação e cursos":["Aula de amostra","Trilha de estudos","Certificado de conclusão"],
+"Terapias e arteterapia":["Atividade criativa guiada","Diário de bem-estar","Materiais para a família"]
+};
+var DDATAS=[["Janeiro Branco","cuidado com a mente"],["Março","mês da mulher"],["Maio","Dia das Mães"],["Junho","Dia dos Namorados"],["Setembro Amarelo","valorizar a vida"],["Outubro Rosa","prevenção e autocuidado"],["Novembro Azul","saúde do homem"],["Black Friday e Natal","ofertas especiais"]];
+function dAccBox(ic,title,sub,body){var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
+  return '<div class="acc" '+AC+'><button><div class="cic" style="width:40px;height:40px;font-size:0">'+ico(ic,22)+'</div><div style="flex:1"><b>'+title+'</b><span>'+sub+'</span></div><em>+</em></button><div class="body">'+body+'</div></div>';}
+function dUl(a){var h='<ul class="list app">';a.forEach(function(x){h+='<li>'+x+'</li>';});return h+'</ul>';}
+function dCatalog(ar){
+  var ex=DEXTRA[DEMO.area]||["Cadastro de clientes","Vitrine de serviços","Botão de agendar"],base=(DTOOLS[DEMO.area]||DDEF).map(function(x){return x[1];});
+  var h='<h3 style="margin:18px 0 8px">O que o seu app pode ter</h3>';
+  h+=dAccBox("briefcase","Da sua área","Ideias para "+dEsc(ar),dUl(base.concat(ex)));
+  h+=dAccBox("game","Para a cliente voltar","Jogos, pontos e cartão fidelidade",dUl(["<b>Gamificação:</b> pontos, conquistas e desafios com recompensa","<b>Cartão fidelidade digital:</b> a cliente junta selos e ganha um presente","<b>Aniversariantes do mês:</b> lista com mensagem pronta e um mimo","<b>Indique uma amiga:</b> desconto para quem indica"]));
+  h+=dAccBox("users","Clientes e contatos","Clientes, ex-clientes e interessados",dUl(["Cadastro de <b>clientes</b>, <b>ex-clientes</b> e <b>interessados</b>","Lembrete de retorno e de quem sumiu","Lista pronta para chamar no WhatsApp","Só com o consentimento da pessoa (LGPD)"]));
+  var ds='';DDATAS.forEach(function(d){ds+='<li><b>'+d[0]+':</b> '+d[1]+'</li>';});
+  h+=dAccBox("calendar","Calendário e promoções","Datas do ano com conteúdo pronto",'<p style="margin-top:0">O app lembra a data e sugere conteúdo e promoção para o seu negócio, de acordo com a sua estratégia. Exemplo: no Outubro Rosa, conteúdos de cuidado e uma condição especial para as clientes.</p><ul class="list app">'+ds+'</ul>');
+  h+=dAccBox("search","Para ser encontrada","Google, vídeo e divulgação",dUl(["Vídeo de apresentação e vídeos curtos de dicas","Aparecer no Google (SEO e Perfil da Empresa)","Contador de visitantes: quantas pessoas abriram e de onde vieram","Anúncios no Instagram e no Google levando ao app"]));
+  h+=dAccBox("shield","Segurança e LGPD","Dados protegidos",dUl(["Link seguro (https)","Política de privacidade e caixinha de consentimento","Pede só os dados necessários, nunca dado de saúde","Canal para a pessoa pedir para apagar os dados"]));
+  return h;
+}
 function vDemo(){
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
   var isO=DEMO.area==="Outra área",ar=isO?(DEMO.other||"Outra área"):(DEMO.area||"");
@@ -1202,7 +1242,7 @@ function vDemo(){
     h=back("Veja o seu app","home")+'<h2>O seu app, em prévia</h2><p>Toque nas partes para testar.</p>'+
      '<div class="dph"><div class="dh" style="background:'+c+'"><div class="dav">'+dEsc(DEMO.biz.charAt(0).toUpperCase())+'</div><div><b>'+nm+'</b><span>'+dEsc(ar)+'</span></div></div><div class="db"><p>Olá! O que você quer fazer hoje?</p><div class="dgr">';
     for(var i=0;i<tl.length;i++){var lk=(i<3);h+='<button class="dtl'+(lk?' lk':'')+'" onclick="dTap('+i+','+(lk?1:0)+')">'+(lk?'<span class="dl">'+ico("lock",16)+'</span>':'')+'<span class="di" style="color:'+c+'">'+ico(tl[i][0],22)+'</span><span class="dt">'+tl[i][1]+'</span></button>';}
-    h+='</div><button class="dtl lk" style="width:100%;margin-top:10px;min-height:0;flex-direction:row;align-items:center;gap:12px" onclick="dTap(9,1)"><span class="dl">'+ico("lock",16)+'</span><span class="dav" style="width:42px;height:42px;font-size:20px;background:'+c+';color:#fff;border-radius:50%;display:grid;place-items:center;flex:none;font-family:Georgia,serif;font-weight:700">I</span><span class="dt" style="filter:none;opacity:1"><b style="display:block">Iasmin, sua assistente virtual</b>Cuida da sua imagem e do seu conteúdo</span></button></div></div><div id="dres"></div><p class="small">É uma prévia para você ver como pode ficar. No app de verdade, tudo abre.</p>'+
+    h+='</div><button class="dtl lk" style="width:100%;margin-top:10px;min-height:0;flex-direction:row;align-items:center;gap:12px" onclick="dTap(9,1)"><span class="dl">'+ico("lock",16)+'</span><span class="dav" style="width:42px;height:42px;font-size:20px;background:'+c+';color:#fff;border-radius:50%;display:grid;place-items:center;flex:none;font-family:Georgia,serif;font-weight:700">I</span><span class="dt" style="filter:none;opacity:1"><b style="display:block">Iasmin, sua assistente virtual</b>Cuida da sua imagem e do seu conteúdo</span></button></div></div><div id="dres"></div><p class="small">É uma prévia para você ver como pode ficar. No app de verdade, tudo abre.</p>'+dCatalog(ar)+'<div class="sp"></div>'+
      contactBtn("Quero liberar o meu app","Oi, Eve! Vi a prévia do app de "+DEMO.biz+" ("+ar+") e quero o meu Primeiro app.","primary pulse")+
      '<div class="sp"></div><button class="ghost" onclick="dNewCol()">Sortear outra cor</button><div class="sp"></div><button class="ghost" onclick="dEdit()">Mudar nome ou área</button><div class="sp"></div><button class="ghost" onclick="dAgain()">Fazer para outra pessoa</button>'+foot();
   }else{
