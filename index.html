@@ -275,7 +275,7 @@ function badge(id){if(bdg[id])return;bdg[id]=1;ls("cg_badges",bdg);addPts(5);var
 function badgeRow(){var h='<div class="brow">';BADGES.forEach(function(b){h+='<div class="bd'+(bdg[b[0]]?' on':'')+'"><span>'+ico(b[1],24)+'</span><small>'+b[2]+'</small></div>';});return h+'</div>';}
 function level(){return pts<20?"Começando":pts<60?"Em crescimento":pts<120?"Empreendedora em ação":"Referência";}
 function ptsTag(){return '<span class="tag">'+pts+' pontos · '+level()+'</span>';}
-var STEPS=[["quiz","Seu trabalho precisa de um app?","6 perguntas rápidas","quiz"],["match","Que app combina com você?","2 escolhas","phone"],["wheel","Roda do conteúdo","Gire e ganhe uma ideia de post","wheel"],["games","Jogos com recompensas","Vista a empreendedora, cobrinha e mais","game"],["cases","Apps que deram certo","Com números e link para abrir","trophy"],["demo","Veja o seu app","Uma prévia com o seu nome e a sua cor","phone"]];
+var STEPS=[["quiz","Seu trabalho precisa de um app?","6 perguntas rápidas","quiz"],["match","Que app combina com você?","2 escolhas","phone"],["wheel","Roda do conteúdo","Gire e ganhe uma ideia de post","wheel"],["games","Jogos com recompensas","Vista a empreendedora, cobrinha e mais","game"],["cases","Apps que deram certo","Com números e link para abrir","trophy"]];
 function nextAfter(cur){var i=-1;STEPS.forEach(function(s,j){if(s[0]===cur)i=j;});var n=STEPS[i+1];
   if(!n)return '<div class="sp"></div>'+contactBtn("Conversar com a Corage","Oi, Eve! Fiz o passo a passo do app da Corage e quero conversar.","primary pulse");
   return '<div class="sp"></div><button class="primary" onclick="go(\''+n[0]+'\')">Próximo: '+n[1]+' →</button>';}
@@ -445,6 +445,7 @@ function vHome(){
   h+='<div class="card ia"><div class="iaw"><div class="iaav2">I</div><div><b>Iasmin</b><small>Assistente virtual da Corage</small></div></div><p style="margin:0 0 12px">Oi! Que bom ter você aqui. Em poucos passos você conhece o app e ganha um Raio-X do seu trabalho.</p>'+
    (nx?'<button class="primary pulse" onclick="go(\''+nx[0]+'\')">'+(started?"Continuar":"Começar")+': '+nx[1]+'</button>':contactBtn("Conversar com a Corage","Oi, Eve! Fiz o Raio-X completo e quero conversar.","primary pulse"))+
    '<div style="text-align:center"><button class="link" onclick="iaOpen()">Tirar uma dúvida com a Iasmin</button></div></div>';
+  h+='<button class="tool" onclick="go(\'demo\')"><div class="ic">'+ico("phone",26)+'</div><div><b>Veja o seu app</b><span>Uma prévia com o seu nome e a sua cor</span></div>'+(prog.demo?'<span class="ok">feito</span>':'')+'</button>';
   if(n===4)badge("raiox");
   var gain='<ul class="gain"><li>'+ico("search",19)+'<span>Um Raio-X do seu trabalho</span></li><li>'+ico("bulb",19)+'<span>Ideias de post para usar hoje</span></li><li>'+ico("game",19)+'<span>Jogos com pontos e conquistas</span></li><li>'+ico("chat",19)+'<span>Uma conversa sem compromisso com a Eve</span></li></ul>';
   h+=box("sparkle","O que você ganha","Ao fazer o passo a passo",gain);
@@ -721,7 +722,7 @@ function E(t,a,i){var s="<"+t;for(var k in a)s+=" "+k+"='"+a[k]+"'";return s+(i=
 var SKIN=["#fbe0cf","#f3c9a8","#e0a97d","#c68642","#9b633a","#6b4226"];
 var HAIRC=["#2b1a14","#5a3825","#8c5a36","#c9a064","#b5483a","#7a2e3f","#d8d2cc"];
 var HAIRS=["Longo liso","Cacheado","Coque","Curto","Rabo de cavalo"];
-var CLR=["#7a2e3f","#f4b6c2","#ffffff","#2f6f73","#7b5a45","#4f8fb8","#b58bd6","#c08a5a"];
+var CLR=["#7a2e3f","#f4b6c2","#ffffff","#2f6f73","#7b5a45","#4f8fb8","#b58bd6","#c08a5a","#27385a","#e8705f","#d9a441"];
 var PROF=[
  {n:"Psicóloga",e:"brain",t:"blazer",bg:"#f3d4d4",bot:"#3a2327",bt:"skirt",c:0,prop:"note",idea:"um espaço de respiração, um diário e uma frase do dia"},
  {n:"Nutricionista",e:"apple",t:"coat",bg:"#dcefd9",coat:"#ffffff",bot:"#2f6f73",c:3,prop:"apple",idea:"um quiz de rotina, calculadora de água e desafio de 7 dias"},
@@ -758,7 +759,8 @@ function dollHairFront(st,hc){
   return cap;
 }
 function dollSvg(s){
-  var P=PROF[s.p],sk=SKIN[s.sk],hc=HAIRC[s.hc],c1=CLR[s.cl],g="",sh="#3a2327";
+  var P=PROF[s.p],oc=OCC[s.oc||0][3],sk=SKIN[s.sk],hc=HAIRC[s.hc],c1=CLR[s.cl],g="",sh="#3a2327";
+  if(oc){P=Object.assign({},P,{t:oc.t,bt:oc.bt,bot:oc.bot,inner:oc.inner,bg:oc.bgc});}
   g+=E("rect",{width:300,height:440,rx:28,fill:P.bg});
   g+=E("circle",{cx:150,cy:230,r:150,fill:"#fff",opacity:.35});
   g+=E("ellipse",{cx:150,cy:408,rx:96,ry:12,fill:"#000",opacity:.08});
@@ -819,7 +821,11 @@ function dollSvg(s){
   return "<svg id='dsv' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 440' role='img' aria-label='Bonequinha empreendedora: "+P.n+"'>"+g+"</svg>";
 }
 function dollNew(){var r=function(n){return Math.floor(Math.random()*n);};var p=r(PROF.length);return {p:p,hs:r(HAIRS.length),hc:r(HAIRC.length),sk:r(SKIN.length),cl:PROF[p].c,gl:(Math.random()<.5?0:1+r(4)),br:r(2)===1,co:r(2)===1,bg:r(3)===0,wa:r(3)===0,oc:0,saved:false};}
-var OCC=[["Dia a dia","sun","Roupa confortável que combina com o seu trabalho."],["Fechar contrato","file","Look para fechar contratos: cor firme, poucas peças e um detalhe de destaque passam confiança."],["Conquistar clientes","chat","Vista-se para conquistar clientes: uma roupa que lembra a sua marca e deixa você à vontade para conversar."],["Gravar conteúdo","camera","Para gravar: uma cor que contrasta com o fundo e um acessório que você sempre usa ajudam a ser reconhecida."],["Evento e networking","glass","Num evento: capriche em um detalhe, como brincos ou colar, e conte o que faz em uma frase."]];
+var OCC=[["Dia a dia","sun","Roupa confortável que combina com o seu trabalho.",null],
+["Fechar contrato","file","",{cl:8,t:"blazer",bt:"pants",bot:"#2b2b2f",inner:"#ffffff",bgc:"#e3e8f1",acc:{gl:0,br:false,co:false,wa:true,bg:true},why:"Azul-marinho passa confiança e seriedade. O branco por dentro traz clareza, e o relógio e a bolsa de trabalho mostram compromisso."}],
+["Conquistar clientes","chat","",{cl:9,t:"dress",bt:"skirt",bot:"#3a2327",inner:"#ffffff",bgc:"#fde6df",acc:{gl:0,br:true,co:false,wa:false,bg:false},why:"Coral é uma cor calorosa: passa simpatia e deixa as pessoas à vontade para conversar. Brincos discretos dão um toque de cuidado."}],
+["Gravar conteúdo","camera","",{cl:10,t:"blazer",bt:"skirt",bot:"#3a2327",inner:"#ffffff",bgc:"#f1eadb",acc:{gl:0,br:true,co:true,wa:false,bg:false},why:"Mostarda chama o olhar e passa energia e alegria. Ela se destaca num fundo claro, e brincos e colar viram a sua marca registrada."}],
+["Evento e networking","glass","",{cl:0,t:"dress",bt:"skirt",bot:"#3a2327",inner:"#ffffff",bgc:"#f3d4d4",acc:{gl:0,br:true,co:true,wa:false,bg:true},why:"Marsala passa presença, elegância e força. Brincos e colar são o detalhe que as pessoas lembram, e a bolsa deixa tudo à mão."}]];
 function dollOcc(o){var st="#7a2e3f",g="<g transform='translate(226 20)'>";
   if(o===1)g+=E("rect",{x:0,y:0,width:50,height:64,rx:7,fill:"#fff",stroke:st,"stroke-width":3})+E("path",{d:"M10 16h30M10 28h30M10 40h16",stroke:st,"stroke-width":3,"stroke-linecap":"round"})+E("circle",{cx:38,cy:50,r:9,fill:"#d4a24c"})+E("path",{d:"M33 50l4 4 6-8",stroke:"#fff","stroke-width":3,fill:"none","stroke-linecap":"round","stroke-linejoin":"round"});
   else if(o===2)g+=E("path",{d:"M6 6h38a8 8 0 0 1 8 8v22a8 8 0 0 1-8 8H24l-12 10v-10H6a8 8 0 0 1-8-8V14a8 8 0 0 1 8-8z",fill:"#fff",stroke:st,"stroke-width":3})+E("path",{d:"M25 34c-9-6-11-11-8-15 3-3 7-2 8 1 1-3 5-4 8-1 3 4 1 9-8 15z",fill:"#d9647a"});
@@ -834,7 +840,7 @@ function vDoll(){
 function dollDraw(){
   var s=G.doll,P=PROF[s.p];
   document.getElementById("dbox").innerHTML=dollSvg(s);
-  document.getElementById("dcard").innerHTML='<div class="card"><b class="pl">'+ico(P.e,20)+P.n+'</b><p style="margin:4px 0 0">Um app para ela poderia ter '+P.idea+'.</p>'+(s.oc?'<p style="margin:8px 0 0"><b>'+OCC[s.oc][0]+':</b> '+OCC[s.oc][2]+'</p>':'')+'</div>';
+  document.getElementById("dcard").innerHTML='<div class="card"><b class="pl">'+ico(P.e,20)+P.n+'</b><p style="margin:4px 0 0">Um app para ela poderia ter '+P.idea+'.</p>'+(s.oc?'<p style="margin:8px 0 0"><b>'+OCC[s.oc][0]+':</b> '+OCC[s.oc][3].why+'</p>':'')+'</div>';
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
   var h='<div class="acc" '+AC+'><button><div><span>Profissão</span><b class="pl">'+ico(P.e,18)+P.n+'</b></div><em>+</em></button><div class="body"><div class="dgrid">';
   PROF.forEach(function(q,i){h+='<button class="dchip'+(s.p===i?' on':'')+'" onclick="dollSet(\'p\','+i+')">'+ico(q.e,18)+'<i>'+q.n+'</i></button>';});
@@ -856,7 +862,10 @@ function dollDraw(){
   document.getElementById("dctl").innerHTML=h;
   document.getElementById("dbtn").innerHTML='<div class="sp"></div><button class="ghost" onclick="dollRand()">Surpreenda-me</button><div class="sp"></div><button class="primary" onclick="dollSave()">Salvar minha bonequinha</button><div class="sp"></div>'+contactBtn("Quero um app para a minha profissão","Oi, Eve! Montei a bonequinha de "+P.n+" no app da Corage e quero um app para a minha profissão.","ghost")+'<div id="dres"></div>';
 }
-function dollSet(k,v){G.doll[k]=v;if(k==="p")G.doll.cl=PROF[v].c;dollDraw();}
+function dollSet(k,v){var d=G.doll;d[k]=v;
+  if(k==="p"){var o1=OCC[d.oc||0][3];d.cl=o1?o1.cl:PROF[v].c;}
+  if(k==="oc"){var o=OCC[v][3];if(o){d.cl=o.cl;d.gl=o.acc.gl;d.br=o.acc.br;d.co=o.acc.co;d.wa=o.acc.wa;d.bg=o.acc.bg;}else{d.cl=PROF[d.p].c;}}
+  dollDraw();}
 function dollTog(k){G.doll[k]=!G.doll[k];dollDraw();}
 function dollRand(){var o=dollNew();G.doll=o;dollDraw();}
 function dollSave(){
