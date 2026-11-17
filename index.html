@@ -221,6 +221,23 @@ select,textarea{width:100%;border:2px solid var(--line);border-radius:16px;paddi
 .dtl.lk{background:#faf3f2}
 .dtl.lk .dt{filter:blur(1.6px);opacity:.7}
 .dtl .dl{position:absolute;top:10px;right:10px;color:var(--marsala)}
+/* menus mais atrativos */
+.view .acc,.view .tool{border:1px solid rgba(235,201,198,.7);box-shadow:0 6px 18px rgba(122,46,63,.08);transition:transform .15s,box-shadow .2s,border-color .2s}
+.view .acc.open{border-color:var(--marsala);box-shadow:0 10px 26px rgba(122,46,63,.16)}
+.view .acc.open>button{background:var(--rose3)}
+.view .acc>button em{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--rose3);font-size:22px;line-height:1;padding-bottom:2px}
+.view .acc.open>button em{background:var(--marsala);color:#fff}
+.view .acc>button .cic,.view .tool .ic{border-radius:16px}
+.view .acc:nth-of-type(4n+1) .cic,.view .tool:nth-of-type(4n+1) .ic{background:#f7dcd9;color:#7a2e3f}
+.view .acc:nth-of-type(4n+2) .cic,.view .tool:nth-of-type(4n+2) .ic{background:#d6ebe8;color:#1f5f5b}
+.view .acc:nth-of-type(4n+3) .cic,.view .tool:nth-of-type(4n+3) .ic{background:#f6e4cc;color:#a8632f}
+.view .acc:nth-of-type(4n) .cic,.view .tool:nth-of-type(4n) .ic{background:#e8dff2;color:#5d4180}
+.view .tool:active,.view .acc>button:active{transform:scale(.985)}
+.view .tool.hl{background:linear-gradient(135deg,#7a2e3f,#a24a5d);border-color:transparent;box-shadow:0 10px 26px rgba(122,46,63,.30)}
+.view .tool.hl .ic{background:rgba(255,255,255,.2);color:#fff}
+.view .tool.hl b,.view .tool.hl span{color:#fff}
+.view .tool.hl::after{content:"→";flex:none;margin-left:auto;color:#fff;font-size:24px}
+.view .tool.hl .ok{background:rgba(255,255,255,.25);color:#fff}
 </style>
 </head>
 <body>
@@ -288,7 +305,7 @@ function applyUI(){reduce=sysReduce||!!ui.nomo;document.documentElement.classLis
 applyUI();
 
 /* ---------- dados ---------- */
-var areas=["Psicologia","Nutrição","Odontologia","Estética e beleza","Fisioterapia","Pilates","Mentoria e consultoria","Arquitetura","Terapias e arteterapia","Outra área"];
+var areas=["Psicologia","Nutrição","Odontologia","Estética e beleza","Fisioterapia","Pilates","Fonoaudiologia","Medicina","Mentoria e consultoria","Coaching","Advocacia","Contabilidade","Marketing e redes sociais","Arquitetura","Moda e estilo","Culinária e confeitaria","Fotografia","Educação e cursos","Terapias e arteterapia","Outra área"];
 if(profile.area==="Estética"){profile.area="Estética e beleza";ls("cg_profile",profile);}
 var areaEmoji={"Psicologia":"🧠","Nutrição":"🍎","Odontologia":"🦷","Estética e beleza":"💆","Fisioterapia":"🦴","Pilates":"🧘","Mentoria e consultoria":"💼","Arquitetura":"📐","Terapias e arteterapia":"🎨","Outra área":"✨"};
 var areaIdeas={
@@ -445,7 +462,7 @@ function vHome(){
   h+='<div class="card ia"><div class="iaw"><div class="iaav2">I</div><div><b>Iasmin</b><small>Assistente virtual da Corage</small></div></div><p style="margin:0 0 12px">Oi! Que bom ter você aqui. Em poucos passos você conhece o app e ganha um Raio-X do seu trabalho.</p>'+
    (nx?'<button class="primary pulse" onclick="go(\''+nx[0]+'\')">'+(started?"Continuar":"Começar")+': '+nx[1]+'</button>':contactBtn("Conversar com a Corage","Oi, Eve! Fiz o Raio-X completo e quero conversar.","primary pulse"))+
    '<div style="text-align:center"><button class="link" onclick="iaOpen()">Tirar uma dúvida com a Iasmin</button></div></div>';
-  h+='<button class="tool" onclick="go(\'demo\')"><div class="ic">'+ico("phone",26)+'</div><div><b>Veja o seu app</b><span>Uma prévia com o seu nome e a sua cor</span></div>'+(prog.demo?'<span class="ok">feito</span>':'')+'</button>';
+  h+='<button class="tool hl" onclick="go(\'demo\')"><div class="ic">'+ico("phone",26)+'</div><div><b>Veja o seu app</b><span>Uma prévia com o seu nome e a sua cor</span></div>'+(prog.demo?'<span class="ok">feito</span>':'')+'</button>';
   if(n===4)badge("raiox");
   var gain='<ul class="gain"><li>'+ico("search",19)+'<span>Um Raio-X do seu trabalho</span></li><li>'+ico("bulb",19)+'<span>Ideias de post para usar hoje</span></li><li>'+ico("game",19)+'<span>Jogos com pontos e conquistas</span></li><li>'+ico("chat",19)+'<span>Uma conversa sem compromisso com a Eve</span></li></ul>';
   h+=box("sparkle","O que você ganha","Ao fazer o passo a passo",gain);
@@ -468,14 +485,16 @@ function vProfile(){
    '<label class="l">Sua área de atuação</label>';
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
   h+='<div class="acc" '+AC+'><button><div><span>Escolha uma</span><b>'+(profile.area||"Toque para escolher")+'</b></div><em>+</em></button><div class="body">';
-  for(var i=0;i<areas.length;i++){h+='<button class="opt'+(profile.area===areas[i]?' on':'')+'" onclick="setArea('+i+')">'+areas[i]+'</button>';}
-  h+='</div></div><label class="l">O que você quer agora?</label><p class="small" style="margin:0 0 8px">Marque quantas quiser.</p>';
+  var cust=profile.area&&areas.indexOf(profile.area)<0;
+  for(var i=0;i<areas.length;i++){h+='<button class="opt'+((profile.area===areas[i]||(areas[i]==="Outra área"&&cust))?' on':'')+'" onclick="setArea('+i+')">'+areas[i]+'</button>';}
+  h+='</div></div>'+((profile.area==="Outra área"||cust)?'<input type="text" id="pother" maxlength="40" placeholder="Escreva a sua área" value="'+(cust?dEsc(profile.area):'')+'" oninput="profileOther(this.value)">':'')+'<label class="l">O que você quer agora?</label><p class="small" style="margin:0 0 8px">Marque quantas quiser.</p>';
   for(var k=0;k<goals.length;k++){var on=profile.goals.indexOf(k)>-1;h+='<button class="opt'+(on?' on':'')+'" onclick="setGoal('+k+')">'+(on?'✓ ':'')+goals[k][0]+'</button>';}
   h+='<div class="sp"></div><button class="primary pulse" onclick="saveProfile()">Salvar e continuar</button>';
   if(!seen){h+='<div style="text-align:center"><button class="link" onclick="skipProfile()">Pular</button></div>';}
   app.innerHTML=h;
 }
 function keepName(){var n=document.getElementById("pname");if(n){profile.name=n.value.trim();}}
+function profileOther(v){profile.area=v.trim()||"Outra área";ls("cg_profile",profile);}
 function setArea(i){keepName();profile.area=areas[i];ls("cg_profile",profile);vProfile();}
 function setGoal(i){keepName();var a=profile.goals.indexOf(i);if(a>-1)profile.goals.splice(a,1);else profile.goals.push(i);ls("cg_profile",profile);vProfile();}
 
@@ -627,7 +646,7 @@ function dpad(){return '<div class="dpad"><button class="u" onclick="if(G.dir)G.
 function swipe(cv){var sx,sy;cv.addEventListener("touchstart",function(e){var t=e.changedTouches[0];sx=t.clientX;sy=t.clientY;},{passive:true});
   cv.addEventListener("touchend",function(e){var t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.max(Math.abs(dx),Math.abs(dy))<24||!G.dir)return;if(Math.abs(dx)>Math.abs(dy)){G.dir(dx>0?"r":"l");}else{G.dir(dy>0?"d":"u");}},{passive:true});}
 function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
-function badge(x,cx,cy,r){x.fillStyle="#f7dcd9";x.beginPath();x.arc(cx,cy,r,0,7);x.fill();x.lineWidth=Math.max(1.5,r*.18);x.strokeStyle="#7a2e3f";x.stroke();x.fillStyle="#7a2e3f";x.font="700 "+Math.round(r*1.35)+"px Georgia,serif";x.textAlign="center";x.textBaseline="middle";x.fillText("C",cx,cy+r*.06);}
+function badgeDot(x,cx,cy,r){x.fillStyle="#f7dcd9";x.beginPath();x.arc(cx,cy,r,0,7);x.fill();x.lineWidth=Math.max(1.5,r*.18);x.strokeStyle="#7a2e3f";x.stroke();x.fillStyle="#7a2e3f";x.font="700 "+Math.round(r*1.35)+"px Georgia,serif";x.textAlign="center";x.textBaseline="middle";x.fillText("C",cx,cy+r*.06);}
 
 function vGames(){
   prog.games=1;ls("cg_prog",prog);
@@ -705,7 +724,7 @@ function mazeStart(lvl){
   function draw(){x.fillStyle="#fff";x.fillRect(0,0,320,320);x.fillStyle="#7a2e3f";
     for(var j=0;j<T;j++)for(var i=0;i<T;i++){if(g[j][i]===1)x.fillRect(i*S,j*S,S+.5,S+.5);}
     x.fillStyle="#7a2e3f";x.font="700 "+Math.round(S*1.3)+"px Georgia,serif";x.textAlign="center";x.textBaseline="middle";x.fillText("★",ex.x*S+S/2,ex.y*S+S/2+1);
-    badge(x,p.x*S+S/2,p.y*S+S/2,S*.46);}
+    badgeDot(x,p.x*S+S/2,p.y*S+S/2,S*.46);}
   function win(){clearInterval(G.tm);var pt=10*lvl;addPts(pt);G.dir=null;
     document.getElementById("res").innerHTML='<div class="card"><b>Fase '+lvl+' concluída em '+sec+'s.</b> Você ganhou '+pt+' pontos.</div><button class="primary pulse" onclick="mazeStart('+(lvl+1)+')">Próxima fase</button>';}
   G.dir=function(k){if(busy)return;var v=V[k];if(!open(p.x+v.x,p.y+v.y))return;busy=true;var cur=v;
@@ -722,7 +741,7 @@ function mazeStart(lvl){
 function E(t,a,i){var s="<"+t;for(var k in a)s+=" "+k+"='"+a[k]+"'";return s+(i==null?"/>":">"+i+"</"+t+">");}
 var SKIN=["#fbe0cf","#f3c9a8","#e0a97d","#c68642","#9b633a","#6b4226"];
 var HAIRC=["#2b1a14","#5a3825","#8c5a36","#c9a064","#b5483a","#7a2e3f","#d8d2cc"];
-var HAIRS=["Longo liso","Cacheado","Coque","Curto","Rabo de cavalo"];
+var HAIRS=["Longo liso","Cacheado","Coque","Curto","Rabo de cavalo","Afro","Chanel","Curtinho","Cachos longos"];
 var CLR=["#7a2e3f","#f4b6c2","#ffffff","#2f6f73","#7b5a45","#4f8fb8","#b58bd6","#c08a5a","#27385a","#e8705f","#d9a441"];
 var PROF=[
  {n:"Psicóloga",e:"brain",t:"blazer",bg:"#f3d4d4",bot:"#3a2327",bt:"skirt",c:0,prop:"note",idea:"um espaço de respiração, um diário e uma frase do dia"},
@@ -733,8 +752,19 @@ var PROF=[
  {n:"Mentora",e:"briefcase",t:"blazer",bg:"#f7e6cf",bot:"#ffffff",bt:"pants",c:7,inner:"#ffffff",prop:"laptop",idea:"um teste de diagnóstico e botão para marcar conversa"},
  {n:"Dentista",e:"tooth",t:"coat",bg:"#dff1f2",coat:"#ffffff",bot:"#4f8fb8",c:5,prop:"tooth",idea:"um teste de cuidados e lembrete de retorno"},
  {n:"Arquiteta",e:"house",t:"blazer",bg:"#e5e1d8",bot:"#3a2327",bt:"pants",c:4,inner:"#ffffff",prop:"plan",idea:"uma vitrine de projetos e pedido de orçamento"},
- {n:"Consultora de imagem",e:"hanger",t:"dress",bg:"#f7dcd9",bot:"#3a2327",c:0,prop:"hanger",idea:"um quiz de estilo e uma vitrine de looks"}
+ {n:"Consultora de imagem",e:"hanger",t:"dress",bg:"#f7dcd9",bot:"#3a2327",c:0,prop:"hanger",idea:"um quiz de estilo e uma vitrine de looks"},
+ {n:"Advogada",e:"file",t:"blazer",bg:"#e3e8f1",bot:"#2b2b2f",bt:"pants",c:8,inner:"#ffffff",prop:"note",idea:"um guia de documentos, dúvidas frequentes e botão para falar com você"},
+ {n:"Contadora",e:"coin",t:"blazer",bg:"#e4efe9",bot:"#2b2b2f",bt:"pants",c:3,inner:"#ffffff",prop:"laptop",idea:"uma calculadora simples e lembretes de prazos"},
+ {n:"Médica",e:"pulse",t:"coat",bg:"#dff1f2",coat:"#ffffff",bot:"#2f6f73",c:5,prop:"watch",idea:"orientações gerais para o dia a dia e lembrete de retorno"},
+ {n:"Fonoaudióloga",e:"mic",t:"blazer",bg:"#e6dcf5",bot:"#3a2327",bt:"skirt",c:6,prop:"note",idea:"exercícios guiados curtos e lembrete de retorno"},
+ {n:"Terapeuta",e:"heart",t:"dress",bg:"#efe6f5",bot:"#3a2327",c:6,prop:"note",idea:"um diário, uma pausa guiada e botão de agendar"},
+ {n:"Confeiteira",e:"sparkle",t:"dress",bg:"#fbe3ea",bot:"#3a2327",c:9,prop:"apple",idea:"um cardápio com fotos e botão de encomenda"},
+ {n:"Fotógrafa",e:"camera",t:"blazer",bg:"#e5e1d8",bot:"#2b2b2f",bt:"pants",c:4,inner:"#ffffff",prop:"laptop",idea:"uma vitrine de ensaios e pedido de orçamento"},
+ {n:"Marketing e redes",e:"bulb",t:"blazer",bg:"#fbe9d8",bot:"#2b2b2f",bt:"pants",c:9,inner:"#ffffff",prop:"laptop",idea:"um quiz do perfil, ideias de post e calendário de conteúdo"},
+ {n:"Professora",e:"book",t:"blazer",bg:"#f7e6cf",bot:"#3a2327",bt:"skirt",c:10,prop:"laptop",idea:"uma aula de amostra e desafio de 7 dias"}
 ];
+var DCS={"Psicóloga":[0,3,6,8],"Nutricionista":[3,9,10,5],"Esteticista":[1,0,6,9],"Fisioterapeuta":[5,3,8],"Instrutora de pilates":[6,9,3],"Mentora":[7,0,8,10],"Dentista":[5,3,8],"Arquiteta":[4,8,0],"Consultora de imagem":[0,9,10,6],"Advogada":[8,0,4],"Contadora":[8,3,4],"Médica":[5,3,8],"Fonoaudióloga":[6,5,0],"Terapeuta":[6,3,0,9],"Confeiteira":[9,1,0,10],"Fotógrafa":[4,8,0],"Professora":[10,5,3,9],"Marketing e redes":[9,0,6,10]};
+function dollCol(p){var a=DCS[PROF[p].n]||[PROF[p].c];return a[Math.floor(Math.random()*a.length)];}
 function dollProp(k,c){
   if(k==="note")return E("rect",{x:-4,y:-52,width:38,height:48,rx:5,fill:"#fff",stroke:"#7a2e3f","stroke-width":3})+E("path",{d:"M6 -38h18M6 -28h18M6 -18h12",stroke:"#d9a8ae","stroke-width":3,"stroke-linecap":"round"})+E("path",{d:"M24 -46c-3-4-8 0-4 4l4 4 4-4c4-4-1-8-4-4z",fill:"#7a2e3f"});
   if(k==="apple")return E("circle",{cx:14,cy:-18,r:16,fill:"#d94f4f"})+E("path",{d:"M14 -34c0-8 6-10 10-10-1 6-4 10-10 10z",fill:"#4f9a5b"});
@@ -751,12 +781,20 @@ function dollHairBack(st,hc){
   if(st===1)return E("circle",{cx:112,cy:96,r:30,fill:hc})+E("circle",{cx:188,cy:96,r:30,fill:hc})+E("circle",{cx:100,cy:136,r:26,fill:hc})+E("circle",{cx:200,cy:136,r:26,fill:hc})+E("circle",{cx:150,cy:66,r:40,fill:hc})+E("circle",{cx:104,cy:172,r:22,fill:hc})+E("circle",{cx:196,cy:172,r:22,fill:hc});
   if(st===2)return E("circle",{cx:150,cy:50,r:22,fill:hc});
   if(st===3)return E("rect",{x:102,y:66,width:96,height:112,rx:34,fill:hc});
+  if(st===5)return E("circle",{cx:150,cy:88,r:60,fill:hc})+E("circle",{cx:100,cy:104,r:32,fill:hc})+E("circle",{cx:200,cy:104,r:32,fill:hc})+E("circle",{cx:116,cy:62,r:30,fill:hc})+E("circle",{cx:184,cy:62,r:30,fill:hc})+E("circle",{cx:150,cy:46,r:30,fill:hc})+E("circle",{cx:94,cy:138,r:22,fill:hc})+E("circle",{cx:206,cy:138,r:22,fill:hc});
+  if(st===6)return E("rect",{x:94,y:62,width:112,height:126,rx:30,fill:hc});
+  if(st===7)return E("ellipse",{cx:150,cy:104,rx:50,ry:56,fill:hc});
+  if(st===8)return E("circle",{cx:112,cy:96,r:30,fill:hc})+E("circle",{cx:188,cy:96,r:30,fill:hc})+E("circle",{cx:150,cy:66,r:40,fill:hc})+E("circle",{cx:98,cy:136,r:26,fill:hc})+E("circle",{cx:202,cy:136,r:26,fill:hc})+E("circle",{cx:96,cy:176,r:24,fill:hc})+E("circle",{cx:204,cy:176,r:24,fill:hc})+E("circle",{cx:102,cy:214,r:22,fill:hc})+E("circle",{cx:198,cy:214,r:22,fill:hc})+E("circle",{cx:112,cy:248,r:18,fill:hc})+E("circle",{cx:188,cy:248,r:18,fill:hc});
   return E("path",{d:"M190 84c40 6 44 60 20 110-6 12-18 6-14-6 12-34 8-60-16-70z",fill:hc});
 }
 function dollHairFront(st,hc){
   var cap=E("path",{d:"M104 112C100 52 200 52 196 112 190 88 168 76 150 76 132 76 110 88 104 112z",fill:hc});
   if(st===1)return E("path",{d:"M104 108c-2-30 12-52 46-52s48 22 46 52c-8-18-20-26-46-26s-38 8-46 26z",fill:hc});
   if(st===3)return E("path",{d:"M102 118C98 50 202 50 198 118 190 92 170 84 150 84 124 84 108 98 102 118z",fill:hc});
+  if(st===5)return E("path",{d:"M104 108C100 56 200 56 196 108 190 86 170 78 150 78 130 78 110 86 104 108z",fill:hc});
+  if(st===6)return E("path",{d:"M101 112C98 54 202 54 199 112Q150 84 101 112z",fill:hc})+E("path",{d:"M101 108C98 138 100 160 106 172L118 170C112 150 111 128 113 108z",fill:hc})+E("path",{d:"M199 108C202 138 200 160 194 172L182 170C188 150 189 128 187 108z",fill:hc});
+  if(st===7)return E("path",{d:"M105 106C102 60 198 60 195 106 188 88 172 80 150 80 130 80 112 88 105 106z",fill:hc})+E("path",{d:"M150 80c20-2 36 8 42 24-14-10-28-12-42-10z",fill:hc});
+  if(st===8)return E("path",{d:"M104 110c-2-32 12-54 46-54s48 22 46 54c-8-18-20-26-46-26s-38 8-46 26z",fill:hc})+E("circle",{cx:122,cy:84,r:10,fill:hc})+E("circle",{cx:178,cy:84,r:10,fill:hc});
   return cap;
 }
 function dollSvg(s){
@@ -821,7 +859,7 @@ function dollSvg(s){
   g+=E("path",{d:"M40 60l4 10 10 4-10 4-4 10-4-10-10-4 10-4z",fill:"#fff",opacity:.9,"class":"spk"})+E("path",{d:"M256 96l3 7 7 3-7 3-3 7-3-7-7-3 7-3z",fill:"#fff",opacity:.9,"class":"spk s2"})+E("path",{d:"M52 300l3 7 7 3-7 3-3 7-3-7-7-3 7-3z",fill:"#fff",opacity:.9,"class":"spk s3"});
   return "<svg id='dsv' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 440' role='img' aria-label='Bonequinha empreendedora: "+P.n+"'>"+g+"</svg>";
 }
-function dollNew(){var r=function(n){return Math.floor(Math.random()*n);};var p=r(PROF.length);return {p:p,hs:r(HAIRS.length),hc:r(HAIRC.length),sk:r(SKIN.length),cl:PROF[p].c,gl:(Math.random()<.5?0:1+r(4)),br:r(2)===1,co:r(2)===1,bg:r(3)===0,wa:r(3)===0,oc:0,saved:false};}
+function dollNew(){var r=function(n){return Math.floor(Math.random()*n);};var p=r(PROF.length);return {p:p,hs:r(HAIRS.length),hc:r(HAIRC.length),sk:r(SKIN.length),cl:dollCol(p),gl:(Math.random()<.5?0:1+r(4)),br:r(2)===1,co:r(2)===1,bg:r(3)===0,wa:r(3)===0,oc:0,saved:false};}
 var OCC=[["Dia a dia","sun","Roupa confortável que combina com o seu trabalho.",null],
 ["Fechar contrato","file","",{cl:8,t:"blazer",bt:"pants",bot:"#2b2b2f",inner:"#ffffff",bgc:"#e3e8f1",acc:{gl:0,br:false,co:false,wa:true,bg:true},why:"Azul-marinho passa confiança e seriedade. O branco por dentro traz clareza, e o relógio e a bolsa de trabalho mostram compromisso."}],
 ["Conquistar clientes","chat","",{cl:9,t:"dress",bt:"skirt",bot:"#3a2327",inner:"#ffffff",bgc:"#fde6df",acc:{gl:0,br:true,co:false,wa:false,bg:false},why:"Coral é uma cor calorosa: passa simpatia e deixa as pessoas à vontade para conversar. Brincos discretos dão um toque de cuidado."}],
@@ -834,12 +872,12 @@ function dollOcc(o){var st="#7a2e3f",g="<g transform='translate(226 20)'>";
   else if(o===4)g+=E("path",{d:"M8 4h34l-4 22a13 13 0 0 1-26 0z",fill:"#fff",stroke:st,"stroke-width":3,"stroke-linejoin":"round"})+E("path",{d:"M25 40v18M14 60h22",stroke:st,"stroke-width":3,"stroke-linecap":"round"})+E("circle",{cx:22,cy:16,r:3,fill:"#d4a24c"})+E("circle",{cx:32,cy:22,r:2.5,fill:"#d4a24c"});
   return g+"</g>";}
 function vDoll(){
-  stopGame();G.doll=dollNew();
+  stopGame();var sv=ls("cg_doll");G.doll=(sv&&PROF[sv.p]&&sv.cl<CLR.length&&OCC[sv.oc||0])?sv:dollNew();
   app.innerHTML=back("Jogos","games")+'<h2>Vista a empreendedora</h2><p>Escolha a profissão, para que é o look e monte a sua bonequinha. Cada look salvo vale pontos e conquistas.</p><div id="dcard"></div><div class="dwrap"><div class="dbox" id="dbox"></div><div id="dctl"></div></div><div id="dbtn"></div>'+foot();
   dollDraw();
 }
 function dollDraw(){
-  var s=G.doll,P=PROF[s.p];
+  var s=G.doll,P=PROF[s.p];ls("cg_doll",s);
   document.getElementById("dbox").innerHTML=dollSvg(s);
   document.getElementById("dcard").innerHTML='<div class="card"><b class="pl">'+ico(P.e,20)+P.n+'</b><p style="margin:4px 0 0">Um app para ela poderia ter '+P.idea+'.</p>'+(s.oc?'<p style="margin:8px 0 0"><b>'+OCC[s.oc][0]+':</b> '+OCC[s.oc][3].why+'</p>':'')+'</div>';
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
@@ -864,24 +902,32 @@ function dollDraw(){
   document.getElementById("dbtn").innerHTML='<div class="sp"></div><button class="ghost" onclick="dollRand()">Surpreenda-me</button><div class="sp"></div><button class="primary" onclick="dollSave()">Salvar minha bonequinha</button><div class="sp"></div>'+contactBtn("Quero um app para a minha profissão","Oi, Eve! Montei a bonequinha de "+P.n+" no app da Corage e quero um app para a minha profissão.","ghost")+'<div id="dres"></div>';
 }
 function dollSet(k,v){var d=G.doll;d[k]=v;
-  if(k==="p"){var o1=OCC[d.oc||0][3];d.cl=o1?o1.cl:PROF[v].c;}
+  if(k==="p"){var o1=OCC[d.oc||0][3];d.cl=o1?o1.cl:dollCol(v);}
   if(k==="oc"){var o=OCC[v][3];if(o){d.cl=o.cl;d.gl=o.acc.gl;d.br=o.acc.br;d.co=o.acc.co;d.wa=o.acc.wa;d.bg=o.acc.bg;}else{d.cl=PROF[d.p].c;}}
   dollDraw();}
 function dollTog(k){G.doll[k]=!G.doll[k];dollDraw();}
 function dollRand(){var o=dollNew();G.doll=o;dollDraw();}
 function dollSave(){
-  var svg=document.getElementById("dsv"),xml=new XMLSerializer().serializeToString(svg),img=new Image();
+  var d=G.doll,first=!d.saved;
+  if(first){d.saved=true;addPts(10);}badge("look");if(d.oc===1)badge("contrato");if(d.oc===2)badge("conquista");ls("cg_doll",d);
+  var res=document.getElementById("dres");
+  res.innerHTML='<div class="card" style="animation:up .35s both"><b>Look salvo neste celular!</b><p style="margin:6px 0 0">'+(first?'Você ganhou 10 pontos. ':'')+'Ele fica aqui quando você voltar. Preparando a imagem...</p></div>';
+  var svg=document.getElementById("dsv"),xml=new XMLSerializer().serializeToString(svg).replace("<svg ","<svg width='300' height='440' "),img=new Image();
+  img.onerror=function(){res.innerHTML='<div class="card"><b>Look salvo neste celular!</b><p style="margin:6px 0 0">Não consegui gerar a imagem. Tire um print da tela para guardar.</p></div>';};
   img.onload=function(){
     var cv=document.createElement("canvas");cv.width=900;cv.height=1320;cv.getContext("2d").drawImage(img,0,0,900,1320);
     cv.toBlob(function(b){
-      if(!G.doll.saved){G.doll.saved=true;addPts(10);}badge("look");if(G.doll.oc===1)badge("contrato");if(G.doll.oc===2)badge("conquista");
-      var f=null;try{f=new File([b],"bonequinha-corage.png",{type:"image/png"});}catch(e){}
-      if(f&&navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:"Minha bonequinha empreendedora"}).catch(function(){});}
-      else{var u=URL.createObjectURL(b);document.getElementById("dres").innerHTML='<div class="card"><b>Pronto!</b> Segure a imagem e toque em Salvar.<img src="'+u+'" alt="Sua bonequinha" style="width:100%;border-radius:18px;margin-top:10px"></div>';}
+      if(!b){img.onerror();return;}
+      var u=URL.createObjectURL(b);G.dblob=b;
+      var canSh=false;try{var f=new File([b],"bonequinha-corage.png",{type:"image/png"});canSh=!!(navigator.canShare&&navigator.canShare({files:[f]}));G.dfile=f;}catch(e){}
+      res.innerHTML='<div class="card" style="animation:up .35s both"><b>Look salvo neste celular!</b><p style="margin:6px 0 10px">'+(first?'Você ganhou 10 pontos. ':'')+'Quer guardar a imagem nas suas fotos?</p><img src="'+u+'" alt="Sua bonequinha" style="width:70%;display:block;margin:0 auto 12px;border-radius:18px">'+
+        (canSh?'<button class="primary" onclick="dollShare()">Salvar ou compartilhar</button><div class="sp"></div>':'')+
+        '<a class="ghost" href="'+u+'" download="bonequinha-corage.png" style="display:block;text-align:center;text-decoration:none">Baixar a imagem</a><p class="small" style="margin:10px 0 0">Se preferir, segure a imagem e escolha Salvar nas Fotos.</p></div>';
     },"image/png");
   };
   img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(xml);
 }
+function dollShare(){if(G.dfile&&navigator.share){navigator.share({files:[G.dfile],title:"Minha bonequinha empreendedora"}).catch(function(){});}}
 
 /* Palavras cruzadas (sorteadas a cada jogo) */
 var CWB=[["MARCA","Nome, cores e jeito de falar do seu negócio"],["APP","Programa que fica no celular, com o seu ícone"],["LINK","Endereço que você manda para abrir o app"],["QUIZ","Teste de perguntas rápidas"],["CLIENTE","Quem contrata ou compra o seu trabalho"],["LOGO","Símbolo que identifica a marca"],["FEED","Onde ficam as suas publicações no Instagram"],["CORES","Marsala e rosé são as da Corage"],["IMAGEM","O que as pessoas veem e sentem sobre você"],["POST","Publicação nas redes"],["CADASTRO","Registro do contato de quem se interessou"],["REELS","Vídeos curtos do Instagram"],["PARCERIA","Quando duas profissionais trabalham juntas"],["NEGOCIO","O trabalho que você faz e vende"],["META","Objetivo que você quer alcançar"],["VENDA","Quando alguém compra de você"],["BIO","Texto curto no topo do perfil"],["CELULAR","Aparelho onde o app abre"],["AGENDA","Onde ficam os seus horários"],["STORIES","Publicações do Instagram que somem em 24 horas"],["CONTATO","Como a cliente fala com você"],["NOME","Como o seu negócio é chamado"]];
@@ -1039,7 +1085,7 @@ function vPrivacy(){
    '<div class="sp"></div>'+contactBtn("Falar sobre os meus dados","Oi, Eve! Quero falar sobre os meus dados no app da Corage.","ghost")+'<div class="sp"></div><button class="ghost" onclick="wipeData()">Apagar meus dados deste celular</button>'+foot();
   app.innerHTML=h;
 }
-function wipeData(){if(!confirm("Apagar perfil, pontos e recordes deste celular?"))return;try{["cg_profile","cg_prog","cg_pts","cg_seen","cg_best_snake","cg_cw","cg_ui","cg_badges","cg_demo"].forEach(function(k){localStorage.removeItem(k);});}catch(e){}location.reload();}
+function wipeData(){if(!confirm("Apagar perfil, pontos e recordes deste celular?"))return;try{["cg_profile","cg_prog","cg_pts","cg_seen","cg_best_snake","cg_cw","cg_ui","cg_badges","cg_demo2","cg_doll"].forEach(function(k){localStorage.removeItem(k);});}catch(e){}location.reload();}
 function vAccess(){
   var z=ui.zoom||1;
   var h=back("Uso","home")+'<h2>Uso e acessibilidade</h2><p>Deixe o app do seu jeito.</p><label class="l">Tamanho do texto</label>';
@@ -1053,8 +1099,29 @@ function setMotion(v){ui.nomo=v;ls("cg_ui",ui);applyUI();vAccess();}
 
 
 /* Prévia do app (demonstração trancada) */
-var DEMO=ls("cg_demo")||{biz:"",area:null,color:0},dMode="form";
-var DCOL=[["Marsala","#7a2e3f"],["Verde petróleo","#1f5f5b"],["Azul","#2d4a7a"],["Terracota","#a8532f"],["Roxo","#5d4180"],["Grafite","#38393d"]];
+var DEMO=ls("cg_demo2")||{biz:"",area:null,other:"",col:""},dMode="form";
+var DPAL={
+"Psicologia":["#3f5d7a","#5b7f6a","#5d4180","#7a2e3f"],
+"Nutrição":["#3f7a4f","#c26a2e","#1f5f5b","#6b8e23"],
+"Odontologia":["#1f6f8b","#2d4a7a","#1f5f5b"],
+"Estética e beleza":["#b04a6a","#7a2e3f","#a8532f","#5d4180"],
+"Fisioterapia":["#2d6a8f","#1f5f5b","#3f7a4f"],
+"Pilates":["#5d4180","#a8532f","#3f7a4f"],
+"Fonoaudiologia":["#5d4180","#2d6a8f","#b04a6a"],
+"Medicina":["#1f6f8b","#2d4a7a","#3f7a4f"],
+"Mentoria e consultoria":["#27385a","#7a2e3f","#8a6a2a"],
+"Coaching":["#c26a2e","#7a2e3f","#27385a"],
+"Advocacia":["#27385a","#38393d","#7a2e3f"],
+"Contabilidade":["#27385a","#1f5f5b","#38393d"],
+"Marketing e redes sociais":["#7a2e3f","#c26a2e","#5d4180","#1f5f5b"],
+"Arquitetura":["#38393d","#a8532f","#6b4f3a"],
+"Moda e estilo":["#7a2e3f","#b04a6a","#38393d","#5d4180"],
+"Culinária e confeitaria":["#c26a2e","#b04a6a","#7a2e3f"],
+"Fotografia":["#38393d","#27385a","#a8532f"],
+"Educação e cursos":["#2d4a7a","#3f7a4f","#c26a2e"],
+"Terapias e arteterapia":["#5d4180","#a8532f","#1f5f5b","#b04a6a"]
+};
+var DPALDEF=["#7a2e3f","#1f5f5b","#27385a","#5d4180","#a8532f"];
 var DTOOLS={
 "Psicologia":[["quiz","Quiz de autoconhecimento"],["book","Diário de emoções"],["heart","Materiais para você"],["chat","Agendar uma conversa"]],
 "Nutrição":[["apple","Quiz da rotina alimentar"],["check","Desafio de 7 dias"],["file","Cardápio e lista de compras"],["chat","Agendar consulta"]],
@@ -1062,40 +1129,56 @@ var DTOOLS={
 "Estética e beleza":[["sparkle","Quiz da sua pele"],["card","Cartão de fidelidade"],["camera","Antes e depois"],["chat","Agendar horário"]],
 "Fisioterapia":[["pulse","Quiz de postura"],["check","Desafio de 7 dias"],["book","Exercícios para casa"],["chat","Agendar atendimento"]],
 "Pilates":[["pulse","Quiz de postura"],["check","Desafio de 7 dias"],["book","Aulas e horários"],["chat","Agendar aula"]],
+"Fonoaudiologia":[["quiz","Quiz de voz e fala"],["mic","Exercícios guiados"],["book","Materiais para você"],["chat","Agendar atendimento"]],
+"Medicina":[["quiz","Quiz de rotina"],["book","Orientações gerais"],["check","Lembrete de retorno"],["chat","Agendar consulta"]],
 "Mentoria e consultoria":[["compass","Quiz: o seu momento"],["kanban","Plano de ação"],["book","Materiais"],["chat","Conversa de diagnóstico"]],
+"Coaching":[["compass","Quiz: o seu momento"],["check","Desafio de 7 dias"],["book","Materiais"],["chat","Sessão experimental"]],
+"Advocacia":[["quiz","Quiz para entender o seu caso"],["file","Guia de documentos"],["book","Dúvidas frequentes"],["chat","Falar com a advogada"]],
+"Contabilidade":[["coin","Calculadora simples"],["file","Lista de documentos"],["check","Lembrete de prazos"],["chat","Pedir orçamento"]],
+"Marketing e redes sociais":[["quiz","Quiz: o seu perfil está pronto?"],["bulb","Ideias de post"],["kanban","Calendário de conteúdo"],["chat","Pedir orçamento"]],
 "Arquitetura":[["house","Quiz do seu espaço"],["palette","Inspirações"],["camera","Projetos feitos"],["chat","Pedir orçamento"]],
+"Moda e estilo":[["hanger","Quiz de estilo"],["palette","Inspirações de looks"],["camera","Vitrine de peças"],["chat","Falar comigo"]],
+"Culinária e confeitaria":[["apple","Cardápio com fotos"],["card","Cartão de fidelidade"],["check","Lista de encomendas"],["chat","Fazer pedido"]],
+"Fotografia":[["camera","Portfólio de ensaios"],["quiz","Quiz: que ensaio combina"],["card","Pacotes e valores"],["chat","Pedir orçamento"]],
+"Educação e cursos":[["book","Aula de amostra"],["check","Desafio de 7 dias"],["quiz","Quiz de nível"],["chat","Falar comigo"]],
 "Terapias e arteterapia":[["quiz","Quiz de bem-estar"],["palette","Atividade criativa"],["book","Materiais para você"],["chat","Agendar uma conversa"]]
 };
 var DDEF=[["quiz","Quiz para conhecer você"],["bulb","Dicas do dia"],["book","Materiais"],["chat","Falar comigo"]];
 function dEsc(s){return String(s||"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
-function dKeep(){var b=document.getElementById("dbiz");if(b){DEMO.biz=b.value.trim();ls("cg_demo",DEMO);}}
-function dArea(i){dKeep();DEMO.area=i;ls("cg_demo",DEMO);vDemo();}
-function dColor(i){dKeep();DEMO.color=i;ls("cg_demo",DEMO);vDemo();}
-function dShow(){dKeep();if(!DEMO.biz){document.getElementById("de").textContent="Escreva o nome do negócio.";return;}if(DEMO.area==null){document.getElementById("de").textContent="Escolha a área de atuação.";return;}dMode="prev";done("demo");vDemo();window.scrollTo(0,0);}
-function dAgain(){DEMO={biz:"",area:null,color:DEMO.color};ls("cg_demo",DEMO);dMode="form";vDemo();window.scrollTo(0,0);}
+function dSave(){ls("cg_demo2",DEMO);}
+function dRoll(){var pal=DPAL[DEMO.area]||DPALDEF,n=pal[Math.floor(Math.random()*pal.length)],g=0;while(n===DEMO.col&&pal.length>1&&g++<10){n=pal[Math.floor(Math.random()*pal.length)];}DEMO.col=n;}
+function dKeep(){var b=document.getElementById("dbiz"),o=document.getElementById("dother");if(b)DEMO.biz=b.value.trim();if(o)DEMO.other=o.value.trim();dSave();}
+function dArea(i){dKeep();DEMO.area=areas[i];dRoll();dSave();vDemo();}
+function dShow(){dKeep();var e=document.getElementById("de");
+  if(!DEMO.biz){e.textContent="Escreva o nome do negócio.";return;}
+  if(DEMO.area==null){e.textContent="Escolha a área de atuação.";return;}
+  if(DEMO.area==="Outra área"&&!DEMO.other){e.textContent="Escreva a sua área.";return;}
+  if(!DEMO.col)dRoll();dSave();dMode="prev";done("demo");vDemo();window.scrollTo(0,0);}
+function dAgain(){DEMO={biz:"",area:null,other:"",col:""};dSave();dMode="form";vDemo();window.scrollTo(0,0);}
 function dEdit(){dMode="form";vDemo();window.scrollTo(0,0);}
+function dNewCol(){dRoll();dSave();vDemo();}
 function dTap(i,lk){var r=document.getElementById("dres");if(!r)return;
   if(lk){r.innerHTML='<div class="card" style="animation:up .35s both"><b>'+ico("lock",18)+' Esta parte vem no app completo.</b><p style="margin:6px 0 0">Aqui ela abre com os seus textos, as suas fotos e a sua marca.</p></div>';}
   else{r.innerHTML='<div class="card" style="animation:up .35s both"><b>'+ico("chat",18)+' Esta já está liberada.</b><p style="margin:6px 0 0">Assim a sua cliente chama você direto no WhatsApp.</p></div>';}}
 function vDemo(){
-  var ar=areas[DEMO.area==null?areas.length-1:DEMO.area],AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
+  var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
+  var isO=DEMO.area==="Outra área",ar=isO?(DEMO.other||"Outra área"):(DEMO.area||"");
   var h;
   if(dMode==="prev"){
-    var c=DCOL[DEMO.color||0][1],tl=DTOOLS[ar]||DDEF,nm=dEsc(DEMO.biz);
+    var c=DEMO.col||"#7a2e3f",tl=DTOOLS[DEMO.area]||DDEF,nm=dEsc(DEMO.biz);
     h=back("Veja o seu app","home")+'<h2>O seu app, em prévia</h2><p>Toque nas partes para testar.</p>'+
      '<div class="dph"><div class="dh" style="background:'+c+'"><div class="dav">'+dEsc(DEMO.biz.charAt(0).toUpperCase())+'</div><div><b>'+nm+'</b><span>'+dEsc(ar)+'</span></div></div><div class="db"><p>Olá! O que você quer fazer hoje?</p><div class="dgr">';
     for(var i=0;i<tl.length;i++){var lk=(i<3);h+='<button class="dtl'+(lk?' lk':'')+'" onclick="dTap('+i+','+(lk?1:0)+')">'+(lk?'<span class="dl">'+ico("lock",16)+'</span>':'')+'<span class="di" style="color:'+c+'">'+ico(tl[i][0],22)+'</span><span class="dt">'+tl[i][1]+'</span></button>';}
     h+='</div><button class="dtl lk" style="width:100%;margin-top:10px;min-height:0;flex-direction:row;align-items:center;gap:12px" onclick="dTap(9,1)"><span class="dl">'+ico("lock",16)+'</span><span class="dav" style="width:42px;height:42px;font-size:20px;background:'+c+';color:#fff;border-radius:50%;display:grid;place-items:center;flex:none;font-family:Georgia,serif;font-weight:700">I</span><span class="dt" style="filter:none;opacity:1"><b style="display:block">Iasmin, sua assistente virtual</b>Cuida da sua imagem e do seu conteúdo</span></button></div></div><div id="dres"></div><p class="small">É uma prévia para você ver como pode ficar. No app de verdade, tudo abre.</p>'+
      contactBtn("Quero liberar o meu app","Oi, Eve! Vi a prévia do app de "+DEMO.biz+" ("+ar+") e quero o meu Primeiro app.","primary pulse")+
-     '<div class="sp"></div><button class="ghost" onclick="dEdit()">Mudar nome, área ou cor</button><div class="sp"></div><button class="ghost" onclick="dAgain()">Fazer para outra pessoa</button>'+foot();
+     '<div class="sp"></div><button class="ghost" onclick="dNewCol()">Sortear outra cor</button><div class="sp"></div><button class="ghost" onclick="dEdit()">Mudar nome ou área</button><div class="sp"></div><button class="ghost" onclick="dAgain()">Fazer para outra pessoa</button>'+foot();
   }else{
-    h=back("Veja o seu app","home")+'<h2>Veja o seu app</h2><p>Responda em 3 toques e veja uma prévia com o seu nome.</p>'+
+    h=back("Veja o seu app","home")+'<h2>Veja o seu app</h2><p>Responda em 2 toques e veja uma prévia com o seu nome.</p>'+
      '<label class="l" for="dbiz">Nome do seu negócio</label><input type="text" id="dbiz" maxlength="40" value="'+dEsc(DEMO.biz)+'" autocomplete="organization">'+
-     '<label class="l">Sua área de atuação</label><div class="acc" '+AC+'><button><div><span>Escolha uma</span><b>'+(DEMO.area==null?"Toque para escolher":areas[DEMO.area])+'</b></div><em>+</em></button><div class="body">';
-    for(var a=0;a<areas.length;a++){h+='<button class="opt'+(DEMO.area===a?' on':'')+'" onclick="dArea('+a+')">'+areas[a]+'</button>';}
-    h+='</div></div><label class="l">Cor do seu app</label><div class="dcl">';
-    for(var k=0;k<DCOL.length;k++){h+='<button class="'+((DEMO.color||0)===k?'on':'')+'" onclick="dColor('+k+')" aria-label="'+DCOL[k][0]+'"><i style="background:'+DCOL[k][1]+'"></i>'+DCOL[k][0]+'</button>';}
-    h+='</div><div id="de" style="color:#b3261e;font-weight:600;margin:8px 0"></div><button class="primary pulse" onclick="dShow()">Ver o meu app</button>'+foot();
+     '<label class="l">Sua área de atuação</label><div class="acc" '+AC+'><button><div><span>Escolha uma</span><b>'+(DEMO.area==null?"Toque para escolher":dEsc(ar))+'</b></div><em>+</em></button><div class="body">';
+    for(var a=0;a<areas.length;a++){h+='<button class="opt'+(DEMO.area===areas[a]?' on':'')+'" onclick="dArea('+a+')">'+areas[a]+'</button>';}
+    h+='</div></div>'+(isO?'<input type="text" id="dother" maxlength="40" placeholder="Escreva a sua área" value="'+dEsc(DEMO.other)+'">':'')+
+     '<div id="de" style="color:#b3261e;font-weight:600;margin:8px 0"></div><button class="primary pulse" onclick="dShow()">Ver o meu app</button>'+foot();
   }
   app.innerHTML=h;
 }
@@ -1106,7 +1189,7 @@ function vContact(){
   app.innerHTML=back("Contato","home")+'<h2>Deixe seu contato</h2><p>Eu respondo pelo WhatsApp.</p>'+
    '<label class="l" for="fn">Seu nome</label><input type="text" id="fn" value="'+(profile.name||"")+'" autocomplete="given-name">'+
    '<label class="l" for="fw">Seu WhatsApp, com DDD</label><input type="text" inputmode="tel" id="fw" placeholder="11 90000-0000" autocomplete="tel">'+
-   '<label class="l" for="fa">Sua área de atuação</label><select id="fa">'+opts(areas,profile.area)+'</select>'+
+   '<label class="l" for="fa">Sua área de atuação</label><select id="fa" onchange="document.getElementById(\'fother\').style.display=(this.value===\'Outra área\'?\'block\':\'none\')">'+opts(areas,(profile.area&&areas.indexOf(profile.area)<0?"Outra área":profile.area))+'</select><input type="text" id="fother" maxlength="40" placeholder="Escreva a sua área" value="'+(profile.area&&areas.indexOf(profile.area)<0?dEsc(profile.area):"")+'" style="display:'+(profile.area&&areas.indexOf(profile.area)<0?'block':'none')+'">'+
    '<label class="l">O que você procura?</label><p class="small" style="margin:0 0 8px">Não sabe ainda? Sem problema, escolha a última.</p>'+needAcc()+
    '<label class="l" for="fm">Quer contar mais? (opcional)</label><textarea id="fm" rows="3"></textarea>'+
    '<label class="chk"><input type="checkbox" id="fc"><span>Concordo em ser contatada pela Corage para falar sobre o meu app. Uso o seu contato só para isso.</span></label><button class="link" type="button" onclick="go(\'privacy\')" style="margin:-8px 0 12px">Ler a política de privacidade</button><p class="small">Não escreva dados de saúde, documentos ou senhas na mensagem.</p>'+
@@ -1121,8 +1204,9 @@ function needAcc(){
 }
 function pickNeed(i,b){needSel=NEEDS[i];document.getElementById("needlbl").textContent=needSel;var bs=document.getElementById("needbody").querySelectorAll(".opt");for(var j=0;j<bs.length;j++){bs[j].classList.toggle("on",j===i);}var a=b.closest(".acc");if(a)a.classList.remove("open");}
 function sendForm(){
-  var n=document.getElementById("fn").value.trim(),w=document.getElementById("fw").value.replace(/\D/g,""),a=document.getElementById("fa").value,nd=needSel,m=document.getElementById("fm").value.trim(),c=document.getElementById("fc").checked,e=document.getElementById("fe");
+  var n=document.getElementById("fn").value.trim(),w=document.getElementById("fw").value.replace(/\D/g,""),a=document.getElementById("fa").value,fo=document.getElementById("fother"),nd=needSel,m=document.getElementById("fm").value.trim(),c=document.getElementById("fc").checked,e=document.getElementById("fe");
   if(!n){e.textContent="Escreva o seu nome.";return;}
+  if(a==="Outra área"&&fo&&fo.value.trim())a=fo.value.trim();
   if(w.length<10){e.textContent="Confira o WhatsApp, com DDD.";return;}
   if(!c){e.textContent="Marque a caixinha para eu poder te chamar.";return;}
   var done_=function(msg){app.innerHTML='<h2>Recebi!</h2><div class="card"><p style="margin:0">'+msg+'</p></div><button class="primary" onclick="go(\'home\')">Voltar ao início</button>'+foot();window.scrollTo(0,0);};
