@@ -279,7 +279,7 @@ var PORTFOLIO = "https://eve-imagem-e-marca.github.io/portfolio";
 var APP_NUTRI = "https://eve-imagem-e-marca.github.io/quiz-da-nutri/";
 var APP_PSI = "https://eve-imagem-e-marca.github.io/psi.keila/";
 // Valores dos planos: deixe vazio para mostrar "Valor combinado na conversa". Ex.: "R$ 000"
-var PRICES = {simples:"", completo:"", plataforma:"", medida:""};
+var PRICES = {simples:"<s style='opacity:.6;font-weight:400;font-size:.8em'>De R$ 897</s><br>R$ 497 <span style='font-size:.6em;font-weight:600'>Black Friday</span><br><span style='font-size:.55em;font-weight:500'>ou em até 12x</span>", completo:"", plataforma:"", medida:""};
 // Formulário do Google (opcional). Enquanto url estiver vazio, o contato abre o seu WhatsApp com a mensagem pronta.
 var FORM = {url:"https://docs.google.com/forms/d/e/1FAIpQLScyT9ZNA5gfp2EYh7K2-wV5sPnzooNaoH9LEU_owIrUt0Vyag/formResponse", f:{name:"entry.1493487418", whats:"entry.132726636", area:"entry.976519288", need:"entry.1445957721", msg:"entry.572195859"}};
 
@@ -629,7 +629,7 @@ function vPlans(){
    acc("Um lugar só seu","Você deixa de depender só do Instagram. Quem se interessou deixa o contato, e você fala com essas pessoas sem depender do algoritmo.")+
    '<h3 style="margin-top:22px">Escolha o seu app</h3>';
   var plans=[
-   ["simples","Primeiro app","Para começar",["Um teste ou quiz da sua área","Cadastro de quem se interessar","Botão para o seu WhatsApp","Link e QR Code para divulgar","As suas cores e o seu jeito de falar"]],
+   ["simples","Primeiro app","Para começar",["Um teste ou quiz da sua área","Cadastro de quem se interessar","Botão para o seu WhatsApp","Link e QR Code para divulgar","As suas cores e o seu jeito de falar","Imagem e conteúdo com a Iasmin, a assistente virtual"]],
    ["completo","App Completo","Para se aproximar de quem te segue",["Tudo do Primeiro app","Desafio de 7 dias","Calculadoras ou ferramentas da sua área","Instalação no celular, com o seu ícone","Área só sua, com ideias de posts e calendário"]],
    ["plataforma","Plataforma de ensino","Para quem ensina e tem vídeos",["Aulas em vídeo, em etapas","Exercícios e acompanhamento do progresso","Acesso só para quem comprou","Pensada nos moldes do Método EVEC, com a sua marca","Funciona no celular, com o seu ícone"]],
    ["medida","Sob medida","Para um projeto maior",["Plataforma pensada para o seu negócio","Conversa para entender o que suas clientes precisam","A gente combina o que entra"]]
