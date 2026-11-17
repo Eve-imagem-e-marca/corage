@@ -1285,7 +1285,7 @@ function sendForm(){
   if(!c){e.textContent="Marque a caixinha para eu poder te chamar.";return;}
   var done_=function(msg){app.innerHTML='<h2>Recebi!</h2><div class="card"><p style="margin:0">'+msg+'</p></div><button class="primary" onclick="go(\'home\')">Voltar ao início</button>'+foot();window.scrollTo(0,0);};
   var txt="Oi, Eve! Sou "+n+" ("+a+"). Procuro: "+nd+"."+(m?" "+m:"")+" Meu WhatsApp: "+w;
-  if(FORM.url){var fd=new FormData();fd.append(FORM.f.name,n);fd.append(FORM.f.whats,w);fd.append(FORM.f.area,a);fd.append(FORM.f.need,nd);if(FORM.f.msg)fd.append(FORM.f.msg,m);
+  if(FORM.url){var fd=new FormData();fd.append(FORM.f.name,n);fd.append(FORM.f.whats,w);fd.append(FORM.f.area,a||"-");fd.append(FORM.f.need,nd);fd.append(FORM.f.msg,m||"-");
     fetch(FORM.url,{method:"POST",mode:"no-cors",body:fd}).then(function(){done_("Seu contato chegou. Eu respondo pelo WhatsApp em breve.");}).catch(function(){window.open(waUrl(txt),"_blank");done_("Abri o seu WhatsApp com a mensagem pronta. É só enviar.");});
   }else{window.open(waUrl(txt),"_blank");done_("Abri o seu WhatsApp com a mensagem pronta. É só enviar.");}
 }
