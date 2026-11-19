@@ -888,7 +888,7 @@ function vHome(){
   var h='<section class="hero" style="padding-bottom:0"><h1 style="margin-bottom:6px">'+nm+'</h1></section>';
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
   function box(ic,title,sub,body){return '<div class="acc" '+AC+'><button><div class="cic" style="width:40px;height:40px;font-size:0">'+ico(ic,22)+'</div><div style="flex:1"><b>'+title+'</b><span>'+sub+'</span></div><em>+</em></button><div class="body">'+body+'</div></div>';}
-  h+='<div class="card giftc"><div class="giftk">'+ico("sparkle",22)+'</div><div style="flex:1"><b>Que bom que você chegou aqui!</b><p class="small" style="margin:4px 0 10px">'+(new Date().getMonth()===10&&new Date().getDate()===19?'Hoje é o Dia do Empreendedorismo Feminino. ':'')+'Seu presente: 10 ferramentas gratuitas.</p><button class="primary glass-sm" style="width:100%" onclick="go(\'presente\')">Abrir meu presente</button></div></div>';
+  h+='<div class="card giftc"><div class="giftk">'+ico("sparkle",22)+'</div><div style="flex:1"><b>Que bom que você chegou aqui!</b><p class="small" style="margin:4px 0 10px">'+(new Date().getMonth()===10&&new Date().getDate()===19?'Hoje é o Dia do Empreendedorismo Feminino. ':'')+'Seu presente: 11 ferramentas gratuitas.</p><button class="primary glass-sm" style="width:100%" onclick="go(\'presente\')">Abrir meu presente</button></div></div>';
   h+='<div class="card ia"><div class="iaw"><div class="iaav2">I</div><div><b>1. Comece com a Iasmin</b><small>Assistente virtual da CorAge</small></div></div><p style="margin:0 0 12px">Em poucos passos você conhece o app e ganha um Raio-X do seu trabalho.</p>'+
    (nx?'<div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><span class="small" style="margin:0">'+nx[1]+'</span><button class="primary glass-sm pulse" onclick="go(\''+nx[0]+'\')">'+(started?"Continuar":"Começar")+' →</button></div>':contactBtn("Conversar com a CorAge","Oi, Eve! Fiz o Raio-X completo e quero conversar.","primary glass-sm pulse"))+
    '<div style="text-align:center"><button class="link" onclick="iaOpen()">Tirar uma dúvida com a Iasmin</button></div></div>';
@@ -1947,12 +1947,32 @@ function vChecklist(){
 }
 function vPresente(){
   var G=[
-   ["Organizar","#6e2539",[["biz","coin","Gestão do negócio"],["checklist","check","Checklist"],["crm","heart","Clientes e metas"],["comercial","calendar","Calendário comercial"]]],
+   ["Organizar","#6e2539",[["biz","coin","Gestão do negócio"],["checklist","check","Checklist"],["kanban","puzzle","Quadro de tarefas"],["crm","heart","Clientes e metas"],["comercial","calendar","Calendário comercial"]]],
    ["Legalizar e crescer","#1f4e52",[["mei","file","MEI"],["apoio","briefcase","Onde buscar ajuda"],["rede","users","Rede de empreendedoras"],["eventos","calendar","Eventos grátis"]]],
    ["Marca","#8a6630",[["google","search","Google grátis"],["mind","sparkle","Mentalidade"]]]
   ],h='';
   G.forEach(function(g){h+='<div class="tlab" style="color:'+g[1]+'">'+g[0]+'</div><div class="tgrid">'+g[2].map(function(t){return '<button class="tile" onclick="go(\''+t[0]+'\')" style="--c:'+g[1]+'"><span class="ti">'+ico(t[1],26)+'</span><b>'+t[2]+'</b></button>';}).join('')+'</div>';});
-  app.innerHTML=back("Seu presente","home")+'<h2>Seu presente</h2><p>10 ferramentas gratuitas para o seu negócio.</p>'+h+starsBox("presente")+foot();
+  app.innerHTML=back("Seu presente","home")+'<h2>Seu presente</h2><p>11 ferramentas gratuitas para o seu negócio.</p>'+h+starsBox("presente")+foot();
+}
+var KBC=[["A fazer","#6e2539"],["Fazendo","#1f4e52"],["Aguardando","#b08a57"],["Feito","#6b4a36"]],KBT=0;
+var KBA=[[["Começar",1],["Apagar",-1]],[["Concluir",3],["Aguardar",2],["Voltar",0]],[["Retomar",1],["Concluir",3]],[["Reabrir",0],["Apagar",-1]]];
+function kbL(){var r=ls("cg_kb");return Array.isArray(r)?r:[];}
+function kbN(c){return kbL().filter(function(t){return t.s===c;}).length;}
+function kbMove(i,to){var r=kbL();if(!r[i])return;if(to===-1){r.splice(i,1);}else{if(to===1&&r[i].s!==1&&kbN(1)>=2){toast("Você já tem 2 em andamento. Conclua ou deixe uma aguardando.");return;}r[i].s=to;if(to===3){snd("coin");toast("Feito! Comemore. 🤎");}}ls("cg_kb",r);kbDraw();}
+function kbAdd(){var e=document.getElementById("kbn"),v=e.value.trim();if(!v){toast("Escreva a tarefa.");return;}var r=kbL();r.push({t:v,s:0});ls("cg_kb",r);e.value="";KBT=0;kbDraw();}
+function kbDump(){var e=document.getElementById("kbd"),L=e.value.split("\n").map(function(x){return x.replace(/^[\s\-•*]+/,"").trim();}).filter(Boolean);if(!L.length){toast("Escreva o que está na sua cabeça, uma coisa por linha.");return;}var r=kbL();L.forEach(function(t){r.push({t:t,s:0});});ls("cg_kb",r);e.value="";KBT=0;kbDraw();toast(L.length+" tarefa"+(L.length>1?"s":"")+" no quadro.");}
+function kbTab(i){KBT=i;kbDraw();}
+function kbDraw(){var r=kbL(),el=document.getElementById("kbl");if(!el)return;
+  var pills=KBC.map(function(c,i){return '<button class="dpill'+(KBT===i?' on':'')+'" onclick="kbTab('+i+')" style="'+(KBT===i?'border-color:'+c[1]+';color:'+c[1]+';':'')+'">'+c[0]+' '+kbN(i)+'</button>';}).join('');
+  var cards=r.map(function(t,i){return {t:t,i:i};}).filter(function(o){return o.t.s===KBT;}).map(function(o){var c=KBC[KBT][1];return '<div class="ckr" style="--c:'+c+'"><div style="padding:8px 0 6px;font-size:17px;line-height:1.35">'+dEsc(o.t.t)+'</div><div style="display:flex;gap:8px;flex-wrap:wrap">'+KBA[KBT].map(function(a){var col=a[1]===-1?'#6e2539':KBC[a[1]][1];return '<button class="ckl" style="--c:'+col+';margin:0" onclick="kbMove('+o.i+','+a[1]+')">'+(a[1]===-1?'Apagar':a[0])+'</button>';}).join('')+'</div></div>';}).join('');
+  var hint=["Tudo o que você precisa fazer.","No máximo 2 por vez. Foque no que está em andamento.","Depende de outra pessoa ou de uma resposta.","O que você já terminou. Comemore!"][KBT];
+  el.innerHTML='<div class="drow" style="margin-bottom:8px;flex-wrap:wrap">'+pills+'</div><p class="small" style="margin:0 0 8px">'+hint+'</p>'+(cards||'<p class="small">Nada por aqui ainda.</p>');}
+function vKanban(){
+  app.innerHTML=back("Quadro de tarefas","presente")+'<h2>Quadro de tarefas</h2><p>Tire tudo da cabeça e organize em 4 etapas. Fica salvo só no seu celular.</p>'+
+   '<div class="grps">'+dg("1. Descarregue a cabeça","#6e2539",'<p>Escreva uma tarefa ou preocupação por linha. Depois mande tudo para o quadro.</p><textarea id="kbd" rows="5" class="inp" placeholder="Ex.:&#10;Responder a cliente&#10;Postar no Instagram&#10;Pagar o MEI" style="'+BI+'"></textarea><button class="primary" style="margin-top:10px" onclick="kbDump()">Mandar para o quadro</button>')+'</div>'+
+   '<h3 style="margin:18px 0 8px">2. Seu quadro</h3><div id="kbl"></div>'+
+   '<label class="l" for="kbn">Nova tarefa</label><input id="kbn" class="inp" placeholder="Ex.: Ligar para o fornecedor" style="'+BI+'"><button class="primary" style="margin-top:10px" onclick="kbAdd()">Adicionar em A fazer</button>'+starsBox("quadro")+foot();
+  kbDraw();
 }
 function vGoogle(){
   var st=function(n,t){return '<li>'+ico("check",19)+'<span><b>'+n+'</b> '+t+'</span></li>';};
@@ -2195,7 +2215,7 @@ function crMetaDraw(){var g=gLoad(),e=document.getElementById("gb");if(!e)return
 function render(){
   var v=state.view;
   app.className="view";
-  if(v==="eve")vEve();else if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="mei")vMei();else if(v==="presente")vPresente();else if(v==="checklist")vChecklist();else if(v==="comercial")vComercial();else if(v==="google")vGoogle();else if(v==="apoio")vApoio();else if(v==="rede")vRede();else if(v==="eventos")vEventos();else if(v==="crm")vCrm();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
+  if(v==="eve")vEve();else if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="mei")vMei();else if(v==="kanban")vKanban();else if(v==="presente")vPresente();else if(v==="checklist")vChecklist();else if(v==="comercial")vComercial();else if(v==="google")vGoogle();else if(v==="apoio")vApoio();else if(v==="rede")vRede();else if(v==="eventos")vEventos();else if(v==="crm")vCrm();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
   var kids=app.children;for(var i=0;i<kids.length;i++){if(noA){kids[i].style.animation="none";}else{kids[i].style.animationDelay=(i*55)+"ms";}}
   noA=false;
   var tab=(v==="portfolio"||v==="plans")?v:"home";
