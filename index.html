@@ -713,6 +713,7 @@ var works=[
   {n:"Ferramentas",col:"#6e2539",items:[
    {n:"Roda do conteúdo",s:"Gire e ganhe uma ideia de post, com lembrete para postar",go:"wheel"},
    {n:"Raio-X do seu trabalho",s:"Veja em minutos o que já está forte e o que falta",go:"quiz"},
+   {n:"Mentalidade empreendedora",s:"Cards com frases de coragem para postar nos stories",go:"mind"},
    {n:"Jogos da empreendedora",s:"Vista a empreendedora, cobrinha, labirinto e palavras cruzadas, com moedas de coragem",go:"games"},
    {n:"O que você achou dessa experiência?",s:"Dê de 1 a 5 estrelas e conte como foi",go:"feedback"}]},
   {n:"Para ouvir e ler",col:"#e6d7b5",lt:1,items:[
@@ -815,6 +816,7 @@ function vHome(){
   var prog2='<div class="ring" style="display:flex;align-items:center;gap:14px;margin-bottom:10px"><svg viewBox="0 0 76 76" style="width:64px;height:64px"><circle class="bg" cx="38" cy="38" r="30"/><circle class="fg" cx="38" cy="38" r="30" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'" id="fg"/></svg><div><b>Raio-X: '+n+' de 4</b><br>'+ptsTag()+'</div></div><h3 style="margin:4px 0 8px">Conquistas</h3>'+badgeRow();
   if(n===4)badge("raiox");
   var list='';STEPS.forEach(function(s){list+='<button class="tool" onclick="go(\''+s[0]+'\')"><div class="ic">'+ico(s[3],26)+'</div><div><b>'+s[1]+'</b><span>'+s[2]+'</span></div>'+(prog[s[0]]?'<span class="ok">feito</span>':'')+'</button>';});
+  list+='<button class="tool" onclick="go(\'mind\')"><div class="ic">'+ico("sparkle",26)+'</div><div><b>Mentalidade empreendedora</b><span>Cards de coragem para os stories</span></div></button>';
   list+='<button class="tool" onclick="go(\'feedback\')"><div class="ic">'+ico("heart",26)+'</div><div><b>O que você achou?</b><span>Dê de 1 a 5 estrelas</span></div></button>';
   h+=box("compass","2. Ferramentas","Raio-X, roda, jogos e mais",list);
   h+='<button class="tool hl" onclick="go(\'demo\')"><div class="ic">'+ico("phone",26)+'</div><div><b>3. Veja o seu app</b><span>Uma prévia com o seu nome e a sua cor</span></div>'+(prog.demo?'<span class="ok">feito</span>':'')+'</button>';
@@ -1756,10 +1758,44 @@ function rateStar(cur,n){
   var l=document.getElementById("stl");if(l)l.textContent=L[n-1]+". Obrigada!";snd("coin");
   if(FORM.url){var o={};o[FORM.f.name]="Estrelas";o[FORM.f.whats]="-";o[FORM.f.area]=profile.area||"-";o[FORM.f.need]="Estrelas: "+n+" de 5 em "+cur;o[FORM.f.msg]="-";gSend(o,function(){});}
 }
+
+/* Mentalidade empreendedora: cards para os stories */
+var MF=["Coragem não é ausência de medo. É dar o primeiro passo mesmo com ele.","Você não precisa estar pronta. Precisa começar.","Pequenos passos todos os dias constroem um negócio inteiro.","O seu jeito de cuidar é o seu maior diferencial.","Cobrar o que você vale também é um ato de cuidado.","Progresso, não perfeição.","Quem aparece com verdade encontra as pessoas certas.","Descansar também faz parte de empreender.","Um não de hoje abre espaço para o sim certo.","Você já chegou mais longe do que imaginava. Continue.","Seu trabalho muda a vida de alguém. Mostre ele.","Confie no processo e comemore cada pequena vitória."];
+var MT=[{bg:["#6e2539","#4a1626"],tx:"#fbf8f3",ac:"#d9bc82"},{bg:["#1f4e52","#133336"],tx:"#fbf8f3",ac:"#d9bc82"},{bg:["#f6f0e4","#e6d7b5"],tx:"#6e2539",ac:"#b08a57"},{bg:["#b08a57","#8a6a3a"],tx:"#fffdf8",ac:"#fffdf8"},{bg:["#b5522a","#8c3c1c"],tx:"#fffdf8",ac:"#f0d7a8"}];
+var MS={i:0,t:0};
+function mindCanvas(){
+  var c=document.createElement("canvas");c.width=1080;c.height=1920;var x=c.getContext("2d"),T=MT[MS.t];
+  var g=x.createLinearGradient(0,0,1080,1920);g.addColorStop(0,T.bg[0]);g.addColorStop(1,T.bg[1]);x.fillStyle=g;x.fillRect(0,0,1080,1920);
+  x.strokeStyle=T.ac;x.lineWidth=3;x.strokeRect(60,60,960,1800);x.lineWidth=1;x.strokeRect(84,84,912,1752);
+  x.fillStyle=T.ac;x.font="italic 260px Georgia,serif";x.textAlign="center";x.fillText("“",540,500);
+  x.fillStyle=T.tx;x.font="600 70px 'Iowan Old Style',Palatino,Georgia,serif";
+  var w=MF[MS.i].split(" "),L=[],cur="";w.forEach(function(a){var t=cur?cur+" "+a:a;if(x.measureText(t).width>800){L.push(cur);cur=a;}else cur=t;});L.push(cur);
+  var y=960-(L.length*100)/2+40;L.forEach(function(l,i){x.fillText(l,540,y+i*100);});
+  x.strokeStyle=T.ac;x.lineWidth=2;x.beginPath();x.moveTo(440,1500);x.lineTo(640,1500);x.stroke();
+  x.fillStyle=T.ac;x.font="700 96px 'Iowan Old Style',Palatino,Georgia,serif";x.fillText("Coragem",540,1640);
+  x.fillStyle=T.tx;x.globalAlpha=.8;x.font="34px 'Iowan Old Style',Palatino,Georgia,serif";x.fillText("CorAge · Eve, imagem e marca",540,1760);x.globalAlpha=1;
+  return c;
+}
+function vMind(){
+  app.innerHTML=back("Mentalidade empreendedora","home")+'<h2>Mentalidade empreendedora</h2><p>Escolha a frase e a cor. Depois compartilhe nos seus stories.</p><div style="text-align:center"><img id="mimg" alt="Card com frase" style="width:62%;max-width:260px;border-radius:18px;box-shadow:0 12px 28px rgba(110,37,57,.25),0 0 0 1.5px #b08a57"></div><div class="drow" style="justify-content:center;margin:14px 0 6px" id="mcol"></div><div style="display:flex;gap:10px;margin-top:8px"><button class="primary" style="flex:1" onclick="mindNext()">Outra frase</button><button class="primary" style="flex:1" onclick="mindShare()">Compartilhar</button></div><p class="small" style="text-align:center">No menu que abrir, escolha Instagram e depois Stories.</p>'+starsBox("mind")+foot();
+  mindDraw();
+}
+function mindDraw(){
+  var c=mindCanvas();document.getElementById("mimg").src=c.toDataURL("image/png");
+  var h="";MT.forEach(function(t,i){h+='<button class="dsw'+(MS.t===i?' on':'')+'" style="background:linear-gradient(135deg,'+t.bg[0]+','+t.bg[1]+')" aria-label="Cor '+(i+1)+'" onclick="MS.t='+i+';mindDraw()"></button>';});
+  document.getElementById("mcol").innerHTML=h;
+}
+function mindNext(){MS.i=(MS.i+1)%MF.length;MS.t=(MS.t+1)%MT.length;mindDraw();snd("tap");}
+function mindShare(){
+  var c=mindCanvas();c.toBlob(function(b){var f=new File([b],"coragem.png",{type:"image/png"});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:"Coragem"}).catch(function(){});addPts(2);}
+    else{var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="coragem.png";document.body.appendChild(a);a.click();a.remove();toast("Imagem salva. Abra o Instagram e poste nos stories.");addPts(2);}
+  },"image/png");
+}
 function render(){
   var v=state.view;
   app.className="view";
-  if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
+  if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
   var kids=app.children;for(var i=0;i<kids.length;i++){if(noA){kids[i].style.animation="none";}else{kids[i].style.animationDelay=(i*55)+"ms";}}
   noA=false;
   var tab=(v==="portfolio"||v==="plans")?v:"home";
