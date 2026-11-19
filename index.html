@@ -207,7 +207,7 @@ select,textarea{width:100%;border:2px solid var(--line);border-radius:16px;paddi
 .cw td.f.ok,.cw td.f.hl.ok{background:#bfe6c3;border-color:#2f7d3a}
 .cw td.f.no,.cw td.f.hl.no{background:#f8c9c5;border-color:#b3261e}
 .cw td.f.ok input{color:#1f5f2a}.cw td.f.no input{color:#b3261e}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){.nomo-x{animation:none}}
 .dcl{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:6px}
 .dcl button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px;border:1.5px solid var(--line);border-radius:16px;background:#fff;font:inherit;font-size:14px;color:var(--ink);cursor:pointer}
 .dcl button i{width:30px;height:30px;border-radius:50%;display:block}
@@ -473,6 +473,13 @@ details.grp.why{margin:10px 0 14px}
 .pulse,.cta,.spk,.sym span{animation:none!important}
 .pulse,.cta{box-shadow:0 0 0 5px rgba(110,37,57,.14),0 8px 20px rgba(110,37,57,.18)!important;border:1px solid rgba(110,37,57,.35)!important}
 .spk{opacity:.7}
+
+/* borda translucida que circula devagar */
+@property --ang{syntax:"<angle>";initial-value:0deg;inherits:false}
+@keyframes circ{to{--ang:360deg}}
+.pulse,.cta,.view .tool.hl{position:relative;border:1px solid transparent!important;background-clip:padding-box}
+.pulse::before,.cta::before,.view .tool.hl::before{content:"";position:absolute;inset:-2px;border-radius:inherit;padding:2px;background:conic-gradient(from var(--ang),rgba(176,138,87,0) 0deg,rgba(176,138,87,.85) 60deg,rgba(255,255,255,.7) 90deg,rgba(176,138,87,0) 150deg,rgba(176,138,87,0) 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:circ 6s linear infinite!important;pointer-events:none}
+.pulse,.cta{box-shadow:0 8px 20px rgba(110,37,57,.18)!important}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -529,7 +536,8 @@ var bdg=ls("cg_badges")||{};
 var AUC=null;
 function sndOn(){try{return localStorage.getItem("cg_snd")!=="0";}catch(e){return true;}}
 function snd(t){if(!sndOn())return;try{AUC=AUC||new (window.AudioContext||window.webkitAudioContext)();var c=AUC;if(c.state==="suspended")c.resume();
-  var N={tap:[[540,0,.06,.12]],go:[[392,0,.12,.1],[587,.08,.2,.1]],tick:[[320,0,.03,.1]],coin:[[988,0,.1,.15],[1319,.09,.22,.15]],chime:[[523,0,.16,.14],[659,.12,.16,.14],[784,.24,.3,.14]]}[t]||[];
+  if(t==="go"){var L=Math.floor(c.sampleRate*.28),bf=c.createBuffer(1,L,c.sampleRate),d=bf.getChannelData(0);for(var i=0;i<L;i++){var x=i/L;d[i]=(Math.random()*2-1)*Math.sin(Math.PI*x)*Math.pow(1-x,.6);}var sr=c.createBufferSource();sr.buffer=bf;var fl=c.createBiquadFilter();fl.type="bandpass";fl.frequency.setValueAtTime(900,c.currentTime);fl.frequency.exponentialRampToValueAtTime(3800,c.currentTime+.26);fl.Q.value=.8;var gn=c.createGain();gn.gain.value=.5;sr.connect(fl);fl.connect(gn);gn.connect(c.destination);sr.start();return;}
+  var N={tap:[[1175,0,.12,.1],[1568,.05,.22,.07]],go:[],tick:[[320,0,.03,.1]],coin:[[988,0,.1,.15],[1319,.09,.22,.15]],chime:[[523,0,.16,.14],[659,.12,.16,.14],[784,.24,.3,.14]]}[t]||[];
   N.forEach(function(n){var o=c.createOscillator(),g=c.createGain();o.type="sine";o.frequency.value=n[0];var t0=c.currentTime+n[1];g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(n[3],t0+.01);g.gain.exponentialRampToValueAtTime(0.0001,t0+n[2]);o.connect(g);g.connect(c.destination);o.start(t0);o.stop(t0+n[2]+.05);});
   if(t==="tap"&&navigator.vibrate)navigator.vibrate(8);}catch(e){}}
 function sndIco(){var b=document.getElementById("sndh");if(!b)return;var on=sndOn();b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/>'+(on?'<path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>':'<path d="M16 9l5 6M21 9l-5 6"/>')+'</svg>';b.setAttribute("aria-label",on?"Desligar sons":"Ligar sons");}
@@ -632,10 +640,9 @@ var works=[
    {n:"Adilene, relações e adoção",s:"Quiz de relações, roda do bem-estar e conteúdo sobre adoção",u:"https://eve-imagem-e-marca.github.io/Adilene-App/"}]},
   {n:"Nutricionista",col:"#55683f",items:[
    {n:"App para nutricionista",s:"Quiz, calculadora de IMC e de água, desafio de 7 dias e cardápio com lista de compras",u:APP_NUTRI}]},
-  {n:"Consultoria de imagem",col:"#8f5b3d",items:[
-   {n:"Método EVEC",s:"Imagem, presença digital e posts prontos em minutos, no celular",u:"https://metodoevec.com.br"}]},
-  {n:"Cores",col:"#b5522a",items:[
-   {n:"Colorev",s:"App só de cores. Em breve"}]}]},
+  {n:"Consultoria de imagem",col:"#6e2539",items:[
+   {n:"Método EVEC",s:"Imagem, presença digital e posts prontos em minutos, no celular",u:"https://metodoevec.com.br"},
+   {n:"Colorev (cores)",s:"App só de cores. Em breve"}]}]},
  {ic:"pen",col:"#1f4e52",tg:"Marca e conteúdo",t:"Marca e conteúdo",d:"Tudo o que ajuda a sua marca a ser vista e lembrada:",groups:[
   {n:"Ferramentas",col:"#6e2539",items:[
    {n:"Roda do conteúdo",s:"Gire e ganhe uma ideia de post, com lembrete para postar",go:"wheel"},
