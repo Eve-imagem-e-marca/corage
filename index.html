@@ -483,6 +483,13 @@ details.grp.why{margin:10px 0 14px}
 
 #sres .tool,#sres .tool:nth-of-type(n){background:#fffdf8!important;border:1px solid #c9b48e!important;box-shadow:none!important}
 #sres .tool b{color:#6e2539!important}#sres .tool span{color:#2f2024!important}
+
+.stars{margin:22px 0 4px;padding:14px 12px;text-align:center;background:#fffdf8;border:1px solid #c9b48e;border-radius:18px}
+.stars b{display:block;font-family:Iowan Old Style,Palatino,Georgia,serif;color:#6e2539;font-size:18px;font-weight:600}
+.strow{display:flex;justify-content:center;gap:6px;margin:8px 0 2px}
+.st{background:none!important;border:0!important;box-shadow:none!important;padding:4px!important;color:#d9ccb3!important;cursor:pointer;width:auto!important;min-height:0!important}
+.st.on{color:#b08a57!important}
+.st svg{display:block}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -584,7 +591,8 @@ function badgeRow(){var h='<div class="brow">';BADGES.forEach(function(b){h+='<d
 function level(){return pts<20?"Tomando coragem":pts<60?"Ganhando coragem":pts<120?"Coragem em ação":"Pura coragem";}
 function ptsTag(){return '<span class="tag">'+pts+'c · '+level()+'</span>';}
 var STEPS=[["quiz","Seu trabalho precisa de um app?","6 perguntas rápidas","quiz"],["match","Que app combina com você?","2 escolhas","phone"],["wheel","Roda do conteúdo","Gire e ganhe uma ideia de post","wheel"],["games","Jogos com recompensas","Vista a empreendedora, cobrinha e mais","game"],["cases","Apps que deram certo","Com números e link para abrir","trophy"]];
-function nextAfter(cur){var i=-1;STEPS.forEach(function(s,j){if(s[0]===cur)i=j;});var n=STEPS[i+1];
+function nextAfter(cur){return starsBox(cur)+nextAfter0(cur);}
+function nextAfter0(cur){var i=-1;STEPS.forEach(function(s,j){if(s[0]===cur)i=j;});var n=STEPS[i+1];
   if(!n)return '<div class="sp"></div><h2 style="margin:6px 0 4px">E você também pode ter o seu</h2><p>Veja agora uma prévia do seu app, com o seu nome e as suas cores. É de graça.</p><button class="primary pulse" onclick="go(\'demo\')">Veja o seu app</button><div class="sp"></div>'+contactBtn("Conversar com a CorAge","Oi, Eve! Fiz o passo a passo do app da CorAge e quero conversar.","ghost");
   return '<div class="sp"></div><button class="primary" onclick="go(\''+n[0]+'\')">Próximo: '+n[1]+' →</button>';}
 var seen=1;
@@ -1701,6 +1709,20 @@ function installApp(){
 function isInst(){var st=false;try{st=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;if(st)localStorage.setItem("cg_inst","1");return st||localStorage.getItem("cg_inst")==="1";}catch(e){return st;}}
 function vLocked(w){
   app.innerHTML=back("Jogos","games")+'<h2>'+ico("lock",24)+' '+w+'</h2><p>Este jogo é um presente para quem deixa o CorAge na tela do celular. Instale (é rápido) e abra pelo ícone para liberar.</p><button class="primary" onclick="installApp()">Instalar o CorAge agora</button>'+foot();
+}
+
+/* estrelinhas ao encerrar cada atividade */
+var STAR='<svg viewBox="0 0 24 24" width="34" height="34" fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M12 3.2l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.6 6.8 19.4l1-5.9L3.5 9.4l5.9-.8z"/></svg>';
+function starsBox(cur){
+  var r=ls("cg_rate")||{},v=r[cur]||0,L=["Poderia melhorar","Mais ou menos","Bom","Muito bom","Amei"],h='<div class="stars" data-v="'+cur+'"><b>O que você achou dessa experiência?</b><div class="strow">';
+  for(var i=1;i<=5;i++)h+='<button type="button" class="st'+(v>=i?' on':'')+'" aria-label="'+i+' de 5: '+L[i-1]+'" onclick="rateStar(\''+cur+'\','+i+')">'+STAR+'</button>';
+  return h+'</div><span class="small" id="stl">'+(v?L[v-1]+'. Obrigada!':'Toque de 1 a 5 estrelas')+'</span></div>';
+}
+function rateStar(cur,n){
+  var r=ls("cg_rate")||{};r[cur]=n;ls("cg_rate",r);var L=["Poderia melhorar","Mais ou menos","Bom","Muito bom","Amei"];
+  document.querySelectorAll(".stars .st").forEach(function(b,i){b.classList.toggle("on",i<n);});
+  var l=document.getElementById("stl");if(l)l.textContent=L[n-1]+". Obrigada!";snd("coin");
+  if(FORM.url){var o={};o[FORM.f.name]="Estrelas";o[FORM.f.whats]="-";o[FORM.f.area]=profile.area||"-";o[FORM.f.need]="Estrelas: "+n+" de 5 em "+cur;o[FORM.f.msg]="-";gSend(o,function(){});}
 }
 function render(){
   var v=state.view;
