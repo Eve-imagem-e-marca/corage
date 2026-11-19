@@ -635,9 +635,9 @@ function applyUI(){reduce=sysReduce||!!ui.nomo;document.documentElement.classLis
 applyUI();
 
 /* ---------- dados ---------- */
-var areas=["Psicologia","Nutrição","Odontologia","Estética e beleza","Fisioterapia","Pilates","Fonoaudiologia","Medicina","Mentoria e consultoria","Coaching","Advocacia","Contabilidade","Marketing e redes sociais","Arquitetura","Moda e estilo","Culinária e confeitaria","Fotografia","Educação e cursos","Terapias e arteterapia","Imóveis e corretagem","Seguros","Tecnologia e desenvolvimento","Outra área"];
+var areas=["Psicologia","Nutrição","Odontologia","Estética e beleza","Fisioterapia","Pilates","Fonoaudiologia","Medicina","Mentoria e consultoria","Coaching","Advocacia","Contabilidade","Marketing e redes sociais","Arquitetura","Moda e estilo","Culinária e confeitaria","Fotografia","Educação e cursos","Terapias e arteterapia","Imóveis e corretagem","Seguros","Vendas","Teleatendimento","Tecnologia e desenvolvimento","Outra área"];
 if(profile.area==="Estética"){profile.area="Estética e beleza";ls("cg_profile",profile);}
-var areaEmoji={"Seguros":"🛡️","Imóveis e corretagem":"🏠","Tecnologia e desenvolvimento":"💻","Psicologia":"🧠","Nutrição":"🍎","Odontologia":"🦷","Estética e beleza":"💆","Fisioterapia":"🦴","Pilates":"🧘","Mentoria e consultoria":"💼","Arquitetura":"📐","Terapias e arteterapia":"🎨","Outra área":"✨"};
+var areaEmoji={"Vendas":"🛍️","Teleatendimento":"🎧","Seguros":"🛡️","Imóveis e corretagem":"🏠","Tecnologia e desenvolvimento":"💻","Psicologia":"🧠","Nutrição":"🍎","Odontologia":"🦷","Estética e beleza":"💆","Fisioterapia":"🦴","Pilates":"🧘","Mentoria e consultoria":"💼","Arquitetura":"📐","Terapias e arteterapia":"🎨","Outra área":"✨"};
 var areaIdeas={
  "Psicologia":"um espaço de respiração, um diário e uma frase do dia",
  "Nutrição":"um quiz de rotina, calculadora de água e desafio de 7 dias",
@@ -650,6 +650,8 @@ var areaIdeas={
  "Terapias e arteterapia":"um exercício guiado curto e a agenda dos seus encontros",
  "Imóveis e corretagem":"uma vitrine de imóveis, simulador de parcela e botão para agendar visita",
  "Seguros":"um simulador de cobertura, lembrete de renovação e botão para pedir cotação",
+ "Vendas":"um catálogo com fotos, cupom de desconto e botão de comprar pelo WhatsApp",
+ "Teleatendimento":"respostas rápidas para perguntas comuns e um guia de atendimento",
  "Tecnologia e desenvolvimento":"uma vitrine de projetos, orçamento rápido e botão para falar com você",
  "Outra área":"um teste curto que mostre o seu jeito de trabalhar"
 };
@@ -1124,26 +1126,29 @@ var PROF=[
  {n:"Psicóloga",e:"brain",t:"blazer",bg:"#e9e2d4",bot:"#3a2327",bt:"skirt",c:0,prop:"note",idea:"um espaço de respiração, um diário e uma frase do dia"},
  {n:"Nutricionista",e:"apple",t:"coat",bg:"#e9e2d4",coat:"#ffffff",bot:"#2f6f73",c:3,prop:"apple",idea:"um quiz de rotina, calculadora de água e desafio de 7 dias"},
  {n:"Esteticista",e:"sparkle",t:"coat",bg:"#e9e2d4",coat:"#f9cdd6",bot:"#ffffff",c:2,prop:"mirror",idea:"um quiz de cuidados, o antes e depois dos seus trabalhos e botão de agendar"},
- {n:"Fisioterapeuta",e:"pulse",t:"blazer",bg:"#e9e2d4",bot:"#ffffff",bt:"pants",c:5,inner:"#ffffff",prop:"watch",idea:"exercícios guiados curtos e lembrete de retorno"},
+ {n:"Fisioterapeuta",e:"pulse",t:"blazer",bg:"#e9e2d4",bot:"#ffffff",bt:"pants",c:5,inner:"#ffffff",prop:"clip",idea:"exercícios guiados curtos e lembrete de retorno"},
  {n:"Instrutora de pilates",e:"person",t:"sport",bg:"#e9e2d4",bot:"#3a2327",c:6,prop:"ball",idea:"uma aula curta em vídeo e desafio de 7 dias"},
- {n:"Mentora",e:"briefcase",t:"blazer",bg:"#e9e2d4",bot:"#ffffff",bt:"pants",c:7,inner:"#ffffff",prop:"laptop",idea:"um teste de diagnóstico e botão para marcar conversa"},
+ {n:"Mentora",e:"briefcase",t:"blazer",bg:"#e9e2d4",bot:"#ffffff",bt:"pants",c:7,inner:"#ffffff",prop:"bulb",idea:"um teste de diagnóstico e botão para marcar conversa"},
  {n:"Dentista",e:"tooth",t:"coat",bg:"#e9e2d4",coat:"#ffffff",bot:"#4f8fb8",c:5,prop:"tooth",idea:"um teste de cuidados e lembrete de retorno"},
  {n:"Arquiteta",e:"house",t:"blazer",bg:"#e9e2d4",bot:"#3a2327",bt:"pants",c:4,inner:"#ffffff",prop:"plan",idea:"uma vitrine de projetos e pedido de orçamento"},
  {n:"Consultora de imagem",e:"hanger",t:"dress",bg:"#e9e2d4",bot:"#3a2327",c:0,prop:"hanger",idea:"um quiz de estilo e uma vitrine de looks"},
- {n:"Advogada",e:"file",t:"blazer",bg:"#e9e2d4",bot:"#2b2b2f",bt:"pants",c:8,inner:"#ffffff",prop:"note",idea:"um guia de documentos, dúvidas frequentes e botão para falar com você"},
- {n:"Contadora",e:"coin",t:"blazer",bg:"#e9e2d4",bot:"#2b2b2f",bt:"pants",c:3,inner:"#ffffff",prop:"laptop",idea:"uma calculadora simples e lembretes de prazos"},
- {n:"Médica",e:"pulse",t:"coat",bg:"#e9e2d4",coat:"#ffffff",bot:"#2f6f73",c:5,prop:"watch",idea:"orientações gerais para o dia a dia e lembrete de retorno"},
- {n:"Fonoaudióloga",e:"mic",t:"blazer",bg:"#e9e2d4",bot:"#3a2327",bt:"skirt",c:6,prop:"note",idea:"exercícios guiados curtos e lembrete de retorno"},
- {n:"Terapeuta",e:"heart",t:"dress",bg:"#e9e2d4",bot:"#3a2327",c:6,prop:"note",idea:"um diário, uma pausa guiada e botão de agendar"},
- {n:"Confeiteira",e:"sparkle",t:"dress",bg:"#e9e2d4",bot:"#3a2327",c:9,prop:"apple",idea:"um cardápio com fotos e botão de encomenda"},
- {n:"Fotógrafa",e:"camera",t:"blazer",bg:"#e9e2d4",bot:"#2b2b2f",bt:"pants",c:4,inner:"#ffffff",prop:"laptop",idea:"uma vitrine de ensaios e pedido de orçamento"},
- {n:"Marketing e redes",e:"bulb",t:"blazer",bg:"#e9e2d4",bot:"#2b2b2f",bt:"pants",c:9,inner:"#ffffff",prop:"laptop",idea:"um quiz do perfil, ideias de post e calendário de conteúdo"},
- {n:"Corretora de imóveis",e:"house",t:"blazer",bg:"#e9e2d4",bot:"#3a2327",bt:"skirt",c:1,prop:"plan",idea:"uma vitrine de imóveis, simulador de parcela e botão para agendar visita"},
- {n:"Corretora de seguros",e:"shield",t:"blazer",bg:"#e9e2d4",bot:"#3a2327",bt:"pants",c:3,inner:"#ffffff",prop:"note",idea:"um simulador de cobertura, lembrete de renovação e botão para pedir cotação"},
- {n:"Desenvolvedora de TI",e:"laptop",t:"sport",bg:"#e9e2d4",bot:"#2b2b2f",c:3,prop:"laptop",idea:"uma vitrine de projetos, orçamento rápido e botão para falar com você"},
- {n:"Professora",e:"book",t:"blazer",bg:"#e9e2d4",bot:"#3a2327",bt:"skirt",c:10,prop:"laptop",idea:"uma aula de amostra e desafio de 7 dias"}
+ {n:"Advogada",e:"file",t:"blazer",bg:"#e9e2d4",bot:"#2b2b2f",bt:"pants",c:8,inner:"#ffffff",prop:"scale",idea:"um guia de documentos, dúvidas frequentes e botão para falar com você"},
+ {n:"Contadora",e:"coin",t:"blazer",bg:"#e9e2d4",bot:"#2b2b2f",bt:"pants",c:3,inner:"#ffffff",prop:"calc",idea:"uma calculadora simples e lembretes de prazos"},
+ {n:"Médica",e:"pulse",t:"coat",bg:"#e9e2d4",coat:"#ffffff",bot:"#2f6f73",c:5,prop:"stetho",idea:"orientações gerais para o dia a dia e lembrete de retorno"},
+ {n:"Fonoaudióloga",e:"mic",t:"blazer",bg:"#e9e2d4",bot:"#3a2327",bt:"skirt",c:6,prop:"mic",idea:"exercícios guiados curtos e lembrete de retorno"},
+ {n:"Terapeuta",e:"heart",t:"dress",bg:"#e9e2d4",bot:"#3a2327",c:6,prop:"cup",idea:"um diário, uma pausa guiada e botão de agendar"},
+ {n:"Confeiteira",e:"sparkle",t:"dress",bg:"#e9e2d4",bot:"#3a2327",c:9,prop:"cake",idea:"um cardápio com fotos e botão de encomenda"},
+ {n:"Fotógrafa",e:"camera",t:"blazer",bg:"#e9e2d4",bot:"#2b2b2f",bt:"pants",c:4,inner:"#ffffff",prop:"camera",idea:"uma vitrine de ensaios e pedido de orçamento"},
+ {n:"Marketing e redes",e:"bulb",t:"blazer",bg:"#e9e2d4",bot:"#2b2b2f",bt:"pants",c:9,inner:"#ffffff",prop:"phone",idea:"um quiz do perfil, ideias de post e calendário de conteúdo"},
+ {n:"Corretora de imóveis",e:"house",t:"blazer",bg:"#e9e2d4",bot:"#3a2327",bt:"skirt",c:1,prop:"keyhouse",idea:"uma vitrine de imóveis, simulador de parcela e botão para agendar visita"},
+ {n:"Corretora de seguros",e:"shield",t:"blazer",bg:"#e9e2d4",bot:"#3a2327",bt:"pants",c:3,inner:"#ffffff",prop:"umbrella",idea:"um simulador de cobertura, lembrete de renovação e botão para pedir cotação"},
+ {n:"Vendedora",e:"briefcase",t:"blazer",bg:"#e9e2d4",bot:"#3a2327",bt:"skirt",c:1,prop:"bag",idea:"um catálogo com fotos, cupom de desconto e botão de comprar pelo WhatsApp"},
+ {n:"Operadora de teleatendimento",e:"chat",t:"blazer",bg:"#e9e2d4",bot:"#2b2b2f",bt:"pants",c:3,inner:"#ffffff",prop:"note",headset:1,idea:"respostas rápidas para perguntas comuns e um guia de atendimento"},
+ {n:"Desenvolvedora de TI",e:"laptop",t:"sport",bg:"#e9e2d4",bot:"#2b2b2f",c:3,prop:"devlap",idea:"uma vitrine de projetos, orçamento rápido e botão para falar com você"},
+ {n:"Professora",e:"book",t:"blazer",bg:"#e9e2d4",bot:"#3a2327",bt:"skirt",c:10,prop:"book",idea:"uma aula de amostra e desafio de 7 dias"},
+ {n:"Outra profissão",e:"search",other:1,t:"blazer",bg:"#e9e2d4",bot:"#3a2327",bt:"pants",c:0,inner:"#ffffff",prop:"case",idea:"a vitrine do seu trabalho, ideias de conteúdo e um botão para falar com você"}
 ];
-var DCS={"Psicóloga":[0,3,6,8],"Nutricionista":[3,9,10,5],"Esteticista":[1,0,6,9],"Fisioterapeuta":[5,3,8],"Instrutora de pilates":[6,9,3],"Mentora":[7,0,8,10],"Dentista":[5,3,8],"Arquiteta":[4,8,0],"Consultora de imagem":[0,9,10,6],"Advogada":[8,0,4],"Contadora":[8,3,4],"Médica":[5,3,8],"Fonoaudióloga":[6,5,0],"Terapeuta":[6,3,0,9],"Confeiteira":[9,1,0,10],"Fotógrafa":[4,8,0],"Professora":[10,5,3,9],"Marketing e redes":[9,0,6,10],"Corretora de imóveis":[0,8,3],"Corretora de seguros":[1,3,8],"Desenvolvedora de TI":[3,8,6]};
+var DCS={"Psicóloga":[0,3,6,8],"Nutricionista":[3,9,10,5],"Esteticista":[1,0,6,9],"Fisioterapeuta":[5,3,8],"Instrutora de pilates":[6,9,3],"Mentora":[7,0,8,10],"Dentista":[5,3,8],"Arquiteta":[4,8,0],"Consultora de imagem":[0,9,10,6],"Advogada":[8,0,4],"Contadora":[8,3,4],"Médica":[5,3,8],"Fonoaudióloga":[6,5,0],"Terapeuta":[6,3,0,9],"Confeiteira":[9,1,0,10],"Fotógrafa":[4,8,0],"Professora":[10,5,3,9],"Marketing e redes":[9,0,6,10],"Corretora de imóveis":[0,8,3],"Corretora de seguros":[1,3,8],"Vendedora":[9,1,0],"Operadora de teleatendimento":[3,5,8],"Outra profissão":[0,3,7,9],"Desenvolvedora de TI":[3,8,6]};
 function dollCol(p){var a=DCS[PROF[p].n]||[PROF[p].c];return a[Math.floor(Math.random()*a.length)];}
 function dollProp(k,c){
   if(k==="note")return E("rect",{x:-4,y:-52,width:38,height:48,rx:5,fill:"#fff",stroke:"#7a2e3f","stroke-width":3})+E("path",{d:"M6 -38h18M6 -28h18M6 -18h12",stroke:"#d9a8ae","stroke-width":3,"stroke-linecap":"round"})+E("path",{d:"M24 -46c-3-4-8 0-4 4l4 4 4-4c4-4-1-8-4-4z",fill:"#7a2e3f"});
@@ -1154,6 +1159,29 @@ function dollProp(k,c){
   if(k==="tooth")return E("path",{d:"M0 -44c4-6 12-4 14-2 2-2 10-4 14 2 4 8-2 14-4 28-1 6-5 6-6 0-1-6-2-8-4-8s-3 2-4 8c-1 6-5 6-6 0-2-14-8-20-4-28z",fill:"#fff",stroke:"#4f8fb8","stroke-width":3,"stroke-linejoin":"round"});
   if(k==="plan")return E("rect",{x:-2,y:-56,width:14,height:54,rx:4,fill:"#efe6d2",stroke:"#8a7a5c","stroke-width":2.5,transform:"rotate(14 5 -28)"})+E("rect",{x:2,y:-44,width:14,height:7,fill:"#4f8fb8",transform:"rotate(14 5 -28)"})+E("path",{d:"M24 -50l16 40",stroke:"#d4a24c","stroke-width":4,"stroke-linecap":"round"});
   if(k==="hanger")return E("path",{d:"M16 -50c0-7 8-8 8-14s-8-8-12-2M16 -50l-22 24h44z",fill:"none",stroke:"#7a2e3f","stroke-width":4,"stroke-linecap":"round","stroke-linejoin":"round"})+E("path",{d:"M-4 -26h40",stroke:"#7a2e3f","stroke-width":4,"stroke-linecap":"round"});
+  var gd="#b08a57",mr="#6e2539",pt="#1f4e52",dk="#3a2327",cr="#fffdf8";
+  if(k==="camera")return E("rect",{x:-6,y:-40,width:50,height:30,rx:7,fill:dk})+E("rect",{x:6,y:-47,width:16,height:9,rx:3,fill:dk})+E("circle",{cx:19,cy:-25,r:12,fill:"#d9ccb3",stroke:gd,"stroke-width":3})+E("circle",{cx:19,cy:-25,r:5,fill:pt})+E("rect",{x:32,y:-37,width:8,height:5,rx:2,fill:gd});
+  if(k==="stetho")return E("path",{d:"M-2 -52Q-8 -22 12 -16Q32 -22 26 -52",stroke:dk,"stroke-width":3.5,fill:"none","stroke-linecap":"round"})+E("circle",{cx:12,cy:-12,r:8,fill:gd,stroke:dk,"stroke-width":2})+E("circle",{cx:-2,cy:-52,r:3,fill:dk})+E("circle",{cx:26,cy:-52,r:3,fill:dk});
+  if(k==="scale")return E("path",{d:"M17 -58V-4M-6 -50H40",stroke:gd,"stroke-width":3.5,"stroke-linecap":"round"})+E("path",{d:"M-6 -50l-8 20h16zM40 -50l-8 20h16z",fill:gd})+E("path",{d:"M5 -6h24",stroke:gd,"stroke-width":4,"stroke-linecap":"round"});
+  if(k==="calc")return E("rect",{x:-2,y:-52,width:38,height:50,rx:6,fill:dk})+E("rect",{x:3,y:-47,width:28,height:12,rx:2,fill:"#d9ccb3"})+[0,1,2].map(function(r){return [0,1,2].map(function(c){return E("circle",{cx:6+c*11,cy:-26+r*11,r:3,fill:gd});}).join("");}).join("");
+  if(k==="mic")return E("rect",{x:8,y:-58,width:18,height:28,rx:9,fill:mr})+E("path",{d:"M3 -38a14 14 0 0 0 28 0M17 -24v14M8 -8h18",stroke:dk,"stroke-width":3,fill:"none","stroke-linecap":"round"})+E("path",{d:"M12 -50h10M12 -44h10",stroke:"#fff",opacity:.5,"stroke-width":2});
+  if(k==="cake")return E("rect",{x:-2,y:-26,width:40,height:24,rx:5,fill:"#f1e6d0",stroke:gd,"stroke-width":2})+E("path",{d:"M-2 -26q5 9 10 0q5 9 10 0q5 9 10 0q5 9 10 0z",fill:cr,stroke:gd,"stroke-width":1.5})+E("circle",{cx:18,cy:-34,r:5,fill:mr})+E("path",{d:"M18 -39v-8",stroke:pt,"stroke-width":2.5,"stroke-linecap":"round"});
+  if(k==="cup")return E("path",{d:"M0 -26h30v12a15 15 0 0 1-30 0z",fill:cr,stroke:mr,"stroke-width":3})+E("path",{d:"M30 -22h4a6 6 0 0 1 0 12h-5",stroke:mr,"stroke-width":3,fill:"none"})+E("path",{d:"M9 -34q4-6 0-12M19 -34q4-6 0-12",stroke:gd,"stroke-width":2.5,fill:"none","stroke-linecap":"round"});
+  if(k==="book")return E("rect",{x:-4,y:-50,width:38,height:46,rx:4,fill:pt})+E("rect",{x:0,y:-46,width:3,height:38,fill:"#fff",opacity:.35})+E("path",{d:"M10 -36h16M10 -28h12",stroke:gd,"stroke-width":3,"stroke-linecap":"round"});
+  if(k==="keyhouse")return E("path",{d:"M-2 -26L17 -50 36 -26V-4H-2z",fill:cr,stroke:mr,"stroke-width":3,"stroke-linejoin":"round"})+E("rect",{x:11,y:-18,width:12,height:14,rx:2,fill:mr})+E("circle",{cx:30,cy:-12,r:5,fill:"none",stroke:gd,"stroke-width":3})+E("path",{d:"M35 -12h8M40 -12v5",stroke:gd,"stroke-width":3,"stroke-linecap":"round"});
+  if(k==="umbrella")return E("path",{d:"M-8 -32a26 26 0 0 1 52 0q-6-6-13 0q-6-6-13 0q-7-6-13 0q-6-6-13 0z",fill:mr})+E("path",{d:"M18 -32V-6a5 5 0 0 1-10 0",stroke:dk,"stroke-width":3.5,fill:"none","stroke-linecap":"round"})+E("path",{d:"M18 -58v6",stroke:dk,"stroke-width":3,"stroke-linecap":"round"});
+  if(k==="bag")return E("path",{d:"M6 -38q0-14 12-14t12 14",stroke:dk,"stroke-width":3,fill:"none"})+E("rect",{x:-4,y:-38,width:44,height:38,rx:4,fill:gd})+E("circle",{cx:18,cy:-24,r:7,fill:"none",stroke:cr,"stroke-width":2.5})+E("path",{d:"M14 -24h8M18 -28v8",stroke:cr,"stroke-width":2,"stroke-linecap":"round"});
+  if(k==="phone")return E("rect",{x:2,y:-56,width:28,height:50,rx:6,fill:dk})+E("rect",{x:6,y:-50,width:20,height:36,rx:2,fill:"#efe3cf"})+E("path",{d:"M16 -26c-9-6-9-13-3-13 2 0 3 1 3 3 0-2 1-3 3-3 6 0 6 7-3 13z",fill:mr});
+  if(k==="bulb")return E("circle",{cx:17,cy:-34,r:14,fill:"#f0d7a8",stroke:gd,"stroke-width":3})+E("rect",{x:11,y:-20,width:12,height:9,rx:2,fill:gd})+E("path",{d:"M17 -56v-4M0 -52l-4-3M34 -52l4-3M-6 -34h-4M40 -34h4",stroke:gd,"stroke-width":2.5,"stroke-linecap":"round"});
+  if(k==="clip")return E("rect",{x:-4,y:-52,width:38,height:50,rx:5,fill:cr,stroke:pt,"stroke-width":3})+E("rect",{x:8,y:-57,width:14,height:9,rx:3,fill:pt})+E("path",{d:"M2 -26h7l4-10 6 20 4-10h7",stroke:mr,"stroke-width":3,fill:"none","stroke-linecap":"round","stroke-linejoin":"round"});
+  if(k==="devlap")return E("rect",{x:-10,y:-52,width:50,height:34,rx:4,fill:dk})+E("rect",{x:-6,y:-48,width:42,height:26,rx:2,fill:"#1d2b33"})+E("path",{d:"M8 -41l-7 6 7 6M22 -41l7 6-7 6M18 -43l-4 16",stroke:"#d9bc82","stroke-width":2.6,fill:"none","stroke-linecap":"round","stroke-linejoin":"round"})+E("path",{d:"M-16 -16h62l-6 8h-50z",fill:"#cfc4c4"});
+  if(k==="scissors")return E("path",{d:"M6 -8L30 -54M30 -8L6 -54",stroke:dk,"stroke-width":4,"stroke-linecap":"round"})+E("circle",{cx:6,cy:-6,r:7,fill:"none",stroke:mr,"stroke-width":3.5})+E("circle",{cx:30,cy:-6,r:7,fill:"none",stroke:mr,"stroke-width":3.5});
+  if(k==="paw")return E("ellipse",{cx:18,cy:-16,rx:13,ry:11,fill:mr})+[[2,-36],[12,-46],[24,-46],[34,-36]].map(function(q){return E("ellipse",{cx:q[0]+2,cy:q[1],rx:5,ry:6.5,fill:mr});}).join("");
+  if(k==="dumbbell")return E("path",{d:"M-6 -30h46",stroke:dk,"stroke-width":5,"stroke-linecap":"round"})+E("rect",{x:-12,y:-42,width:10,height:24,rx:3,fill:mr})+E("rect",{x:38,y:-42,width:10,height:24,rx:3,fill:mr});
+  if(k==="flower")return [0,72,144,216,288].map(function(a){return E("ellipse",{cx:17,cy:-46,rx:6,ry:11,fill:"#d98aa0",transform:"rotate("+a+" 17 -34)"});}).join("")+E("circle",{cx:17,cy:-34,r:6,fill:gd})+E("path",{d:"M17 -22v20",stroke:pt,"stroke-width":3.5,"stroke-linecap":"round"});
+  if(k==="pen")return E("rect",{x:12,y:-58,width:9,height:46,rx:3,fill:mr,transform:"rotate(18 16 -34)"})+E("path",{d:"M7 -8l6 -8 6 3z",fill:gd,transform:"rotate(18 16 -12)"})+E("path",{d:"M-4 -4h30",stroke:gd,"stroke-width":2.5,"stroke-linecap":"round"});
+  if(k==="gear")return E("circle",{cx:17,cy:-30,r:14,fill:"none",stroke:pt,"stroke-width":6,"stroke-dasharray":"7 5"})+E("circle",{cx:17,cy:-30,r:10,fill:cr,stroke:pt,"stroke-width":3})+E("circle",{cx:17,cy:-30,r:3.5,fill:pt});
+  if(k==="case")return E("path",{d:"M10 -38q0-9 8-9t8 9",stroke:dk,"stroke-width":3.5,fill:"none"})+E("rect",{x:-4,y:-38,width:44,height:32,rx:5,fill:"#8a5a3c"})+E("path",{d:"M-4 -26h44",stroke:dk,"stroke-width":2})+E("rect",{x:14,y:-29,width:8,height:7,rx:1.5,fill:gd});
   return "";
 }
 function dollHairBack(st,hc){
@@ -1178,7 +1206,7 @@ function dollHairFront(st,hc){
   return cap;
 }
 function dollSvg(s){
-  var P=PROF[s.p],oc=OCC[s.oc||0][3],sk=SKIN[s.sk],hc=HAIRC[s.hc],c1=CLR[s.cl],g="",sh="#3a2327";
+  var P=PROF[s.p];if(P.other)P=Object.assign({},P,{n:s.cu||"Sua profissão",prop:s.cp||"case"});var oc=OCC[s.oc||0][3],sk=SKIN[s.sk],hc=HAIRC[s.hc],c1=CLR[s.cl],g="",sh="#3a2327";
   var K=[1,1.22,1.45][s.bd==null?1:s.bd],GO="<g transform='translate(150 0) scale("+K+" 1) translate(-150 0)'>";
   if(oc){P=Object.assign({},P,{t:oc.t,bt:oc.bt,bot:oc.bot,inner:oc.inner,bg:oc.bgc});}
   g+="<defs><linearGradient id='dbg' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#fff' stop-opacity='.55'/><stop offset='1' stop-color='#6e2539' stop-opacity='.12'/></linearGradient><linearGradient id='dsh' x1='0' y1='0' x2='1' y2='0'><stop offset='0' stop-color='#000' stop-opacity='.16'/><stop offset='.45' stop-color='#fff' stop-opacity='.10'/><stop offset='1' stop-color='#000' stop-opacity='.20'/></linearGradient><radialGradient id='dfc' cx='.4' cy='.3' r='.8'><stop offset='0' stop-color='#fff' stop-opacity='.35'/><stop offset='1' stop-color='#000' stop-opacity='0'/></radialGradient><radialGradient id='dbl'><stop offset='0' stop-color='#c4564f' stop-opacity='.38'/><stop offset='1' stop-color='#c4564f' stop-opacity='0'/></radialGradient><linearGradient id='dgd' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#d9bc82'/><stop offset='1' stop-color='#9a7440'/></linearGradient></defs>";
@@ -1235,6 +1263,7 @@ function dollSvg(s){
   g+=E("path",{d:"M150 114q-3 9 1 11q2 1 4 0",stroke:"#000",opacity:.2,"stroke-width":1.8,fill:"none","stroke-linecap":"round"});
   g+=E("path",{d:"M140 136Q145 133 150 135Q155 133 160 136Q150 148 140 136z",fill:"#8c2a3e"})+E("path",{d:"M140 136Q150 139 160 136",stroke:"#5e1727","stroke-width":.9,fill:"none"})+E("path",{d:"M146 141q4 2 8 0",stroke:"#fff",opacity:.35,"stroke-width":1.4,fill:"none","stroke-linecap":"round"});
   g+=dollHairFront(s.hs,hc);
+  if(P.headset)g+=E("path",{d:"M106 106Q106 62 150 62T194 106",stroke:"#3a2327","stroke-width":5,fill:"none","stroke-linecap":"round"})+E("rect",{x:99,y:100,width:12,height:24,rx:5,fill:"#6e2539"})+E("rect",{x:189,y:100,width:12,height:24,rx:5,fill:"#6e2539"})+E("path",{d:"M105 122Q108 146 136 146",stroke:"#3a2327","stroke-width":3.5,fill:"none","stroke-linecap":"round"})+E("circle",{cx:139,cy:146,r:5,fill:"#6e2539"});
   g+=E("path",{d:"M116 92Q128 70 156 70",stroke:"#fff",opacity:.22,"stroke-width":4,fill:"none","stroke-linecap":"round"});
   /* detalhes */
   if(s.gl){var gs=(s.gc!=null?GLC[s.gc]:(s.gl===3?"#d9647a":"#3a2327")),gf="none";
@@ -1278,9 +1307,9 @@ function vDoll(){
   dollDraw();
 }
 function dollDraw(){
-  var s=G.doll,P=PROF[s.p];ls("cg_doll",s);
+  var s=G.doll,P=PROF[s.p];if(P.other)P=Object.assign({},P,{n:s.cu||"Outra profissão"});ls("cg_doll",s);
   document.getElementById("dbox").innerHTML=dollSvg(s);
-  document.getElementById("dcard").innerHTML='<div class="card"><b class="pl">'+ico(P.e,20)+P.n+'</b><p style="margin:4px 0 0">Um app para ela poderia ter '+P.idea+'.</p>'+(s.oc?'<p style="margin:8px 0 0"><b>'+OCC[s.oc][0]+':</b> '+OCC[s.oc][3].why+'</p>':'')+'</div>';
+  document.getElementById("dcard").innerHTML='<div class="card"><b class="pl">'+ico(P.e,20)+P.n+'</b><p style="margin:4px 0 0">Um app para ela poderia ter '+P.idea+'.</p>'+(PROF[s.p].other?'<div style="display:flex;gap:8px;margin-top:10px"><input id="dfind" class="inp" placeholder="Escreva a sua profissão" value="'+dEsc(s.cu||"")+'" style="flex:1;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024" onkeydown="if(event.key===\'Enter\')dollFind()"><button class="primary" style="width:56px;padding:0" aria-label="Buscar profissão" onclick="dollFind()">'+ico("search",22)+'</button></div>':'')+(s.oc?'<p style="margin:8px 0 0"><b>'+OCC[s.oc][0]+':</b> '+OCC[s.oc][3].why+'</p>':'')+'</div>';
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
   var h='<div class="acc" '+AC+'><button><div><span>Profissão</span><b class="pl">'+ico(P.e,18)+P.n+'</b></div><em>+</em></button><div class="body"><div class="dgrid">';
   PROF.forEach(function(q,i){h+='<button class="dchip'+(s.p===i?' on':'')+'" onclick="dollSet(\'p\','+i+')">'+ico(q.e,18)+'<i>'+q.n+'</i></button>';});
@@ -1310,6 +1339,14 @@ function dollSet(k,v){var d=G.doll;d[k]=v;
   if(k==="p"){var o1=OCC[d.oc||0][3];d.cl=o1?o1.cl:dollCol(v);}
   if(k==="oc"){var o=OCC[v][3];if(o){d.cl=o.cl;d.gl=o.acc.gl;d.br=o.acc.br;d.co=o.acc.co;d.wa=o.acc.wa;d.bg=o.acc.bg;}else{d.cl=PROF[d.p].c;}}
   dollDraw();}
+
+var DKW=[[/cabelo|cabeleir|barbe|manicure|unha|sobrancel|maquiad/,"scissors"],[/veterin|pet|animal|banho e tosa/,"paw"],[/personal|academia|muscula|treinad|crossfit/,"dumbbell"],[/flor|jardin|paisag/,"flower"],[/escrit|jornal|redator|revisor|poet|autora|copy/,"pen"],[/engenh|mecanic|eletric|tecnic|produc|logist/,"gear"],[/chef|cozinh|padeir|buffet|culin/,"cake"],[/cafe|barista|cha|terapia/,"cup"],[/foto|video|cinema|filma|audiovisual/,"camera"],[/musica|cantor|locut|podcast|radio|dubl/,"mic"],[/ensin|escola|aula|tutor|professor|pedag/,"book"],[/ideia|design|criativ|consult|estrateg|coach/,"bulb"],[/imovel|imobil|arquitet|decorad|paisag/,"keyhouse"],[/seguro|previd/,"umbrella"],[/loja|venda|comerc|boutique|varej/,"bag"],[/saude|enferm|farmac|biomed|nutri|medic/,"stetho"],[/advog|jurid|direito|mediad/,"scale"],[/conta|financ|fiscal|tribut|bancar/,"calc"]];
+function dNorm(x){return String(x||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();}
+function dollFind(){var el=document.getElementById("dfind"),v=(el&&el.value||"").trim();if(!v){toast("Escreva a sua profissão.");return;}
+  var n=dNorm(v),hit=-1;PROF.forEach(function(q,i){if(!q.other&&(dNorm(q.n).indexOf(n)>-1||n.indexOf(dNorm(q.n))>-1))hit=i;});
+  if(hit>-1){toast("Achei: "+PROF[hit].n);dollSet("p",hit);return;}
+  var pr="case";DKW.forEach(function(k){if(pr==="case"&&k[0].test(n))pr=k[1];});
+  var cap=v.charAt(0).toUpperCase()+v.slice(1);G.doll.cu=cap;G.doll.cp=pr;dollDraw();snd("coin");}
 function dollTog(k){G.doll[k]=!G.doll[k];dollDraw();}
 function dollRand(){var o=dollNew();G.doll=o;dollDraw();}
 function dollSave(){
@@ -1545,6 +1582,8 @@ var DPAL={
 "Educação e cursos":["#2d4a7a","#3f7a4f","#c26a2e"],
 "Imóveis e corretagem":["#1f4e52","#6e2539","#b08a57"],
 "Seguros":["#1f4e52","#27385a","#6e2539"],
+"Vendas":["#b08a57","#6e2539","#1f4e52"],
+"Teleatendimento":["#1f4e52","#27385a","#b08a57"],
 "Tecnologia e desenvolvimento":["#27385a","#1f4e52","#6e2539"],
 "Terapias e arteterapia":["#5d4180","#a8532f","#1f5f5b","#b04a6a"]
 };
@@ -1570,6 +1609,8 @@ var DTOOLS={
 "Educação e cursos":[["book","Aula de amostra"],["check","Desafio de 7 dias"],["quiz","Quiz de nível"],["chat","Falar comigo"]],
 "Imóveis e corretagem":[["house","Vitrine de imóveis"],["coin","Simulador de parcela"],["calendar","Agendar visita"],["chat","Falar comigo"]],
 "Seguros":[["shield","Simulador de cobertura"],["calendar","Lembrete de renovação"],["check","Checklist de documentos"],["chat","Pedir cotação"]],
+"Vendas":[["briefcase","Catálogo com fotos"],["coin","Cupom de desconto"],["chat","Comprar pelo WhatsApp"],["check","Lista de pedidos"]],
+"Teleatendimento":[["chat","Respostas rápidas"],["book","Guia de atendimento"],["check","Checklist do dia"],["phone","Falar comigo"]],
 "Tecnologia e desenvolvimento":[["laptop","Vitrine de projetos"],["quiz","Quiz: que sistema você precisa"],["coin","Orçamento rápido"],["chat","Falar comigo"]],
 "Terapias e arteterapia":[["quiz","Quiz de bem-estar"],["palette","Atividade criativa"],["book","Materiais para você"],["chat","Agendar uma conversa"]]
 };
@@ -1612,6 +1653,8 @@ var DEXTRA={
 "Educação e cursos":["Aula de amostra","Trilha de estudos","Certificado de conclusão"],
 "Imóveis e corretagem":["Vitrine de imóveis","Simulador de parcela","Agendamento de visitas"],
 "Seguros":["Simulador de cobertura","Lembrete de renovação","Pedido de cotação"],
+"Vendas":["Catálogo com fotos","Cupom de desconto","Pedido pelo WhatsApp"],
+"Teleatendimento":["Respostas rápidas","Guia de atendimento","Checklist do dia"],
 "Tecnologia e desenvolvimento":["Vitrine de projetos","Quiz de necessidades","Pedido de orçamento"],
 "Terapias e arteterapia":["Atividade criativa guiada","Diário de bem-estar","Materiais para a família"]
 };
@@ -1780,11 +1823,11 @@ function rateStar(cur,n){
 /* Mentalidade empreendedora: cards para os stories */
 var MF=[["Coragem não é ausência de medo. É dar o primeiro passo mesmo com ele."],["Você não precisa estar pronta. Precisa começar."],["Pequenos passos todos os dias constroem um negócio inteiro."],["O seu jeito de cuidar é o seu maior diferencial."],["Cobrar o que você vale também é um ato de cuidado."],["Progresso, não perfeição."],["Quem mostra o trabalho com verdade encontra as pessoas certas."],["Descansar também faz parte de empreender."],["Um não de hoje abre espaço para o sim certo."],["Você já chegou mais longe do que imaginava. Continue."],["Seu trabalho muda a vida de alguém. Mostre ele."],["Confie no processo e comemore cada pequena vitória."]];
 var MFAM=[["Coragem não é a ausência de medo, mas o triunfo sobre ele.","Nelson Mandela"],["Você deve fazer aquilo que acha que não consegue.","Eleanor Roosevelt"],["Faça o melhor que puder até saber mais. Quando souber mais, faça melhor.","Maya Angelou"],["A única maneira de fazer um excelente trabalho é amar o que você faz.","Steve Jobs"],["Moda passa, estilo permanece.","Coco Chanel"],["Uma jornada de mil milhas começa com um único passo.","Lao Tsé"],["Nada na vida deve ser temido, somente compreendido.","Marie Curie"],["Grandes coisas são feitas por uma série de pequenas coisas reunidas.","Vincent van Gogh"],["Quem olha para fora sonha. Quem olha para dentro desperta.","Carl Jung"],["Quando me aceito como sou, então posso mudar.","Carl Rogers"],["Quer você ache que pode, quer ache que não pode, você tem razão.","Henry Ford"],["Genialidade é 1% de inspiração e 99% de transpiração.","Thomas Edison"],["A vida é curta, a arte é longa.","Hipócrates"]];
-var MPR={"Psicóloga":["Escutar com presença já é cuidado.","Seu consultório é um lugar seguro. Seu perfil também pode ser."],"Nutricionista":["Comida é cuidado, e o seu olhar muda hábitos.","Orientar com leveza vale mais do que proibir."],"Esteticista":["Autoestima também é um serviço que você entrega.","Cada cliente que se olha no espelho com carinho é uma vitória sua."],"Fisioterapeuta":["Cada movimento devolvido é uma conquista.","Cuidar do corpo é devolver liberdade."],"Instrutora de pilates":["Força nasce da constância, não da pressa.","Respire, alinhe e siga. O corpo agradece."],"Mentora":["Guiar é abrir caminho sem caminhar no lugar do outro.","Seu método é a sua assinatura."],"Dentista":["Um sorriso seguro muda a postura de quem entra no seu consultório.","Confiança se constrói no cuidado e na clareza."],"Arquiteta":["Todo espaço bem pensado conta uma história.","Seu projeto abriga a vida de alguém."],"Consultora de imagem":["Imagem é a forma de a pessoa se apresentar ao mundo com verdade.","Vestir-se bem é um jeito de se respeitar."],"Advogada":["Clareza também é uma forma de acolher.","Defender direitos é defender pessoas."],"Contadora":["Números organizados dão paz para quem empreende.","Você transforma burocracia em tranquilidade."],"Médica":["Cuidar bem começa por ouvir bem.","Informação clara também é saúde."],"Fonoaudióloga":["Ajudar alguém a se comunicar é abrir portas.","Cada voz encontrada é uma história que continua."],"Terapeuta":["Presença é o seu maior instrumento.","Acolher é transformar sem pressa."],"Confeiteira":["Doce bom é feito com afeto e capricho.","Cada encomenda é uma celebração na vida de alguém."],"Fotógrafa":["Você guarda o que o tempo leva.","Seu olhar revela o que ninguém tinha percebido."],"Marketing e redes":["Conteúdo com verdade gera conexão de verdade.","Constância vence perfeição, sempre."],"Corretora de imóveis":["Você não vende imóveis. Você ajuda alguém a realizar um sonho.","Confiança fecha mais negócios do que qualquer promessa."],"Corretora de seguros":["Seguro é cuidado com o amanhã de quem confia em você.","Tranquilidade é o melhor produto que você entrega."],"Desenvolvedora de TI":["Código bom é o que resolve a vida de alguém.","Todo grande sistema começou com uma linha escrita."],"Professora":["Ensinar é plantar o que você não vai ver crescer por inteiro.","Uma boa aula muda o rumo de alguém."]};
+var MPR={"Psicóloga":["Escutar com presença já é cuidado.","Seu consultório é um lugar seguro. Seu perfil também pode ser."],"Nutricionista":["Comida é cuidado, e o seu olhar muda hábitos.","Orientar com leveza vale mais do que proibir."],"Esteticista":["Autoestima também é um serviço que você entrega.","Cada cliente que se olha no espelho com carinho é uma vitória sua."],"Fisioterapeuta":["Cada movimento devolvido é uma conquista.","Cuidar do corpo é devolver liberdade."],"Instrutora de pilates":["Força nasce da constância, não da pressa.","Respire, alinhe e siga. O corpo agradece."],"Mentora":["Guiar é abrir caminho sem caminhar no lugar do outro.","Seu método é a sua assinatura."],"Dentista":["Um sorriso seguro muda a postura de quem entra no seu consultório.","Confiança se constrói no cuidado e na clareza."],"Arquiteta":["Todo espaço bem pensado conta uma história.","Seu projeto abriga a vida de alguém."],"Consultora de imagem":["Imagem é a forma de a pessoa se apresentar ao mundo com verdade.","Vestir-se bem é um jeito de se respeitar."],"Advogada":["Clareza também é uma forma de acolher.","Defender direitos é defender pessoas."],"Contadora":["Números organizados dão paz para quem empreende.","Você transforma burocracia em tranquilidade."],"Médica":["Cuidar bem começa por ouvir bem.","Informação clara também é saúde."],"Fonoaudióloga":["Ajudar alguém a se comunicar é abrir portas.","Cada voz encontrada é uma história que continua."],"Terapeuta":["Presença é o seu maior instrumento.","Acolher é transformar sem pressa."],"Confeiteira":["Doce bom é feito com afeto e capricho.","Cada encomenda é uma celebração na vida de alguém."],"Fotógrafa":["Você guarda o que o tempo leva.","Seu olhar revela o que ninguém tinha percebido."],"Marketing e redes":["Conteúdo com verdade gera conexão de verdade.","Constância vence perfeição, sempre."],"Corretora de imóveis":["Você não vende imóveis. Você ajuda alguém a realizar um sonho.","Confiança fecha mais negócios do que qualquer promessa."],"Vendedora":["Vender é ajudar alguém a encontrar o que faz sentido.","Cada atendimento bem feito é uma venda que volta."],"Operadora de teleatendimento":["Uma voz gentil muda o dia de quem liga.","Paciência e clareza resolvem mais do que pressa."],"Corretora de seguros":["Seguro é cuidado com o amanhã de quem confia em você.","Tranquilidade é o melhor produto que você entrega."],"Desenvolvedora de TI":["Código bom é o que resolve a vida de alguém.","Todo grande sistema começou com uma linha escrita."],"Professora":["Ensinar é plantar o que você não vai ver crescer por inteiro.","Uma boa aula muda o rumo de alguém."]};
 var MT=[{bg:["#6e2539","#4a1626"],tx:"#fbf8f3",ac:"#d9bc82"},{bg:["#1f4e52","#133336"],tx:"#fbf8f3",ac:"#d9bc82"},{bg:["#f6f0e4","#e6d7b5"],tx:"#6e2539",ac:"#b08a57"},{bg:["#b08a57","#8a6a3a"],tx:"#fffdf8",ac:"#fffdf8"},{bg:["#b5522a","#8c3c1c"],tx:"#fffdf8",ac:"#f0d7a8"}];
 var MS={i:0,t:0,c:"all",pr:""};
 function mindPool(){var P=[];if(MS.c!=="fam"&&MS.c!=="prof")MF.forEach(function(f){P.push([f[0],""]);});if(MS.c==="all"||MS.c==="fam")MFAM.forEach(function(f){P.push(f);});if(MS.c==="all"||MS.c==="prof"){var ar=MS.c==="prof"?[MS.pr||(profile.area&&A2P[profile.area]?A2P[profile.area]:"Psicóloga")]:Object.keys(MPR);ar.forEach(function(a){(MPR[a]||[]).forEach(function(f){P.push([f,MS.c==="prof"?a:""]);});});}return P;}
-var A2P={"Psicologia":"Psicóloga","Nutrição":"Nutricionista","Odontologia":"Dentista","Estética e beleza":"Esteticista","Fisioterapia":"Fisioterapeuta","Pilates":"Instrutora de pilates","Fonoaudiologia":"Fonoaudióloga","Medicina":"Médica","Mentoria e consultoria":"Mentora","Coaching":"Mentora","Advocacia":"Advogada","Contabilidade":"Contadora","Marketing e redes sociais":"Marketing e redes","Arquitetura":"Arquiteta","Moda e estilo":"Consultora de imagem","Culinária e confeitaria":"Confeiteira","Fotografia":"Fotógrafa","Educação e cursos":"Professora","Terapias e arteterapia":"Terapeuta","Imóveis e corretagem":"Corretora de imóveis","Seguros":"Corretora de seguros","Tecnologia e desenvolvimento":"Desenvolvedora de TI"};
+var A2P={"Psicologia":"Psicóloga","Nutrição":"Nutricionista","Odontologia":"Dentista","Estética e beleza":"Esteticista","Fisioterapia":"Fisioterapeuta","Pilates":"Instrutora de pilates","Fonoaudiologia":"Fonoaudióloga","Medicina":"Médica","Mentoria e consultoria":"Mentora","Coaching":"Mentora","Advocacia":"Advogada","Contabilidade":"Contadora","Marketing e redes sociais":"Marketing e redes","Arquitetura":"Arquiteta","Moda e estilo":"Consultora de imagem","Culinária e confeitaria":"Confeiteira","Fotografia":"Fotógrafa","Educação e cursos":"Professora","Terapias e arteterapia":"Terapeuta","Imóveis e corretagem":"Corretora de imóveis","Seguros":"Corretora de seguros","Vendas":"Vendedora","Teleatendimento":"Operadora de teleatendimento","Tecnologia e desenvolvimento":"Desenvolvedora de TI"};
 var MCUR=null;
 function mindPick(){var P=mindPool();if(!P.length)return;var n=P[Math.floor(Math.random()*P.length)];if(P.length>1&&MCUR&&n[0]===MCUR[0])return mindPick();MCUR=n;}
 function mindCanvas(){
