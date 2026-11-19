@@ -253,6 +253,34 @@ select,textarea{width:100%;border:2px solid var(--line);border-radius:16px;paddi
 .tag{border-color:var(--gold)}
 .view .tool{background:rgba(255,255,255,.62);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.8);box-shadow:0 10px 26px rgba(122,46,63,.12)}
 main,#app{padding-bottom:110px}
+
+/* CorAge: visual mais sofisticado (serifa, cantos discretos, cores calmas) */
+:root{--rose:#f1e3df;--rose2:#e3ccc7;--rose3:#faf4f1;--marsala:#6e2539;--ink:#2f2024;--soft:#5b4a4c;--line:#e4d0ca;--gold:#b08a57;
+--serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif}
+body{background:#f7efeb}
+.blob{opacity:.28}
+h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:0;color:var(--marsala)}
+.logo{font-family:var(--serif);font-weight:600;font-size:22px;letter-spacing:.2px}
+.logo i{background:transparent;border:1px solid var(--gold);font-family:var(--serif);font-weight:600}
+.tool b,.acc>button b,.big{font-family:var(--serif);font-weight:600}
+.cw input{font-family:var(--serif)}
+.card,.tool,.acc,.view .acc,.view .tool{border-radius:14px}
+.opt,input[type=text],select,textarea,.th,.cv,.dpad button,.dcl button,.bd{border-radius:12px}
+.primary{border-radius:14px;font-weight:600;letter-spacing:.2px}
+.ghost{border-radius:14px;border:1px solid var(--gold);font-weight:600}
+.tabs{border-radius:20px;background:rgba(255,255,255,.62)}
+.ib{border-radius:12px;border:1px solid var(--gold);background:rgba(255,255,255,.5)}
+.tag{border-radius:8px;border-color:var(--line);font-weight:600;letter-spacing:.3px}
+.tool .ic,.view .acc>button .cic,.view .tool .ic,.view .acc:nth-of-type(n) .cic,.view .tool:nth-of-type(n) .ic{width:46px;height:46px;border-radius:12px;background:transparent;border:1px solid var(--gold);color:var(--marsala)}
+.tool .ic svg,.acc .cic svg,.cic svg,.ic svg{stroke-width:1.4}
+.view .acc>button em{border-radius:50%;background:transparent;border:1px solid var(--line);font-size:20px;color:var(--marsala)}
+.view .acc.open>button em{background:var(--marsala);border-color:var(--marsala);color:#fff}
+.view .acc.open{border-color:var(--gold)}
+.view .acc,.view .tool{box-shadow:0 4px 16px rgba(110,37,57,.06);border:1px solid var(--line)}
+.view .tool.hl{background:linear-gradient(135deg,#5e1d30,#7d3246);border:1px solid var(--gold);box-shadow:0 10px 26px rgba(94,29,48,.28)}
+.view .tool.hl .ic{border-color:rgba(255,255,255,.5);background:transparent;color:#fff}
+.dtl.lk{background:#f9f1ee}
+.sheet{border-radius:20px}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
