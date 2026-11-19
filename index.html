@@ -480,6 +480,9 @@ details.grp.why{margin:10px 0 14px}
 .pulse,.cta,.view .tool.hl{position:relative;border:1px solid transparent!important;background-clip:padding-box}
 .pulse::before,.cta::before,.view .tool.hl::before{content:"";position:absolute;inset:-2px;border-radius:inherit;padding:2px;background:conic-gradient(from var(--ang),rgba(176,138,87,0) 0deg,rgba(176,138,87,.85) 60deg,rgba(255,255,255,.7) 90deg,rgba(176,138,87,0) 150deg,rgba(176,138,87,0) 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:circ 6s linear infinite!important;pointer-events:none}
 .pulse,.cta{box-shadow:0 8px 20px rgba(110,37,57,.18)!important}
+
+#sres .tool,#sres .tool:nth-of-type(n){background:#fffdf8!important;border:1px solid #c9b48e!important;box-shadow:none!important}
+#sres .tool b{color:#6e2539!important}#sres .tool span{color:#2f2024!important}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -490,7 +493,7 @@ details.grp.why{margin:10px 0 14px}
   <div class="hbtns">
     <button class="ib" id="sndh" onclick="toggleSnd()"></button>
     <button class="ib" onclick="openQR()" aria-label="Mostrar QR Code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1"/></svg></button>
-    <button class="ib" id="av" onclick="go('profile')" aria-label="Meu perfil">·</button>
+    <button class="ib" id="av" onclick="go('search')" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button>
   </div>
 </header>
 <main id="app"><h1>CorAge: apps e plataformas para profissionais e empreendedoras</h1><p>Criamos apps com a sua marca, as suas cores e a sua história, com assistente virtual e valor justo combinado na conversa. Faça o Raio-X grátis do seu trabalho e veja que app combina com você. Para psicólogas, nutricionistas, dentistas, esteticistas, fisioterapeutas, instrutoras de pilates, mentoras, arquitetas e consultoras.</p></main>
@@ -1627,15 +1630,37 @@ function fbSend(){
 
 /* ---------- render ---------- */
 var noA=false;function noAnim(){noA=true;}
+
+/* busca dentro do app */
+function vSearch(){
+  app.innerHTML=back("Buscar","home")+'<h2>Buscar no app</h2><input id="sq" class="inp" type="search" placeholder="Ex.: roda, jogos, nutricionista" oninput="doSearch(this.value)" style="width:100%;font-size:18px;padding:14px 16px;border-radius:14px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024"><div class="sp"></div><div id="sres"></div>'+foot();
+  doSearch("");setTimeout(function(){var q=document.getElementById("sq");if(q)q.focus();},80);
+}
+function searchIndex(){
+  var L=[];STEPS.forEach(function(s){L.push({t:s[1],d:s[2],a:"go('"+s[0]+"')"});});
+  L.push({t:"Veja o seu app",d:"Prévia com o seu nome e a sua cor",a:"go('demo')"});
+  L.push({t:"Meu perfil",d:"Seu nome e área",a:"go('profile')"});
+  L.push({t:"Portfólio",d:"Apps e trabalhos da Eve",a:"go('portfolio')"});
+  L.push({t:"QR Code",d:"Compartilhe o CorAge",a:"openQR()"});
+  L.push({t:"Vale Night",d:"Recompensa dos jogos",a:"go('games')"});
+  L.push({t:"Cobrinha",d:"Jogo",a:"go('snake')"});L.push({t:"Labirinto",d:"Jogo",a:"go('maze')"});L.push({t:"Palavras cruzadas",d:"Jogo",a:"go('cross')"});L.push({t:"Vista a empreendedora",d:"Bonequinha",a:"go('doll')"});
+  works.forEach(function(w){L.push({t:w.t,d:w.d||"",a:"go('portfolio')"});(w.groups||[]).forEach(function(g){(g.items||[]).forEach(function(it){L.push({t:it.n,d:(it.s||"")+" ("+g.n+")",a:it.go?"go('"+it.go+"')":"go('portfolio')"});});});});
+  return L;
+}
+function doSearch(q){
+  var r=document.getElementById("sres");if(!r)return;q=(q||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();
+  var L=searchIndex().filter(function(x){if(!q)return true;var h=(x.t+" "+x.d).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");return h.indexOf(q)>-1;}).slice(0,12);
+  r.innerHTML=L.length?L.map(function(x){return '<button class="tool" onclick="'+x.a+'"><div><b>'+x.t+'</b><span>'+x.d+'</span></div></button>';}).join(""):'<p>Nada encontrado. Tente outra palavra.</p>';
+}
 function render(){
   var v=state.view;
   app.className="view";
-  if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
+  if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
   var kids=app.children;for(var i=0;i<kids.length;i++){if(noA){kids[i].style.animation="none";}else{kids[i].style.animationDelay=(i*55)+"ms";}}
   noA=false;
   var tab=(v==="portfolio"||v==="plans")?v:"home";
   var bs=document.querySelectorAll("#tabs button");for(var j=0;j<bs.length;j++){bs[j].classList.toggle("on",bs[j].getAttribute("data-t")===tab);}
-  var av=document.getElementById("av");av.textContent=profile.name?profile.name.charAt(0).toUpperCase():"·";
+  
 }
 render();
 if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){});}
