@@ -714,6 +714,7 @@ var works=[
    {n:"Roda do conteúdo",s:"Gire e ganhe uma ideia de post, com lembrete para postar",go:"wheel"},
    {n:"Raio-X do seu trabalho",s:"Veja em minutos o que já está forte e o que falta",go:"quiz"},
    {n:"Gestão do negócio",s:"Calculadoras, mini planilha e agenda para não esquecer nada",go:"biz"},
+   {n:"Clientes e metas",s:"Lista de clientes, mensagens prontas e meta do mês",go:"crm"},
    {n:"Mentalidade empreendedora",s:"Cards com frases de coragem para postar nos stories",go:"mind"},
    {n:"Jogos da empreendedora",s:"Vista a empreendedora, cobrinha, labirinto e palavras cruzadas, com moedas de coragem",go:"games"},
    {n:"O que você achou dessa experiência?",s:"Dê de 1 a 5 estrelas e conte como foi",go:"feedback"}]},
@@ -818,6 +819,7 @@ function vHome(){
   if(n===4)badge("raiox");
   var list='';STEPS.forEach(function(s){list+='<button class="tool" onclick="go(\''+s[0]+'\')"><div class="ic">'+ico(s[3],26)+'</div><div><b>'+s[1]+'</b><span>'+s[2]+'</span></div>'+(prog[s[0]]?'<span class="ok">feito</span>':'')+'</button>';});
   list+='<button class="tool" onclick="go(\'biz\')"><div class="ic">'+ico("coin",26)+'</div><div><b>Gestão do negócio</b><span>Contas, planilha e agenda</span></div></button>';
+  list+='<button class="tool" onclick="go(\'crm\')"><div class="ic">'+ico("heart",26)+'</div><div><b>Clientes e metas</b><span>Lista, mensagens e meta do mês</span></div></button>';
   list+='<button class="tool" onclick="go(\'mind\')"><div class="ic">'+ico("sparkle",26)+'</div><div><b>Mentalidade empreendedora</b><span>Cards de coragem para os stories</span></div></button>';
   list+='<button class="tool" onclick="go(\'feedback\')"><div class="ic">'+ico("heart",26)+'</div><div><b>O que você achou?</b><span>Dê de 1 a 5 estrelas</span></div></button>';
   h+=box("compass","2. Ferramentas","Raio-X, roda, jogos e mais",list);
@@ -1859,10 +1861,51 @@ function bzWhen(){var t=document.getElementById("at").value.trim()||"Meu negóci
   return {t:t,s:f(a),e:f(b)};}
 function bzGoogle(){var w=bzWhen();if(!w)return;window.open("https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(w.t)+"&dates="+w.s+"/"+w.e+"&ctz=America/Sao_Paulo&details="+encodeURIComponent("Criado no CorAge")+"&sf=true&output=xml","_blank","noopener");}
 function bzIcs(){var w=bzWhen();if(!w)return;var ics="BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//CorAge//PT\r\nBEGIN:VEVENT\r\nUID:"+Date.now()+"@corage\r\nDTSTAMP:"+w.s+"\r\nDTSTART;TZID=America/Sao_Paulo:"+w.s+"\r\nDTEND;TZID=America/Sao_Paulo:"+w.e+"\r\nSUMMARY:"+w.t.replace(/[,;]/g," ")+"\r\nBEGIN:VALARM\r\nTRIGGER:-PT15M\r\nACTION:DISPLAY\r\nDESCRIPTION:Lembrete\r\nEND:VALARM\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n";var b=new Blob([ics],{type:"text/calendar"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="agenda-coragem.ics";document.body.appendChild(a);a.click();a.remove();toast("Evento baixado. Abra para adicionar à agenda.");}
+
+/* Clientes, mensagens prontas e metas */
+var CR={tab:"cli"};
+var CRI='width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024';
+function crTab(t){CR.tab=t;vCrm();}
+function vCrm(){
+  var tabs=[["cli","Clientes"],["msg","Mensagens"],["meta","Metas"]],h=back("Clientes e metas","home")+'<h2>Clientes e metas</h2><p>Quem retornar, o que dizer e quanto falta para a sua meta. Tudo fica só no seu celular.</p><div class="drow" style="margin-bottom:10px">';
+  tabs.forEach(function(t){h+='<button class="dpill'+(CR.tab===t[0]?' on':'')+'" onclick="crTab(\''+t[0]+'\')">'+t[1]+'</button>';});
+  h+='</div>'+(CR.tab==="cli"?crCliHtml():CR.tab==="msg"?crMsgHtml():crMetaHtml())+starsBox("crm")+foot();
+  app.innerHTML=h;if(CR.tab==="cli")crCliDraw();if(CR.tab==="meta")crMetaDraw();if(CR.tab==="msg")crMsg();
+}
+/* clientes */
+function cLoad(){var r=ls("cg_cli");return Array.isArray(r)?r:[];}
+function crCliHtml(){
+  return '<div class="card"><label class="l" for="cn">Nome</label><input id="cn" class="inp" placeholder="Ex.: Ana" style="'+CRI+'"><label class="l" for="cw">WhatsApp (opcional)</label><input id="cw" class="inp" inputmode="tel" placeholder="11 99999-9999" style="'+CRI+'"><label class="l" for="cr">Retornar em</label><input id="cr" type="date" style="'+CRI+'"><label class="l" for="co">Anotação (opcional)</label><input id="co" class="inp" placeholder="Ex.: pediu orçamento" style="'+CRI+'"><button class="primary" style="margin-top:10px" onclick="crAdd()">Adicionar cliente</button></div><p class="small">Dica: não anote dados de saúde dos seus clientes aqui.</p><div id="cl"></div>';
+}
+function crAdd(){var n=document.getElementById("cn").value.trim();if(!n){toast("Escreva o nome.");return;}var r=cLoad();if(r.length>=300){toast("Limite de 300 clientes neste app.");return;}
+  r.push({n:n,w:document.getElementById("cw").value.replace(/\D/g,""),r:document.getElementById("cr").value,o:document.getElementById("co").value.trim()});ls("cg_cli",r);["cn","cw","cr","co"].forEach(function(i){document.getElementById(i).value="";});crCliDraw();snd("coin");}
+function crDel(i){var r=cLoad();r.splice(i,1);ls("cg_cli",r);crCliDraw();}
+function crDone(i){var r=cLoad();r[i].r="";ls("cg_cli",r);crCliDraw();}
+function crCliDraw(){var r=cLoad(),td=new Date().toISOString().slice(0,10),idx=r.map(function(x,i){return i;});idx.sort(function(a,b){var x=r[a].r||"9999",y=r[b].r||"9999";return x<y?-1:x>y?1:0;});
+  var h='<p class="small">'+r.length+' de 300 clientes</p>';
+  idx.forEach(function(i){var x=r[i],tag=!x.r?"":(x.r<td?'<b style="color:#6e2539">Atrasado</b>':x.r===td?'<b style="color:#1f4e52">Retornar hoje</b>':"Retorno: "+x.r.split("-").reverse().join("/"));
+    h+='<div class="card" style="margin-top:8px"><b>'+dEsc(x.n)+'</b>'+(x.o?'<br>'+dEsc(x.o):'')+(tag?'<br>'+tag:'')+'<div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap">'+(x.w?'<a class="link" href="https://wa.me/55'+x.w+'" target="_blank" rel="noopener">WhatsApp</a>':'')+(x.r?'<button class="link" onclick="crDone('+i+')">Já retornei</button>':'')+'<button class="link" onclick="crDel('+i+')">Apagar</button></div></div>';});
+  var e=document.getElementById("cl");if(e)e.innerHTML=h;}
+/* mensagens */
+var CMS=[["Orçamento","Oi, [nome]! Tudo bem? Preparei o orçamento do serviço com carinho. Posso te enviar os detalhes e tirar qualquer dúvida?"],["Cobrança gentil","Oi, [nome]! Passando para lembrar com carinho do pagamento combinado. Se já fez, pode desconsiderar. Qualquer coisa, me chama!"],["Depois do atendimento","Oi, [nome]! Foi um prazer te atender. Como você está se sentindo? Se precisar de algo, estou por aqui."],["Pedir indicação","Oi, [nome]! Fico feliz que tenha gostado do meu trabalho. Se lembrar de alguém que também possa gostar, ficarei muito grata pela indicação."],["Pedir depoimento","Oi, [nome]! Sua opinião é muito importante para mim. Você poderia deixar um depoimento curtinho sobre a sua experiência? Obrigada!"],["Reagendar","Oi, [nome]! Vamos remarcar? Me diga os dias e horários que ficam melhores para você."],["Retorno","Oi, [nome]! Passando para saber como você está e se quer agendar o nosso próximo encontro."]];
+function crMsgHtml(){
+  var o=CMS.map(function(m,i){return '<option value="'+i+'">'+m[0]+'</option>';}).join("");
+  return '<div class="card"><label class="l" for="mm">Tipo de mensagem</label><select id="mm" style="'+CRI+'" onchange="crMsg()">'+o+'</select><label class="l" for="mn">Nome da cliente</label><input id="mn" class="inp" placeholder="Ex.: Ana" oninput="crMsg()" style="'+CRI+'"><label class="l" for="mt">Mensagem (você pode editar)</label><textarea id="mt" rows="6" style="'+CRI+'"></textarea><button class="primary" style="margin-top:10px" onclick="crCopy()">Copiar mensagem</button><button class="primary glass-sm" style="margin-top:8px" onclick="crWa()">Enviar pelo WhatsApp</button></div>';
+}
+function crMsg(){var i=parseInt(document.getElementById("mm").value,10),n=document.getElementById("mn").value.trim();document.getElementById("mt").value=CMS[i][1].replace(/\[nome\]/g,n||"[nome]");}
+function crCopy(){var t=document.getElementById("mt").value;if(navigator.clipboard)navigator.clipboard.writeText(t).then(function(){toast("Mensagem copiada!");});else{document.getElementById("mt").select();document.execCommand("copy");toast("Mensagem copiada!");}}
+function crWa(){window.open("https://wa.me/?text="+encodeURIComponent(document.getElementById("mt").value),"_blank","noopener");}
+/* metas */
+function gLoad(){var m=new Date().toISOString().slice(0,7),g=ls("cg_goal");return (g&&g.m===m)?g:{m:m,t:"",n:0,c:0,d:0};}
+function crMetaHtml(){return '<div class="card"><label class="l" for="gt">Minha meta do mês</label><input id="gt" class="inp" placeholder="Ex.: Fechar 5 clientes" style="'+CRI+'"><label class="l" for="gn">Quantidade</label><input id="gn" class="inp" inputmode="numeric" placeholder="5" style="'+CRI+'"><button class="primary" style="margin-top:10px" onclick="crGoal()">Definir meta</button></div><div id="gb"></div>';}
+function crGoal(){var t=document.getElementById("gt").value.trim(),n=parseInt(document.getElementById("gn").value,10)||0;if(!t||n<1){toast("Escreva a meta e a quantidade.");return;}ls("cg_goal",{m:new Date().toISOString().slice(0,7),t:t,n:n,c:0,d:0});crMetaDraw();}
+function crPlus(d){var g=gLoad();if(!g.t)return;g.c=Math.max(0,Math.min(g.n,g.c+d));if(g.c>=g.n&&!g.d){g.d=1;addPts(10);toast("Meta batida! +10 de coragem");}ls("cg_goal",g);crMetaDraw();}
+function crMetaDraw(){var g=gLoad(),e=document.getElementById("gb");if(!e)return;if(!g.t){e.innerHTML='<p class="small">Defina uma meta para acompanhar o progresso. Ela reinicia todo mês.</p>';return;}
+  var pc=Math.round(g.c/g.n*100);e.innerHTML='<div class="card" style="margin-top:12px"><b>'+dEsc(g.t)+'</b><div style="height:14px;border-radius:9px;background:#e6d7b5;margin:10px 0;overflow:hidden"><div style="height:100%;width:'+pc+'%;background:linear-gradient(90deg,#6e2539,#b08a57)"></div></div><b>'+g.c+' de '+g.n+' ('+pc+'%)</b>'+(g.d?'<p style="margin:6px 0 0">Meta batida! Você é pura coragem.</p>':'')+'<div style="display:flex;gap:10px;margin-top:10px"><button class="primary" style="flex:1" onclick="crPlus(1)">+1 feito</button><button class="primary glass-sm" style="flex:1" onclick="crPlus(-1)">Desfazer</button></div></div>';}
 function render(){
   var v=state.view;
   app.className="view";
-  if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
+  if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="crm")vCrm();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
   var kids=app.children;for(var i=0;i<kids.length;i++){if(noA){kids[i].style.animation="none";}else{kids[i].style.animationDelay=(i*55)+"ms";}}
   noA=false;
   var tab=(v==="portfolio"||v==="plans")?v:"home";
