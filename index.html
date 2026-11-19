@@ -713,6 +713,7 @@ var works=[
   {n:"Ferramentas",col:"#6e2539",items:[
    {n:"Roda do conteúdo",s:"Gire e ganhe uma ideia de post, com lembrete para postar",go:"wheel"},
    {n:"Raio-X do seu trabalho",s:"Veja em minutos o que já está forte e o que falta",go:"quiz"},
+   {n:"Gestão do negócio",s:"Calculadoras, mini planilha e agenda para não esquecer nada",go:"biz"},
    {n:"Mentalidade empreendedora",s:"Cards com frases de coragem para postar nos stories",go:"mind"},
    {n:"Jogos da empreendedora",s:"Vista a empreendedora, cobrinha, labirinto e palavras cruzadas, com moedas de coragem",go:"games"},
    {n:"O que você achou dessa experiência?",s:"Dê de 1 a 5 estrelas e conte como foi",go:"feedback"}]},
@@ -816,6 +817,7 @@ function vHome(){
   var prog2='<div class="ring" style="display:flex;align-items:center;gap:14px;margin-bottom:10px"><svg viewBox="0 0 76 76" style="width:64px;height:64px"><circle class="bg" cx="38" cy="38" r="30"/><circle class="fg" cx="38" cy="38" r="30" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'" id="fg"/></svg><div><b>Raio-X: '+n+' de 4</b><br>'+ptsTag()+'</div></div><h3 style="margin:4px 0 8px">Conquistas</h3>'+badgeRow();
   if(n===4)badge("raiox");
   var list='';STEPS.forEach(function(s){list+='<button class="tool" onclick="go(\''+s[0]+'\')"><div class="ic">'+ico(s[3],26)+'</div><div><b>'+s[1]+'</b><span>'+s[2]+'</span></div>'+(prog[s[0]]?'<span class="ok">feito</span>':'')+'</button>';});
+  list+='<button class="tool" onclick="go(\'biz\')"><div class="ic">'+ico("coin",26)+'</div><div><b>Gestão do negócio</b><span>Contas, planilha e agenda</span></div></button>';
   list+='<button class="tool" onclick="go(\'mind\')"><div class="ic">'+ico("sparkle",26)+'</div><div><b>Mentalidade empreendedora</b><span>Cards de coragem para os stories</span></div></button>';
   list+='<button class="tool" onclick="go(\'feedback\')"><div class="ic">'+ico("heart",26)+'</div><div><b>O que você achou?</b><span>Dê de 1 a 5 estrelas</span></div></button>';
   h+=box("compass","2. Ferramentas","Raio-X, roda, jogos e mais",list);
@@ -1803,10 +1805,64 @@ function mindShare(){
     else{var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="coragem.png";document.body.appendChild(a);a.click();a.remove();toast("Imagem salva. Abra o Instagram e poste nos stories.");addPts(2);}
   },"image/png");
 }
+
+/* Gestão do negócio: calculadoras, mini planilha e agenda */
+var BZ={tab:"calc",s:null};
+function nBR(v){v=String(v==null?"":v).replace(/\./g,"").replace(",",".");var n=parseFloat(v);return isNaN(n)?0:n;}
+function fBR(n){return (isFinite(n)?n:0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});}
+function fPc(n){return (isFinite(n)?n:0).toLocaleString("pt-BR",{maximumFractionDigits:1})+"%";}
+function bzInp(id,l,ph){return '<label class="l" for="'+id+'">'+l+'</label><input id="'+id+'" class="inp" inputmode="decimal" placeholder="'+(ph||"0,00")+'" oninput="bzCalc()" style="width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024">';}
+function bzTab(t){BZ.tab=t;vBiz();}
+function vBiz(){
+  var tabs=[["calc","Calculadoras"],["sheet","Planilha"],["agenda","Agenda"]],h=back("Gestão do negócio","home")+'<h2>Gestão do negócio</h2><p>Contas prontas, uma mini planilha e a sua agenda. Tudo fica só no seu celular.</p><div class="drow" style="margin-bottom:10px">';
+  tabs.forEach(function(t){h+='<button class="dpill'+(BZ.tab===t[0]?' on':'')+'" onclick="bzTab(\''+t[0]+'\')">'+t[1]+'</button>';});
+  h+='</div>';
+  if(BZ.tab==="calc")h+=bzCalcHtml();else if(BZ.tab==="sheet")h+=bzSheetHtml();else h+=bzAgendaHtml();
+  h+='<p class="small">São simulações para te orientar. Para decisões fiscais, fale com o seu contador.</p>'+starsBox("biz")+foot();
+  app.innerHTML=h;if(BZ.tab==="calc")bzCalc();if(BZ.tab==="sheet")bzSheetDraw();
+}
+function bzBox(t,body){return '<details class="grp" style="--gc:#6e2539" ontoggle="grpOne(this)"><summary>'+t+'<i>+</i></summary><div class="dgb">'+body+'</div></details>';}
+function bzCalcHtml(){
+  return '<div class="grps">'+
+  bzBox("Preço de venda",bzInp("p1c","Quanto custa para você fazer (R$)")+bzInp("p1m","Margem de lucro que você quer (%)","40")+'<div class="card" id="r1"></div>')+
+  bzBox("Margem de lucro",bzInp("p2p","Preço que você cobra (R$)")+bzInp("p2c","Custo (R$)")+'<div class="card" id="r2"></div>')+
+  bzBox("Valor da sua hora",bzInp("p3g","Quanto precisa ganhar por mês (R$)")+bzInp("p3h","Horas que trabalha por mês","120")+'<div class="card" id="r3"></div>')+
+  bzBox("Ponto de equilíbrio",bzInp("p4f","Custos fixos por mês (R$)")+bzInp("p4p","Preço de cada venda (R$)")+bzInp("p4v","Custo de cada venda (R$)")+'<div class="card" id="r4"></div>')+
+  bzBox("Desconto",bzInp("p5p","Preço (R$)")+bzInp("p5d","Desconto (%)","10")+'<div class="card" id="r5"></div>')+'</div>';
+}
+function bzCalc(){
+  function g(i){var e=document.getElementById(i);return e?nBR(e.value):0;}function o(i,h){var e=document.getElementById(i);if(e)e.innerHTML=h;}
+  var c=g("p1c"),m=g("p1m");o("r1",m>=100?"Use uma margem abaixo de 100%.":'<b>Preço ideal: '+fBR(c/(1-m/100))+'</b><p style="margin:4px 0 0">Lucro por venda: '+fBR(c/(1-m/100)-c)+'</p>');
+  var p=g("p2p"),c2=g("p2c");o("r2",p?'<b>Margem: '+fPc((p-c2)/p*100)+'</b><p style="margin:4px 0 0">Lucro por venda: '+fBR(p-c2)+'</p>':'Preencha o preço.');
+  var gm=g("p3g"),hh=g("p3h");o("r3",hh?'<b>Sua hora vale: '+fBR(gm/hh)+'</b><p style="margin:4px 0 0">Use como base para cobrar o seu tempo.</p>':'Preencha as horas.');
+  var f=g("p4f"),pp=g("p4p"),v=g("p4v");o("r4",pp>v?'<b>Precisa vender '+Math.ceil(f/(pp-v))+' por mês</b><p style="margin:4px 0 0">Para pagar os custos fixos sem lucro nem prejuízo.</p>':'O preço precisa ser maior que o custo de cada venda.');
+  var p5=g("p5p"),d=g("p5d");o("r5",'<b>Preço final: '+fBR(p5*(1-d/100))+'</b><p style="margin:4px 0 0">Você deixa de ganhar '+fBR(p5*d/100)+'.</p>');
+}
+function bzLoad(){var r=ls("cg_sheet");return Array.isArray(r)?r:[];}
+function bzSheetHtml(){
+  return '<div class="card"><label class="l" for="sd">O que foi</label><input id="sd" class="inp" placeholder="Ex.: Consulta, aluguel" style="width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024"><label class="l" for="st">Tipo</label><select id="st" class="inp" style="width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024"><option value="e">Entrou (receita)</option><option value="s">Saiu (custo)</option></select><label class="l" for="sv">Valor (R$)</label><input id="sv" class="inp" inputmode="decimal" placeholder="0,00" style="width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024"><button class="primary" style="margin-top:10px" onclick="bzAdd()">Adicionar</button></div><div id="sl"></div>';
+}
+function bzAdd(){var d=document.getElementById("sd").value.trim(),v=nBR(document.getElementById("sv").value);if(!d||!v){toast("Escreva o que foi e o valor.");return;}var r=bzLoad();r.push({d:d,t:document.getElementById("st").value,v:v});ls("cg_sheet",r);document.getElementById("sd").value="";document.getElementById("sv").value="";bzSheetDraw();snd("coin");}
+function bzDel(i){var r=bzLoad();r.splice(i,1);ls("cg_sheet",r);bzSheetDraw();}
+function bzSheetDraw(){var r=bzLoad(),en=0,sa=0,h='';r.forEach(function(x,i){if(x.t==="e")en+=x.v;else sa+=x.v;h+='<div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px"><span>'+dEsc(x.d)+'<br><b style="color:'+(x.t==="e"?"#1f4e52":"#6e2539")+'">'+(x.t==="e"?"+ ":"− ")+fBR(x.v)+'</b></span><button class="link" onclick="bzDel('+i+')" aria-label="Apagar">Apagar</button></div>';});
+  var t='<div class="card" style="margin-top:12px"><b>Entrou: '+fBR(en)+'</b><br><b>Saiu: '+fBR(sa)+'</b><br><b style="font-size:20px;color:'+(en-sa>=0?"#1f4e52":"#6e2539")+'">Sobrou: '+fBR(en-sa)+'</b></div>';
+  var e=document.getElementById("sl");if(e)e.innerHTML=t+h+(r.length?'<button class="primary" style="margin-top:12px" onclick="bzCsv()">Baixar planilha</button>':'');}
+function bzCsv(){var r=bzLoad(),c="Descricao;Tipo;Valor\n";r.forEach(function(x){c+='"'+x.d.replace(/"/g,'""')+'";'+(x.t==="e"?"Entrada":"Saida")+";"+String(x.v).replace(".",",")+"\n";});var b=new Blob(["﻿"+c],{type:"text/csv"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="planilha-coragem.csv";document.body.appendChild(a);a.click();a.remove();toast("Planilha baixada. Abra no Excel ou no Google Planilhas.");}
+function bzAgendaHtml(){
+  var d=new Date(Date.now()+86400000),ds=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  var chips=["Postar nas redes","Responder clientes","Parte financeira","Criar conteúdo","Descansar sem culpa"].map(function(t){return '<button class="dpill" onclick="document.getElementById(\'at\').value=\''+t+'\'">'+t+'</button>';}).join("");
+  var I='width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024';
+  return '<div class="card"><b>Reserve um horário para o seu negócio</b><p class="small" style="margin:4px 0 8px">Escolha uma sugestão ou escreva a sua:</p><div class="drow">'+chips+'</div><label class="l" for="at">O quê</label><input id="at" class="inp" placeholder="Ex.: Fechar o mês" style="'+I+'"><label class="l" for="ad">Dia</label><input id="ad" type="date" value="'+ds+'" style="'+I+'"><label class="l" for="ah">Hora</label><input id="ah" type="time" value="09:00" style="'+I+'"><label class="l" for="al">Duração</label><select id="al" style="'+I+'"><option value="30">30 minutos</option><option value="60" selected>1 hora</option><option value="120">2 horas</option></select><button class="primary" style="margin-top:12px" onclick="bzGoogle()">Adicionar ao Google Agenda</button><button class="primary glass-sm" style="margin-top:8px" onclick="bzIcs()">Baixar para outra agenda (.ics)</button></div><div class="card" style="margin-top:12px"><b>Gestão de tempo, em 3 passos</b><p style="margin:4px 0 0">1. Escolha só 3 prioridades por dia.<br>2. Reserve um horário fixo para cada uma.<br>3. Deixe um espaço para descansar.</p></div>';
+}
+function bzWhen(){var t=document.getElementById("at").value.trim()||"Meu negócio",d=document.getElementById("ad").value,h=document.getElementById("ah").value,l=parseInt(document.getElementById("al").value,10);if(!d||!h){toast("Escolha o dia e a hora.");return null;}
+  var a=new Date(d+"T"+h+":00"),b=new Date(a.getTime()+l*60000);function f(x){return x.getFullYear()+String(x.getMonth()+1).padStart(2,"0")+String(x.getDate()).padStart(2,"0")+"T"+String(x.getHours()).padStart(2,"0")+String(x.getMinutes()).padStart(2,"0")+"00";}
+  return {t:t,s:f(a),e:f(b)};}
+function bzGoogle(){var w=bzWhen();if(!w)return;window.open("https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(w.t)+"&dates="+w.s+"/"+w.e+"&ctz=America/Sao_Paulo&details="+encodeURIComponent("Criado no CorAge")+"&sf=true&output=xml","_blank","noopener");}
+function bzIcs(){var w=bzWhen();if(!w)return;var ics="BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//CorAge//PT\r\nBEGIN:VEVENT\r\nUID:"+Date.now()+"@corage\r\nDTSTAMP:"+w.s+"\r\nDTSTART;TZID=America/Sao_Paulo:"+w.s+"\r\nDTEND;TZID=America/Sao_Paulo:"+w.e+"\r\nSUMMARY:"+w.t.replace(/[,;]/g," ")+"\r\nBEGIN:VALARM\r\nTRIGGER:-PT15M\r\nACTION:DISPLAY\r\nDESCRIPTION:Lembrete\r\nEND:VALARM\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n";var b=new Blob([ics],{type:"text/calendar"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="agenda-coragem.ics";document.body.appendChild(a);a.click();a.remove();toast("Evento baixado. Abra para adicionar à agenda.");}
 function render(){
   var v=state.view;
   app.className="view";
-  if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
+  if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
   var kids=app.children;for(var i=0;i<kids.length;i++){if(noA){kids[i].style.animation="none";}else{kids[i].style.animationDelay=(i*55)+"ms";}}
   noA=false;
   var tab=(v==="portfolio"||v==="plans")?v:"home";
