@@ -370,6 +370,9 @@ body{background:linear-gradient(180deg,#f4ecdd 0%,#e4eeea 100%) fixed}
 .view .acc.open:nth-of-type(4n+1){background:#6e2539!important}.view .acc.open:nth-of-type(4n+2){background:#1f4e52!important}.view .acc.open:nth-of-type(4n+3){background:#6b4a36!important}.view .acc.open:nth-of-type(4n+4){background:#8f6a35!important}
 .view .acc .body .ticket,.view .acc .body .ticket *{color:#fff!important}.view .acc .body .ticket small{color:#f0d7a8!important}
 .view .acc.open>button,.view .acc>button{background:transparent!important}
+.wheelwrap{filter:drop-shadow(0 14px 22px rgba(31,78,82,.35))}
+.pointer{border-top-color:#b08a57!important;filter:drop-shadow(0 3px 3px rgba(0,0,0,.3))}
+#wres .card{border-left:5px solid var(--marsala)}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -692,16 +695,15 @@ function vCases(){
 }
 
 function wheelSVG(){
-  var n=wheel.length,s='<svg viewBox="0 0 200 200"><g id="wheel">',cols=["#7a2e3f","#f7dcd9"];
+  var n=wheel.length,s='<svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="99" fill="#b08a57"/><g id="wheel">',cols=["#6e2539","#1f4e52","#6b4a36","#8f6a35"];
   for(var i=0;i<n;i++){
     var a0=(-90+i*360/n)*Math.PI/180,a1=(-90+(i+1)*360/n)*Math.PI/180;
-    var x0=100+96*Math.cos(a0),y0=100+96*Math.sin(a0),x1=100+96*Math.cos(a1),y1=100+96*Math.sin(a1);
-    var dark=i%2===0;
-    s+='<path d="M100 100L'+x0.toFixed(2)+' '+y0.toFixed(2)+'A96 96 0 0 1 '+x1.toFixed(2)+' '+y1.toFixed(2)+'Z" fill="'+cols[dark?0:1]+'" stroke="#fff" stroke-width="1.5"/>';
+    var x0=100+94*Math.cos(a0),y0=100+94*Math.sin(a0),x1=100+94*Math.cos(a1),y1=100+94*Math.sin(a1);
+    s+='<path d="M100 100L'+x0.toFixed(2)+' '+y0.toFixed(2)+'A94 94 0 0 1 '+x1.toFixed(2)+' '+y1.toFixed(2)+'Z" fill="'+cols[i%4]+'" stroke="#f0d7a8" stroke-width="1"/>';
     var th=i*360/n+360/n/2;
-    var fl=(th>90&&th<270)?' transform="rotate(180 100 37)"':'';s+='<g transform="rotate('+th+' 100 100)"><text x="100" y="40" text-anchor="middle"'+fl+' font-size="10.5" font-weight="700" font-family="ui-rounded,-apple-system,sans-serif" fill="'+(dark?"#fff":"#7a2e3f")+'">'+wheel[i][0]+'</text></g>';
+    var fl=(th>90&&th<270)?' transform="rotate(180 100 37)"':'';s+='<g transform="rotate('+th+' 100 100)"><text x="100" y="40" text-anchor="middle"'+fl+' font-size="11" font-weight="600" font-family="Georgia,serif" fill="#fff">'+wheel[i][0]+'</text></g>';
   }
-  s+='</g><circle cx="100" cy="100" r="17" fill="#fff" stroke="#7a2e3f" stroke-width="2"/><text x="100" y="108" text-anchor="middle" font-size="22" font-family="Georgia,serif" font-weight="700" fill="#7a2e3f">C</text></svg>';
+  s+='</g><circle cx="100" cy="100" r="18" fill="#fbf8f3" stroke="#b08a57" stroke-width="2"/><text x="100" y="108" text-anchor="middle" font-size="22" font-family="Georgia,serif" font-weight="600" fill="#6e2539">C</text></svg>';
   return s;
 }
 function vWheel(){
