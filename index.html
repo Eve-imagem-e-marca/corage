@@ -779,8 +779,8 @@ function vHome(){
   h+=box("compass","Todos os passos","Escolha por onde quer ir",list);
   var why='<p>Um app seu não é só um site com outra cara. Ele fica com a sua cliente, do jeito da sua marca.</p><ul class="gain"><li>'+ico("phone",19)+'<span><b>Sua marca no bolso da cliente.</b> O ícone fica na tela dela todo dia.</span></li><li>'+ico("palette",19)+'<span><b>A experiência é sua.</b> Suas cores, sua voz e suas ferramentas.</span></li><li>'+ico("game",19)+'<span><b>Ela volta sozinha.</b> Jogos, desafios e lembretes criam hábito.</span></li><li>'+ico("sparkle",19)+'<span><b>Imagem de futuro.</b> Quem tem app passa modernidade e confiança.</span></li><li>'+ico("briefcase",19)+'<span><b>Uma agência de bolso.</b> Imagem, conteúdo, ideias e contato num só lugar, no seu celular.</span></li></ul><button class="primary" onclick="go(\'demo\')">Quero o meu app</button>';
   function dg(t,c,html){return '<details class="grp" style="--gc:'+c+'" ontoggle="grpOne(this)"><summary>'+t+'<i>+</i></summary><div class="dgb">'+html+'</div></details>';}
-  var mais='<div class="grps">'+dg("O que você ganha com o CorAge","#1f4e52",gain)+dg("Instalar no celular","#b5522a",'<button class="primary" onclick="installApp()">Instalar o CorAge agora</button><p class="small">No Android é um toque. No iPhone, eu mostro onde apertar.</p><p><b>iPhone:</b> Safari, Compartilhar, "Adicionar à Tela de Início".</p><p><b>Android:</b> Chrome, menu (três pontinhos), "Instalar aplicativo".</p>')+dg("Sua opinião","#1f4e52",'<button class="primary glass-sm" onclick="go(\'feedback\')">Dar minha nota</button>')+dg("Por que ter um app para o seu negócio?","#6e2539",why)+'</div>';
-  h+=box("sparkle","Mais","Por que ter um app, instalar e opinião",mais).replace('class="acc"','class="acc quiet"');
+  var mais='<div class="grps">'+dg("O que você ganha com o CorAge","#1f4e52",gain)+dg("Instalar no celular","#b5522a",'<button class="primary" onclick="installApp()">Instalar o CorAge agora</button><p class="small">No Android é um toque. No iPhone, eu mostro onde apertar.</p><p><b>iPhone:</b> Safari, Compartilhar, "Adicionar à Tela de Início".</p><p><b>Android:</b> Chrome, menu (três pontinhos), "Instalar aplicativo".</p>')+dg("O que você achou dessa experiência?","#1f4e52",'<button class="primary glass-sm" onclick="go(\'feedback\')">Contar como foi</button>')+dg("Por que ter um app para o seu negócio?","#6e2539",why)+'</div>';
+  h+=box("sparkle","Mais","Ganhos, instalar, sua experiência e por que ter um app",mais).replace('class="acc"','class="acc quiet"');
   h+='<div style="text-align:center;margin-top:6px"><button class="link" onclick="go(\'contact\')">Deixar meu contato</button></div>';
   h+=foot();
   app.innerHTML=h;
@@ -1634,7 +1634,7 @@ function sendForm(){
 var FB={n:0};
 function vFeedback(){
   var L=["Poderia melhorar","Mais ou menos","Bom","Muito bom","Amei"];
-  var h=back("Sua opinião","home")+'<h2>Como foi para você?</h2><p>Dê uma nota. Leva menos de 1 minuto.</p><div class="thermo" id="thermo">';
+  var h=back("Experiência","home")+'<h2>O que você achou dessa experiência?</h2><p>Dê uma nota. Leva menos de 1 minuto.</p><div class="thermo" id="thermo">';
   for(var i=1;i<=5;i++){h+='<button type="button" class="th'+(FB.n>=i?' on':'')+'" onclick="fbSet('+i+')" aria-label="Nota '+i+' de 5: '+L[i-1]+'"><b>'+i+'</b></button>';}
   h+='</div><div class="small" id="thlabel" style="text-align:center;margin:-4px 0 12px">'+(FB.n?L[FB.n-1]:"Toque de 1 a 5")+'</div>'+
    '<label class="l" for="fbt">Quer deixar um depoimento? (opcional)</label><textarea id="fbt" rows="4" placeholder="Conte o que achou do app"></textarea>'+

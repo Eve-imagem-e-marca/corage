@@ -1,4 +1,4 @@
-var CACHE = "corage-raio-x-v72";
+var CACHE = "corage-raio-x-v73";
 var FILES = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png"];
 
 self.addEventListener("install", function (e) {
