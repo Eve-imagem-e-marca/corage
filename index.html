@@ -1204,7 +1204,7 @@ function dollSvg(s){
   g+=E("text",{x:150,y:30,"text-anchor":"middle","font-family":"Iowan Old Style,Palatino,Georgia,serif","font-size":(P.n.length>16?10.5:P.n.length>11?12.5:15),"letter-spacing":(P.n.length>11?1.2:2.5),fill:"#6e2539"},("LOOK "+(oc?"":"")+P.n.toUpperCase()).replace(/&/g,"&amp;"));
   g+=E("path",{d:"M104 38h92",stroke:"#b08a57","stroke-width":1});
   if(s.oc)g+=E("text",{x:150,y:54,"text-anchor":"middle","font-family":"Iowan Old Style,Palatino,Georgia,serif","font-size":11,"font-style":"italic",fill:"#8a6a3a"},OT[0]);
-  g+=E("path",{d:"M92 423h36M172 423h36",stroke:"#b08a57","stroke-width":1})+E("text",{x:150,y:427,"text-anchor":"middle","font-family":"Iowan Old Style,Palatino,Georgia,serif","font-size":13,"letter-spacing":3,fill:"#6e2539"},"CorAge");
+  g+=E("path",{d:"M40 419h46M214 419h46",stroke:"#b08a57","stroke-width":1.2})+E("circle",{cx:92,cy:419,r:2,fill:"#b08a57"})+E("circle",{cx:208,cy:419,r:2,fill:"#b08a57"})+E("text",{x:150,y:426,"text-anchor":"middle","font-family":"Iowan Old Style,Palatino,Georgia,serif","font-size":22,"font-weight":700,"letter-spacing":2,fill:"#6e2539"},"CorAge");
   g+=E("path",{d:"M40 60l4 10 10 4-10 4-4 10-4-10-10-4 10-4z",fill:"#b08a57",opacity:.9,"class":"spk"})+E("path",{d:"M256 96l3 7 7 3-7 3-3 7-3-7-7-3 7-3z",fill:"#b08a57",opacity:.9,"class":"spk s2"})+E("path",{d:"M52 300l3 7 7 3-7 3-3 7-3-7-7-3 7-3z",fill:"#b08a57",opacity:.9,"class":"spk s3"});
   return "<svg id='dsv' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 440' role='img' aria-label='Bonequinha empreendedora: "+P.n+"'>"+g+"</svg>";
 }
