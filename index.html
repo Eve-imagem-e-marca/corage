@@ -458,6 +458,16 @@ canvas.cv{border-radius:18px!important;box-shadow:0 12px 28px rgba(110,37,57,.22
 .tool.g1,.tool.g2,.tool.g3,.tool.g4{background:linear-gradient(160deg,#fffdf8,#f1e6d0)!important;border:1px solid #c9b48e!important;box-shadow:0 10px 24px rgba(110,37,57,.16)!important}
 .tool.g1 b,.tool.g2 b,.tool.g3 b,.tool.g4 b{font-family:Iowan Old Style,Palatino,Georgia,serif;font-weight:600;letter-spacing:.2px}
 details.grp.why{margin:10px 0 14px}
+
+/* home: Veja o seu app em marsala; Mais discreto */
+.view .tool.hl,.view .tool.hl:nth-of-type(n){background:linear-gradient(135deg,#5e1d30,#7d2f45)!important;border:1px solid #b08a57!important;box-shadow:0 12px 26px rgba(94,29,48,.35)!important;backdrop-filter:none!important}
+.view .tool.hl b,.view .tool.hl span,.view .tool.hl::after{color:#fff!important}
+.view .tool.hl .ic{background:rgba(255,255,255,.14)!important;border:1px solid rgba(255,255,255,.55)!important}
+.view .tool.hl .ic svg{stroke:#fff!important;color:#fff!important}
+.view .acc.quiet,.view .acc.quiet:nth-of-type(n),.view .acc.quiet.open:nth-of-type(n){background:rgba(255,255,255,.55)!important;border:1px solid #c9b48e!important;box-shadow:none!important}
+.view .acc.quiet>button b,.view .acc.quiet>button span,.view .acc.quiet>button em{color:#6e2539!important}
+.view .acc.quiet .cic{background:transparent!important;border:1px solid #6e2539!important;box-shadow:none!important}
+.view .acc.quiet .cic svg{stroke:#6e2539!important;color:#6e2539!important}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -728,7 +738,7 @@ function vHome(){
   var why='<p>Um app não é só um site com outra cara. Ele fica com a cliente, do jeito da sua marca.</p><ul class="gain"><li>'+ico("phone",19)+'<span><b>Sua marca no bolso da cliente.</b> O ícone fica na tela dela todo dia.</span></li><li>'+ico("palette",19)+'<span><b>A experiência é sua.</b> Suas cores, sua voz e suas ferramentas.</span></li><li>'+ico("game",19)+'<span><b>Ela volta sozinha.</b> Jogos, desafios e lembretes criam hábito.</span></li><li>'+ico("sparkle",19)+'<span><b>Imagem de futuro.</b> Quem tem app passa modernidade e confiança.</span></li><li>'+ico("briefcase",19)+'<span><b>Uma agência de bolso.</b> Imagem, conteúdo, ideias e contato num só lugar, no seu celular.</span></li></ul><button class="primary glass-sm" onclick="go(\'demo\')">Veja o seu app</button>';
   function dg(t,c,html){return '<details class="grp" style="--gc:'+c+'" ontoggle="grpOne(this)"><summary>'+t+'<i>+</i></summary><div class="dgb">'+html+'</div></details>';}
   var mais='<div class="grps">'+dg("Por que ter um app?","#6e2539",why)+dg("O que você ganha","#1f4e52",gain)+dg("Deixe no seu celular","#b5522a",'<p><b>iPhone:</b> Safari, Compartilhar, "Adicionar à Tela de Início".</p><p><b>Android:</b> Chrome, menu (três pontinhos), "Instalar aplicativo".</p>')+dg("Sons","#55683f",'<button class="primary glass-sm" id="sndbtn" onclick="toggleSnd()">'+(sndOn()?"Sons ligados":"Sons desligados")+'</button>')+dg("Sua opinião","#1f4e52",'<button class="primary glass-sm" onclick="go(\'feedback\')">Dar minha nota</button>')+'</div>';
-  h+=box("sparkle","Mais","Por que ter um app, celular, sons e opinião",mais);
+  h+=box("sparkle","Mais","Por que ter um app, celular, sons e opinião",mais).replace('class="acc"','class="acc quiet"');
   h+='<div style="text-align:center;margin-top:6px"><button class="link" onclick="go(\'contact\')">Deixar meu contato</button></div>';
   h+=foot();
   app.innerHTML=h;
