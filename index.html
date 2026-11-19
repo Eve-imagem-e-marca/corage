@@ -2009,10 +2009,10 @@ var BZ={tab:"calc",s:null};
 function nBR(v){v=String(v==null?"":v).replace(/\./g,"").replace(",",".");var n=parseFloat(v);return isNaN(n)?0:n;}
 function fBR(n){return (isFinite(n)?n:0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});}
 function fPc(n){return (isFinite(n)?n:0).toLocaleString("pt-BR",{maximumFractionDigits:1})+"%";}
-function bzInp(id,l,ph){return '<label class="l" for="'+id+'">'+l+'</label><input id="'+id+'" class="inp" inputmode="decimal" placeholder="'+(ph||"0,00")+'" oninput="bzCalc()" style="width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024">';}
+function bzInp(id,l,ph,val){return '<label class="l" for="'+id+'">'+l+'</label><input id="'+id+'" class="inp" inputmode="decimal" placeholder="'+(ph||"0,00")+'" value="'+(val||"")+'" oninput="bzCalc()" style="width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024">';}
 function bzTab(t){BZ.tab=t;vBiz();}
 function vBiz(){
-  var tabs=[["calc","Calculadoras"],["sheet","Planilha"],["agenda","Agenda"]],h=back("Gestão básica do negócio","home")+'<h2>Gestão básica do negócio</h2><p>Contas prontas, uma mini planilha e a sua agenda. Tudo fica só no seu celular.</p><div class="drow" style="margin-bottom:10px">';
+  var tabs=[["calc","Calculadoras"],["sheet","Financeiro"],["agenda","Agenda"]],h=back("Gestão básica do negócio","home")+'<h2>Gestão básica do negócio</h2><p>Calculadoras para precificar, controle financeiro mensal e agenda. Tudo fica só no seu celular.</p><div class="drow" style="margin-bottom:10px">';
   tabs.forEach(function(t){h+='<button class="dpill'+(BZ.tab===t[0]?' on':'')+'" onclick="bzTab(\''+t[0]+'\')">'+t[1]+'</button>';});
   h+='</div>';
   if(BZ.tab==="calc")h+=bzCalcHtml();else if(BZ.tab==="sheet")h+=bzSheetHtml();else h+=bzAgendaHtml();
@@ -2021,31 +2021,45 @@ function vBiz(){
 }
 function bzBox(t,body){return '<details class="grp" style="--gc:#6e2539" ontoggle="grpOne(this)"><summary>'+t+'<i>+</i></summary><div class="dgb">'+body+'</div></details>';}
 function bzCalcHtml(){
+  var N=function(t){return '<p class="small" style="margin:0 0 8px">'+t+'</p>';},R=function(i){return '<div class="card" id="'+i+'" style="margin-top:14px"></div>';};
   return '<div class="grps">'+
-  bzBox("Preço de venda",bzInp("p1c","Quanto custa para você fazer (R$)")+bzInp("p1m","Margem de lucro que você quer (%)","40")+'<div class="card" id="r1"></div>')+
-  bzBox("Margem de lucro",bzInp("p2p","Preço que você cobra (R$)")+bzInp("p2c","Custo (R$)")+'<div class="card" id="r2"></div>')+
-  bzBox("Valor da sua hora",bzInp("p3g","Quanto precisa ganhar por mês (R$)")+bzInp("p3h","Horas que trabalha por mês","120")+'<div class="card" id="r3"></div>')+
-  bzBox("Ponto de equilíbrio",bzInp("p4f","Custos fixos por mês (R$)")+bzInp("p4p","Preço de cada venda (R$)")+bzInp("p4v","Custo de cada venda (R$)")+'<div class="card" id="r4"></div>')+
-  bzBox("Desconto",bzInp("p5p","Preço (R$)")+bzInp("p5d","Desconto (%)","10")+'<div class="card" id="r5"></div>')+'</div>';
+  bzBox("Preço de venda",N("Descubra quanto cobrar para ter o lucro que você quer.")+bzInp("p1c","Custo do produto ou serviço (R$)")+bzInp("p1m","Margem de lucro desejada (%)","40","40")+R("r1"))+
+  bzBox("Margem de lucro",N("Veja quanto sobra de cada venda.")+bzInp("p2p","Preço de venda (R$)")+bzInp("p2c","Custo (R$)")+R("r2"))+
+  bzBox("Valor da sua hora",N("Quanto o seu tempo precisa valer para chegar ao seu objetivo.")+bzInp("p3g","Quanto você quer ganhar por mês (R$)")+bzInp("p3h","Horas trabalhadas por mês","120","120")+R("r3"))+
+  bzBox("Ponto de equilíbrio",N("Quantas vendas pagam as suas contas do mês, sem lucro nem prejuízo.")+bzInp("p4f","Custos fixos por mês (R$)")+bzInp("p4p","Preço de cada venda (R$)")+bzInp("p4v","Custo de cada venda (R$)")+R("r4"))+
+  bzBox("Desconto",N("Veja o preço final e quanto você deixa de ganhar.")+bzInp("p5p","Preço original (R$)")+bzInp("p5d","Desconto (%)","10","10")+R("r5"))+'</div>';
 }
 function bzCalc(){
   function g(i){var e=document.getElementById(i);return e?nBR(e.value):0;}function o(i,h){var e=document.getElementById(i);if(e)e.innerHTML=h;}
-  var c=g("p1c"),m=g("p1m");o("r1",m>=100?"Use uma margem abaixo de 100%.":'<b>Preço ideal: '+fBR(c/(1-m/100))+'</b><p style="margin:4px 0 0">Lucro por venda: '+fBR(c/(1-m/100)-c)+'</p>');
-  var p=g("p2p"),c2=g("p2c");o("r2",p?'<b>Margem: '+fPc((p-c2)/p*100)+'</b><p style="margin:4px 0 0">Lucro por venda: '+fBR(p-c2)+'</p>':'Preencha o preço.');
-  var gm=g("p3g"),hh=g("p3h");o("r3",hh?'<b>Sua hora vale: '+fBR(gm/hh)+'</b><p style="margin:4px 0 0">Use como base para cobrar o seu tempo.</p>':'Preencha as horas.');
-  var f=g("p4f"),pp=g("p4p"),v=g("p4v");o("r4",pp>v?'<b>Precisa vender '+Math.ceil(f/(pp-v))+' por mês</b><p style="margin:4px 0 0">Para pagar os custos fixos sem lucro nem prejuízo.</p>':'O preço precisa ser maior que o custo de cada venda.');
-  var p5=g("p5p"),d=g("p5d");o("r5",'<b>Preço final: '+fBR(p5*(1-d/100))+'</b><p style="margin:4px 0 0">Você deixa de ganhar '+fBR(p5*d/100)+'.</p>');
+  var R=function(t,v,x){return '<span class="small" style="display:block">'+t+'</span><b style="font-size:22px;color:#6e2539">'+v+'</b>'+(x?'<p style="margin:6px 0 0">'+x+'</p>':'');};
+  var E=function(t){return '<span class="small">'+t+'</span>';};
+  var c=g("p1c"),m=g("p1m");o("r1",!c?E("Preencha o custo para ver o preço."):m>=100?E("Use uma margem abaixo de 100%."):R("Preço de venda ideal",fBR(c/(1-m/100)),"Lucro por venda: "+fBR(c/(1-m/100)-c)));
+  var p=g("p2p"),c2=g("p2c");o("r2",!p?E("Preencha o preço de venda."):R("Margem de lucro",fPc((p-c2)/p*100),"Lucro por venda: "+fBR(p-c2)));
+  var gm=g("p3g"),hh=g("p3h");o("r3",!(gm&&hh)?E("Preencha o valor e as horas."):R("Valor da sua hora",fBR(gm/hh),"Use como base para cobrar o seu tempo."));
+  var f=g("p4f"),pp=g("p4p"),v=g("p4v");o("r4",!(f&&pp)?E("Preencha os custos fixos e o preço."):pp>v?R("Vendas necessárias por mês",String(Math.ceil(f/(pp-v))),"Para pagar os custos fixos sem lucro nem prejuízo."):E("O preço precisa ser maior que o custo de cada venda."));
+  var p5=g("p5p"),d=g("p5d");o("r5",!p5?E("Preencha o preço original."):R("Preço com desconto",fBR(p5*(1-d/100)),"Você deixa de ganhar "+fBR(p5*d/100)+" por venda."));
 }
-function bzLoad(){var r=ls("cg_sheet");return Array.isArray(r)?r:[];}
+var BI='width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024';
+var BCAT=["Vendas e serviços","Material e produtos","Marketing","Impostos e MEI","Aluguel e contas","Transporte","Pró-labore (retirada)","Outros"];
+function bzToday(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function bzLoad(){var r=ls("cg_sheet");r=Array.isArray(r)?r:[];r.forEach(function(x){if(!x.dt)x.dt=bzToday();if(!x.c)x.c="Outros";});return r;}
+var BM=null;
+function bzMes(){return BM||(BM=bzToday().slice(0,7));}
+function bzShift(n){var p=bzMes().split("-"),d=new Date(+p[0],+p[1]-1+n,1);BM=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");bzSheetDraw();}
+function bzMesNome(m){var p=m.split("-"),n=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];var q=n[+p[1]-1];return q.charAt(0).toUpperCase()+q.slice(1)+" de "+p[0];}
+function bzDt(d){var p=d.split("-");return p[2]+"/"+p[1];}
 function bzSheetHtml(){
-  return '<div class="card"><label class="l" for="sd">O que foi</label><input id="sd" class="inp" placeholder="Ex.: Consulta, aluguel" style="width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024"><label class="l" for="st">Tipo</label><select id="st" class="inp" style="width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024"><option value="e">Entrou (receita)</option><option value="s">Saiu (custo)</option></select><label class="l" for="sv">Valor (R$)</label><input id="sv" class="inp" inputmode="decimal" placeholder="0,00" style="width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024"><button class="primary" style="margin-top:10px" onclick="bzAdd()">Adicionar</button></div><div id="sl"></div>';
+  return '<div id="sl"></div><div class="card" style="margin-top:12px"><b>Novo lançamento</b><label class="l" for="st">Tipo</label><select id="st" class="inp" style="'+BI+'"><option value="e">Receita (entrou dinheiro)</option><option value="s">Despesa (saiu dinheiro)</option></select><label class="l" for="sd">Descrição</label><input id="sd" class="inp" placeholder="Ex.: Atendimento, aluguel, material" style="'+BI+'"><label class="l" for="sc">Categoria</label><select id="sc" class="inp" style="'+BI+'">'+BCAT.map(function(c){return '<option>'+c+'</option>';}).join("")+'</select><label class="l" for="sdt">Data</label><input id="sdt" type="date" value="'+bzToday()+'" style="'+BI+'"><label class="l" for="sv">Valor (R$)</label><input id="sv" class="inp" inputmode="decimal" placeholder="0,00" style="'+BI+'"><button class="primary" style="margin-top:10px" onclick="bzAdd()">Adicionar lançamento</button></div>';
 }
-function bzAdd(){var d=document.getElementById("sd").value.trim(),v=nBR(document.getElementById("sv").value);if(!d||!v){toast("Escreva o que foi e o valor.");return;}var r=bzLoad();r.push({d:d,t:document.getElementById("st").value,v:v});ls("cg_sheet",r);document.getElementById("sd").value="";document.getElementById("sv").value="";bzSheetDraw();snd("coin");}
+function bzAdd(){var d=document.getElementById("sd").value.trim(),v=nBR(document.getElementById("sv").value),dt=document.getElementById("sdt").value;if(!d||!v||!dt){toast("Preencha a descrição, a data e o valor.");return;}var r=bzLoad();r.push({d:d,t:document.getElementById("st").value,v:v,dt:dt,c:document.getElementById("sc").value});ls("cg_sheet",r);BM=dt.slice(0,7);document.getElementById("sd").value="";document.getElementById("sv").value="";bzSheetDraw();snd("coin");toast("Lançamento adicionado.");}
 function bzDel(i){var r=bzLoad();r.splice(i,1);ls("cg_sheet",r);bzSheetDraw();}
-function bzSheetDraw(){var r=bzLoad(),en=0,sa=0,h='';r.forEach(function(x,i){if(x.t==="e")en+=x.v;else sa+=x.v;h+='<div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px"><span>'+dEsc(x.d)+'<br><b style="color:'+(x.t==="e"?"#1f4e52":"#6e2539")+'">'+(x.t==="e"?"+ ":"− ")+fBR(x.v)+'</b></span><button class="link" onclick="bzDel('+i+')" aria-label="Apagar">Apagar</button></div>';});
-  var t='<div class="card" style="margin-top:12px"><b>Entrou: '+fBR(en)+'</b><br><b>Saiu: '+fBR(sa)+'</b><br><b style="font-size:20px;color:'+(en-sa>=0?"#1f4e52":"#6e2539")+'">Sobrou: '+fBR(en-sa)+'</b></div>';
-  var e=document.getElementById("sl");if(e)e.innerHTML=t+h+(r.length?'<button class="primary" style="margin-top:12px" onclick="bzCsv()">Baixar planilha</button>':'');}
-function bzCsv(){var r=bzLoad(),c="Descricao;Tipo;Valor\n";r.forEach(function(x){c+='"'+x.d.replace(/"/g,'""')+'";'+(x.t==="e"?"Entrada":"Saida")+";"+String(x.v).replace(".",",")+"\n";});var b=new Blob(["﻿"+c],{type:"text/csv"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="planilha-coragem.csv";document.body.appendChild(a);a.click();a.remove();toast("Planilha baixada. Abra no Excel ou no Google Planilhas.");}
+function bzSheetDraw(){var all=bzLoad(),m=bzMes(),en=0,sa=0,h='';
+  all.map(function(x,i){return {x:x,i:i};}).filter(function(o){return o.x.dt.slice(0,7)===m;}).sort(function(a,b){return a.x.dt<b.x.dt?1:-1;}).forEach(function(o){var x=o.x;if(x.t==="e")en+=x.v;else sa+=x.v;
+    h+='<div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px"><span><span class="small">'+bzDt(x.dt)+' · '+dEsc(x.c)+'</span><br>'+dEsc(x.d)+'<br><b style="color:'+(x.t==="e"?"#1f4e52":"#6e2539")+'">'+(x.t==="e"?"+ ":"− ")+fBR(x.v)+'</b></span><button class="link" onclick="bzDel('+o.i+')" aria-label="Apagar">Apagar</button></div>';});
+  var res=en-sa,nav='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><button class="dpill" onclick="bzShift(-1)" aria-label="Mês anterior">‹</button><b>'+bzMesNome(m)+'</b><button class="dpill" onclick="bzShift(1)" aria-label="Próximo mês">›</button></div>';
+  var t='<div class="card">'+nav+'<div style="display:flex;justify-content:space-between"><span>Receitas</span><b style="color:#1f4e52">'+fBR(en)+'</b></div><div style="display:flex;justify-content:space-between;margin-top:4px"><span>Despesas</span><b style="color:#6e2539">'+fBR(sa)+'</b></div><div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:8px;border-top:1px solid #c9b48e;font-size:20px"><b>Resultado do mês</b><b style="color:'+(res>=0?"#1f4e52":"#6e2539")+'">'+fBR(res)+'</b></div></div>';
+  var e=document.getElementById("sl");if(e)e.innerHTML=t+(h||'<p class="small" style="margin-top:10px">Nenhum lançamento neste mês.</p>')+(all.length?'<button class="primary" style="margin-top:12px" onclick="bzCsv()">Baixar planilha (Excel / Google Planilhas)</button>':'');}
+function bzCsv(){var r=bzLoad().slice().sort(function(a,b){return a.dt<b.dt?-1:1;}),c="Data;Tipo;Categoria;Descricao;Valor\n";r.forEach(function(x){var p=x.dt.split("-");c+=p[2]+"/"+p[1]+"/"+p[0]+";"+(x.t==="e"?"Receita":"Despesa")+';"'+x.c+'";"'+x.d.replace(/"/g,'""')+'";'+String(x.v).replace(".",",")+"\n";});var b=new Blob(["﻿"+c],{type:"text/csv"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="controle-financeiro-corage.csv";document.body.appendChild(a);a.click();a.remove();toast("Planilha baixada. Abra no Excel ou no Google Planilhas.");}
 function bzAgendaHtml(){
   var d=new Date(Date.now()+86400000),ds=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
   var chips=["Postar nas redes","Responder clientes","Parte financeira","Criar conteúdo","Descansar sem culpa"].map(function(t){return '<button class="dpill" onclick="document.getElementById(\'at\').value=\''+t+'\'">'+t+'</button>';}).join("");
