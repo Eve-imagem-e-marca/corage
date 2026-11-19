@@ -378,8 +378,8 @@ body{background:linear-gradient(180deg,#f4ecdd 0%,#e4eeea 100%) fixed}
 .view .acc.lt>button em{border-color:var(--ink)!important;color:var(--ink)!important}
 .view .acc.lt>button .cic{border-color:var(--ink)!important}.view .acc.lt>button .cic svg{stroke:var(--ink)!important}
 .subs{display:grid;gap:10px;margin-bottom:6px}
-.sub{display:block;padding:12px 14px;border-radius:12px;background:#fff;border:1px solid rgba(43,42,46,.25);text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.08)}
-.view .acc .body .sub b{display:block;font-family:var(--serif);font-size:18px;color:#2b2a2e}.view .acc .body .sub span{display:block;font-size:15px;color:var(--soft)}
+.sub{display:block;padding:12px 14px;border-radius:12px;background:#fff;border:1px solid rgba(90,61,46,.3);text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.view .acc .body .sub b{display:block;font-family:var(--serif);font-size:18px;color:#5a3d2e}.view .acc .body .sub span{display:block;font-size:15px;color:var(--soft)}
 body{background:#f6f0e4!important}
 .blob{display:none!important}
 .hdr{background:rgba(246,240,228,.94)!important}
@@ -394,6 +394,16 @@ body{background:#f6f0e4!important}
 .view .acc.open:nth-of-type(2n+1){background:#6e2539!important}.view .acc.open:nth-of-type(2n){background:#1f4e52!important}
 .view .tool.g1,.view .tool.g3{background:#6e2539!important}.view .tool.g2,.view .tool.g4{background:#1f4e52!important}
 .view .tool.g1 .ic,.view .tool.g2 .ic,.view .tool.g3 .ic,.view .tool.g4 .ic,.view .tool.g3:nth-of-type(n) .ic,.view .tool.g4:nth-of-type(n) .ic{background:transparent!important}
+/* trio + cafe: marsala, petroleo, cafe */
+.view .acc:nth-of-type(3n+1),.view .tool:nth-of-type(3n+1){background:#6e2539!important}
+.view .acc:nth-of-type(3n+2),.view .tool:nth-of-type(3n+2){background:#1f4e52!important}
+.view .acc:nth-of-type(3n),.view .tool:nth-of-type(3n){background:#5a3d2e!important}
+.view .acc.open:nth-of-type(3n+1){background:#6e2539!important}.view .acc.open:nth-of-type(3n+2){background:#1f4e52!important}.view .acc.open:nth-of-type(3n){background:#5a3d2e!important}
+.view .tool.g1{background:#6e2539!important}.view .tool.g2{background:#1f4e52!important}.view .tool.g3{background:#5a3d2e!important}.view .tool.g4{background:#6e2539!important}
+.view .tool.hl,.view .tool.hl:nth-of-type(n){background:rgba(255,255,255,.55)!important;color:var(--marsala)!important}
+.view .acc .body .tool{background:#fff!important;color:var(--ink)!important;border:1px solid rgba(90,61,46,.25)!important}
+.view .acc .body .tool b{color:var(--marsala)!important;font-family:var(--serif)}.view .acc .body .tool span{color:var(--soft)!important}
+.view .acc .body .tool .ic{border-color:var(--teal)!important}.view .acc .body .tool .ic svg{stroke:var(--teal)!important}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -526,7 +536,7 @@ var wheel=[
  ["Indique","Indique um livro, filme ou profissional em que você confia e diga por quê."]
 ];
 var works=[
- {c:"Apps",ic:"brain",col:"#2b2a2e",tg:"Modelos de app",t:"Apps para psicólogas",d:"Cada psicóloga tem o seu app, com as cores e as ferramentas do trabalho dela. Escolha um para ver:",subs:[
+ {c:"Apps",ic:"brain",col:"#6b4a36",tg:"Modelos de app",t:"Apps para psicólogas",d:"Cada psicóloga tem o seu app, com as cores e as ferramentas do trabalho dela. Escolha um para ver:",subs:[
   {n:"Psicóloga Keila",s:"Quiz, roda das emoções, respiração, diário e desafio de 7 dias",u:APP_PSI},
   {n:"Cris, psicóloga e líderes",s:"Clima da equipe, preparo para a NR-1 e desafio para líderes",u:"https://eve-imagem-e-marca.github.io/app-cristiane/"},
   {n:"Adilene, relações e adoção",s:"Quiz de relações, roda do bem-estar e conteúdo sobre adoção",u:"https://eve-imagem-e-marca.github.io/Adilene-App/"}]},
@@ -536,7 +546,7 @@ var works=[
  {c:"Podcast",ic:"mic",col:"#1f4e52",t:"Podleve",d:"Podcast para quem cuida de gente, com a Eve como host. Entrevistas com profissionais do cuidado, com edição, roteiro e cortes feitos por ela.",u:"https://www.youtube.com/@podleve_cast",b:"Ver no YouTube"},
  {c:"Conteúdo",ic:"book",col:"#e8dcc4",lt:1,t:"E-books para quem cuida",d:"A Imagem que Acolhe, Instagram que Acolhe, O Carrossel que Cuida e Alcance que Acolhe: guias de imagem e de conteúdo para profissionais do cuidado."},
  {c:"Conteúdo",ic:"pen",col:"#cdb998",lt:1,t:"Produção de conteúdo",d:"Posts e estratégia para perfis de psicólogas, esteticistas e dentistas, e para o próprio perfil, desde que me formei em Marketing, em 2012."},
- {c:"Imagem",ic:"hanger",col:"#5a3d2e",t:"Imagem e marca pessoal",d:"Atendimento e mentoria de imagem desde 2018, com formação em Marketing e pós em marca pessoal e influência digital."}
+ {c:"Imagem",ic:"hanger",col:"#3b271d",t:"Imagem e marca pessoal",d:"Atendimento e mentoria de imagem desde 2018, com formação em Marketing e pós em marca pessoal e influência digital."}
 ];
 var chipsList=["Todos","Apps","Conteúdo","Podcast","Imagem"];
 
