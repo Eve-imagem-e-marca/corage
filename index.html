@@ -888,7 +888,7 @@ function vHome(){
   var h='<section class="hero" style="padding-bottom:0"><h1 style="margin-bottom:6px">'+nm+'</h1></section>';
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
   function box(ic,title,sub,body){return '<div class="acc" '+AC+'><button><div class="cic" style="width:40px;height:40px;font-size:0">'+ico(ic,22)+'</div><div style="flex:1"><b>'+title+'</b><span>'+sub+'</span></div><em>+</em></button><div class="body">'+body+'</div></div>';}
-  h+='<div class="card giftc"><div class="giftk">'+ico("sparkle",22)+'</div><div style="flex:1"><b>Que bom que você chegou aqui!</b><p class="small" style="margin:4px 0 10px">'+(new Date().getMonth()===10&&new Date().getDate()===19?'Hoje é o Dia do Empreendedorismo Feminino. ':'')+'Seu presente: 11 ferramentas gratuitas.</p><button class="primary glass-sm" style="width:100%" onclick="go(\'presente\')">Abrir meu presente</button></div></div>';
+  h+='<div class="card giftc"><div class="giftk">'+ico("sparkle",22)+'</div><div style="flex:1"><b>Que bom que você chegou aqui!</b><p class="small" style="margin:4px 0 10px">'+(new Date().getMonth()===10&&new Date().getDate()===19?'Hoje é o Dia do Empreendedorismo Feminino. ':'')+'Seu presente: 12 ferramentas gratuitas.</p><button class="primary glass-sm" style="width:100%" onclick="go(\'presente\')">Abrir meu presente</button></div></div>';
   h+='<div class="card ia"><div class="iaw"><div class="iaav2">I</div><div><b>1. Comece com a Iasmin</b><small>Assistente virtual da CorAge</small></div></div><p style="margin:0 0 12px">Em poucos passos você conhece o app e ganha um Raio-X do seu trabalho.</p>'+
    (nx?'<div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><span class="small" style="margin:0">'+nx[1]+'</span><button class="primary glass-sm pulse" onclick="go(\''+nx[0]+'\')">'+(started?"Continuar":"Começar")+' →</button></div>':contactBtn("Conversar com a CorAge","Oi, Eve! Fiz o Raio-X completo e quero conversar.","primary glass-sm pulse"))+
    '<div style="text-align:center"><button class="link" onclick="iaOpen()">Tirar uma dúvida com a Iasmin</button></div></div>';
@@ -1947,12 +1947,12 @@ function vChecklist(){
 }
 function vPresente(){
   var G=[
-   ["Organizar","#6e2539",[["biz","coin","Gestão do negócio"],["checklist","check","Checklist"],["kanban","puzzle","Quadro de tarefas"],["crm","heart","Clientes e metas"],["comercial","calendar","Calendário comercial"]]],
+   ["Organizar","#6e2539",[["biz","coin","Gestão do negócio"],["checklist","check","Checklist"],["kanban","puzzle","Quadro de tarefas"],["semana","calendar","Agenda da semana"],["crm","heart","Clientes e metas"],["comercial","calendar","Calendário comercial"]]],
    ["Legalizar e crescer","#1f4e52",[["mei","file","MEI"],["apoio","briefcase","Onde buscar ajuda"],["rede","users","Rede de empreendedoras"],["eventos","calendar","Eventos grátis"]]],
    ["Marca","#8a6630",[["google","search","Google grátis"],["mind","sparkle","Mentalidade"]]]
   ],h='';
   G.forEach(function(g){h+='<div class="tlab" style="color:'+g[1]+'">'+g[0]+'</div><div class="tgrid">'+g[2].map(function(t){return '<button class="tile" onclick="go(\''+t[0]+'\')" style="--c:'+g[1]+'"><span class="ti">'+ico(t[1],26)+'</span><b>'+t[2]+'</b></button>';}).join('')+'</div>';});
-  app.innerHTML=back("Seu presente","home")+'<h2>Seu presente</h2><p>11 ferramentas gratuitas para o seu negócio.</p>'+h+starsBox("presente")+foot();
+  app.innerHTML=back("Seu presente","home")+'<h2>Seu presente</h2><p>12 ferramentas gratuitas para o seu negócio.</p>'+h+starsBox("presente")+foot();
 }
 var KBC=[["A fazer","#6e2539"],["Fazendo","#1f4e52"],["Aguardando","#b08a57"],["Feito","#6b4a36"]],KBT=0;
 var KBA=[[["Começar",1],["Apagar",-1]],[["Concluir",3],["Aguardar",2],["Voltar",0]],[["Retomar",1],["Concluir",3]],[["Reabrir",0],["Apagar",-1]]];
@@ -1973,6 +1973,19 @@ function vKanban(){
    '<h3 style="margin:18px 0 8px">2. Seu quadro</h3><div id="kbl"></div>'+
    '<label class="l" for="kbn">Nova tarefa</label><input id="kbn" class="inp" placeholder="Ex.: Ligar para o fornecedor" style="'+BI+'"><button class="primary" style="margin-top:10px" onclick="kbAdd()">Adicionar em A fazer</button>'+starsBox("quadro")+foot();
   kbDraw();
+}
+var SWD=["Segunda","Terça","Quarta","Quinta","Sexta"],SWT=Math.min(Math.max((new Date().getDay()+6)%7,0),4);
+function swL(){var r=ls("cg_sem");return r&&typeof r==="object"&&!Array.isArray(r)?r:{};}
+function swSet(d,h,v){var r=swL();r[d+"_"+h]=v;ls("cg_sem",r);}
+function swTab(i){SWT=i;swDraw();}
+function swClear(){var r=swL();for(var h=9;h<=17;h++)delete r[SWT+"_"+h];ls("cg_sem",r);swDraw();toast("Dia limpo.");}
+function swDraw(){var r=swL(),el=document.getElementById("swl");if(!el)return;
+  var pills=SWD.map(function(n,i){var c=0;for(var h=9;h<=17;h++)if(r[i+"_"+h])c++;return '<button class="dpill'+(SWT===i?' on':'')+'" onclick="swTab('+i+')" style="'+(SWT===i?'border-color:#1f4e52;color:#1f4e52;':'')+'">'+n.slice(0,3)+(c?' '+c:'')+'</button>';}).join('');
+  var rows='';for(var h=9;h<=17;h++){rows+='<div class="ckr" style="--c:'+(h%2?'#1f4e52':'#6e2539')+';display:flex;align-items:center;gap:10px"><b style="min-width:56px;font-size:16px">'+(h<10?'0':'')+h+':00</b><input class="inp" style="'+BI+';margin:0" placeholder="O que vai fazer?" value="'+dEsc(r[SWT+"_"+h]||"")+'" oninput="swSet('+SWT+','+h+',this.value)"></div>';}
+  el.innerHTML='<div class="drow" style="margin-bottom:10px;flex-wrap:wrap">'+pills+'</div><h3 style="margin:0 0 8px">'+SWD[SWT]+'</h3>'+rows+'<button class="ckl" style="--c:#6e2539;margin-top:10px" onclick="swClear()">Limpar este dia</button>';}
+function vSemana(){
+  app.innerHTML=back("Agenda da semana","presente")+'<h2>Agenda da semana</h2><p>Reserve um horário para cada coisa importante. Escolha o dia e escreva. Fica salvo só no seu celular.</p><div id="swl"></div>'+starsBox("semana")+foot();
+  swDraw();
 }
 function vGoogle(){
   var st=function(n,t){return '<li>'+ico("check",19)+'<span><b>'+n+'</b> '+t+'</span></li>';};
@@ -2215,7 +2228,7 @@ function crMetaDraw(){var g=gLoad(),e=document.getElementById("gb");if(!e)return
 function render(){
   var v=state.view;
   app.className="view";
-  if(v==="eve")vEve();else if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="mei")vMei();else if(v==="kanban")vKanban();else if(v==="presente")vPresente();else if(v==="checklist")vChecklist();else if(v==="comercial")vComercial();else if(v==="google")vGoogle();else if(v==="apoio")vApoio();else if(v==="rede")vRede();else if(v==="eventos")vEventos();else if(v==="crm")vCrm();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
+  if(v==="eve")vEve();else if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="mei")vMei();else if(v==="kanban")vKanban();else if(v==="semana")vSemana();else if(v==="presente")vPresente();else if(v==="checklist")vChecklist();else if(v==="comercial")vComercial();else if(v==="google")vGoogle();else if(v==="apoio")vApoio();else if(v==="rede")vRede();else if(v==="eventos")vEventos();else if(v==="crm")vCrm();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
   var kids=app.children;for(var i=0;i<kids.length;i++){if(noA){kids[i].style.animation="none";}else{kids[i].style.animationDelay=(i*55)+"ms";}}
   noA=false;
   var tab=(v==="portfolio"||v==="plans")?v:"home";
