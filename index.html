@@ -326,6 +326,26 @@ body{background:#f8f4ee}
 .primary,.view .tool.hl{background:rgba(255,255,255,.5)!important;color:var(--teal)!important;border:1px solid rgba(31,78,82,.4)!important;box-shadow:inset 0 1px 0 #fff,0 4px 14px rgba(31,78,82,.10)!important}
 .view .tool.hl b,.view .tool.hl span,.view .tool.hl{color:var(--teal)!important}
 .view .tool.hl .ic{border-color:var(--teal)!important;color:var(--teal)!important}.view .tool.hl svg{color:var(--teal);stroke:var(--teal)}
+
+/* mais cor e sombra */
+body{background:linear-gradient(180deg,#f4ecdd 0%,#e4eeea 100%) fixed}
+.b1{background:#2f7479}.b2{background:#d9a85f}.blob{opacity:.30}
+.view .acc,.view .tool,.card{box-shadow:0 10px 26px rgba(31,78,82,.20),0 2px 5px rgba(31,40,40,.10)!important;border:1px solid rgba(176,138,87,.45)}
+.view .acc.open{box-shadow:0 14px 32px rgba(110,37,57,.22)!important}
+.tool.g1 .ic,.tool.g2 .ic,.tool.g3 .ic,.tool.g4 .ic{border:0!important;color:#fff!important;box-shadow:0 5px 12px rgba(0,0,0,.22)}
+.tool.g1 .ic{background:#6e2539}.tool.g2 .ic{background:#1f4e52}.tool.g3 .ic{background:#b08a57}.tool.g4 .ic{background:#6b4a36}
+.tool.g1 .ic svg,.tool.g2 .ic svg,.tool.g3 .ic svg,.tool.g4 .ic svg{stroke:#fff;color:#fff}
+.tool.g1{border-left:5px solid #6e2539!important}.tool.g2{border-left:5px solid #1f4e52!important}.tool.g3{border-left:5px solid #b08a57!important}.tool.g4{border-left:5px solid #6b4a36!important}
+.ticket{display:flex;border-radius:14px;overflow:hidden;margin:0 0 14px;background:linear-gradient(135deg,#1f4e52,#6e2539);color:#fff;box-shadow:0 10px 22px rgba(31,78,82,.35)}
+.tk-main{flex:1;padding:14px 16px;border-right:2px dashed rgba(255,255,255,.55)}
+.tk-main small{letter-spacing:2px;color:#f0d7a8;font-size:13px}.tk-main b{display:block;font-family:var(--serif);font-size:24px;margin:2px 0}.tk-main span{font-size:15px;color:#fff}
+.tk-stub{width:64px;display:grid;place-items:center;font-size:28px;background:#b08a57;color:#fff}
+.pl{list-style:none;padding:0;margin:0}.pl li{margin:0 0 8px}.pl a{display:block;padding:10px 12px;border-radius:12px;background:rgba(31,78,82,.10);color:var(--teal);text-decoration:none;border:1px solid rgba(31,78,82,.25)}
+.lockd .ticket{filter:saturate(.5)}
+.brow>*{box-shadow:0 3px 8px rgba(31,78,82,.12)}
+.view .tool.g1 .ic,.view .tool.g1:nth-of-type(n) .ic{background:#6e2539!important}.view .tool.g2 .ic,.view .tool.g2:nth-of-type(n) .ic{background:#1f4e52!important}.view .tool.g3 .ic,.view .tool.g3:nth-of-type(n) .ic{background:#b08a57!important}.view .tool.g4 .ic,.view .tool.g4:nth-of-type(n) .ic{background:#6b4a36!important}
+.view .tool.g1,.view .tool.g2,.view .tool.g3,.view .tool.g4{background:#fff!important}
+.view .tool .ic svg{stroke:currentColor}.view .tool.g1 .ic svg,.view .tool.g2 .ic svg,.view .tool.g3 .ic svg,.view .tool.g4 .ic svg{stroke:#fff!important}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -377,10 +397,10 @@ function addPts(n){pts+=n;ls("cg_pts",pts);}
 var BADGES=[["look","hanger","Primeiro look"],["contrato","file","Look de contrato"],["conquista","chat","Look que conquista"],["giro","coin","Capital de giro"],["fechou","check","Primeiro contrato"],["sobrev","shield","Sobrevivente"],["cruz","puzzle","Mente de marca"],["raiox","search","Raio-X completo"]];
 var bdg=ls("cg_badges")||{};
 function toast(x){var e=document.createElement("div");e.className="toast";e.textContent=x;document.body.appendChild(e);setTimeout(function(){e.classList.add("off");},3200);setTimeout(function(){if(e.parentNode)e.parentNode.removeChild(e);},3700);}
-function badge(id){if(bdg[id])return;bdg[id]=1;ls("cg_badges",bdg);addPts(5);var n="";BADGES.forEach(function(b){if(b[0]===id)n=b[2];});toast("Nova conquista: "+n+" (+5 pontos)");}
+function badge(id){if(bdg[id])return;bdg[id]=1;ls("cg_badges",bdg);addPts(5);var n="";BADGES.forEach(function(b){if(b[0]===id)n=b[2];});toast("Nova conquista: "+n+" (+5 de coragem)");}
 function badgeRow(){var h='<div class="brow">';BADGES.forEach(function(b){h+='<div class="bd'+(bdg[b[0]]?' on':'')+'"><span>'+ico(b[1],24)+'</span><small>'+b[2]+'</small></div>';});return h+'</div>';}
-function level(){return pts<20?"Começando":pts<60?"Em crescimento":pts<120?"Empreendedora em ação":"Referência";}
-function ptsTag(){return '<span class="tag">'+pts+' pontos · '+level()+'</span>';}
+function level(){return pts<20?"Tomando coragem":pts<60?"Ganhando coragem":pts<120?"Coragem em ação":"Pura coragem";}
+function ptsTag(){return '<span class="tag">'+pts+' de coragem · '+level()+'</span>';}
 var STEPS=[["quiz","Seu trabalho precisa de um app?","6 perguntas rápidas","quiz"],["match","Que app combina com você?","2 escolhas","phone"],["wheel","Roda do conteúdo","Gire e ganhe uma ideia de post","wheel"],["games","Jogos com recompensas","Vista a empreendedora, cobrinha e mais","game"],["cases","Apps que deram certo","Com números e link para abrir","trophy"]];
 function nextAfter(cur){var i=-1;STEPS.forEach(function(s,j){if(s[0]===cur)i=j;});var n=STEPS[i+1];
   if(!n)return '<div class="sp"></div><h2 style="margin:6px 0 4px">E você também pode ter o seu</h2><p>Veja agora uma prévia do seu app, com o seu nome e as suas cores. É de graça.</p><button class="primary pulse" onclick="go(\'demo\')">Veja o seu app</button><div class="sp"></div>'+contactBtn("Conversar com a CorAge","Oi, Eve! Fiz o passo a passo do app da CorAge e quero conversar.","ghost");
@@ -742,15 +762,26 @@ function progBox(){
   var n=count(),C=2*Math.PI*30,off=C-(C*n/4);
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
   var body='<div class="ring" style="display:flex;align-items:center;gap:14px;margin-bottom:10px"><svg viewBox="0 0 76 76" style="width:64px;height:64px"><circle class="bg" cx="38" cy="38" r="30"/><circle class="fg" cx="38" cy="38" r="30" stroke-dasharray="'+C+'" stroke-dashoffset="'+off+'" id="fg"/></svg><div><b>Raio-X: '+n+' de 4</b><br>'+ptsTag()+'</div></div><h3 style="margin:4px 0 8px">Conquistas</h3>'+badgeRow();
-  return '<div class="acc" '+AC+'><button><div class="cic" style="width:40px;height:40px;font-size:0">'+ico("trophy",22)+'</div><div style="flex:1"><b>Meu progresso</b><span>'+n+' de 4 · '+pts+' pontos</span></div><em>+</em></button><div class="body">'+body+'</div></div>';
+  return '<div class="acc" '+AC+'><button><div class="cic" style="width:40px;height:40px;font-size:0">'+ico("trophy",22)+'</div><div style="flex:1"><b>Meu progresso</b><span>'+n+' de 4 · '+pts+' de coragem</span></div><em>+</em></button><div class="body">'+body+'</div></div>';
+}
+function valeNight(){
+  var need=50,ok=pts>=need;
+  var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
+  var tk='<div class="ticket"><div class="tk-main"><small>VALE NIGHT</small><b>Ticket descanso</b><span>'+(ok?'Válido para esta noite, sem culpa.':'Faltam '+(need-pts)+' de coragem para liberar.')+'</span></div><div class="tk-stub">'+(ok?'✓':'🔒')+'</div></div>';
+  var pl=[["Weightless","Marconi Union"],["Clair de Lune","Debussy"],["Gymnopédie nº 1","Satie"],["Nuvole Bianche","Einaudi"],["Music for Airports","Brian Eno"],["Wave","Tom Jobim"],["Sons de chuva na janela","ambiente"]];
+  var pls='';pl.forEach(function(t){pls+='<li><a href="https://www.youtube.com/results?search_query='+encodeURIComponent(t[0]+" "+t[1])+'" target="_blank" rel="noopener"><b>'+t[0]+'</b> · '+t[1]+'</a></li>';});
+  var body=ok?'<h3>1. Uma taça de vinho</h3><p>Escolha a sua preferida, sirva devagar e beba sem tela e sem pressa. Se não bebe álcool, vale suco de uva gelado ou um chá bonito na taça. Beba com moderação.</p>'+
+   '<h3>2. Escalda-pés de sal grosso</h3><p><b>Receita:</b></p><ul class="gain"><li><span>1 bacia com água morna (que não queime)</span></li><li><span>2 colheres de sopa de sal grosso</span></li><li><span>Opcional: 3 gotas de lavanda ou uma rodela de limão</span></li></ul><p>Deixe os pés por 15 a 20 minutos, enxugue bem e passe um hidratante. Cuidado se tiver feridas, diabetes ou problema de circulação: converse antes com o seu médico.</p>'+
+   '<h3>3. Trilhas para relaxar</h3><ul class="pl">'+pls+'</ul>':'<p>Jogue mais um pouquinho e ganhe coragem. Quando chegar a '+need+', o seu ticket descanso abre aqui, com a taça de vinho, o escalda-pés e as trilhas sonoras.</p>';
+  return '<div class="acc'+(ok?'':' lockd')+'" '+AC+'><button><div class="cic" style="width:40px;height:40px;font-size:0">'+ico("heart",22)+'</div><div style="flex:1"><b>Recompensa: Vale Night</b><span>'+(ok?'Ticket liberado':'Descanso também é coragem')+'</span></div><em>+</em></button><div class="body">'+tk+body+'</div></div>';
 }
 function vGames(){
   prog.games=1;ls("cg_prog",prog);
-  app.innerHTML=backBar("Jogos","home")+'<h2>Jogos</h2><p>Jogue um pouquinho. Cada jogo dá pontos e conquistas.</p>'+progBox()+
-   '<button class="tool" onclick="go(\'doll\')"><div class="ic">'+ico("hanger",26)+'</div><div><b>Vista a empreendedora</b><span>Look para fechar contratos e conquistar clientes</span></div></button>'+
-   '<button class="tool" onclick="go(\'snake\')"><div class="ic">'+ico("coin",26)+'</div><div><b>Cobrinha</b><span>Junte capital de giro e desvie dos obstáculos</span></div></button>'+
-   '<button class="tool" onclick="go(\'maze\')"><div class="ic">'+ico("compass",26)+'</div><div><b>Labirinto</b><span>Leve o C até a estrela</span></div></button>'+
-   '<button class="tool" onclick="go(\'cross\')"><div class="ic">'+ico("puzzle",26)+'</div><div><b>Palavras cruzadas</b><span>Sobre app e marca</span></div></button>'+nextAfter("games")+foot();
+  app.innerHTML=backBar("Jogos","home")+'<h2>Jogos da empreendedora</h2><p>Empreender pede coragem. Descansar também. Cada jogo rende coragem, e a coragem rende um Vale Night.</p>'+progBox()+
+   '<button class="tool g1" onclick="go(\'doll\')"><div class="ic">'+ico("hanger",26)+'</div><div><b>Vista a empreendedora</b><span>Look para fechar contratos e conquistar clientes</span></div></button>'+
+   '<button class="tool g2" onclick="go(\'snake\')"><div class="ic">'+ico("coin",26)+'</div><div><b>Cobrinha</b><span>Junte capital de giro e desvie dos obstáculos</span></div></button>'+
+   '<button class="tool g3" onclick="go(\'maze\')"><div class="ic">'+ico("compass",26)+'</div><div><b>Labirinto</b><span>Leve o C até a estrela</span></div></button>'+
+   '<button class="tool g4" onclick="go(\'cross\')"><div class="ic">'+ico("puzzle",26)+'</div><div><b>Palavras cruzadas</b><span>Sobre app e marca</span></div></button>'+valeNight()+nextAfter("games")+foot();
 }
 function backBar(t,to){return back(t,to);}
 
