@@ -346,6 +346,30 @@ body{background:linear-gradient(180deg,#f4ecdd 0%,#e4eeea 100%) fixed}
 .view .tool.g1 .ic,.view .tool.g1:nth-of-type(n) .ic{background:#6e2539!important}.view .tool.g2 .ic,.view .tool.g2:nth-of-type(n) .ic{background:#1f4e52!important}.view .tool.g3 .ic,.view .tool.g3:nth-of-type(n) .ic{background:#b08a57!important}.view .tool.g4 .ic,.view .tool.g4:nth-of-type(n) .ic{background:#6b4a36!important}
 .view .tool.g1,.view .tool.g2,.view .tool.g3,.view .tool.g4{background:#fff!important}
 .view .tool .ic svg{stroke:currentColor}.view .tool.g1 .ic svg,.view .tool.g2 .ic svg,.view .tool.g3 .ic svg,.view .tool.g4 .ic svg{stroke:#fff!important}
+
+/* menus em cor solida + icones fine line */
+.view .acc,.view .tool{border:0!important;color:#fff}
+.view .acc:nth-of-type(4n+1),.view .tool:nth-of-type(4n+1){background:#6e2539!important}
+.view .acc:nth-of-type(4n+2),.view .tool:nth-of-type(4n+2){background:#1f4e52!important}
+.view .acc:nth-of-type(4n+3),.view .tool:nth-of-type(4n+3){background:#6b4a36!important}
+.view .acc:nth-of-type(4n+4),.view .tool:nth-of-type(4n+4){background:#8f6a35!important}
+.view .tool.g1{background:#6e2539!important}.view .tool.g2{background:#1f4e52!important}.view .tool.g3{background:#8f6a35!important}.view .tool.g4{background:#6b4a36!important}
+.view .acc>button b,.view .tool b,.view .tool span,.view .acc>button span{color:#fff!important}
+.view .acc>button em{border-color:rgba(255,255,255,.7)!important;color:#fff!important;background:transparent!important}
+.view .acc.open>button em{background:rgba(255,255,255,.22)!important}
+.view .acc .body{background:#fbf8f3;color:var(--ink);margin:0 -2px -2px;padding:16px;border-radius:0 0 14px 14px}
+.view .acc .body *{color:inherit}.view .acc .body h3{color:var(--marsala)}.view .acc .body b{color:var(--ink)}
+.view .acc .body .primary,.view .acc .body .pl a,.view .acc .body .pl a b{color:var(--teal)}
+.view .tool .ic,.view .acc>button .cic,.view .tool.g1 .ic,.view .tool.g2 .ic,.view .tool.g3 .ic,.view .tool.g4 .ic,.view .tool:nth-of-type(n) .ic,.view .acc:nth-of-type(n)>button .cic{background:transparent!important;border:1px solid rgba(255,255,255,.7)!important;color:#fff!important;box-shadow:none!important}
+.view .tool .ic svg,.view .acc>button .cic svg,.view .tool.g1 .ic svg,.view .tool.g2 .ic svg,.view .tool.g3 .ic svg,.view .tool.g4 .ic svg{stroke:#fff!important;color:#fff}
+.ic svg *,.cic svg *,.tabs svg *,.ib svg *,.logo svg *{stroke-width:1.05!important}
+.view .tool .ok{color:#fff!important;border-color:#fff}
+.view .tool.hl,.view .tool.hl b,.view .tool.hl span{color:var(--teal)!important}
+.view .tool.hl{background:rgba(255,255,255,.55)!important;border:1px solid rgba(31,78,82,.4)!important}
+.view .tool.hl .ic{border-color:var(--teal)!important}.view .tool.hl .ic svg{stroke:var(--teal)!important}
+.view .acc.open:nth-of-type(4n+1){background:#6e2539!important}.view .acc.open:nth-of-type(4n+2){background:#1f4e52!important}.view .acc.open:nth-of-type(4n+3){background:#6b4a36!important}.view .acc.open:nth-of-type(4n+4){background:#8f6a35!important}
+.view .acc .body .ticket,.view .acc .body .ticket *{color:#fff!important}.view .acc .body .ticket small{color:#f0d7a8!important}
+.view .acc.open>button,.view .acc>button{background:transparent!important}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -397,10 +421,10 @@ function addPts(n){pts+=n;ls("cg_pts",pts);}
 var BADGES=[["look","hanger","Primeiro look"],["contrato","file","Look de contrato"],["conquista","chat","Look que conquista"],["giro","coin","Capital de giro"],["fechou","check","Primeiro contrato"],["sobrev","shield","Sobrevivente"],["cruz","puzzle","Mente de marca"],["raiox","search","Raio-X completo"]];
 var bdg=ls("cg_badges")||{};
 function toast(x){var e=document.createElement("div");e.className="toast";e.textContent=x;document.body.appendChild(e);setTimeout(function(){e.classList.add("off");},3200);setTimeout(function(){if(e.parentNode)e.parentNode.removeChild(e);},3700);}
-function badge(id){if(bdg[id])return;bdg[id]=1;ls("cg_badges",bdg);addPts(5);var n="";BADGES.forEach(function(b){if(b[0]===id)n=b[2];});toast("Nova conquista: "+n+" (+5 de coragem)");}
+function badge(id){if(bdg[id])return;bdg[id]=1;ls("cg_badges",bdg);addPts(5);var n="";BADGES.forEach(function(b){if(b[0]===id)n=b[2];});toast("Nova conquista: "+n+" (+5c de coragem)");}
 function badgeRow(){var h='<div class="brow">';BADGES.forEach(function(b){h+='<div class="bd'+(bdg[b[0]]?' on':'')+'"><span>'+ico(b[1],24)+'</span><small>'+b[2]+'</small></div>';});return h+'</div>';}
 function level(){return pts<20?"Tomando coragem":pts<60?"Ganhando coragem":pts<120?"Coragem em ação":"Pura coragem";}
-function ptsTag(){return '<span class="tag">'+pts+' de coragem · '+level()+'</span>';}
+function ptsTag(){return '<span class="tag">'+pts+'c · '+level()+'</span>';}
 var STEPS=[["quiz","Seu trabalho precisa de um app?","6 perguntas rápidas","quiz"],["match","Que app combina com você?","2 escolhas","phone"],["wheel","Roda do conteúdo","Gire e ganhe uma ideia de post","wheel"],["games","Jogos com recompensas","Vista a empreendedora, cobrinha e mais","game"],["cases","Apps que deram certo","Com números e link para abrir","trophy"]];
 function nextAfter(cur){var i=-1;STEPS.forEach(function(s,j){if(s[0]===cur)i=j;});var n=STEPS[i+1];
   if(!n)return '<div class="sp"></div><h2 style="margin:6px 0 4px">E você também pode ter o seu</h2><p>Veja agora uma prévia do seu app, com o seu nome e as suas cores. É de graça.</p><button class="primary pulse" onclick="go(\'demo\')">Veja o seu app</button><div class="sp"></div>'+contactBtn("Conversar com a CorAge","Oi, Eve! Fiz o passo a passo do app da CorAge e quero conversar.","ghost");
@@ -762,22 +786,22 @@ function progBox(){
   var n=count(),C=2*Math.PI*30,off=C-(C*n/4);
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
   var body='<div class="ring" style="display:flex;align-items:center;gap:14px;margin-bottom:10px"><svg viewBox="0 0 76 76" style="width:64px;height:64px"><circle class="bg" cx="38" cy="38" r="30"/><circle class="fg" cx="38" cy="38" r="30" stroke-dasharray="'+C+'" stroke-dashoffset="'+off+'" id="fg"/></svg><div><b>Raio-X: '+n+' de 4</b><br>'+ptsTag()+'</div></div><h3 style="margin:4px 0 8px">Conquistas</h3>'+badgeRow();
-  return '<div class="acc" '+AC+'><button><div class="cic" style="width:40px;height:40px;font-size:0">'+ico("trophy",22)+'</div><div style="flex:1"><b>Meu progresso</b><span>'+n+' de 4 · '+pts+' de coragem</span></div><em>+</em></button><div class="body">'+body+'</div></div>';
+  return '<div class="acc" '+AC+'><button><div class="cic" style="width:40px;height:40px;font-size:0">'+ico("trophy",22)+'</div><div style="flex:1"><b>Meu progresso</b><span>'+n+' de 4 · '+pts+'c de coragem</span></div><em>+</em></button><div class="body">'+body+'</div></div>';
 }
 function valeNight(){
   var need=50,ok=pts>=need;
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
-  var tk='<div class="ticket"><div class="tk-main"><small>VALE NIGHT</small><b>Ticket descanso</b><span>'+(ok?'Válido para esta noite, sem culpa.':'Faltam '+(need-pts)+' de coragem para liberar.')+'</span></div><div class="tk-stub">'+(ok?'✓':'🔒')+'</div></div>';
+  var tk='<div class="ticket"><div class="tk-main"><small>VALE NIGHT</small><b>Ticket descanso</b><span>'+(ok?'Válido para esta noite, sem culpa.':'Faltam '+(need-pts)+'c para liberar.')+'</span></div><div class="tk-stub">'+(ok?'✓':'🔒')+'</div></div>';
   var pl=[["Weightless","Marconi Union"],["Clair de Lune","Debussy"],["Gymnopédie nº 1","Satie"],["Nuvole Bianche","Einaudi"],["Music for Airports","Brian Eno"],["Wave","Tom Jobim"],["Sons de chuva na janela","ambiente"]];
   var pls='';pl.forEach(function(t){pls+='<li><a href="https://www.youtube.com/results?search_query='+encodeURIComponent(t[0]+" "+t[1])+'" target="_blank" rel="noopener"><b>'+t[0]+'</b> · '+t[1]+'</a></li>';});
   var body=ok?'<h3>1. Uma taça de vinho</h3><p>Escolha a sua preferida, sirva devagar e beba sem tela e sem pressa. Se não bebe álcool, vale suco de uva gelado ou um chá bonito na taça. Beba com moderação.</p>'+
    '<h3>2. Escalda-pés de sal grosso</h3><p><b>Receita:</b></p><ul class="gain"><li><span>1 bacia com água morna (que não queime)</span></li><li><span>2 colheres de sopa de sal grosso</span></li><li><span>Opcional: 3 gotas de lavanda ou uma rodela de limão</span></li></ul><p>Deixe os pés por 15 a 20 minutos, enxugue bem e passe um hidratante. Cuidado se tiver feridas, diabetes ou problema de circulação: converse antes com o seu médico.</p>'+
-   '<h3>3. Trilhas para relaxar</h3><ul class="pl">'+pls+'</ul>':'<p>Jogue mais um pouquinho e ganhe coragem. Quando chegar a '+need+', o seu ticket descanso abre aqui, com a taça de vinho, o escalda-pés e as trilhas sonoras.</p>';
+   '<h3>3. Trilhas para relaxar</h3><ul class="pl">'+pls+'</ul>':'<p>Jogue mais um pouquinho e ganhe coragem. Quando chegar a '+need+'c, o seu ticket descanso abre aqui, com a taça de vinho, o escalda-pés e as trilhas sonoras.</p>';
   return '<div class="acc'+(ok?'':' lockd')+'" '+AC+'><button><div class="cic" style="width:40px;height:40px;font-size:0">'+ico("heart",22)+'</div><div style="flex:1"><b>Recompensa: Vale Night</b><span>'+(ok?'Ticket liberado':'Descanso também é coragem')+'</span></div><em>+</em></button><div class="body">'+tk+body+'</div></div>';
 }
 function vGames(){
   prog.games=1;ls("cg_prog",prog);
-  app.innerHTML=backBar("Jogos","home")+'<h2>Jogos da empreendedora</h2><p>Empreender pede coragem. Descansar também. Cada jogo rende coragem, e a coragem rende um Vale Night.</p>'+progBox()+
+  app.innerHTML=backBar("Jogos","home")+'<h2>Jogos da empreendedora</h2><p>Empreender pede coragem. Descansar também. Cada jogo rende moedas de coragem (c). Com 50c você libera o Vale Night.</p>'+progBox()+
    '<button class="tool g1" onclick="go(\'doll\')"><div class="ic">'+ico("hanger",26)+'</div><div><b>Vista a empreendedora</b><span>Look para fechar contratos e conquistar clientes</span></div></button>'+
    '<button class="tool g2" onclick="go(\'snake\')"><div class="ic">'+ico("coin",26)+'</div><div><b>Cobrinha</b><span>Junte capital de giro e desvie dos obstáculos</span></div></button>'+
    '<button class="tool g3" onclick="go(\'maze\')"><div class="ic">'+ico("compass",26)+'</div><div><b>Labirinto</b><span>Leve o C até a estrela</span></div></button>'+
