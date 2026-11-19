@@ -388,6 +388,12 @@ body{background:#f6f0e4!important}
 .primary,.view .tool.hl{border-color:rgba(110,37,57,.5)!important}
 .view .tool.hl .ic{border-color:var(--marsala)!important}.view .tool.hl .ic svg{stroke:var(--marsala)!important}
 .view .acc .body .primary{color:var(--marsala)}
+/* trio: marsala, verde petroleo, creme */
+.view .acc:nth-of-type(odd),.view .tool:nth-of-type(odd),.view .acc:nth-of-type(4n+1),.view .acc:nth-of-type(4n+3),.view .tool:nth-of-type(4n+1),.view .tool:nth-of-type(4n+3){background:#6e2539!important}
+.view .acc:nth-of-type(even),.view .tool:nth-of-type(even),.view .acc:nth-of-type(4n+2),.view .acc:nth-of-type(4n+4),.view .tool:nth-of-type(4n+2),.view .tool:nth-of-type(4n+4){background:#1f4e52!important}
+.view .acc.open:nth-of-type(2n+1){background:#6e2539!important}.view .acc.open:nth-of-type(2n){background:#1f4e52!important}
+.view .tool.g1,.view .tool.g3{background:#6e2539!important}.view .tool.g2,.view .tool.g4{background:#1f4e52!important}
+.view .tool.g1 .ic,.view .tool.g2 .ic,.view .tool.g3 .ic,.view .tool.g4 .ic,.view .tool.g3:nth-of-type(n) .ic,.view .tool.g4:nth-of-type(n) .ic{background:transparent!important}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
