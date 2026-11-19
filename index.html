@@ -560,7 +560,6 @@ function vHome(){
   if(n===4)badge("raiox");
   var list='';STEPS.forEach(function(s){list+='<button class="tool" onclick="go(\''+s[0]+'\')"><div class="ic">'+ico(s[3],26)+'</div><div><b>'+s[1]+'</b><span>'+s[2]+'</span></div>'+(prog[s[0]]?'<span class="ok">feito</span>':'')+'</button>';});
   h+=box("compass","Todos os passos","Escolha por onde quer ir",list);
-  h+=box("trophy","Meu progresso",n+" de 4 · "+pts+" pontos",prog2);
   var mais='<h3 style="margin:0 0 8px">O que você ganha</h3>'+gain+'<h3 style="margin:14px 0 8px">Deixe no seu celular</h3><p><b>iPhone:</b> Safari, Compartilhar, "Adicionar à Tela de Início".</p><p><b>Android:</b> Chrome, menu (três pontinhos), "Instalar aplicativo".</p><h3 style="margin:14px 0 8px">Sua opinião</h3><button class="primary glass-sm" onclick="go(\'feedback\')">Dar minha nota</button>';
   h+=box("sparkle","Mais","Ganhos, celular e opinião",mais);
   h+='<div style="text-align:center;margin-top:6px"><button class="link" onclick="go(\'contact\')">Deixar meu contato</button></div>';
@@ -739,9 +738,15 @@ function swipe(cv){var sx,sy;cv.addEventListener("touchstart",function(e){var t=
 function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
 function badgeDot(x,cx,cy,r){x.fillStyle="#fbf8f3";x.beginPath();x.arc(cx,cy,r,0,7);x.fill();x.lineWidth=Math.max(1.5,r*.18);x.strokeStyle="#b08a57";x.stroke();x.fillStyle="#6e2539";x.font="700 "+Math.round(r*1.35)+"px Georgia,serif";x.textAlign="center";x.textBaseline="middle";x.fillText("C",cx,cy+r*.06);}
 
+function progBox(){
+  var n=count(),C=2*Math.PI*30,off=C-(C*n/4);
+  var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
+  var body='<div class="ring" style="display:flex;align-items:center;gap:14px;margin-bottom:10px"><svg viewBox="0 0 76 76" style="width:64px;height:64px"><circle class="bg" cx="38" cy="38" r="30"/><circle class="fg" cx="38" cy="38" r="30" stroke-dasharray="'+C+'" stroke-dashoffset="'+off+'" id="fg"/></svg><div><b>Raio-X: '+n+' de 4</b><br>'+ptsTag()+'</div></div><h3 style="margin:4px 0 8px">Conquistas</h3>'+badgeRow();
+  return '<div class="acc" '+AC+'><button><div class="cic" style="width:40px;height:40px;font-size:0">'+ico("trophy",22)+'</div><div style="flex:1"><b>Meu progresso</b><span>'+n+' de 4 · '+pts+' pontos</span></div><em>+</em></button><div class="body">'+body+'</div></div>';
+}
 function vGames(){
   prog.games=1;ls("cg_prog",prog);
-  app.innerHTML=backBar("Jogos","home")+'<h2>Jogos</h2><p>Jogue um pouquinho. Cada jogo dá pontos e conquistas.</p>'+ptsTag()+badgeRow()+
+  app.innerHTML=backBar("Jogos","home")+'<h2>Jogos</h2><p>Jogue um pouquinho. Cada jogo dá pontos e conquistas.</p>'+progBox()+
    '<button class="tool" onclick="go(\'doll\')"><div class="ic">'+ico("hanger",26)+'</div><div><b>Vista a empreendedora</b><span>Look para fechar contratos e conquistar clientes</span></div></button>'+
    '<button class="tool" onclick="go(\'snake\')"><div class="ic">'+ico("coin",26)+'</div><div><b>Cobrinha</b><span>Junte capital de giro e desvie dos obstáculos</span></div></button>'+
    '<button class="tool" onclick="go(\'maze\')"><div class="ic">'+ico("compass",26)+'</div><div><b>Labirinto</b><span>Leve o C até a estrela</span></div></button>'+
