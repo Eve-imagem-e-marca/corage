@@ -800,7 +800,7 @@ function vHome(){
   h+='<button class="tool hl" onclick="go(\'demo\')"><div class="ic">'+ico("phone",26)+'</div><div><b>3. Veja o seu app</b><span>Uma prévia com o seu nome e a sua cor</span></div>'+(prog.demo?'<span class="ok">feito</span>':'')+'</button>';
   var why='<p>Um app seu não é só um site com outra cara. Ele fica com a sua cliente, do jeito da sua marca.</p><ul class="gain"><li>'+ico("phone",19)+'<span><b>Sua marca no bolso da cliente.</b> O ícone fica na tela dela todo dia.</span></li><li>'+ico("palette",19)+'<span><b>A experiência é sua.</b> Suas cores, sua voz e suas ferramentas.</span></li><li>'+ico("game",19)+'<span><b>Ela volta sozinha.</b> Jogos, desafios e lembretes criam hábito.</span></li><li>'+ico("sparkle",19)+'<span><b>Imagem de futuro.</b> Quem tem app passa modernidade e confiança.</span></li><li>'+ico("briefcase",19)+'<span><b>Uma agência de bolso.</b> Imagem, conteúdo, ideias e contato num só lugar, no seu celular.</span></li></ul><button class="primary" onclick="go(\'demo\')">Quero o meu app</button>';
   function dg(t,c,html){return '<details class="grp" style="--gc:'+c+'" ontoggle="grpOne(this)"><summary>'+t+'<i>+</i></summary><div class="dgb">'+html+'</div></details>';}
-  var fin='<div class="grps">'+dg("Por que ter um app para o seu negócio?","#6e2539",why)+'</div><button class="primary" style="margin-top:12px" onclick="go(\'contact\')">Quero o meu app</button>';
+  var fin='<div class="grps">'+dg("Por que ter um app para o seu negócio?","#1f4e52",why)+'</div><button class="primary" style="margin-top:12px" onclick="go(\'contact\')">Quero o meu app</button>';
   h+='<div class="sp"></div>'+fin;
   h+=foot();
   app.innerHTML=h;
