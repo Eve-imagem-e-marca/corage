@@ -505,9 +505,11 @@ var wheel=[
  ["Indique","Indique um livro, filme ou profissional em que você confia e diga por quê."]
 ];
 var works=[
- {c:"Apps",ic:"brain",tg:"Modelo de app",t:"App para psicóloga",d:"Quiz, roda das emoções, respiração com sons relaxantes, diário, desafio de 7 dias, frase do dia e QR Code. Tem também uma área só da profissional, com calendário e roteiros de posts.",u:APP_PSI,b:"Abrir o app"},
- {c:"Apps",ic:"heart",t:"Método EVEC",d:"Plataforma para a mulher que empreende cuidar da imagem e criar o conteúdo dela sem surtar. Da roupa e da presença digital até os posts, tudo pronto em minutos, no celular.",u:"https://metodoevec.com.br",b:"Conhecer"},
- {c:"Apps",ic:"apple",tg:"Modelo de app",t:"App para nutricionista",d:"Quiz, calculadora de IMC e de água, desafio de 7 dias, cardápio com lista de compras e cadastro de interessados. Para a profissional atrair, se aproximar e fazer a lista de contatos crescer.",u:APP_NUTRI,b:"Abrir o app"},
+ {c:"Apps",ic:"brain",tg:"Modelo de app",col:"#6b4a36",t:"App para psicóloga",d:"Quiz, roda das emoções, respiração com sons relaxantes, diário, desafio de 7 dias, frase do dia e QR Code. Tem também uma área só da profissional, com calendário e roteiros de posts.",u:APP_PSI,b:"Abrir o app"},
+ {c:"Apps",ic:"heart",col:"#6e2539",t:"Método EVEC",d:"Plataforma para a mulher que empreende cuidar da imagem e criar o conteúdo dela sem surtar. Da roupa e da presença digital até os posts, tudo pronto em minutos, no celular.",u:"https://metodoevec.com.br",b:"Conhecer"},
+ {c:"Apps",ic:"apple",col:"#2f6b4a",tg:"Modelo de app",t:"App para nutricionista",d:"Quiz, calculadora de IMC e de água, desafio de 7 dias, cardápio com lista de compras e cadastro de interessados. Para a profissional atrair, se aproximar e fazer a lista de contatos crescer.",u:APP_NUTRI,b:"Abrir o app"},
+ {c:"Apps",ic:"brain",col:"#1f4e52",tg:"Psicologia organizacional",t:"App para psicóloga e líderes",d:"Quiz do clima da equipe, checklist de preparo para a NR-1, desafio de 7 dias para líderes, vídeo, QR Code para compartilhar e formulário de contato. Para a psicóloga atrair e se aproximar de líderes e empresas.",u:"https://eve-imagem-e-marca.github.io/app-cristiane/",b:"Abrir o app"},
+ {c:"Apps",ic:"brain",col:"#8f6a35",tg:"Psicologia",t:"App para psicóloga de relações e adoção",d:"Quiz de relações, roda do bem-estar, pausa leve com ideias de hobbies, desafio de 7 dias, conteúdo sobre adoção, lista de espera da mentoria, vídeo, QR Code para compartilhar e formulário de contato.",u:"https://eve-imagem-e-marca.github.io/Adilene-App/",b:"Abrir o app"},
  {c:"Apps",ic:"palette",t:"Colorev",d:"App só de cores: ajuda a pessoa a descobrir as cores que ficam bem nela e a comprar com mais segurança.",tg:"Em breve"},
  {c:"Podcast",ic:"mic",t:"Podleve",d:"Podcast para quem cuida de gente, com a Eve como host. Entrevistas com profissionais do cuidado, com edição, roteiro e cortes feitos por ela.",u:"https://www.youtube.com/@podleve_cast",b:"Ver no YouTube"},
  {c:"Conteúdo",ic:"book",t:"E-books para quem cuida",d:"A Imagem que Acolhe, Instagram que Acolhe, O Carrossel que Cuida e Alcance que Acolhe: guias de imagem e de conteúdo para profissionais do cuidado."},
@@ -737,7 +739,7 @@ function vPortfolio(){
   h+='</div>';
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"",first=true;
   for(var k=0;k<works.length;k++){var w=works[k];if(state.filter!=="Todos"&&w.c!==state.filter)continue;
-    h+='<div class="acc'+(first?' open':'')+'" '+AC+'><button><div class="cic" style="width:44px;height:44px">'+ico(w.ic||"sparkle",24)+'</div><div style="flex:1"><span style="font-size:14px">'+(w.tg||w.c)+'</span><b>'+w.t+'</b></div><em>+</em></button><div class="body"><p>'+w.d+'</p>'+(w.u?'<a class="primary cta" href="'+w.u+'" target="_blank" rel="noopener">'+ico("phone",20)+'<span>'+w.b+'</span></a>':'')+'</div></div>';first=false;}
+    var cs=w.col?' style="background:'+w.col+'!important"':'';h+='<div class="acc'+(first?' open':'')+'" '+AC+cs+'><button><div class="cic" style="width:44px;height:44px">'+ico(w.ic||"sparkle",24)+'</div><div style="flex:1"><span style="font-size:14px">'+(w.tg||w.c)+'</span><b>'+w.t+'</b></div><em>+</em></button><div class="body"><p>'+w.d+'</p>'+(w.u?'<a class="primary cta" '+(w.col?'style="background:'+w.col+'!important;color:#fff!important;border-color:'+w.col+'!important" ':'')+'href="'+w.u+'" target="_blank" rel="noopener">'+ico("phone",20)+'<span>'+w.b+'</span></a>':'')+'</div></div>';first=false;}
   h+='<div class="sp"></div><button class="primary" onclick="go(\'contact\')">Quero um app assim</button>'+foot();
   app.innerHTML=h;
 }
