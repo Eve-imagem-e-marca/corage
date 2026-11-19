@@ -732,7 +732,7 @@ function done(k){if(!prog[k]){prog[k]=1;ls("cg_prog",prog);addPts(10);}}
 function count(){return (prog.quiz?1:0)+(prog.match?1:0)+(prog.cases?1:0)+(prog.wheel?1:0);}
 function waUrl(msg){return WHATSAPP?"https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg):INSTAGRAM;}
 function contactBtn(txt,msg,cls){return '<a class="'+(cls||"primary")+'" href="'+waUrl(msg||"Oi, Eve! Vi o app da CorAge e quero conversar.")+'" target="_blank" rel="noopener">'+txt+'</a>';}
-function go(v){stopGame();snd("go");if(v==="demo")dMode=(DEMO.biz&&DEMO.area!=null)?"prev":"form";state.view=v;musicFor(v);state.step=0;state.answers=[];if(v==="match"){state.match={g:(profile.goals&&profile.goals.length?profile.goals[0]:undefined)};}render();window.scrollTo(0,0);}
+function go(v){stopGame();var LK={maze:"Labirinto",cross:"Palavras cruzadas"};if(LK[v]&&!isInst()){state.view="locked";state.lk=LK[v];musicFor("games");render();window.scrollTo(0,0);return;}snd("go");if(v==="demo")dMode=(DEMO.biz&&DEMO.area!=null)?"prev":"form";state.view=v;musicFor(v);state.step=0;state.answers=[];if(v==="match"){state.match={g:(profile.goals&&profile.goals.length?profile.goals[0]:undefined)};}render();window.scrollTo(0,0);}
 function back(title,to){return '<div class="top"><button class="link" onclick="go(\''+(to||"home")+'\')">← Voltar</button><span class="small">'+(title||"")+'</span></div>';}
 function foot(){return '<footer>CorAge, por Eve, imagem e marca 🤎<br><button class="link" onclick="go(\'privacy\')">Privacidade e segurança</button> · <button class="link" onclick="go(\'access\')">Uso e acessibilidade</button></footer>';}
 function toggle(el){var all=document.querySelectorAll(".acc");for(var i=0;i<all.length;i++){if(all[i]===el){all[i].classList.toggle("open");}else{all[i].classList.remove("open");}}
@@ -760,8 +760,8 @@ function vHome(){
    (nx?'<div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><span class="small" style="margin:0">'+nx[1]+'</span><button class="primary glass-sm pulse" onclick="go(\''+nx[0]+'\')">'+(started?"Continuar":"Começar")+' →</button></div>':contactBtn("Conversar com a CorAge","Oi, Eve! Fiz o Raio-X completo e quero conversar.","primary glass-sm pulse"))+
    '<div style="text-align:center"><button class="link" onclick="iaOpen()">Tirar uma dúvida com a Iasmin</button></div></div>';
   h+='<button class="tool hl" onclick="go(\'demo\')"><div class="ic">'+ico("phone",26)+'</div><div><b>Veja o seu app</b><span>Uma prévia com o seu nome e a sua cor</span></div>'+(prog.demo?'<span class="ok">feito</span>':'')+'</button>';
-  var gain='<p>Ao usar o CorAge, de graça, você leva:</p><ul class="gain"><li>'+ico("search",19)+'<span>Um Raio-X do seu trabalho</span></li><li>'+ico("bulb",19)+'<span>Ideias de post para usar hoje</span></li><li>'+ico("game",19)+'<span>Jogos com pontos e conquistas</span></li><li>'+ico("chat",19)+'<span>Uma conversa sem compromisso com a Eve</span></li></ul>';
-  var gain='<p>Ao usar o CorAge, de graça, você leva:</p><ul class="gain"><li>'+ico("search",19)+'<span>Um Raio-X do seu trabalho</span></li><li>'+ico("bulb",19)+'<span>Ideias de post para usar hoje</span></li><li>'+ico("game",19)+'<span>Jogos com pontos e conquistas</span></li><li>'+ico("chat",19)+'<span>Uma conversa sem compromisso com a Eve</span></li></ul>';
+  var gain='<p>Ao usar o CorAge, de graça, você leva:</p><ul class="gain"><li>'+ico("search",19)+'<span>Um Raio-X do seu trabalho</span></li><li>'+ico("bulb",19)+'<span>Ideias de post para usar hoje</span></li><li>'+ico("game",19)+'<span>Jogos com pontos e conquistas</span></li><li>'+ico("chat",19)+'<span>Uma conversa sem compromisso com a Eve</span></li><li>'+ico("lock",19)+'<span><b>Extras no app instalado:</b> Labirinto, Palavras cruzadas e o Vale Night</span></li></ul>';
+  var gain='<p>Ao usar o CorAge, de graça, você leva:</p><ul class="gain"><li>'+ico("search",19)+'<span>Um Raio-X do seu trabalho</span></li><li>'+ico("bulb",19)+'<span>Ideias de post para usar hoje</span></li><li>'+ico("game",19)+'<span>Jogos com pontos e conquistas</span></li><li>'+ico("chat",19)+'<span>Uma conversa sem compromisso com a Eve</span></li><li>'+ico("lock",19)+'<span><b>Extras no app instalado:</b> Labirinto, Palavras cruzadas e o Vale Night</span></li></ul>';
   var prog2='<div class="ring" style="display:flex;align-items:center;gap:14px;margin-bottom:10px"><svg viewBox="0 0 76 76" style="width:64px;height:64px"><circle class="bg" cx="38" cy="38" r="30"/><circle class="fg" cx="38" cy="38" r="30" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'" id="fg"/></svg><div><b>Raio-X: '+n+' de 4</b><br>'+ptsTag()+'</div></div><h3 style="margin:4px 0 8px">Conquistas</h3>'+badgeRow();
   if(n===4)badge("raiox");
   var list='';STEPS.forEach(function(s){list+='<button class="tool" onclick="go(\''+s[0]+'\')"><div class="ic">'+ico(s[3],26)+'</div><div><b>'+s[1]+'</b><span>'+s[2]+'</span></div>'+(prog[s[0]]?'<span class="ok">feito</span>':'')+'</button>';});
@@ -952,9 +952,9 @@ function progBox(){
   return '<div class="acc" '+AC+'><button><div class="cic" style="width:40px;height:40px;font-size:0">'+ico("trophy",22)+'</div><div style="flex:1"><b>Meu progresso</b><span>'+n+' de 4 · '+pts+'c de coragem</span></div><em>+</em></button><div class="body">'+body+'</div></div>';
 }
 function valeNight(){
-  var need=50,ok=pts>=need;
+  var need=50,inst=isInst(),ok=pts>=need&&inst;
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
-  var tk='<div class="ticket"><div class="tk-main"><small>VALE NIGHT</small><b>Ticket descanso</b><span>'+(ok?'Válido para esta noite, sem culpa.':'Faltam '+(need-pts)+'c para liberar.')+'</span></div><div class="tk-stub">'+(ok?'✓':'🔒')+'</div></div>';
+  var tk='<div class="ticket"><div class="tk-main"><small>VALE NIGHT</small><b>Ticket descanso</b><span>'+(ok?'Válido para esta noite, sem culpa.':(!inst?'Instale o app para liberar.':'Faltam '+(need-pts)+'c para liberar.'))+'</span></div><div class="tk-stub">'+(ok?'✓':'🔒')+'</div></div>';
   var pl=[["Weightless","Marconi Union"],["Clair de Lune","Debussy"],["Gymnopédie nº 1","Satie"],["Nuvole Bianche","Einaudi"],["Music for Airports","Brian Eno"],["Wave","Tom Jobim"],["Sons de chuva na janela","ambiente"]];
   var pls='';pl.forEach(function(t){pls+='<li><a href="https://www.youtube.com/results?search_query='+encodeURIComponent(t[0]+" "+t[1])+'" target="_blank" rel="noopener"><b>'+t[0]+'</b> · '+t[1]+'</a></li>';});
   var body=ok?'<h3>1. Uma taça de vinho</h3><p>Escolha a sua preferida, sirva devagar e beba sem tela e sem pressa. Se não bebe álcool, vale suco de uva gelado ou um chá bonito na taça. Beba com moderação.</p>'+
@@ -1681,10 +1681,16 @@ function installApp(){
   o.innerHTML='<div style="background:#fbf8f3;border:1px solid #b08a57;border-radius:22px;padding:20px 20px 16px;max-width:380px;width:100%;color:#2f2024"><h3 style="margin:0 0 8px;font-family:Iowan Old Style,Palatino,Georgia,serif;color:#6e2539">Deixe o CorAge na sua tela</h3>'+steps+'<button class="primary" style="margin-top:8px" onclick="closeIns()">Entendi</button></div>';
   o.onclick=function(ev){if(ev.target===o)closeIns();};document.body.appendChild(o);
 }
+
+/* funcoes liberadas no app instalado */
+function isInst(){var st=false;try{st=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;if(st)localStorage.setItem("cg_inst","1");return st||localStorage.getItem("cg_inst")==="1";}catch(e){return st;}}
+function vLocked(w){
+  app.innerHTML=back("Jogos","games")+'<h2>'+ico("lock",24)+' '+w+'</h2><p>Este jogo é um presente para quem deixa o CorAge na tela do celular. Instale (é rápido) e abra pelo ícone para liberar.</p><button class="primary" onclick="installApp()">Instalar o CorAge agora</button>'+foot();
+}
 function render(){
   var v=state.view;
   app.className="view";
-  if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
+  if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
   var kids=app.children;for(var i=0;i<kids.length;i++){if(noA){kids[i].style.animation="none";}else{kids[i].style.animationDelay=(i*55)+"ms";}}
   noA=false;
   var tab=(v==="portfolio"||v==="plans")?v:"home";
