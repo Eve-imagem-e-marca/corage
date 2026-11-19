@@ -490,6 +490,8 @@ details.grp.why{margin:10px 0 14px}
 .st{background:none!important;border:0!important;box-shadow:none!important;padding:4px!important;color:#d9ccb3!important;cursor:pointer;width:auto!important;min-height:0!important}
 .st.on{color:#b08a57!important}
 .st svg{display:block}
+
+.thermo .th{color:#d9ccb3!important}.thermo .th.on{color:#b08a57!important;background:#fffdf8!important}.thermo .th svg{margin:auto;display:block}.thermo{margin-top:14px}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -600,7 +602,7 @@ function badgeRow(){var h='<div class="brow">';BADGES.forEach(function(b){h+='<d
 function level(){return pts<20?"Tomando coragem":pts<60?"Ganhando coragem":pts<120?"Coragem em ação":"Pura coragem";}
 function ptsTag(){return '<span class="tag">'+pts+'c · '+level()+'</span>';}
 var STEPS=[["quiz","Seu trabalho precisa de um app?","6 perguntas rápidas","quiz"],["match","Que app combina com você?","2 escolhas","phone"],["wheel","Roda do conteúdo","Gire e ganhe uma ideia de post","wheel"],["games","Jogos com recompensas","Vista a empreendedora, cobrinha e mais","game"],["cases","Apps que deram certo","Com números e link para abrir","trophy"]];
-function nextAfter(cur){return starsBox(cur)+nextAfter0(cur);}
+function nextAfter(cur){return nextAfter0(cur);}
 function nextAfter0(cur){var i=-1;STEPS.forEach(function(s,j){if(s[0]===cur)i=j;});var n=STEPS[i+1];
   if(!n)return '<div class="sp"></div><h2 style="margin:6px 0 4px">E você também pode ter o seu</h2><p>Veja agora uma prévia do seu app, com o seu nome e as suas cores. É de graça.</p><button class="primary pulse" onclick="go(\'demo\')">Veja o seu app</button><div class="sp"></div>'+contactBtn("Conversar com a CorAge","Oi, Eve! Fiz o passo a passo do app da CorAge e quero conversar.","ghost");
   return '<div class="sp"></div><button class="primary" onclick="go(\''+n[0]+'\')">Próximo: '+n[1]+' →</button>';}
@@ -691,7 +693,8 @@ var works=[
   {n:"Ferramentas",col:"#6e2539",items:[
    {n:"Roda do conteúdo",s:"Gire e ganhe uma ideia de post, com lembrete para postar",go:"wheel"},
    {n:"Raio-X do seu trabalho",s:"Veja em minutos o que já está forte e o que falta",go:"quiz"},
-   {n:"Jogos da empreendedora",s:"Vista a empreendedora, cobrinha, labirinto e palavras cruzadas, com moedas de coragem",go:"games"}]},
+   {n:"Jogos da empreendedora",s:"Vista a empreendedora, cobrinha, labirinto e palavras cruzadas, com moedas de coragem",go:"games"},
+   {n:"O que você achou dessa experiência?",s:"Dê de 1 a 5 estrelas e conte como foi",go:"feedback"}]},
   {n:"Para ouvir e ler",col:"#e6d7b5",lt:1,items:[
    {n:"Podleve",s:"Podcast para quem cuida de gente, com a Eve como host",u:"https://www.youtube.com/@podleve_cast"},
    {n:"E-books para quem cuida",s:"A Imagem que Acolhe, Instagram que Acolhe, O Carrossel que Cuida e Alcance que Acolhe"}]},
@@ -796,8 +799,8 @@ function vHome(){
   h+=box("compass","Todos os passos","Escolha por onde quer ir",list);
   var why='<p>Um app seu não é só um site com outra cara. Ele fica com a sua cliente, do jeito da sua marca.</p><ul class="gain"><li>'+ico("phone",19)+'<span><b>Sua marca no bolso da cliente.</b> O ícone fica na tela dela todo dia.</span></li><li>'+ico("palette",19)+'<span><b>A experiência é sua.</b> Suas cores, sua voz e suas ferramentas.</span></li><li>'+ico("game",19)+'<span><b>Ela volta sozinha.</b> Jogos, desafios e lembretes criam hábito.</span></li><li>'+ico("sparkle",19)+'<span><b>Imagem de futuro.</b> Quem tem app passa modernidade e confiança.</span></li><li>'+ico("briefcase",19)+'<span><b>Uma agência de bolso.</b> Imagem, conteúdo, ideias e contato num só lugar, no seu celular.</span></li></ul><button class="primary" onclick="go(\'demo\')">Quero o meu app</button>';
   function dg(t,c,html){return '<details class="grp" style="--gc:'+c+'" ontoggle="grpOne(this)"><summary>'+t+'<i>+</i></summary><div class="dgb">'+html+'</div></details>';}
-  var mais='<div class="grps">'+dg("O que você ganha com o CorAge","#1f4e52",gain)+dg("Instalar no celular","#b5522a",'<button class="primary" onclick="installApp()">Instalar o CorAge agora</button><p class="small">No Android é um toque. No iPhone, eu mostro onde apertar.</p><p><b>iPhone:</b> Safari, Compartilhar, "Adicionar à Tela de Início".</p><p><b>Android:</b> Chrome, menu (três pontinhos), "Instalar aplicativo".</p>')+dg("O que você achou dessa experiência?","#1f4e52",'<button class="primary glass-sm" onclick="go(\'feedback\')">Contar como foi</button>')+dg("Por que ter um app para o seu negócio?","#6e2539",why)+'</div>';
-  h+=box("sparkle","Mais","Ganhos, instalar, sua experiência e por que ter um app",mais).replace('class="acc"','class="acc quiet"');
+  var mais='<div class="grps">'+dg("O que você ganha com o CorAge","#1f4e52",gain)+dg("Instalar no celular","#b5522a",'<button class="primary" onclick="installApp()">Instalar o CorAge agora</button><p class="small">No Android é um toque. No iPhone, eu mostro onde apertar.</p><p><b>iPhone:</b> Safari, Compartilhar, "Adicionar à Tela de Início".</p><p><b>Android:</b> Chrome, menu (três pontinhos), "Instalar aplicativo".</p>')+dg("Por que ter um app para o seu negócio?","#6e2539",why)+'</div>';
+  h+=box("sparkle","Mais","Ganhos, instalar e por que ter um app",mais).replace('class="acc"','class="acc quiet"');
   h+='<div style="text-align:center;margin-top:6px"><button class="link" onclick="go(\'contact\')">Deixar meu contato</button></div>';
   h+=foot();
   app.innerHTML=h;
@@ -1651,8 +1654,8 @@ function sendForm(){
 var FB={n:0};
 function vFeedback(){
   var L=["Poderia melhorar","Mais ou menos","Bom","Muito bom","Amei"];
-  var h=back("Experiência","home")+'<h2>O que você achou dessa experiência?</h2><p>Dê uma nota. Leva menos de 1 minuto.</p><div class="thermo" id="thermo">';
-  for(var i=1;i<=5;i++){h+='<button type="button" class="th'+(FB.n>=i?' on':'')+'" onclick="fbSet('+i+')" aria-label="Nota '+i+' de 5: '+L[i-1]+'"><b>'+i+'</b></button>';}
+  var h=back("Experiência","home")+'<h2>O que você achou dessa experiência?</h2><p>Dê de 1 a 5 estrelas. Leva menos de 1 minuto.</p><details class="grp" style="--gc:#b08a57"><summary>Você sabia?<i>+</i></summary><div class="dgb"><p>Um medidor de satisfação como este gera feedback de verdade: mostra o que as clientes gostam e o que melhorar. Em um app seu, ele também ajuda a nota da loja de aplicativos, porque quem está satisfeito costuma avaliar bem.</p></div></details><div class="thermo" id="thermo">';
+  for(var i=1;i<=5;i++){h+='<button type="button" class="th'+(FB.n>=i?' on':'')+'" onclick="fbSet('+i+')" aria-label="Nota '+i+' de 5: '+L[i-1]+'">'+STAR+'</button>';}
   h+='</div><div class="small" id="thlabel" style="text-align:center;margin:-4px 0 12px">'+(FB.n?L[FB.n-1]:"Toque de 1 a 5")+'</div>'+
    '<label class="l" for="fbt">Quer deixar um depoimento? (opcional)</label><textarea id="fbt" rows="4" placeholder="Conte o que achou do app"></textarea>'+
    '<label class="l" for="fbn">Seu primeiro nome (opcional)</label><input type="text" id="fbn" value="'+(profile.name||"")+'" autocomplete="given-name">'+
