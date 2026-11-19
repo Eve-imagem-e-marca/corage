@@ -896,9 +896,9 @@ function vHome(){
   var gain='<p>Ao usar o CorAge, de graça, você leva:</p><ul class="gain"><li>'+ico("search",19)+'<span>Um Raio-X do seu trabalho</span></li><li>'+ico("bulb",19)+'<span>Ideias de post para usar hoje</span></li><li>'+ico("game",19)+'<span>Jogos com pontos e conquistas</span></li><li>'+ico("chat",19)+'<span>Uma conversa sem compromisso com a Eve</span></li><li>'+ico("lock",19)+'<span><b>Extras no app instalado:</b> Labirinto, Palavras cruzadas e o Vale Night</span></li></ul>';
   var prog2='<div class="ring" style="display:flex;align-items:center;gap:14px;margin-bottom:10px"><svg viewBox="0 0 76 76" style="width:64px;height:64px"><circle class="bg" cx="38" cy="38" r="30"/><circle class="fg" cx="38" cy="38" r="30" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'" id="fg"/></svg><div><b>Raio-X: '+n+' de 4</b><br>'+ptsTag()+'</div></div><h3 style="margin:4px 0 8px">Conquistas</h3>'+badgeRow();
   if(n===4)badge("raiox");
-  var list='';STEPS.forEach(function(s){if(s[0]==='match')return;list+='<button class="tool" onclick="go(\''+s[0]+'\')"><div class="ic">'+ico(s[3],26)+'</div><div><b>'+s[1]+'</b><span>'+s[2]+'</span></div>'+(prog[s[0]]?'<span class="ok">feito</span>':'')+'</button>';});
+  var list='';STEPS.forEach(function(s){if(s[0]==='match'||s[0]==='quiz')return;list+='<button class="tool" onclick="go(\''+s[0]+'\')"><div class="ic">'+ico(s[3],26)+'</div><div><b>'+s[1]+'</b><span>'+s[2]+'</span></div>'+(prog[s[0]]?'<span class="ok">feito</span>':'')+'</button>';});
   list+='<button class="tool" onclick="go(\'feedback\')"><div class="ic">'+ico("heart",26)+'</div><div><b>O que você achou?</b><span>Dê de 1 a 5 estrelas</span></div></button>';
-  h+=box("compass","2. Ferramentas","Raio-X, roda, jogos e mais",list);
+  h+=box("compass","2. Ferramentas","Roda do conteúdo e jogos",list);
   h+='<button class="tool hl" onclick="go(\'conheca\')"><div class="ic">'+ico("phone",26)+'</div><div><b>3. Conheça o seu app</b><span>Teste, prévia e o app que combina com você</span></div>'+(prog.demo?'<span class="ok">feito</span>':'')+'</button>';
   h+='<div class="sp"></div><button class="primary" onclick="go(\'contact\')">Quero o meu app</button>';
   h+=foot();
