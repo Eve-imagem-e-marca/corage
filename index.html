@@ -1756,7 +1756,6 @@ function rateStar(cur,n){
   var r=ls("cg_rate")||{};r[cur]=n;ls("cg_rate",r);var L=["Poderia melhorar","Mais ou menos","Bom","Muito bom","Amei"];
   document.querySelectorAll(".stars .st").forEach(function(b,i){b.classList.toggle("on",i<n);});
   var l=document.getElementById("stl");if(l)l.textContent=L[n-1]+". Obrigada!";snd("coin");
-  if(FORM.url){var o={};o[FORM.f.name]="Estrelas";o[FORM.f.whats]="-";o[FORM.f.area]=profile.area||"-";o[FORM.f.need]="Estrelas: "+n+" de 5 em "+cur;o[FORM.f.msg]="-";gSend(o,function(){});}
 }
 
 /* Mentalidade empreendedora: cards para os stories */
@@ -1783,7 +1782,7 @@ function mindCanvas(){
   return c;
 }
 function vMind(){
-  app.innerHTML=back("Mentalidade empreendedora","home")+'<h2>Mentalidade empreendedora</h2><p>Frases de coragem, de gente famosa e da sua profissão. Escolha e compartilhe nos stories.</p><div style="text-align:center"><img id="mimg" alt="Card com frase" style="width:62%;max-width:260px;border-radius:18px;box-shadow:0 12px 28px rgba(110,37,57,.25),0 0 0 1.5px #b08a57"></div><div class="drow" style="justify-content:center;margin:14px 0 6px" id="mcol"></div><div class="drow" style="justify-content:center" id="mcat"></div><div id="mpr" style="margin:6px 0"></div><div style="display:flex;gap:10px;margin-top:8px"><button class="primary" style="flex:1" onclick="mindNext()">Outra frase</button><button class="primary" style="flex:1" onclick="mindShare()">Compartilhar</button></div><p class="small" style="text-align:center">No menu que abrir, escolha Instagram e depois Stories.</p>'+starsBox("mind")+foot();
+  app.innerHTML=back("Mentalidade empreendedora","home")+'<h2>Mentalidade empreendedora</h2><p>Frases de coragem, de gente famosa e da sua profissão. Escolha e compartilhe nos stories.</p><div style="text-align:center"><img id="mimg" alt="Card com frase" style="width:62%;max-width:260px;border-radius:18px;box-shadow:0 12px 28px rgba(110,37,57,.25),0 0 0 1.5px #b08a57"></div><div class="drow" style="justify-content:center;margin:14px 0 6px" id="mcol"></div><div class="drow" style="justify-content:center" id="mcat"></div><div id="mpr" style="margin:6px 0"></div><button class="primary" style="width:100%;margin-top:8px" onclick="mindShare()"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-5px;margin-right:6px"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".8" fill="currentColor"/></svg>Postar no Instagram</button><div style="display:flex;gap:10px;margin-top:8px"><button class="primary" style="flex:1" onclick="mindNext()">Outra frase</button><button class="primary" style="flex:1" onclick="mindSave()"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-5px;margin-right:6px"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>Salvar</button></div><p class="small" style="text-align:center">Em "Postar", escolha Instagram e depois Stories. O Instagram não deixa nenhum app abrir os stories sozinho.</p>'+starsBox("mind")+foot();
   mindDraw();
 }
 function mindDraw(){
@@ -1796,6 +1795,8 @@ function mindDraw(){
 function mindNext(){mindPick();MS.t=(MS.t+1)%MT.length;mindDraw();snd("tap");}
 function mindCat(c){MS.c=c;mindPick();mindDraw();}
 function mindPr(v){MS.pr=v;mindPick();mindDraw();}
+
+function mindSave(){var c=mindCanvas();c.toBlob(function(b){var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="coragem.png";document.body.appendChild(a);a.click();a.remove();toast("Imagem salva. Procure em Downloads ou Arquivos.");},"image/png");}
 function mindShare(){
   var c=mindCanvas();c.toBlob(function(b){var f=new File([b],"coragem.png",{type:"image/png"});
     if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:"Coragem"}).catch(function(){});addPts(2);}
