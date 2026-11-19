@@ -1820,6 +1820,23 @@ function installApp(){
 
 /* funcoes liberadas no app instalado */
 function isInst(){var st=false;try{st=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;if(st)localStorage.setItem("cg_inst","1");return st||localStorage.getItem("cg_inst")==="1";}catch(e){return st;}}
+
+/* Painel privado da Eve: abre só por ?eve=1 e pede senha criada no aparelho dela */
+var EVEP=[["Primeiro app (Black Friday)","App simples da CorAge com a marca da cliente, jogos e ferramentas básicas. De R$ 897 por R$ 497, até 12x, até 27/11. Entrega em até 10 dias úteis.","R$ 497"],["App com ferramentas","App personalizado com cores e nome da cliente, jogos, gestão do negócio, clientes e metas, mentalidade e instalação na tela.","R$ 1.500 a 2.500"],["Mensalidade de manutenção","Ajustes, atualizações e novas ferramentas. Opcional.","R$ 49 a 97 por mês"],["App completo","Tudo do anterior, mais cadastro, agenda e área da profissional.","R$ 2.500 a 4.000"]];
+function eveH(x){var h=5381;for(var i=0;i<x.length;i++)h=((h<<5)+h+x.charCodeAt(i))|0;return String(h);}
+function vEve(){
+  var pin=ls("cg_evepin"),ok=window.__eveok;
+  if(!ok){
+    app.innerHTML=back("Início","home")+'<h2>'+ico("lock",24)+' Só para a Eve</h2><p>'+(pin?"Digite a sua senha.":"Crie uma senha de 4 a 8 números. Ela fica só neste aparelho.")+'</p><input id="evep" type="password" inputmode="numeric" autocomplete="off" style="width:100%;font-size:22px;padding:14px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;margin-bottom:10px"><button class="primary" style="width:100%" onclick="eveGo()">Entrar</button>'+foot();return;}
+  var pr=ls("cg_eveprice")||{},h=back("Início","home")+'<h2>Preços da CorAge</h2><p class="small">Só você vê esta tela. Toque no valor para mudar. Fica salvo no seu aparelho.</p>';
+  EVEP.forEach(function(r,i){h+='<div class="card"><b>'+r[0]+'</b><p class="small" style="margin:6px 0 8px">'+r[1]+'</p><input value="'+dEsc(pr[i]||r[2])+'" onchange="eveSet('+i+',this.value)" style="width:100%;font-size:20px;font-weight:700;color:#6e2539;padding:10px;border-radius:10px;border:1px solid #c9b48e;background:#fffdf8"></div>';});
+  h+='<p class="small">Valores sugeridos como ponto de partida. Ajuste conforme o seu tempo e a cliente.</p>';
+  app.innerHTML=h+foot();
+}
+function eveGo(){var v=(document.getElementById("evep").value||"").trim(),pin=ls("cg_evepin");
+  if(!pin){if(!/^\d{4,8}$/.test(v)){toast("Use de 4 a 8 números.");return;}ls("cg_evepin",eveH(v));window.__eveok=1;vEve();return;}
+  if(eveH(v)===pin){window.__eveok=1;vEve();}else{toast("Senha incorreta.");}}
+function eveSet(i,v){var pr=ls("cg_eveprice")||{};pr[i]=v;ls("cg_eveprice",pr);toast("Salvo.");}
 function vLocked(w){
   var jg=(w==="Labirinto"||w==="Palavras cruzadas");
   app.innerHTML=back(jg?"Jogos":"Início",jg?"games":"home")+'<h2>'+ico("lock",24)+' '+w+'</h2><p>'+(jg?"Este jogo é":"Esta ferramenta é")+' um presente para quem deixa o CorAge na tela do celular. Instale (é rápido) e abra pelo ícone para liberar.</p><button class="primary" onclick="installApp()">Instalar o CorAge agora</button>'+foot();
@@ -1989,13 +2006,14 @@ function crMetaDraw(){var g=gLoad(),e=document.getElementById("gb");if(!e)return
 function render(){
   var v=state.view;
   app.className="view";
-  if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="crm")vCrm();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
+  if(v==="eve")vEve();else if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="crm")vCrm();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
   var kids=app.children;for(var i=0;i<kids.length;i++){if(noA){kids[i].style.animation="none";}else{kids[i].style.animationDelay=(i*55)+"ms";}}
   noA=false;
   var tab=(v==="portfolio"||v==="plans")?v:"home";
   var bs=document.querySelectorAll("#tabs button");for(var j=0;j<bs.length;j++){bs[j].classList.toggle("on",bs[j].getAttribute("data-t")===tab);}
   
 }
+if(/[?&]eve(=|&|$)/.test(location.search))state.view="eve";
 render();
 if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){});}
 sndIco();
