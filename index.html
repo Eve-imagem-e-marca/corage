@@ -578,6 +578,13 @@ html body .ckl{display:inline-block;margin:2px 0 0 42px;padding:9px 16px;border-
 html body .ckl:active{transform:scale(.97)}
 html body #ckg details.grp{border-left:7px solid var(--gc)!important}
 html body #ckg details.grp>summary i{color:var(--gc)!important}
+html body .tlab{margin:14px 0 8px;font:700 15px Poppins,sans-serif;letter-spacing:.04em;text-transform:uppercase}
+html body .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+html body .tile{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-height:104px;padding:14px;text-align:left;border-radius:18px;border:1.5px solid var(--c);border-top-width:5px;background:linear-gradient(135deg,rgba(255,255,255,.9),rgba(255,255,255,.6));box-shadow:0 4px 12px rgba(47,32,36,.10);color:#2f2024;cursor:pointer;font:inherit}
+html body .tile b{font-size:16px;line-height:1.25;color:#2f2024;-webkit-text-fill-color:#2f2024}
+html body .tile .ti{width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:#efe4cf}
+html body .tile .ti svg,html body .tile .ti svg *{stroke:var(--c)!important}
+html body .tile:active{transform:scale(.97)}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -881,8 +888,8 @@ function vHome(){
   var h='<section class="hero" style="padding-bottom:0"><h1 style="margin-bottom:6px">'+nm+'</h1></section>';
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
   function box(ic,title,sub,body){return '<div class="acc" '+AC+'><button><div class="cic" style="width:40px;height:40px;font-size:0">'+ico(ic,22)+'</div><div style="flex:1"><b>'+title+'</b><span>'+sub+'</span></div><em>+</em></button><div class="body">'+body+'</div></div>';}
-  h+='<div class="card giftc"><div class="giftk">'+ico("sparkle",22)+'</div><div style="flex:1"><b>Que bom que você chegou aqui!</b><p class="small" style="margin:4px 0 10px">'+(new Date().getMonth()===10&&new Date().getDate()===19?'Hoje é o Dia do Empreendedorismo Feminino. ':'')+'Receba o presente da CorAge: 10 ferramentas gratuitas para organizar e fazer crescer o seu negócio.</p><button class="primary glass-sm" style="width:100%" onclick="go(\'presente\')">Abrir meu presente</button></div></div>';
-  h+='<div class="card ia"><div class="iaw"><div class="iaav2">I</div><div><b>1. Comece com a Iasmin</b><small>Assistente virtual da CorAge</small></div></div><p style="margin:0 0 12px">Oi! Que bom ter você aqui. Em poucos passos você conhece o app e ganha um Raio-X do seu trabalho.</p>'+
+  h+='<div class="card giftc"><div class="giftk">'+ico("sparkle",22)+'</div><div style="flex:1"><b>Que bom que você chegou aqui!</b><p class="small" style="margin:4px 0 10px">'+(new Date().getMonth()===10&&new Date().getDate()===19?'Hoje é o Dia do Empreendedorismo Feminino. ':'')+'Seu presente: 10 ferramentas gratuitas.</p><button class="primary glass-sm" style="width:100%" onclick="go(\'presente\')">Abrir meu presente</button></div></div>';
+  h+='<div class="card ia"><div class="iaw"><div class="iaav2">I</div><div><b>1. Comece com a Iasmin</b><small>Assistente virtual da CorAge</small></div></div><p style="margin:0 0 12px">Em poucos passos você conhece o app e ganha um Raio-X do seu trabalho.</p>'+
    (nx?'<div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><span class="small" style="margin:0">'+nx[1]+'</span><button class="primary glass-sm pulse" onclick="go(\''+nx[0]+'\')">'+(started?"Continuar":"Começar")+' →</button></div>':contactBtn("Conversar com a CorAge","Oi, Eve! Fiz o Raio-X completo e quero conversar.","primary glass-sm pulse"))+
    '<div style="text-align:center"><button class="link" onclick="iaOpen()">Tirar uma dúvida com a Iasmin</button></div></div>';
   var gain='<p>Ao usar o CorAge, de graça, você leva:</p><ul class="gain"><li>'+ico("search",19)+'<span>Um Raio-X do seu trabalho</span></li><li>'+ico("bulb",19)+'<span>Ideias de post para usar hoje</span></li><li>'+ico("game",19)+'<span>Jogos com pontos e conquistas</span></li><li>'+ico("chat",19)+'<span>Uma conversa sem compromisso com a Eve</span></li><li>'+ico("lock",19)+'<span><b>Extras no app instalado:</b> Labirinto, Palavras cruzadas e o Vale Night</span></li></ul>';
@@ -1940,12 +1947,12 @@ function vChecklist(){
 }
 function vPresente(){
   var G=[
-   ["Organizar o negócio","#6e2539",[["biz","coin","Gestão básica do negócio","Calculadoras, financeiro e agenda"],["checklist","check","Checklist da empreendedora","Marque o que já fez"],["crm","heart","Clientes e metas","Lista, mensagens e meta do mês"],["comercial","calendar","Calendário comercial","Datas que vendem, na sua agenda"]]],
-   ["Legalizar e crescer","#1f4e52",[["mei","file","MEI: abrir e pagar","Passo a passo, guia do mês e lembrete"],["apoio","briefcase","Onde buscar ajuda","Sampa, Sebrae e outras instituições"],["rede","users","Rede de empreendedoras","Cadastre-se e conecte-se"],["eventos","calendar","Eventos gratuitos","Empreendedorismo feminino em SP"]]],
-   ["Marca e divulgação","#b08a57",[["google","search","Google grátis","Perfil da Empresa, planilhas e mais"],["mind","sparkle","Mentalidade empreendedora","Cards de coragem para os stories"]]]
+   ["Organizar","#6e2539",[["biz","coin","Gestão do negócio"],["checklist","check","Checklist"],["crm","heart","Clientes e metas"],["comercial","calendar","Calendário comercial"]]],
+   ["Legalizar e crescer","#1f4e52",[["mei","file","MEI"],["apoio","briefcase","Onde buscar ajuda"],["rede","users","Rede de empreendedoras"],["eventos","calendar","Eventos grátis"]]],
+   ["Marca","#8a6630",[["google","search","Google grátis"],["mind","sparkle","Mentalidade"]]]
   ],h='';
-  G.forEach(function(g){h+='<h3 style="margin:18px 0 8px;padding-left:10px;border-left:6px solid '+g[1]+';color:'+(g[1]==='#b08a57'?'#8a6630':g[1])+'">'+g[0]+'</h3>'+g[2].map(function(t){return '<button class="tool" onclick="go(\''+t[0]+'\')" style="border-left:6px solid '+g[1]+'"><div class="ic">'+ico(t[1],26)+'</div><div><b>'+t[2]+'</b><span>'+t[3]+'</span></div></button>';}).join('');});
-  app.innerHTML=back("Seu presente","home")+'<h2>Seu presente da CorAge</h2><p>10 ferramentas gratuitas para organizar e fazer crescer o seu negócio. Tudo fica só no seu celular.</p>'+h+'<div class="sp"></div><p class="small" style="text-align:center">Compartilhe com aquela amiga empreendedora que vai adorar este presente. 🤎</p>'+starsBox("presente")+foot();
+  G.forEach(function(g){h+='<div class="tlab" style="color:'+g[1]+'">'+g[0]+'</div><div class="tgrid">'+g[2].map(function(t){return '<button class="tile" onclick="go(\''+t[0]+'\')" style="--c:'+g[1]+'"><span class="ti">'+ico(t[1],26)+'</span><b>'+t[2]+'</b></button>';}).join('')+'</div>';});
+  app.innerHTML=back("Seu presente","home")+'<h2>Seu presente</h2><p>10 ferramentas gratuitas para o seu negócio.</p>'+h+starsBox("presente")+foot();
 }
 function vGoogle(){
   var st=function(n,t){return '<li>'+ico("check",19)+'<span><b>'+n+'</b> '+t+'</span></li>';};
