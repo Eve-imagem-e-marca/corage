@@ -808,9 +808,9 @@ function done(k){if(!prog[k]){prog[k]=1;ls("cg_prog",prog);addPts(10);}}
 function count(){return (prog.quiz?1:0)+(prog.match?1:0)+(prog.cases?1:0)+(prog.wheel?1:0);}
 function waUrl(msg){return WHATSAPP?"https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg):INSTAGRAM;}
 function contactBtn(txt,msg,cls){return '<a class="'+(cls||"primary")+'" href="'+waUrl(msg||"Oi, Eve! Vi o app da CorAge e quero conversar.")+'" target="_blank" rel="noopener">'+txt+'</a>';}
-function go(v){stopGame();var LK={maze:"Labirinto",cross:"Palavras cruzadas"};if(LK[v]&&!isInst()){state.view="locked";state.lk=LK[v];musicFor("games");render();window.scrollTo(0,0);return;}snd("go");if(v==="demo")dMode=(DEMO.biz&&DEMO.area!=null)?"prev":"form";state.view=v;musicFor(v);state.step=0;state.answers=[];if(v==="match"){state.match={g:(profile.goals&&profile.goals.length?profile.goals[0]:undefined)};}render();window.scrollTo(0,0);}
+function go(v){stopGame();var LK={maze:"Labirinto",cross:"Palavras cruzadas",biz:"Gestão do negócio",crm:"Clientes e metas",mind:"Mentalidade empreendedora"};if(LK[v]&&!isInst()){state.view="locked";state.lk=LK[v];musicFor("games");render();window.scrollTo(0,0);return;}snd("go");if(v==="demo")dMode=(DEMO.biz&&DEMO.area!=null)?"prev":"form";state.view=v;musicFor(v);state.step=0;state.answers=[];if(v==="match"){state.match={g:(profile.goals&&profile.goals.length?profile.goals[0]:undefined)};}render();window.scrollTo(0,0);}
 function back(title,to){return '<div class="top"><button class="link" onclick="go(\''+(to||"home")+'\')">← Voltar</button><span class="small">'+(title||"")+'</span></div>';}
-function foot(){return '<footer>CorAge, por Eve, imagem e marca 🤎<br><button class="link" onclick="go(\'privacy\')">Privacidade e segurança</button> · <button class="link" onclick="go(\'access\')">Uso e acessibilidade</button></footer>';}
+function foot(){return '<div class="card" style="text-align:center;margin:18px 0 0"><span class="small" style="margin:0">Compartilhe com aquela amiga empreendedora que vai adorar saber dessa novidade. 🤎</span><button class="ghost" style="width:100%;margin-top:8px" onclick="shareApp()">Compartilhar o app</button></div><footer>CorAge, por Eve, imagem e marca 🤎<br><button class="link" onclick="go(\'privacy\')">Privacidade e segurança</button> · <button class="link" onclick="go(\'access\')">Uso e acessibilidade</button></footer>';}
 function toggle(el){var all=document.querySelectorAll(".acc");for(var i=0;i<all.length;i++){if(all[i]===el){all[i].classList.toggle("open");}else{all[i].classList.remove("open");}}
   var c=el.getAttribute("data-big");if(c&&el.classList.contains("open")){runCount(el.querySelector(".num"));}}
 function runCount(n){if(!n)return;var to=parseFloat(n.getAttribute("data-to")),dec=parseInt(n.getAttribute("data-dec")),pre=n.getAttribute("data-pre")||"",suf=n.getAttribute("data-suf")||"";
@@ -840,9 +840,9 @@ function vHome(){
   var prog2='<div class="ring" style="display:flex;align-items:center;gap:14px;margin-bottom:10px"><svg viewBox="0 0 76 76" style="width:64px;height:64px"><circle class="bg" cx="38" cy="38" r="30"/><circle class="fg" cx="38" cy="38" r="30" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'" id="fg"/></svg><div><b>Raio-X: '+n+' de 4</b><br>'+ptsTag()+'</div></div><h3 style="margin:4px 0 8px">Conquistas</h3>'+badgeRow();
   if(n===4)badge("raiox");
   var list='';STEPS.forEach(function(s){list+='<button class="tool" onclick="go(\''+s[0]+'\')"><div class="ic">'+ico(s[3],26)+'</div><div><b>'+s[1]+'</b><span>'+s[2]+'</span></div>'+(prog[s[0]]?'<span class="ok">feito</span>':'')+'</button>';});
-  list+='<button class="tool" onclick="go(\'biz\')"><div class="ic">'+ico("coin",26)+'</div><div><b>Gestão do negócio</b><span>Contas, planilha e agenda</span></div></button>';
-  list+='<button class="tool" onclick="go(\'crm\')"><div class="ic">'+ico("heart",26)+'</div><div><b>Clientes e metas</b><span>Lista, mensagens e meta do mês</span></div></button>';
-  list+='<button class="tool" onclick="go(\'mind\')"><div class="ic">'+ico("sparkle",26)+'</div><div><b>Mentalidade empreendedora</b><span>Cards de coragem para os stories</span></div></button>';
+  list+='<button class="tool" onclick="go(\'biz\')"><div class="ic">'+ico("coin",26)+'</div><div><b>Gestão do negócio</b><span>Contas, planilha e agenda</span></div>'+(isInst()?'':'<span class="ok" style="background:#efe4cf;color:#6e2539">trancado</span>')+'</button>';
+  list+='<button class="tool" onclick="go(\'crm\')"><div class="ic">'+ico("heart",26)+'</div><div><b>Clientes e metas</b><span>Lista, mensagens e meta do mês</span></div>'+(isInst()?'':'<span class="ok" style="background:#efe4cf;color:#6e2539">trancado</span>')+'</button>';
+  list+='<button class="tool" onclick="go(\'mind\')"><div class="ic">'+ico("sparkle",26)+'</div><div><b>Mentalidade empreendedora</b><span>Cards de coragem para os stories</span></div>'+(isInst()?'':'<span class="ok" style="background:#efe4cf;color:#6e2539">trancado</span>')+'</button>';
   list+='<button class="tool" onclick="go(\'feedback\')"><div class="ic">'+ico("heart",26)+'</div><div><b>O que você achou?</b><span>Dê de 1 a 5 estrelas</span></div></button>';
   h+=box("compass","2. Ferramentas","Raio-X, roda, jogos e mais",list);
   h+='<button class="tool hl" onclick="go(\'demo\')"><div class="ic">'+ico("phone",26)+'</div><div><b>3. Veja o seu app</b><span>Uma prévia com o seu nome e a sua cor</span></div>'+(prog.demo?'<span class="ok">feito</span>':'')+'</button>';
@@ -1821,7 +1821,8 @@ function installApp(){
 /* funcoes liberadas no app instalado */
 function isInst(){var st=false;try{st=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;if(st)localStorage.setItem("cg_inst","1");return st||localStorage.getItem("cg_inst")==="1";}catch(e){return st;}}
 function vLocked(w){
-  app.innerHTML=back("Jogos","games")+'<h2>'+ico("lock",24)+' '+w+'</h2><p>Este jogo é um presente para quem deixa o CorAge na tela do celular. Instale (é rápido) e abra pelo ícone para liberar.</p><button class="primary" onclick="installApp()">Instalar o CorAge agora</button>'+foot();
+  var jg=(w==="Labirinto"||w==="Palavras cruzadas");
+  app.innerHTML=back(jg?"Jogos":"Início",jg?"games":"home")+'<h2>'+ico("lock",24)+' '+w+'</h2><p>'+(jg?"Este jogo é":"Esta ferramenta é")+' um presente para quem deixa o CorAge na tela do celular. Instale (é rápido) e abra pelo ícone para liberar.</p><button class="primary" onclick="installApp()">Instalar o CorAge agora</button>'+foot();
 }
 
 /* estrelinhas ao encerrar cada atividade */
