@@ -516,7 +516,7 @@ function nextAfter(cur){var i=-1;STEPS.forEach(function(s,j){if(s[0]===cur)i=j;}
   if(!n)return '<div class="sp"></div><h2 style="margin:6px 0 4px">E você também pode ter o seu</h2><p>Veja agora uma prévia do seu app, com o seu nome e as suas cores. É de graça.</p><button class="primary pulse" onclick="go(\'demo\')">Veja o seu app</button><div class="sp"></div>'+contactBtn("Conversar com a CorAge","Oi, Eve! Fiz o passo a passo do app da CorAge e quero conversar.","ghost");
   return '<div class="sp"></div><button class="primary" onclick="go(\''+n[0]+'\')">Próximo: '+n[1]+' →</button>';}
 var seen=1;
-var state={view:"home",step:0,answers:[],match:{},filter:"Todos",compare:"app",spun:null,rot:0,spinning:false};
+var state={view:"home",step:0,answers:[],match:{},filter:"Apps",compare:"app",spun:null,rot:0,spinning:false};
 var ui=ls("cg_ui")||{zoom:1,nomo:false};
 var sysReduce=!!(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 var reduce=sysReduce||!!ui.nomo;
@@ -595,7 +595,7 @@ var works=[
    {n:"Adilene, relações e adoção",s:"Quiz de relações, roda do bem-estar e conteúdo sobre adoção",u:"https://eve-imagem-e-marca.github.io/Adilene-App/"}]},
   {n:"Nutricionista",col:"#55683f",items:[
    {n:"App para nutricionista",s:"Quiz, calculadora de IMC e de água, desafio de 7 dias e cardápio com lista de compras",u:APP_NUTRI}]},
-  {n:"Consultoria de imagem",col:"#6e2539",items:[
+  {n:"Consultoria de imagem",col:"#8f5b3d",items:[
    {n:"Método EVEC",s:"Imagem, presença digital e posts prontos em minutos, no celular",u:"https://metodoevec.com.br"}]},
   {n:"Cores",col:"#8f6a35",items:[
    {n:"Colorev",s:"App só de cores. Em breve"}]}]},
@@ -605,7 +605,7 @@ var works=[
  {c:"Conteúdo",ic:"pen",col:"#cdb998",lt:1,t:"Produção de conteúdo",d:"Posts e estratégia para perfis de psicólogas, esteticistas e dentistas, e para o próprio perfil, desde que me formei em Marketing, em 2012."},
  {c:"Imagem",ic:"hanger",col:"#3b271d",t:"Imagem e marca pessoal",d:"Atendimento e mentoria de imagem desde 2018, com formação em Marketing e pós em marca pessoal e influência digital."}
 ];
-var chipsList=["Todos","Apps","Conteúdo","Podcast","Imagem"];
+var chipsList=["Apps","Podcast","Conteúdo","Imagem"];
 
 /* ---------- ícones ---------- */
 var I={
@@ -830,7 +830,7 @@ function vPortfolio(){
   for(var i=0;i<chipsList.length;i++){h+='<button class="chip'+(state.filter===chipsList[i]?' on':'')+'" onclick="setFilter(\''+chipsList[i]+'\')">'+chipsList[i]+'</button>';}
   h+='</div>';
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"",first=true;
-  for(var k=0;k<works.length;k++){var w=works[k];if(state.filter!=="Todos"&&w.c!==state.filter)continue;
+  for(var k=0;k<works.length;k++){var w=works[k];if(w.c!==state.filter)continue;
     var cs=w.col?' style="background:'+w.col+'!important"':'';h+='<div class="acc'+(w.lt?' lt':'')+(first?' open':'')+'" '+AC+cs+'><button><div class="cic" style="width:44px;height:44px">'+ico(w.ic||"sparkle",24)+'</div><div style="flex:1"><span style="font-size:14px">'+(w.tg||w.c)+'</span><b>'+w.t+'</b></div><em>+</em></button><div class="body"><p>'+w.d+'</p>'+subList(w)+(w.u?'<a class="primary cta" '+(w.col?'style="background:'+w.col+'!important;color:#fff!important;border-color:'+w.col+'!important" ':'')+'href="'+w.u+'" target="_blank" rel="noopener">'+ico("phone",20)+'<span>'+w.b+'</span></a>':'')+'</div></div>';first=false;}
   h+='<div class="sp"></div><button class="primary" onclick="go(\'contact\')">Quero um app assim</button>'+foot();
   app.innerHTML=h;
