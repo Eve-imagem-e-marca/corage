@@ -569,6 +569,15 @@ html body .ck.on .bx{background:#1f4e52}
 html body .ck.on .bx svg,html body .ck.on .bx svg *{opacity:1}
 html body .ck .t{font-size:17px;line-height:1.35;padding-top:3px}
 html body .ck.on .t{text-decoration:line-through;opacity:.6}
+html body .ckr{margin:0 0 10px;padding:6px 10px 10px;border-radius:16px;border:1.5px solid var(--c,#1f4e52);background:linear-gradient(135deg,rgba(255,255,255,.85),rgba(255,255,255,.55));box-shadow:0 3px 10px rgba(47,32,36,.08)}
+html body .ckr .ck{width:100%;padding:8px 0}
+html body .ckr .ck .bx{border-color:var(--c,#1f4e52);background:#fff}
+html body .ckr .ck.on .bx{background:var(--c,#1f4e52)}
+html body .ckr:has(.ck.on){background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(239,228,207,.7))}
+html body .ckl{display:inline-block;margin:2px 0 0 42px;padding:9px 16px;border-radius:999px;border:0;background:var(--c,#1f4e52);color:#fff;-webkit-text-fill-color:#fff;font:700 15px Poppins,sans-serif;cursor:pointer;box-shadow:0 4px 10px rgba(47,32,36,.18)}
+html body .ckl:active{transform:scale(.97)}
+html body #ckg details.grp{border-left:7px solid var(--gc)!important}
+html body #ckg details.grp>summary i{color:var(--gc)!important}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -1925,18 +1934,18 @@ var CKG=[
 ];
 function ckAll(){var n=0;CKG.forEach(function(g){n+=g[2].length;});return n+(ls("cg_ckx")||[]).length;}
 function ckDone(){var s=ls("cg_ck")||{},n=0;CKG.forEach(function(g){g[2].forEach(function(t){if(s[t[0]])n++;});});(ls("cg_ckx")||[]).forEach(function(t){if(t.f)n++;});return n;}
-function ckProg(){var a=ckAll(),d=ckDone(),p=a?Math.round(d/a*100):0,e=document.getElementById("ckp");if(e)e.innerHTML='<b>'+d+' de '+a+' feitas</b> · '+p+'%<div style="height:10px;border-radius:8px;background:#efe4cf;margin-top:8px;overflow:hidden"><div style="height:100%;width:'+p+'%;background:#1f4e52;border-radius:8px;transition:width .4s"></div></div>'+(d===a&&a?'<p style="margin:10px 0 0"><b style="color:#6e2539">Tudo pronto! Você é uma empreendedora de coragem. 🤎</b></p>':'');}
+function ckProg(){var a=ckAll(),d=ckDone(),p=a?Math.round(d/a*100):0,e=document.getElementById("ckp");if(e)e.innerHTML='<b>'+d+' de '+a+' feitas</b> · '+p+'%<div style="height:10px;border-radius:8px;background:#efe4cf;margin-top:8px;overflow:hidden"><div style="height:100%;width:'+p+'%;background:linear-gradient(90deg,#1f4e52,#b08a57,#6e2539);border-radius:8px;transition:width .4s"></div></div>'+(d===a&&a?'<p style="margin:10px 0 0"><b style="color:#6e2539">Tudo pronto! Você é uma empreendedora de coragem. 🤎</b></p>':'');}
 function ckT(id,b){var s=ls("cg_ck")||{};s[id]=!s[id];ls("cg_ck",s);b.classList.toggle("on",!!s[id]);b.setAttribute("aria-pressed",!!s[id]);if(s[id]){snd("coin");}ckProg();}
 function ckX(i,b){var x=ls("cg_ckx")||[];if(!x[i])return;x[i].f=!x[i].f;ls("cg_ckx",x);b.classList.toggle("on",!!x[i].f);b.setAttribute("aria-pressed",!!x[i].f);if(x[i].f)snd("coin");ckProg();}
-function ckMine(){var x=ls("cg_ckx")||[],e=document.getElementById("ckm");if(!e)return;e.innerHTML=x.map(function(t,i){return '<div style="display:flex;align-items:flex-start;gap:6px"><button class="ck'+(t.f?' on':'')+'" aria-pressed="'+!!t.f+'" onclick="ckX('+i+',this)"><span class="bx">'+ico("check",18)+'</span><span class="t">'+dEsc(t.t)+'</span></button><button class="link" onclick="ckDel('+i+')" aria-label="Apagar" style="padding:12px 4px;color:#6e2539">Apagar</button></div>';}).join('')||'<p class="small">Escreva abaixo uma tarefa só sua.</p>';}
+function ckMine(){var x=ls("cg_ckx")||[],e=document.getElementById("ckm");if(!e)return;e.innerHTML=x.map(function(t,i){return '<div class="ckr" style="--c:#b08a57"><button class="ck'+(t.f?' on':'')+'" aria-pressed="'+!!t.f+'" onclick="ckX('+i+',this)"><span class="bx">'+ico("check",18)+'</span><span class="t">'+dEsc(t.t)+'</span></button><button class="ckl" onclick="ckDel('+i+')" style="--c:#6e2539">Apagar</button></div>';}).join('')||'<p class="small">Escreva abaixo uma tarefa só sua.</p>';}
 function ckAdd(){var i=document.getElementById("ckn"),v=i.value.trim();if(!v){toast("Escreva a tarefa.");return;}var x=ls("cg_ckx")||[];x.push({t:v,f:false});ls("cg_ckx",x);i.value="";ckMine();ckProg();}
 function ckDel(i){var x=ls("cg_ckx")||[];x.splice(i,1);ls("cg_ckx",x);ckMine();ckProg();}
 function ckReset(){ls("cg_ck",{});var x=(ls("cg_ckx")||[]).map(function(t){t.f=false;return t;});ls("cg_ckx",x);vChecklist();toast("Marcações limpas.");}
 function vChecklist(){
   var s=ls("cg_ck")||{},h='';
-  CKG.forEach(function(g){h+=dg(g[0],g[1],g[2].map(function(t){return '<div style="display:flex;align-items:flex-start;gap:6px;flex-wrap:wrap"><button class="ck'+(s[t[0]]?' on':'')+'" aria-pressed="'+!!s[t[0]]+'" onclick="ckT(\''+t[0]+'\',this)"><span class="bx">'+ico("check",18)+'</span><span class="t">'+t[1]+'</span></button>'+(t[3]||t[2]?'':'')+'</div>'+(t[2]?'<a class="link" onclick="go(\''+t[2]+'\')" style="display:block;margin:0 0 6px 44px;font-weight:700;color:#1f4e52;cursor:pointer">Abrir ferramenta →</a>':'');}).join(''));});
+  CKG.forEach(function(g){h+=dg(g[0],g[1],g[2].map(function(t){return '<div class="ckr" style="--c:'+g[1]+'"><button class="ck'+(s[t[0]]?' on':'')+'" aria-pressed="'+!!s[t[0]]+'" onclick="ckT(\''+t[0]+'\',this)"><span class="bx">'+ico("check",18)+'</span><span class="t">'+t[1]+'</span></button>'+(t[2]?'<button class="ckl" onclick="go(\''+t[2]+'\')">Abrir ferramenta →</button>':'')+'</div>';}).join(''));});
   h+=dg("Minhas tarefas","#b08a57",'<div id="ckm"></div><label class="l" for="ckn">Nova tarefa</label><input id="ckn" class="inp" placeholder="Ex.: Ligar para o fornecedor" style="'+BI+'"><button class="primary" style="margin-top:10px" onclick="ckAdd()">Adicionar tarefa</button>');
-  app.innerHTML=back("Checklist da empreendedora","home")+'<h2>Checklist da empreendedora</h2><p>Marque o que você já fez e veja o que falta para organizar o seu negócio. Fica salvo só no seu celular.</p><div class="card" id="ckp"></div><div class="grps" style="margin-top:12px">'+h+'</div><button class="link" style="display:block;margin:14px auto 0;color:#6e2539" onclick="ckReset()">Limpar marcações</button>'+starsBox("checklist")+foot();
+  app.innerHTML=back("Checklist da empreendedora","home")+'<h2>Checklist da empreendedora</h2><p>Marque o que você já fez e veja o que falta para organizar o seu negócio. Fica salvo só no seu celular.</p><div class="card" id="ckp"></div><div class="grps" id="ckg" style="margin-top:12px">'+h+'</div><button class="link" style="display:block;margin:14px auto 0;color:#6e2539" onclick="ckReset()">Limpar marcações</button>'+starsBox("checklist")+foot();
   ckProg();ckMine();
 }
 function vGoogle(){
