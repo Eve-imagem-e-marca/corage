@@ -1067,7 +1067,7 @@ function snakeStart(){
   function end(hit){stopGame();var best=ls("cg_best_snake")||0;if(sc>best){best=sc;ls("cg_best_snake",best);}addPts(sc);
     document.getElementById("bs").textContent=best*100;var b=document.getElementById("go");b.style.display="block";b.textContent="Jogar de novo";
     var msg=hit?'<b>A cobrinha esbarrou em '+hit.n+'.</b> Toda empreendedora já passou por isso.':'<b>Fim de jogo.</b>';
-    document.getElementById("res").innerHTML='<div class="card">'+msg+' Você juntou R$ '+(sc*100)+' de capital de giro (de brincadeira) e '+sc+' pontos.</div>'+contactBtn("Quero um app com jogos","Oi, Eve! Joguei a cobrinha da CorAge e quero um app com jogos para o meu trabalho.","ghost");
+    document.getElementById("res").innerHTML='<div class="card">'+msg+' Você juntou R$ '+(sc*100)+' de capital de giro (de brincadeira) e '+sc+' pontos.</div>'+contactBtn("Quero um app com jogos","Oi, Eve! Joguei a cobrinha da CorAge e quero um app com jogos para o meu trabalho.","ghost")+gameEnd('snake');
     if(sc>=10)badge("fechou");if(sc>=20)badge("sobrev");}
   function tick(){d=nd;var h={x:(s[0].x+d.x+SN)%SN,y:(s[0].y+d.y+SN)%SN};
     var ob=null;obs.forEach(function(q){if(q.x===h.x&&q.y===h.y)ob=q;});
@@ -1104,7 +1104,7 @@ function mazeStart(lvl){
     x.fillStyle="#b08a57";x.font="700 "+Math.round(S*1.3)+"px Georgia,serif";x.textAlign="center";x.textBaseline="middle";x.fillText("★",ex.x*S+S/2,ex.y*S+S/2+1);
     badgeDot(x,p.x*S+S/2,p.y*S+S/2,S*.46);}
   function win(){clearInterval(G.tm);var pt=10*lvl;addPts(pt);G.dir=null;
-    document.getElementById("res").innerHTML='<div class="card"><b>Fase '+lvl+' concluída em '+sec+'s.</b> Você ganhou '+pt+' pontos.</div><button class="primary pulse" onclick="mazeStart('+(lvl+1)+')">Próxima fase</button>';}
+    document.getElementById("res").innerHTML='<div class="card"><b>Fase '+lvl+' concluída em '+sec+'s.</b> Você ganhou '+pt+' pontos.</div><button class="primary pulse" onclick="mazeStart('+(lvl+1)+')">Próxima fase</button><div class="sp"></div>'+gameEnd('maze');}
   G.dir=function(k){if(busy)return;var v=V[k];if(!open(p.x+v.x,p.y+v.y))return;busy=true;var cur=v;
     G.iv=setInterval(function(){p.x+=cur.x;p.y+=cur.y;draw();
       if(p.x===ex.x&&p.y===ex.y){clearInterval(G.iv);busy=false;win();return;}
@@ -1333,7 +1333,7 @@ function dollDraw(){
   [["br","Brincos"],["co","Colar"],["bg","Bolsa"],["wa","Relógio"]].forEach(function(q){h+='<button class="dpill'+(s[q[0]]?' on':'')+'" onclick="dollTog(\''+q[0]+'\')">'+q[1]+'</button>';});
   h+='</div></div></div>';
   document.getElementById("dctl").innerHTML=h;
-  document.getElementById("dbtn").innerHTML='<div class="sp"></div><button class="ghost" onclick="dollRand()">Surpreenda-me</button><div class="sp"></div><button class="primary" onclick="dollSave()">Salvar minha bonequinha</button><div class="sp"></div>'+contactBtn("Quero um app para a minha profissão","Oi, Eve! Montei a bonequinha de "+P.n+" no app da CorAge e quero um app para a minha profissão.","ghost")+'<div id="dres"></div>';
+  document.getElementById("dbtn").innerHTML='<div class="sp"></div><button class="ghost" onclick="dollRand()">Surpreenda-me</button><div class="sp"></div><button class="primary" onclick="dollSave()">Salvar minha bonequinha</button><div class="sp"></div>'+contactBtn("Quero um app para a minha profissão","Oi, Eve! Montei a bonequinha de "+P.n+" no app da CorAge e quero um app para a minha profissão.","ghost")+'<div id="dres"></div><div class="sp"></div>'+gameEnd('doll');
 }
 function dollSet(k,v){var d=G.doll;d[k]=v;
   if(k==="p"){var o1=OCC[d.oc||0][3];d.cl=o1?o1.cl:dollCol(v);}
@@ -1459,7 +1459,7 @@ function cwCheck(){var ok=0,tot=0;
     if(v){if(v===c.ch){ok++;td.classList.add("ok");}else{td.classList.add("no");}}}
   var res=document.getElementById("res");
   if(ok===tot){var first=!G.cwDone;if(first){G.cwDone=true;addPts(30);badge("cruz");}
-    res.innerHTML='<div class="card"><b>Completo!</b> '+(first?'Você ganhou 30 pontos.':'Os pontos já foram somados.')+'</div><button class="primary pulse" onclick="go(\'cross\')">Novo jogo</button><div class="sp"></div>'+contactBtn("Quero um app com jogos","Oi, Eve! Completei as palavras cruzadas e quero um app com jogos para o meu negócio.","ghost");}
+    res.innerHTML='<div class="card"><b>Completo!</b> '+(first?'Você ganhou 30 pontos.':'Os pontos já foram somados.')+'</div><button class="primary pulse" onclick="go(\'cross\')">Novo jogo</button><div class="sp"></div>'+contactBtn("Quero um app com jogos","Oi, Eve! Completei as palavras cruzadas e quero um app com jogos para o meu negócio.","ghost")+'<div class="sp"></div>'+gameEnd('cross');}
   else{res.innerHTML='<div class="card">Certas: <b>'+ok+' de '+tot+'</b>. Verde está certo, vermelho está errado, e as vazias ainda faltam. Toque em "Apagar erradas" para tentar de novo.</div>';}}
 
 /* ---------- IASMIN, assistente virtual ---------- */
@@ -1809,6 +1809,13 @@ function vLocked(w){
 
 /* estrelinhas ao encerrar cada atividade */
 var STAR='<svg viewBox="0 0 24 24" width="34" height="34" fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M12 3.2l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.6 6.8 19.4l1-5.9L3.5 9.4l5.9-.8z"/></svg>';
+
+var GORD=[["doll","Vista a empreendedora"],["snake","Cobrinha"],["maze","Labirinto"],["cross","Palavras cruzadas"]];
+function gNext(cur){var i=0;GORD.forEach(function(g,j){if(g[0]===cur)i=j;});var n=GORD[(i+1)%GORD.length];go(n[0]);}
+function shareBox(){var q=document.querySelector(".qrbox"),svg=q?q.innerHTML:"";
+  return '<div class="card sharebox" style="text-align:center"><b>Coragem de compartilhar 🤎</b><p class="small" style="margin:6px 0 10px">Este app tem várias ferramentas que ajudam outra empreendedora a aprender e a organizar o negócio. Mande para uma amiga!</p><div style="width:150px;margin:0 auto 10px;background:#fbf8f3;border:2px solid #b08a57;border-radius:14px;padding:8px">'+svg+'</div><button class="primary" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px" onclick="shareApp()">'+ico("users",20)+'<span>Compartilhar o app</span></button></div>';}
+function gameEnd(cur){var i=0;GORD.forEach(function(g,j){if(g[0]===cur)i=j;});var n=GORD[(i+1)%GORD.length];
+  return starsBox(cur)+'<button class="primary" style="width:100%;margin-top:10px" onclick="gNext(\''+cur+'\')">Próximo jogo: '+n[1]+' →</button><div class="sp"></div>'+shareBox();}
 function starsBox(cur){
   var r=ls("cg_rate")||{},v=r[cur]||0,L=["Poderia melhorar","Mais ou menos","Bom","Muito bom","Amei"],h='<div class="stars" data-v="'+cur+'"><b>O que você achou dessa experiência?</b><div class="strow">';
   for(var i=1;i<=5;i++)h+='<button type="button" class="st'+(v>=i?' on':'')+'" aria-label="'+i+' de 5: '+L[i-1]+'" onclick="rateStar(\''+cur+'\','+i+')">'+STAR+'</button>';
