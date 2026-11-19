@@ -498,7 +498,7 @@ details.grp.why{margin:10px 0 14px}
 <header class="hdr">
   <button class="logo" onclick="go('home')" aria-label="Início"><i>C</i>CorAge</button>
   <div class="hbtns">
-    <button class="ib" id="sndh" onclick="toggleSnd()"></button>
+    <button class="ib" id="sndh" onclick="sndPop()"></button>
     <button class="ib" onclick="openQR()" aria-label="Mostrar QR Code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1"/></svg></button>
     <button class="ib" id="av" onclick="go('search')" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button>
   </div>
@@ -546,17 +546,17 @@ var bdg=ls("cg_badges")||{};
 var AUC=null;
 function sndOn(){try{return localStorage.getItem("cg_snd")!=="0";}catch(e){return true;}}
 function snd(t){if(!sndOn())return;try{AUC=AUC||new (window.AudioContext||window.webkitAudioContext)();var c=AUC;if(c.state==="suspended")c.resume();
-  if(t==="tap"){var sc=[523,587,659,784,880,1047,1175,1319],f=sc[TAPN=(TAPN+1+Math.floor(Math.random()*3))%sc.length];var o1=c.createOscillator(),o2=c.createOscillator(),g1=c.createGain();o1.type="sine";o2.type="triangle";o1.frequency.value=f;o2.frequency.value=f*2;var t1=c.currentTime;g1.gain.setValueAtTime(.0001,t1);g1.gain.exponentialRampToValueAtTime(.12,t1+.01);g1.gain.exponentialRampToValueAtTime(.0001,t1+.5);o1.connect(g1);o2.connect(g1);g1.connect(c.destination);o1.start(t1);o2.start(t1);o1.stop(t1+.55);o2.stop(t1+.55);if(navigator.vibrate)navigator.vibrate(8);return;}
-  if(t==="go"){var L=Math.floor(c.sampleRate*.28),bf=c.createBuffer(1,L,c.sampleRate),d=bf.getChannelData(0);for(var i=0;i<L;i++){var x=i/L;d[i]=(Math.random()*2-1)*Math.sin(Math.PI*x)*Math.pow(1-x,.6);}var sr=c.createBufferSource();sr.buffer=bf;var fl=c.createBiquadFilter();fl.type="bandpass";fl.frequency.setValueAtTime(900,c.currentTime);fl.frequency.exponentialRampToValueAtTime(3800,c.currentTime+.26);fl.Q.value=.8;var gn=c.createGain();gn.gain.value=.5;sr.connect(fl);fl.connect(gn);gn.connect(c.destination);sr.start();return;}
-  var N={tap:[[1175,0,.12,.1],[1568,.05,.22,.07]],go:[],tick:[[320,0,.03,.1]],coin:[[988,0,.1,.15],[1319,.09,.22,.15]],chime:[[523,0,.16,.14],[659,.12,.16,.14],[784,.24,.3,.14]]}[t]||[];
-  N.forEach(function(n){var o=c.createOscillator(),g=c.createGain();o.type="sine";o.frequency.value=n[0];var t0=c.currentTime+n[1];g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(n[3],t0+.01);g.gain.exponentialRampToValueAtTime(0.0001,t0+n[2]);o.connect(g);g.connect(c.destination);o.start(t0);o.stop(t0+n[2]+.05);});
+  if(t==="tap"){var sc=[523,587,659,784,880,1047,1175,1319],f=sc[TAPN=(TAPN+1+Math.floor(Math.random()*3))%sc.length];var o1=c.createOscillator(),o2=c.createOscillator(),g1=c.createGain();o1.type="sine";o2.type="triangle";o1.frequency.value=f;o2.frequency.value=f*2;var t1=c.currentTime;g1.gain.setValueAtTime(.0001,t1);g1.gain.exponentialRampToValueAtTime(.05,t1+.02);g1.gain.exponentialRampToValueAtTime(.0001,t1+.35);o1.connect(g1);o2.connect(g1);g1.connect(OUT(c));o1.start(t1);o2.start(t1);o1.stop(t1+.55);o2.stop(t1+.55);if(navigator.vibrate)navigator.vibrate(8);return;}
+  if(t==="go"){var L=Math.floor(c.sampleRate*.28),bf=c.createBuffer(1,L,c.sampleRate),d=bf.getChannelData(0);for(var i=0;i<L;i++){var x=i/L;d[i]=(Math.random()*2-1)*Math.sin(Math.PI*x)*Math.pow(1-x,.6);}var sr=c.createBufferSource();sr.buffer=bf;var fl=c.createBiquadFilter();fl.type="bandpass";fl.frequency.setValueAtTime(900,c.currentTime);fl.frequency.exponentialRampToValueAtTime(3800,c.currentTime+.26);fl.Q.value=.8;var gn=c.createGain();gn.gain.value=.18;sr.connect(fl);fl.connect(gn);gn.connect(OUT(c));sr.start();return;}
+  var N={tap:[[1175,0,.12,.1],[1568,.05,.22,.07]],go:[],tick:[[320,0,.03,.04]],coin:[[988,0,.1,.07],[1319,.09,.22,.07]],chime:[[523,0,.16,.06],[659,.12,.16,.06],[784,.24,.3,.06]]}[t]||[];
+  N.forEach(function(n){var o=c.createOscillator(),g=c.createGain();o.type="sine";o.frequency.value=n[0];var t0=c.currentTime+n[1];g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(n[3],t0+.01);g.gain.exponentialRampToValueAtTime(0.0001,t0+n[2]);o.connect(g);g.connect(OUT(c));o.start(t0);o.stop(t0+n[2]+.05);});
   if(t==="tap"&&navigator.vibrate)navigator.vibrate(8);}catch(e){}}
 function sndIco(){var b=document.getElementById("sndh");if(!b)return;var on=sndOn();b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/>'+(on?'<path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>':'<path d="M16 9l5 6M21 9l-5 6"/>')+'</svg>';b.setAttribute("aria-label",on?"Desligar sons":"Ligar sons");}
 
 var TAPN=0,MUS=null;
 function startMusic(){
   if(!sndOn()||MUS)return;try{AUC=AUC||new (window.AudioContext||window.webkitAudioContext)();var c=AUC;if(c.state==="suspended")c.resume();
-  var m=c.createGain();m.gain.value=.0001;m.gain.exponentialRampToValueAtTime(.5,c.currentTime+3);m.connect(c.destination);
+  var m=c.createGain();m.gain.value=.0001;m.gain.exponentialRampToValueAtTime(.5,c.currentTime+3);m.connect(OUT(c));
   var sc=[261.6,293.7,329.6,392,440,523.3,587.3,659.3],ch=[[130.8,196,261.6],[110,164.8,220],[98,146.8,196],[130.8,196,247]],ci=0,k=0;
   function note(f,d,v){var o=c.createOscillator(),g=c.createGain(),t=c.currentTime;o.type="sine";o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.6);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(m);o.start(t);o.stop(t+d+.1);}
   function tick(){if(!MUS)return;if(k%8===0){ch[ci%ch.length].forEach(function(f){note(f,7,.05);});ci++;}
@@ -565,7 +565,7 @@ function startMusic(){
 
 function startBox(){
   if(!sndOn()||MUS)return;try{AUC=AUC||new (window.AudioContext||window.webkitAudioContext)();var c=AUC;if(c.state==="suspended")c.resume();
-  var m=c.createGain();m.gain.value=.9;m.connect(c.destination);
+  var m=c.createGain();m.gain.value=.9;m.connect(OUT(c));
   var CH=[[261.6,329.6,392],[220,261.6,329.6],[174.6,220,261.6],[196,246.9,293.7]],BS=[130.8,110,87.3,98],SC=[392,440,493.9,523.3,587.3,659.3,784,880],ci=0,k=0,mi=3;
   function bell(f,d,v){var t=c.currentTime,g=c.createGain(),o=c.createOscillator(),o2=c.createOscillator();o.type="sine";o2.type="sine";o.frequency.value=f;o2.frequency.value=f*4;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+d);var g2=c.createGain();g2.gain.value=.25;o.connect(g);o2.connect(g2);g2.connect(g);g.connect(m);o.start(t);o2.start(t);o.stop(t+d+.05);o2.stop(t+d+.05);}
   function tick(){if(!MUS)return;var b=k%3;
@@ -575,6 +575,15 @@ function startBox(){
   tick();MUS={m:m,iv:setInterval(tick,330)};}catch(e){}}
 function stopMusic(){if(!MUS)return;var x=MUS;MUS=null;clearInterval(x.iv);try{x.m.gain.cancelScheduledValues(AUC.currentTime);x.m.gain.setTargetAtTime(.0001,AUC.currentTime,.4);setTimeout(function(){try{x.m.disconnect();}catch(e){}},1800);}catch(e){}}
 var MV=null;function musicFor(v){var w=(v==="doll")?"box":(["games","snake","maze","cross"].indexOf(v)>-1?"soft":null);if(w===MV&&MUS)return;stopMusic();MV=w;if(w==="box")setTimeout(startBox,50);else if(w==="soft")setTimeout(startMusic,50);}
+
+var MG=null;
+function volV(){try{var v=localStorage.getItem("cg_vol");return v==null?0.35:parseFloat(v);}catch(e){return .35;}}
+function OUT(c){if(!MG||MG.ctx!==c){MG=c.createGain();MG.ctx=c;MG.connect(c.destination);}MG.gain.value=volV();return MG;}
+function setVol(v){try{localStorage.setItem("cg_vol",v);}catch(e){}if(MG)MG.gain.value=parseFloat(v);var sl=document.getElementById("volr");if(sl)sl.value=v;}
+function sndPop(){var o=document.getElementById("volpop");if(o){o.remove();return;}
+  o=document.createElement("div");o.id="volpop";o.style.cssText="position:fixed;top:64px;right:70px;z-index:120;background:#fbf8f3;border:1px solid #b08a57;border-radius:16px;padding:14px 16px;width:220px;box-shadow:0 12px 28px rgba(47,32,36,.25);color:#2f2024";
+  o.innerHTML='<b style="font-family:Iowan Old Style,Palatino,Georgia,serif;color:#6e2539;font-size:17px">Volume</b><input id="volr" type="range" min="0.05" max="1" step="0.05" value="'+volV()+'" style="width:100%;margin:10px 0" oninput="setVol(this.value)" onchange="snd(\'tap\')"><button class="primary" style="padding:10px;font-size:16px" onclick="toggleSnd();var p=document.getElementById(\'volpop\');if(p)p.remove()">'+(sndOn()?"Desligar sons":"Ligar sons")+'</button>';
+  document.body.appendChild(o);setTimeout(function(){document.addEventListener("click",function f(e){var p=document.getElementById("volpop");if(p&&!p.contains(e.target)&&!e.target.closest("#sndh")){p.remove();}document.removeEventListener("click",f);},true);},50);}
 function toggleSnd(){var on=!sndOn();try{localStorage.setItem("cg_snd",on?"1":"0");}catch(e){}if(on)musicFor(state.view);else stopMusic();var b=document.getElementById("sndbtn");if(b)b.textContent=on?"Sons ligados":"Sons desligados";sndIco();if(on)snd("chime");}
 document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest("button,a,.tool"))snd("tap");},true);
 /* lembrete de postar (arquivo de agenda, funciona no celular sem servidor) */
