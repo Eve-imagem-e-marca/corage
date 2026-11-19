@@ -541,6 +541,7 @@ body,html{background:transparent!important}
 .giftc{display:flex;gap:12px;align-items:flex-start}
 .giftk{width:44px;height:44px;border-radius:50%;flex:none;display:grid;place-items:center;background:linear-gradient(145deg,rgba(255,255,255,.8),rgba(201,180,142,.5));border:1px solid rgba(255,255,255,.9);box-shadow:inset 0 1px 0 #fff,0 4px 10px rgba(70,30,40,.12)}
 .giftk svg,.giftk svg *{stroke:#6e2539!important}
+.view details.grp>summary,.view details.grp>summary *{color:#4a2631!important}.view details.grp>summary i{border-color:#6e2539!important}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -822,7 +823,7 @@ function waUrl(msg){return WHATSAPP?"https://wa.me/"+WHATSAPP+"?text="+encodeURI
 function contactBtn(txt,msg,cls){return '<a class="'+(cls||"primary")+'" href="'+waUrl(msg||"Oi, Eve! Vi o app da CorAge e quero conversar.")+'" target="_blank" rel="noopener">'+txt+'</a>';}
 function go(v){stopGame();var LK={maze:"Labirinto",cross:"Palavras cruzadas",crm:"Clientes e metas",mind:"Mentalidade empreendedora"};if(LK[v]&&!isInst()){state.view="locked";state.lk=LK[v];musicFor("games");render();window.scrollTo(0,0);return;}snd("go");if(v==="demo")dMode=(DEMO.biz&&DEMO.area!=null)?"prev":"form";state.view=v;musicFor(v);state.step=0;state.answers=[];if(v==="match"){state.match={g:(profile.goals&&profile.goals.length?profile.goals[0]:undefined)};}render();window.scrollTo(0,0);}
 function back(title,to){return '<div class="top"><button class="link" onclick="go(\''+(to||"home")+'\')">← Voltar</button><span class="small">'+(title||"")+'</span></div>';}
-function foot(){return '<div class="card" style="text-align:center;margin:18px 0 0"><span class="small" style="margin:0">Compartilhe com aquela amiga empreendedora que vai adorar saber dessa novidade. 🤎</span><button class="ghost" style="width:100%;margin-top:8px" onclick="shareApp()">Compartilhar o app</button></div><footer>CorAge, por Eve, imagem e marca 🤎<br><button class="link" onclick="go(\'privacy\')">Privacidade e segurança</button> · <button class="link" onclick="go(\'access\')">Uso e acessibilidade</button></footer>';}
+function foot(){return '<p class="small" style="text-align:center;margin:18px 0 0">Compartilhe com aquela amiga empreendedora que vai adorar saber dessa novidade. <button class="link" onclick="shareApp()">Compartilhar</button></p><footer>CorAge, por Eve, imagem e marca 🤎<br><button class="link" onclick="go(\'privacy\')">Privacidade e segurança</button> · <button class="link" onclick="go(\'access\')">Uso e acessibilidade</button></footer>';}
 function toggle(el){var all=document.querySelectorAll(".acc");for(var i=0;i<all.length;i++){if(all[i]===el){all[i].classList.toggle("open");}else{all[i].classList.remove("open");}}
   var c=el.getAttribute("data-big");if(c&&el.classList.contains("open")){runCount(el.querySelector(".num"));}}
 function runCount(n){if(!n)return;var to=parseFloat(n.getAttribute("data-to")),dec=parseInt(n.getAttribute("data-dec")),pre=n.getAttribute("data-pre")||"",suf=n.getAttribute("data-suf")||"";
@@ -991,7 +992,7 @@ function vPortfolio(){
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"",first=true;
   for(var k=0;k<works.length;k++){var w=works[k];
     var cs=w.col?' style="--wc:'+w.col+'"':'';h+='<div class="acc'+(w.lt?' lt':'')+(first?' open':'')+'" '+AC+cs+'><button><div class="cic" style="width:44px;height:44px">'+ico(w.ic||"sparkle",24)+'</div><div style="flex:1"><span style="font-size:14px">'+(w.tg||'')+'</span><b>'+w.t+'</b></div><em>+</em></button><div class="body"><p>'+w.d+'</p>'+subList(w)+(w.u?'<a class="primary cta" '+(w.col?'style="background:'+w.col+'!important;color:#fff!important;border-color:'+w.col+'!important" ':'')+'href="'+w.u+'" target="_blank" rel="noopener">'+ico("phone",20)+'<span>'+w.b+'</span></a>':'')+'</div></div>';first=false;}
-  h+='<div class="sp"></div><button class="primary" onclick="go(\'contact\')">Quero um app assim</button>'+foot();
+  h+='<div class="sp"></div><button class="primary" onclick="go(\'contact\')">Quero um app assim</button><div class="sp"></div>'+starsBox("port")+foot();
   app.innerHTML=h;
 }
 function setFilter(f){state.filter=f;render();}
@@ -1930,7 +1931,7 @@ function fPc(n){return (isFinite(n)?n:0).toLocaleString("pt-BR",{maximumFraction
 function bzInp(id,l,ph){return '<label class="l" for="'+id+'">'+l+'</label><input id="'+id+'" class="inp" inputmode="decimal" placeholder="'+(ph||"0,00")+'" oninput="bzCalc()" style="width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024">';}
 function bzTab(t){BZ.tab=t;vBiz();}
 function vBiz(){
-  var tabs=[["calc","Calculadoras"],["sheet","Planilha"],["agenda","Agenda"]],h=back("Gestão do negócio","home")+'<h2>Gestão do negócio</h2><p>Contas prontas, uma mini planilha e a sua agenda. Tudo fica só no seu celular.</p><div class="drow" style="margin-bottom:10px">';
+  var tabs=[["calc","Calculadoras"],["sheet","Planilha"],["agenda","Agenda"]],h=back("Gestão básica do negócio","home")+'<h2>Gestão básica do negócio</h2><p>Contas prontas, uma mini planilha e a sua agenda. Tudo fica só no seu celular.</p><div class="drow" style="margin-bottom:10px">';
   tabs.forEach(function(t){h+='<button class="dpill'+(BZ.tab===t[0]?' on':'')+'" onclick="bzTab(\''+t[0]+'\')">'+t[1]+'</button>';});
   h+='</div>';
   if(BZ.tab==="calc")h+=bzCalcHtml();else if(BZ.tab==="sheet")h+=bzSheetHtml();else h+=bzAgendaHtml();
