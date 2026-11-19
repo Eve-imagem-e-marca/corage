@@ -562,6 +562,13 @@ html body .view .dpill.on,html body .view .dchip.on{border-color:#1f4e52!importa
 html body .view .card>b:first-child{color:#1f4e52}
 html body .hdr .logo i{background:#1f4e52!important}
 html body .view .stars button,html body .view .stars svg{color:#b08a57}
+html body .ck{display:flex;gap:12px;align-items:flex-start;flex:1;min-width:0;text-align:left;background:none!important;border:0!important;box-shadow:none!important;padding:10px 0;font:inherit;color:#2f2024;cursor:pointer}
+html body .ck .bx{flex:0 0 30px;height:30px;border-radius:50%;border:2px solid #1f4e52;display:flex;align-items:center;justify-content:center;background:#fffdf8}
+html body .ck .bx svg,html body .ck .bx svg *{stroke:#fff!important;opacity:0}
+html body .ck.on .bx{background:#1f4e52}
+html body .ck.on .bx svg,html body .ck.on .bx svg *{opacity:1}
+html body .ck .t{font-size:17px;line-height:1.35;padding-top:3px}
+html body .ck.on .t{text-decoration:line-through;opacity:.6}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -881,6 +888,7 @@ function vHome(){
   list+='<button class="tool" onclick="go(\'apoio\')"><div class="ic">'+ico("briefcase",26)+'</div><div><b>Onde buscar ajuda</b><span>Sampa, Sebrae e outras instituições</span></div><span class="ok" style="background:#efe4cf;color:#6e2539">novo</span></button>';
   list+='<button class="tool" onclick="go(\'rede\')"><div class="ic">'+ico("users",26)+'</div><div><b>Rede de empreendedoras</b><span>Cadastre-se e conecte-se</span></div><span class="ok" style="background:#efe4cf;color:#6e2539">novo</span></button>';
   list+='<button class="tool" onclick="go(\'eventos\')"><div class="ic">'+ico("calendar",26)+'</div><div><b>Eventos gratuitos</b><span>Empreendedorismo feminino em SP</span></div><span class="ok" style="background:#efe4cf;color:#6e2539">novo</span></button>';
+  list+='<button class="tool" onclick="go(\'checklist\')"><div class="ic">'+ico("check",26)+'</div><div><b>Checklist da empreendedora</b><span>Marque o que já fez no seu negócio</span></div><span class="ok" style="background:#efe4cf;color:#6e2539">novo</span></button>';
   list+='<button class="tool" onclick="go(\'comercial\')"><div class="ic">'+ico("calendar",26)+'</div><div><b>Calendário comercial</b><span>Datas que vendem, na sua agenda</span></div><span class="ok" style="background:#efe4cf;color:#6e2539">novo</span></button>';
   list+='<button class="tool" onclick="go(\'google\')"><div class="ic">'+ico("search",26)+'</div><div><b>Google grátis</b><span>Perfil da Empresa, planilhas e mais</span></div><span class="ok" style="background:#efe4cf;color:#6e2539">novo</span></button>';
   list+='<button class="tool" onclick="go(\'feedback\')"><div class="ic">'+ico("heart",26)+'</div><div><b>O que você achou?</b><span>Dê de 1 a 5 estrelas</span></div></button>';
@@ -1908,6 +1916,29 @@ function vComercial(){
    '<h3 style="margin-top:18px">Próximas datas</h3><p class="small">Toque em uma data para adicionar só ela.</p>'+(h||'<p class="small">Nenhuma data pela frente.</p>')+
    starsBox("comercial")+foot();
 }
+var CKG=[
+ ["Legalizar e organizar","#6e2539",[["mei","Abrir o MEI, ou conferir se está em dia","mei"],["sep","Separar o dinheiro pessoal do dinheiro do negócio"],["das","Pagar o DAS-MEI até o dia 20","mei"],["nf","Guardar notas e comprovantes numa pasta (Drive)","google"]]],
+ ["Preço e dinheiro","#1f4e52",[["prc","Calcular o preço de venda de cada produto ou serviço","biz"],["hr","Descobrir o valor da sua hora","biz"],["fin","Anotar o que entrou e o que saiu no mês","biz"],["meta","Definir a meta de faturamento do mês"]]],
+ ["Clientes","#b08a57",[["lst","Fazer uma lista com o nome e o WhatsApp das clientes"],["wpp","Configurar o WhatsApp Business (catálogo e mensagem de boas-vindas)"],["ava","Pedir uma avaliação para 3 clientes"],["pos","Mandar mensagem de agradecimento depois da venda"]]],
+ ["Divulgação","#6e2539",[["bio","Revisar a bio do Instagram: o que você faz e o link"],["gmb","Criar o Perfil da Empresa no Google","google"],["pst","Planejar os posts da semana"],["dat","Marcar as datas comerciais na agenda","comercial"]]],
+ ["Crescer","#1f4e52",[["red","Entrar na rede de empreendedoras","rede"],["evt","Escolher um evento gratuito para ir","eventos"],["apo","Conhecer uma instituição que apoia quem empreende","apoio"],["apr","Estudar 15 minutos por dia sobre o seu negócio"]]]
+];
+function ckAll(){var n=0;CKG.forEach(function(g){n+=g[2].length;});return n+(ls("cg_ckx")||[]).length;}
+function ckDone(){var s=ls("cg_ck")||{},n=0;CKG.forEach(function(g){g[2].forEach(function(t){if(s[t[0]])n++;});});(ls("cg_ckx")||[]).forEach(function(t){if(t.f)n++;});return n;}
+function ckProg(){var a=ckAll(),d=ckDone(),p=a?Math.round(d/a*100):0,e=document.getElementById("ckp");if(e)e.innerHTML='<b>'+d+' de '+a+' feitas</b> · '+p+'%<div style="height:10px;border-radius:8px;background:#efe4cf;margin-top:8px;overflow:hidden"><div style="height:100%;width:'+p+'%;background:#1f4e52;border-radius:8px;transition:width .4s"></div></div>'+(d===a&&a?'<p style="margin:10px 0 0"><b style="color:#6e2539">Tudo pronto! Você é uma empreendedora de coragem. 🤎</b></p>':'');}
+function ckT(id,b){var s=ls("cg_ck")||{};s[id]=!s[id];ls("cg_ck",s);b.classList.toggle("on",!!s[id]);b.setAttribute("aria-pressed",!!s[id]);if(s[id]){snd("coin");}ckProg();}
+function ckX(i,b){var x=ls("cg_ckx")||[];if(!x[i])return;x[i].f=!x[i].f;ls("cg_ckx",x);b.classList.toggle("on",!!x[i].f);b.setAttribute("aria-pressed",!!x[i].f);if(x[i].f)snd("coin");ckProg();}
+function ckMine(){var x=ls("cg_ckx")||[],e=document.getElementById("ckm");if(!e)return;e.innerHTML=x.map(function(t,i){return '<div style="display:flex;align-items:flex-start;gap:6px"><button class="ck'+(t.f?' on':'')+'" aria-pressed="'+!!t.f+'" onclick="ckX('+i+',this)"><span class="bx">'+ico("check",18)+'</span><span class="t">'+dEsc(t.t)+'</span></button><button class="link" onclick="ckDel('+i+')" aria-label="Apagar" style="padding:12px 4px;color:#6e2539">Apagar</button></div>';}).join('')||'<p class="small">Escreva abaixo uma tarefa só sua.</p>';}
+function ckAdd(){var i=document.getElementById("ckn"),v=i.value.trim();if(!v){toast("Escreva a tarefa.");return;}var x=ls("cg_ckx")||[];x.push({t:v,f:false});ls("cg_ckx",x);i.value="";ckMine();ckProg();}
+function ckDel(i){var x=ls("cg_ckx")||[];x.splice(i,1);ls("cg_ckx",x);ckMine();ckProg();}
+function ckReset(){ls("cg_ck",{});var x=(ls("cg_ckx")||[]).map(function(t){t.f=false;return t;});ls("cg_ckx",x);vChecklist();toast("Marcações limpas.");}
+function vChecklist(){
+  var s=ls("cg_ck")||{},h='';
+  CKG.forEach(function(g){h+=dg(g[0],g[1],g[2].map(function(t){return '<div style="display:flex;align-items:flex-start;gap:6px;flex-wrap:wrap"><button class="ck'+(s[t[0]]?' on':'')+'" aria-pressed="'+!!s[t[0]]+'" onclick="ckT(\''+t[0]+'\',this)"><span class="bx">'+ico("check",18)+'</span><span class="t">'+t[1]+'</span></button>'+(t[3]||t[2]?'':'')+'</div>'+(t[2]?'<a class="link" onclick="go(\''+t[2]+'\')" style="display:block;margin:0 0 6px 44px;font-weight:700;color:#1f4e52;cursor:pointer">Abrir ferramenta →</a>':'');}).join(''));});
+  h+=dg("Minhas tarefas","#b08a57",'<div id="ckm"></div><label class="l" for="ckn">Nova tarefa</label><input id="ckn" class="inp" placeholder="Ex.: Ligar para o fornecedor" style="'+BI+'"><button class="primary" style="margin-top:10px" onclick="ckAdd()">Adicionar tarefa</button>');
+  app.innerHTML=back("Checklist da empreendedora","home")+'<h2>Checklist da empreendedora</h2><p>Marque o que você já fez e veja o que falta para organizar o seu negócio. Fica salvo só no seu celular.</p><div class="card" id="ckp"></div><div class="grps" style="margin-top:12px">'+h+'</div><button class="link" style="display:block;margin:14px auto 0;color:#6e2539" onclick="ckReset()">Limpar marcações</button>'+starsBox("checklist")+foot();
+  ckProg();ckMine();
+}
 function vGoogle(){
   var st=function(n,t){return '<li>'+ico("check",19)+'<span><b>'+n+'</b> '+t+'</span></li>';};
   var T=[
@@ -2149,7 +2180,7 @@ function crMetaDraw(){var g=gLoad(),e=document.getElementById("gb");if(!e)return
 function render(){
   var v=state.view;
   app.className="view";
-  if(v==="eve")vEve();else if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="mei")vMei();else if(v==="comercial")vComercial();else if(v==="google")vGoogle();else if(v==="apoio")vApoio();else if(v==="rede")vRede();else if(v==="eventos")vEventos();else if(v==="crm")vCrm();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
+  if(v==="eve")vEve();else if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="mei")vMei();else if(v==="checklist")vChecklist();else if(v==="comercial")vComercial();else if(v==="google")vGoogle();else if(v==="apoio")vApoio();else if(v==="rede")vRede();else if(v==="eventos")vEventos();else if(v==="crm")vCrm();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
   var kids=app.children;for(var i=0;i<kids.length;i++){if(noA){kids[i].style.animation="none";}else{kids[i].style.animationDelay=(i*55)+"ms";}}
   noA=false;
   var tab=(v==="portfolio"||v==="plans")?v:"home";
