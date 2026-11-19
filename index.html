@@ -864,7 +864,7 @@ function done(k){if(!prog[k]){prog[k]=1;ls("cg_prog",prog);addPts(10);}}
 function count(){return (prog.quiz?1:0)+(prog.match?1:0)+(prog.cases?1:0)+(prog.wheel?1:0);}
 function waUrl(msg){return WHATSAPP?"https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg):INSTAGRAM;}
 function contactBtn(txt,msg,cls){return '<a class="'+(cls||"primary")+'" href="'+waUrl(msg||"Oi, Eve! Vi o app da CorAge e quero conversar.")+'" target="_blank" rel="noopener">'+txt+'</a>';}
-function go(v){stopGame();var LK={maze:"Labirinto",cross:"Palavras cruzadas"};if(LK[v]&&!isInst()){state.view="locked";state.lk=LK[v];musicFor("games");render();window.scrollTo(0,0);return;}snd("go");if(v==="demo")dMode=(DEMO.biz&&DEMO.area!=null)?"prev":"form";state.view=v;musicFor(v);state.step=0;state.answers=[];if(v==="match"){state.match={g:(profile.goals&&profile.goals.length?profile.goals[0]:undefined)};}render();window.scrollTo(0,0);}
+function go(v){if(!window.__pop&&v!==state.view){try{history.pushState({v:v},"");}catch(e){}}stopGame();var LK={maze:"Labirinto",cross:"Palavras cruzadas"};if(LK[v]&&!isInst()){state.view="locked";state.lk=LK[v];musicFor("games");render();window.scrollTo(0,0);return;}snd("go");if(v==="demo")dMode=(DEMO.biz&&DEMO.area!=null)?"prev":"form";state.view=v;musicFor(v);state.step=0;state.answers=[];if(v==="match"){state.match={g:(profile.goals&&profile.goals.length?profile.goals[0]:undefined)};}render();window.scrollTo(0,0);}
 function back(title,to){return '<div class="top"><button class="link" onclick="go(\''+(to||"home")+'\')">← Voltar</button><span class="small">'+(title||"")+'</span></div>';}
 function foot(){return '<p class="small" style="text-align:center;margin:18px 0 0">Compartilhe com aquela amiga empreendedora que vai adorar saber dessa novidade. <button class="link" onclick="shareApp()">Compartilhar</button></p><footer>CorAge, por Eve, imagem e marca 🤎<br><button class="link" onclick="go(\'privacy\')">Privacidade e segurança</button> · <button class="link" onclick="go(\'access\')">Uso e acessibilidade</button></footer>';}
 function toggle(el){var all=document.querySelectorAll(".acc");for(var i=0;i<all.length;i++){if(all[i]===el){all[i].classList.toggle("open");}else{all[i].classList.remove("open");}}
@@ -2318,6 +2318,9 @@ if(/[?&]eve(=|&|$)/.test(location.search))state.view="eve";
 render();
 if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){});}
 sndIco();
+
+try{history.replaceState({v:"home"},"");history.pushState({v:"home"},"");}catch(e){}
+window.addEventListener("popstate",function(e){var v=(e.state&&e.state.v)||"home";window.__pop=1;try{go(v);}catch(x){}window.__pop=0;if(v==="home"&&state.view==="home"){try{history.pushState({v:"home"},"");}catch(x){}}});
 </script>
 </body>
 </html>
