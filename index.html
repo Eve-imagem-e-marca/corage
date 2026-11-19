@@ -1974,7 +1974,7 @@ function vKanban(){
    '<label class="l" for="kbn">Nova tarefa</label><input id="kbn" class="inp" placeholder="Ex.: Ligar para o fornecedor" style="'+BI+'"><button class="primary" style="margin-top:10px" onclick="kbAdd()">Adicionar em A fazer</button>'+starsBox("quadro")+foot();
   kbDraw();
 }
-var SWD=["Segunda","Terça","Quarta","Quinta","Sexta"],SWT=Math.min(Math.max((new Date().getDay()+6)%7,0),4);
+var SWD=["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"],SWT=(new Date().getDay()+6)%7;
 function swL(){var r=ls("cg_sem");return r&&typeof r==="object"&&!Array.isArray(r)?r:{};}
 function swSet(d,h,v){var r=swL();r[d+"_"+h]=v;ls("cg_sem",r);}
 function swTab(i){SWT=i;swDraw();}
