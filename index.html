@@ -888,7 +888,7 @@ function vHome(){
   var h='<section class="hero" style="padding-bottom:0"><h1 style="margin-bottom:6px">'+nm+'</h1></section>';
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
   function box(ic,title,sub,body){return '<div class="acc" '+AC+'><button><div class="cic" style="width:40px;height:40px;font-size:0">'+ico(ic,22)+'</div><div style="flex:1"><b>'+title+'</b><span>'+sub+'</span></div><em>+</em></button><div class="body">'+body+'</div></div>';}
-  h+='<div class="card giftc"><div class="giftk">'+ico("sparkle",22)+'</div><div style="flex:1"><b>Que bom que você chegou aqui!</b><p class="small" style="margin:4px 0 10px">'+(new Date().getMonth()===10&&new Date().getDate()===19?'Hoje é o Dia do Empreendedorismo Feminino. ':'')+'Seu presente: 14 ferramentas gratuitas.</p><button class="primary glass-sm" style="width:100%" onclick="go(\'presente\')">Abrir meu presente</button></div></div>';
+  h+='<div class="card giftc"><div class="giftk">'+ico("sparkle",22)+'</div><div style="flex:1"><b>Que bom que você chegou aqui!</b><p class="small" style="margin:4px 0 10px">'+(new Date().getMonth()===10&&new Date().getDate()===19?'Hoje é o Dia do Empreendedorismo Feminino. ':'')+'Seu presente: 15 ferramentas gratuitas.</p><button class="primary glass-sm" style="width:100%" onclick="go(\'presente\')">Abrir meu presente</button></div></div>';
   h+='<div class="card ia"><div class="iaw"><div class="iaav2">I</div><div><b>1. Comece com a Iasmin</b><small>Assistente virtual da CorAge</small></div></div><p style="margin:0 0 12px">Em poucos passos você conhece o app e ganha um Raio-X do seu trabalho.</p>'+
    (nx?'<div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><span class="small" style="margin:0">'+nx[1]+'</span><button class="primary glass-sm pulse" onclick="go(\''+nx[0]+'\')">'+(started?"Continuar":"Começar")+' →</button></div>':contactBtn("Conversar com a CorAge","Oi, Eve! Fiz o Raio-X completo e quero conversar.","primary glass-sm pulse"))+
    '<div style="text-align:center"><button class="link" onclick="iaOpen()">Tirar uma dúvida com a Iasmin</button></div></div>';
@@ -1947,12 +1947,12 @@ function vChecklist(){
 }
 function vPresente(){
   var G=[
-   ["Organizar","#6e2539",[["biz","coin","Gestão do negócio"],["checklist","check","Checklist"],["kanban","puzzle","Quadro de tarefas"],["pros","compass","Prospecção"],["semana","calendar","Agenda da semana"],["crm","heart","Clientes e metas"],["comercial","calendar","Calendário comercial"]]],
+   ["Organizar","#6e2539",[["biz","coin","Gestão do negócio"],["checklist","check","Checklist"],["kanban","puzzle","Quadro de tarefas"],["pros","compass","Prospecção"],["rotina","briefcase","Rotina comercial"],["semana","calendar","Agenda da semana"],["crm","heart","Clientes e metas"],["comercial","calendar","Calendário comercial"]]],
    ["Legalizar e crescer","#1f4e52",[["mei","file","MEI"],["apoio","briefcase","Onde buscar ajuda"],["rede","users","Rede de empreendedoras"],["eventos","calendar","Eventos grátis"]]],
    ["Marca","#8a6630",[["google","search","Google grátis"],["lab","chat","Mensagens com assistente"],["mind","sparkle","Mentalidade"]]]
   ],h='';
   G.forEach(function(g){h+='<div class="tlab" style="color:'+g[1]+'">'+g[0]+'</div><div class="tgrid">'+g[2].map(function(t){return '<button class="tile" onclick="go(\''+t[0]+'\')" style="--c:'+g[1]+'"><span class="ti">'+ico(t[1],26)+'</span><b>'+t[2]+'</b></button>';}).join('')+'</div>';});
-  app.innerHTML=back("Seu presente","home")+'<h2>Seu presente</h2><p>14 ferramentas gratuitas para o seu negócio.</p>'+h+starsBox("presente")+foot();
+  app.innerHTML=back("Seu presente","home")+'<h2>Seu presente</h2><p>15 ferramentas gratuitas para o seu negócio.</p>'+h+starsBox("presente")+foot();
 }
 var KBC=[["A fazer","#6e2539"],["Fazendo","#1f4e52"],["Aguardando","#b08a57"],["Feito","#6b4a36"]],KBT=0;
 var KBA=[[["Começar",1],["Apagar",-1]],[["Concluir",3],["Aguardar",2],["Voltar",0]],[["Retomar",1],["Concluir",3]],[["Reabrir",0],["Apagar",-1]]];
@@ -2049,6 +2049,23 @@ function vPros(){
   '<label class="l" for="prn">Nova possível cliente</label><input id="prn" class="inp" style="'+BI+'" placeholder="Nome ou @ do Instagram"><button class="primary" style="margin-top:10px" onclick="prAdd()">Adicionar em Qualificação</button>'+
   '<h3 style="margin:18px 0 8px">Passo a passo do fechamento</h3><p class="small">Siga em ordem, da qualificação ao fechamento.</p><div class="grps">'+FLX.map(function(f,i){return dg(f[0],i%2?"#1f4e52":"#6e2539",'<p>'+dEsc(f[1])+'</p><ul style="margin:6px 0;padding-left:20px;line-height:1.5;font-size:16px">'+f[2].map(function(x){return '<li>'+dEsc(x)+'</li>';}).join('')+'</ul>');}).join('')+'</div><h3 style="margin:18px 0 8px">Mensagens prontas</h3><label class="l" for="prnm">Nome da pessoa (opcional)</label><input id="prnm" class="inp" style="'+BI+'" placeholder="Ex.: Ana"><div class="grps" style="margin-top:12px">'+mm+'</div><p class="small" style="margin-top:12px">Ajuste com a sua voz antes de enviar. Salvo só no seu celular.</p>'+starsBox("pros")+foot();
   prDraw();var sv=ls("cg_pra");if(sv!==null&&sv!==undefined&&PRA[sv]){document.getElementById("pras").value=sv;prArea(sv);}
+}
+var RCT=0,RCN=["Todo dia","Toda semana","Todo mês"],RCI=[
+[["Olhar o quadro de contatos e escolher quem chamar hoje","Fazer os contatos da meta do dia"],["Responder todas as mensagens de clientes e interessadas"],["Fazer os follow-ups combinados (propostas sem resposta)"],["Confirmar as reuniões de amanhã"],["Anotar no app o que avançou"],["Postar um conteúdo ou oferta"],["Agradecer uma cliente e pedir indicação"]],
+[["Olhar a meta de contatos da semana"],["Planejar as reuniões e os horários na Agenda da semana"],["Rever as propostas enviadas e quem não respondeu"],["Chamar clientes antigas para saber como estão"],["Procurar novas possíveis clientes (veja Onde procurar)"],["Planejar os posts da semana"],["Conferir o que deu certo e o que travou"]],
+[["Somar quantas clientes fecharam e quanto entrou"],["Ver em qual etapa as pessoas mais travam"],["Ajustar preços, pacotes e ofertas, se precisar"],["Reativar clientes que sumiram"],["Ver as datas comerciais do mês e criar ofertas"],["Pedir depoimentos e avaliações das clientes"],["Definir a meta do próximo mês"]]];
+function rcK(){var d=new Date(),y=d.getFullYear(),m=d.getMonth()+1;return [ "d"+y+"-"+m+"-"+d.getDate(),"w"+prWk(),"m"+y+"-"+m][RCT];}
+function rcL(){var r=ls("cg_rc");return r&&typeof r==="object"&&!Array.isArray(r)?r:{};}
+function rcT(i){var r=rcL(),k=rcK()+"_"+i;if(r[k])delete r[k];else r[k]=1;ls("cg_rc",r);var all=RCI[RCT].every(function(x,j){return r[rcK()+"_"+j];});if(r[k]&&all){snd("coin");toast("Rotina completa! Parabéns. 🤎");}rcDraw();}
+function rcTab(i){RCT=i;rcDraw();}
+function rcDraw(){var el=document.getElementById("rcl");if(!el)return;var r=rcL(),k=rcK(),n=0;
+  var pills=RCN.map(function(t,i){return '<button class="dpill'+(RCT===i?' on':'')+'" onclick="rcTab('+i+')" style="'+(RCT===i?'border-color:#1f4e52;color:#1f4e52;':'')+'">'+t+'</button>';}).join('');
+  var rows=RCI[RCT].map(function(x,i){var on=!!r[k+"_"+i];if(on)n++;return '<div class="ckr" style="--c:'+(on?'#1f4e52':'#6e2539')+';display:flex;align-items:center;gap:12px;cursor:pointer" onclick="rcT('+i+')"><span style="flex:none;width:30px;height:30px;border-radius:50%;border:2px solid '+(on?'#1f4e52':'#c9b48e')+';background:'+(on?'#1f4e52':'#fffdf8')+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px">'+(on?'✓':'')+'</span><span style="font-size:17px;line-height:1.35;'+(on?'opacity:.55;text-decoration:line-through':'')+'">'+dEsc(x[0])+'</span></div>';}).join('');
+  var t=RCI[RCT].length,pc=Math.round(n/t*100);
+  el.innerHTML='<div class="drow" style="margin-bottom:10px;flex-wrap:wrap">'+pills+'</div><b style="font-size:17px">'+n+' de '+t+' feitos</b><div style="height:10px;background:#efe4cf;border-radius:8px;margin:8px 0 12px"><div style="height:10px;width:'+pc+'%;background:#1f4e52;border-radius:8px"></div></div>'+rows;}
+function vRotina(){
+  app.innerHTML=back("Rotina comercial","presente")+'<h2>Rotina comercial</h2><p>O que fazer todo dia, toda semana e todo mês para vender mais. Toque para marcar. A lista recomeça sozinha em cada período.</p><div id="rcl"></div><p class="small" style="margin-top:12px">Quer ir além? Veja também Prospecção, Quadro de tarefas e Agenda da semana. Salvo só no seu celular.</p>'+starsBox("rotina")+foot();
+  rcDraw();
 }
 function vGoogle(){
   var st=function(n,t){return '<li>'+ico("check",19)+'<span><b>'+n+'</b> '+t+'</span></li>';};
@@ -2291,7 +2308,7 @@ function crMetaDraw(){var g=gLoad(),e=document.getElementById("gb");if(!e)return
 function render(){
   var v=state.view;
   app.className="view";
-  if(v==="eve")vEve();else if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="mei")vMei();else if(v==="kanban")vKanban();else if(v==="pros")vPros();else if(v==="lab")vLab();else if(v==="semana")vSemana();else if(v==="presente")vPresente();else if(v==="checklist")vChecklist();else if(v==="comercial")vComercial();else if(v==="google")vGoogle();else if(v==="apoio")vApoio();else if(v==="rede")vRede();else if(v==="eventos")vEventos();else if(v==="crm")vCrm();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
+  if(v==="eve")vEve();else if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="mei")vMei();else if(v==="kanban")vKanban();else if(v==="rotina")vRotina();else if(v==="pros")vPros();else if(v==="lab")vLab();else if(v==="semana")vSemana();else if(v==="presente")vPresente();else if(v==="checklist")vChecklist();else if(v==="comercial")vComercial();else if(v==="google")vGoogle();else if(v==="apoio")vApoio();else if(v==="rede")vRede();else if(v==="eventos")vEventos();else if(v==="crm")vCrm();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
   var kids=app.children;for(var i=0;i<kids.length;i++){if(noA){kids[i].style.animation="none";}else{kids[i].style.animationDelay=(i*55)+"ms";}}
   noA=false;
   var tab=(v==="portfolio"||v==="plans")?v:"home";
