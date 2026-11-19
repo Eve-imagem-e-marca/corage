@@ -635,9 +635,9 @@ function applyUI(){reduce=sysReduce||!!ui.nomo;document.documentElement.classLis
 applyUI();
 
 /* ---------- dados ---------- */
-var areas=["Psicologia","Nutrição","Odontologia","Estética e beleza","Fisioterapia","Pilates","Fonoaudiologia","Medicina","Mentoria e consultoria","Coaching","Advocacia","Contabilidade","Marketing e redes sociais","Arquitetura","Moda e estilo","Culinária e confeitaria","Fotografia","Educação e cursos","Terapias e arteterapia","Outra área"];
+var areas=["Psicologia","Nutrição","Odontologia","Estética e beleza","Fisioterapia","Pilates","Fonoaudiologia","Medicina","Mentoria e consultoria","Coaching","Advocacia","Contabilidade","Marketing e redes sociais","Arquitetura","Moda e estilo","Culinária e confeitaria","Fotografia","Educação e cursos","Terapias e arteterapia","Imóveis e corretagem","Tecnologia e desenvolvimento","Outra área"];
 if(profile.area==="Estética"){profile.area="Estética e beleza";ls("cg_profile",profile);}
-var areaEmoji={"Psicologia":"🧠","Nutrição":"🍎","Odontologia":"🦷","Estética e beleza":"💆","Fisioterapia":"🦴","Pilates":"🧘","Mentoria e consultoria":"💼","Arquitetura":"📐","Terapias e arteterapia":"🎨","Outra área":"✨"};
+var areaEmoji={"Imóveis e corretagem":"🏠","Tecnologia e desenvolvimento":"💻","Psicologia":"🧠","Nutrição":"🍎","Odontologia":"🦷","Estética e beleza":"💆","Fisioterapia":"🦴","Pilates":"🧘","Mentoria e consultoria":"💼","Arquitetura":"📐","Terapias e arteterapia":"🎨","Outra área":"✨"};
 var areaIdeas={
  "Psicologia":"um espaço de respiração, um diário e uma frase do dia",
  "Nutrição":"um quiz de rotina, calculadora de água e desafio de 7 dias",
@@ -648,6 +648,8 @@ var areaIdeas={
  "Mentoria e consultoria":"um teste de diagnóstico para quem quer te contratar e botão para marcar uma conversa",
  "Arquitetura":"uma vitrine de projetos e pedido de orçamento",
  "Terapias e arteterapia":"um exercício guiado curto e a agenda dos seus encontros",
+ "Imóveis e corretagem":"uma vitrine de imóveis, simulador de parcela e botão para agendar visita",
+ "Tecnologia e desenvolvimento":"uma vitrine de projetos, orçamento rápido e botão para falar com você",
  "Outra área":"um teste curto que mostre o seu jeito de trabalhar"
 };
 var quiz=[
@@ -1135,9 +1137,11 @@ var PROF=[
  {n:"Confeiteira",e:"sparkle",t:"dress",bg:"#e9e2d4",bot:"#3a2327",c:9,prop:"apple",idea:"um cardápio com fotos e botão de encomenda"},
  {n:"Fotógrafa",e:"camera",t:"blazer",bg:"#e9e2d4",bot:"#2b2b2f",bt:"pants",c:4,inner:"#ffffff",prop:"laptop",idea:"uma vitrine de ensaios e pedido de orçamento"},
  {n:"Marketing e redes",e:"bulb",t:"blazer",bg:"#e9e2d4",bot:"#2b2b2f",bt:"pants",c:9,inner:"#ffffff",prop:"laptop",idea:"um quiz do perfil, ideias de post e calendário de conteúdo"},
+ {n:"Corretora",e:"house",t:"blazer",bg:"#e9e2d4",bot:"#3a2327",bt:"skirt",c:1,prop:"plan",idea:"uma vitrine de imóveis, simulador de parcela e botão para agendar visita"},
+ {n:"Desenvolvedora de TI",e:"laptop",t:"sport",bg:"#e9e2d4",bot:"#2b2b2f",c:3,prop:"laptop",idea:"uma vitrine de projetos, orçamento rápido e botão para falar com você"},
  {n:"Professora",e:"book",t:"blazer",bg:"#e9e2d4",bot:"#3a2327",bt:"skirt",c:10,prop:"laptop",idea:"uma aula de amostra e desafio de 7 dias"}
 ];
-var DCS={"Psicóloga":[0,3,6,8],"Nutricionista":[3,9,10,5],"Esteticista":[1,0,6,9],"Fisioterapeuta":[5,3,8],"Instrutora de pilates":[6,9,3],"Mentora":[7,0,8,10],"Dentista":[5,3,8],"Arquiteta":[4,8,0],"Consultora de imagem":[0,9,10,6],"Advogada":[8,0,4],"Contadora":[8,3,4],"Médica":[5,3,8],"Fonoaudióloga":[6,5,0],"Terapeuta":[6,3,0,9],"Confeiteira":[9,1,0,10],"Fotógrafa":[4,8,0],"Professora":[10,5,3,9],"Marketing e redes":[9,0,6,10]};
+var DCS={"Psicóloga":[0,3,6,8],"Nutricionista":[3,9,10,5],"Esteticista":[1,0,6,9],"Fisioterapeuta":[5,3,8],"Instrutora de pilates":[6,9,3],"Mentora":[7,0,8,10],"Dentista":[5,3,8],"Arquiteta":[4,8,0],"Consultora de imagem":[0,9,10,6],"Advogada":[8,0,4],"Contadora":[8,3,4],"Médica":[5,3,8],"Fonoaudióloga":[6,5,0],"Terapeuta":[6,3,0,9],"Confeiteira":[9,1,0,10],"Fotógrafa":[4,8,0],"Professora":[10,5,3,9],"Marketing e redes":[9,0,6,10],"Corretora":[0,8,3],"Desenvolvedora de TI":[3,8,6]};
 function dollCol(p){var a=DCS[PROF[p].n]||[PROF[p].c];return a[Math.floor(Math.random()*a.length)];}
 function dollProp(k,c){
   if(k==="note")return E("rect",{x:-4,y:-52,width:38,height:48,rx:5,fill:"#fff",stroke:"#7a2e3f","stroke-width":3})+E("path",{d:"M6 -38h18M6 -28h18M6 -18h12",stroke:"#d9a8ae","stroke-width":3,"stroke-linecap":"round"})+E("path",{d:"M24 -46c-3-4-8 0-4 4l4 4 4-4c4-4-1-8-4-4z",fill:"#7a2e3f"});
@@ -1537,6 +1541,8 @@ var DPAL={
 "Culinária e confeitaria":["#c26a2e","#b04a6a","#7a2e3f"],
 "Fotografia":["#38393d","#27385a","#a8532f"],
 "Educação e cursos":["#2d4a7a","#3f7a4f","#c26a2e"],
+"Imóveis e corretagem":["#1f4e52","#6e2539","#b08a57"],
+"Tecnologia e desenvolvimento":["#27385a","#1f4e52","#6e2539"],
 "Terapias e arteterapia":["#5d4180","#a8532f","#1f5f5b","#b04a6a"]
 };
 var DPALDEF=["#7a2e3f","#1f5f5b","#27385a","#5d4180","#a8532f"];
@@ -1559,6 +1565,8 @@ var DTOOLS={
 "Culinária e confeitaria":[["apple","Cardápio com fotos"],["card","Cartão de fidelidade"],["check","Lista de encomendas"],["chat","Fazer pedido"]],
 "Fotografia":[["camera","Portfólio de ensaios"],["quiz","Quiz: que ensaio combina"],["card","Pacotes e valores"],["chat","Pedir orçamento"]],
 "Educação e cursos":[["book","Aula de amostra"],["check","Desafio de 7 dias"],["quiz","Quiz de nível"],["chat","Falar comigo"]],
+"Imóveis e corretagem":[["house","Vitrine de imóveis"],["coin","Simulador de parcela"],["calendar","Agendar visita"],["chat","Falar comigo"]],
+"Tecnologia e desenvolvimento":[["laptop","Vitrine de projetos"],["quiz","Quiz: que sistema você precisa"],["coin","Orçamento rápido"],["chat","Falar comigo"]],
 "Terapias e arteterapia":[["quiz","Quiz de bem-estar"],["palette","Atividade criativa"],["book","Materiais para você"],["chat","Agendar uma conversa"]]
 };
 var DDEF=[["quiz","Quiz para conhecer você"],["bulb","Dicas do dia"],["book","Materiais"],["chat","Falar comigo"]];
@@ -1598,6 +1606,8 @@ var DEXTRA={
 "Culinária e confeitaria":["Cardápio com fotos","Pedido de encomenda","Calendário de datas comemorativas"],
 "Fotografia":["Portfólio de ensaios","Escolha de pacote","Galeria privada para a cliente"],
 "Educação e cursos":["Aula de amostra","Trilha de estudos","Certificado de conclusão"],
+"Imóveis e corretagem":["Vitrine de imóveis","Simulador de parcela","Agendamento de visitas"],
+"Tecnologia e desenvolvimento":["Vitrine de projetos","Quiz de necessidades","Pedido de orçamento"],
 "Terapias e arteterapia":["Atividade criativa guiada","Diário de bem-estar","Materiais para a família"]
 };
 var DDATAS=[["Janeiro Branco","cuidado com a mente"],["Março","mês da mulher"],["Maio","Dia das Mães"],["Junho","Dia dos Namorados"],["Setembro Amarelo","valorizar a vida"],["Outubro Rosa","prevenção e autocuidado"],["Novembro Azul","saúde do homem"],["Black Friday e Natal","ofertas especiais"]];
@@ -1765,10 +1775,11 @@ function rateStar(cur,n){
 /* Mentalidade empreendedora: cards para os stories */
 var MF=[["Coragem não é ausência de medo. É dar o primeiro passo mesmo com ele."],["Você não precisa estar pronta. Precisa começar."],["Pequenos passos todos os dias constroem um negócio inteiro."],["O seu jeito de cuidar é o seu maior diferencial."],["Cobrar o que você vale também é um ato de cuidado."],["Progresso, não perfeição."],["Quem mostra o trabalho com verdade encontra as pessoas certas."],["Descansar também faz parte de empreender."],["Um não de hoje abre espaço para o sim certo."],["Você já chegou mais longe do que imaginava. Continue."],["Seu trabalho muda a vida de alguém. Mostre ele."],["Confie no processo e comemore cada pequena vitória."]];
 var MFAM=[["Coragem não é a ausência de medo, mas o triunfo sobre ele.","Nelson Mandela"],["Você deve fazer aquilo que acha que não consegue.","Eleanor Roosevelt"],["Faça o melhor que puder até saber mais. Quando souber mais, faça melhor.","Maya Angelou"],["A única maneira de fazer um excelente trabalho é amar o que você faz.","Steve Jobs"],["Moda passa, estilo permanece.","Coco Chanel"],["Uma jornada de mil milhas começa com um único passo.","Lao Tsé"],["Nada na vida deve ser temido, somente compreendido.","Marie Curie"],["Grandes coisas são feitas por uma série de pequenas coisas reunidas.","Vincent van Gogh"],["Quem olha para fora sonha. Quem olha para dentro desperta.","Carl Jung"],["Quando me aceito como sou, então posso mudar.","Carl Rogers"],["Quer você ache que pode, quer ache que não pode, você tem razão.","Henry Ford"],["Genialidade é 1% de inspiração e 99% de transpiração.","Thomas Edison"],["A vida é curta, a arte é longa.","Hipócrates"]];
-var MPR={"Psicóloga":["Escutar com presença já é cuidado.","Seu consultório é um lugar seguro. Seu perfil também pode ser."],"Nutricionista":["Comida é cuidado, e o seu olhar muda hábitos.","Orientar com leveza vale mais do que proibir."],"Esteticista":["Autoestima também é um serviço que você entrega.","Cada cliente que se olha no espelho com carinho é uma vitória sua."],"Fisioterapeuta":["Cada movimento devolvido é uma conquista.","Cuidar do corpo é devolver liberdade."],"Instrutora de pilates":["Força nasce da constância, não da pressa.","Respire, alinhe e siga. O corpo agradece."],"Mentora":["Guiar é abrir caminho sem caminhar no lugar do outro.","Seu método é a sua assinatura."],"Dentista":["Um sorriso seguro muda a postura de quem entra no seu consultório.","Confiança se constrói no cuidado e na clareza."],"Arquiteta":["Todo espaço bem pensado conta uma história.","Seu projeto abriga a vida de alguém."],"Consultora de imagem":["Imagem é a forma de a pessoa se apresentar ao mundo com verdade.","Vestir-se bem é um jeito de se respeitar."],"Advogada":["Clareza também é uma forma de acolher.","Defender direitos é defender pessoas."],"Contadora":["Números organizados dão paz para quem empreende.","Você transforma burocracia em tranquilidade."],"Médica":["Cuidar bem começa por ouvir bem.","Informação clara também é saúde."],"Fonoaudióloga":["Ajudar alguém a se comunicar é abrir portas.","Cada voz encontrada é uma história que continua."],"Terapeuta":["Presença é o seu maior instrumento.","Acolher é transformar sem pressa."],"Confeiteira":["Doce bom é feito com afeto e capricho.","Cada encomenda é uma celebração na vida de alguém."],"Fotógrafa":["Você guarda o que o tempo leva.","Seu olhar revela o que ninguém tinha percebido."],"Marketing e redes":["Conteúdo com verdade gera conexão de verdade.","Constância vence perfeição, sempre."],"Professora":["Ensinar é plantar o que você não vai ver crescer por inteiro.","Uma boa aula muda o rumo de alguém."]};
+var MPR={"Psicóloga":["Escutar com presença já é cuidado.","Seu consultório é um lugar seguro. Seu perfil também pode ser."],"Nutricionista":["Comida é cuidado, e o seu olhar muda hábitos.","Orientar com leveza vale mais do que proibir."],"Esteticista":["Autoestima também é um serviço que você entrega.","Cada cliente que se olha no espelho com carinho é uma vitória sua."],"Fisioterapeuta":["Cada movimento devolvido é uma conquista.","Cuidar do corpo é devolver liberdade."],"Instrutora de pilates":["Força nasce da constância, não da pressa.","Respire, alinhe e siga. O corpo agradece."],"Mentora":["Guiar é abrir caminho sem caminhar no lugar do outro.","Seu método é a sua assinatura."],"Dentista":["Um sorriso seguro muda a postura de quem entra no seu consultório.","Confiança se constrói no cuidado e na clareza."],"Arquiteta":["Todo espaço bem pensado conta uma história.","Seu projeto abriga a vida de alguém."],"Consultora de imagem":["Imagem é a forma de a pessoa se apresentar ao mundo com verdade.","Vestir-se bem é um jeito de se respeitar."],"Advogada":["Clareza também é uma forma de acolher.","Defender direitos é defender pessoas."],"Contadora":["Números organizados dão paz para quem empreende.","Você transforma burocracia em tranquilidade."],"Médica":["Cuidar bem começa por ouvir bem.","Informação clara também é saúde."],"Fonoaudióloga":["Ajudar alguém a se comunicar é abrir portas.","Cada voz encontrada é uma história que continua."],"Terapeuta":["Presença é o seu maior instrumento.","Acolher é transformar sem pressa."],"Confeiteira":["Doce bom é feito com afeto e capricho.","Cada encomenda é uma celebração na vida de alguém."],"Fotógrafa":["Você guarda o que o tempo leva.","Seu olhar revela o que ninguém tinha percebido."],"Marketing e redes":["Conteúdo com verdade gera conexão de verdade.","Constância vence perfeição, sempre."],"Corretora":["Você não vende imóveis. Você ajuda alguém a realizar um sonho.","Confiança fecha mais negócios do que qualquer promessa."],"Desenvolvedora de TI":["Código bom é o que resolve a vida de alguém.","Todo grande sistema começou com uma linha escrita."],"Professora":["Ensinar é plantar o que você não vai ver crescer por inteiro.","Uma boa aula muda o rumo de alguém."]};
 var MT=[{bg:["#6e2539","#4a1626"],tx:"#fbf8f3",ac:"#d9bc82"},{bg:["#1f4e52","#133336"],tx:"#fbf8f3",ac:"#d9bc82"},{bg:["#f6f0e4","#e6d7b5"],tx:"#6e2539",ac:"#b08a57"},{bg:["#b08a57","#8a6a3a"],tx:"#fffdf8",ac:"#fffdf8"},{bg:["#b5522a","#8c3c1c"],tx:"#fffdf8",ac:"#f0d7a8"}];
 var MS={i:0,t:0,c:"all",pr:""};
-function mindPool(){var P=[];if(MS.c!=="fam"&&MS.c!=="prof")MF.forEach(function(f){P.push([f[0],""]);});if(MS.c==="all"||MS.c==="fam")MFAM.forEach(function(f){P.push(f);});if(MS.c==="all"||MS.c==="prof"){var ar=MS.c==="prof"?[MS.pr||(profile.area&&MPR[profile.area]?profile.area:"Psicóloga")]:Object.keys(MPR);ar.forEach(function(a){(MPR[a]||[]).forEach(function(f){P.push([f,MS.c==="prof"?a:""]);});});}return P;}
+function mindPool(){var P=[];if(MS.c!=="fam"&&MS.c!=="prof")MF.forEach(function(f){P.push([f[0],""]);});if(MS.c==="all"||MS.c==="fam")MFAM.forEach(function(f){P.push(f);});if(MS.c==="all"||MS.c==="prof"){var ar=MS.c==="prof"?[MS.pr||(profile.area&&A2P[profile.area]?A2P[profile.area]:"Psicóloga")]:Object.keys(MPR);ar.forEach(function(a){(MPR[a]||[]).forEach(function(f){P.push([f,MS.c==="prof"?a:""]);});});}return P;}
+var A2P={"Psicologia":"Psicóloga","Nutrição":"Nutricionista","Odontologia":"Dentista","Estética e beleza":"Esteticista","Fisioterapia":"Fisioterapeuta","Pilates":"Instrutora de pilates","Fonoaudiologia":"Fonoaudióloga","Medicina":"Médica","Mentoria e consultoria":"Mentora","Coaching":"Mentora","Advocacia":"Advogada","Contabilidade":"Contadora","Marketing e redes sociais":"Marketing e redes","Arquitetura":"Arquiteta","Moda e estilo":"Consultora de imagem","Culinária e confeitaria":"Confeiteira","Fotografia":"Fotógrafa","Educação e cursos":"Professora","Terapias e arteterapia":"Terapeuta","Imóveis e corretagem":"Corretora","Tecnologia e desenvolvimento":"Desenvolvedora de TI"};
 var MCUR=null;
 function mindPick(){var P=mindPool();if(!P.length)return;var n=P[Math.floor(Math.random()*P.length)];if(P.length>1&&MCUR&&n[0]===MCUR[0])return mindPick();MCUR=n;}
 function mindCanvas(){
@@ -1794,7 +1805,7 @@ function mindDraw(){
   var h="";MT.forEach(function(t,i){h+='<button class="dsw'+(MS.t===i?' on':'')+'" style="background:linear-gradient(135deg,'+t.bg[0]+','+t.bg[1]+')" aria-label="Cor '+(i+1)+'" onclick="MS.t='+i+';mindDraw()"></button>';});
   document.getElementById("mcol").innerHTML=h;
   var cs=[["all","Todas"],["fam","Famosas"],["prof","Da minha profissão"]],ch="";cs.forEach(function(q){ch+='<button class="dpill'+(MS.c===q[0]?" on":"")+'" onclick="mindCat(\''+q[0]+'\')">'+q[1]+"</button>";});document.getElementById("mcat").innerHTML=ch;
-  var pr="";if(MS.c==="prof"){var cur=MS.pr||(profile.area&&MPR[profile.area]?profile.area:"Psicóloga");pr='<select class="inp" style="width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024" onchange="mindPr(this.value)">'+Object.keys(MPR).map(function(a){return "<option"+(a===cur?" selected":"")+">"+a+"</option>";}).join("")+"</select>";}document.getElementById("mpr").innerHTML=pr;
+  var pr="";if(MS.c==="prof"){var cur=MS.pr||(profile.area&&A2P[profile.area]?A2P[profile.area]:"Psicóloga");pr='<select class="inp" style="width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024" onchange="mindPr(this.value)">'+Object.keys(MPR).map(function(a){return "<option"+(a===cur?" selected":"")+">"+a+"</option>";}).join("")+"</select>";}document.getElementById("mpr").innerHTML=pr;
 }
 function mindNext(){mindPick();MS.t=(MS.t+1)%MT.length;mindDraw();snd("tap");}
 function mindCat(c){MS.c=c;mindPick();mindDraw();}
