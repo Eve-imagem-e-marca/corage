@@ -476,6 +476,7 @@ details.grp.why{margin:10px 0 14px}
 <header class="hdr">
   <button class="logo" onclick="go('home')" aria-label="Início"><i>C</i>CorAge</button>
   <div class="hbtns">
+    <button class="ib" id="sndh" onclick="toggleSnd()"></button>
     <button class="ib" onclick="openQR()" aria-label="Mostrar QR Code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1"/></svg></button>
     <button class="ib" id="av" onclick="go('profile')" aria-label="Meu perfil">·</button>
   </div>
@@ -522,11 +523,12 @@ var bdg=ls("cg_badges")||{};
 /* sons leves (gerados no aparelho, sem arquivos) */
 var AUC=null;
 function sndOn(){try{return localStorage.getItem("cg_snd")!=="0";}catch(e){return true;}}
-function snd(t){if(!sndOn()||reduce)return;try{AUC=AUC||new (window.AudioContext||window.webkitAudioContext)();var c=AUC;if(c.state==="suspended")c.resume();
-  var N={tap:[[540,0,.05,.05]],tick:[[320,0,.03,.05]],coin:[[988,0,.1,.09],[1319,.09,.22,.09]],chime:[[523,0,.16,.08],[659,.12,.16,.08],[784,.24,.3,.08]]}[t]||[];
+function snd(t){if(!sndOn())return;try{AUC=AUC||new (window.AudioContext||window.webkitAudioContext)();var c=AUC;if(c.state==="suspended")c.resume();
+  var N={tap:[[540,0,.06,.12]],go:[[392,0,.12,.1],[587,.08,.2,.1]],tick:[[320,0,.03,.1]],coin:[[988,0,.1,.15],[1319,.09,.22,.15]],chime:[[523,0,.16,.14],[659,.12,.16,.14],[784,.24,.3,.14]]}[t]||[];
   N.forEach(function(n){var o=c.createOscillator(),g=c.createGain();o.type="sine";o.frequency.value=n[0];var t0=c.currentTime+n[1];g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(n[3],t0+.01);g.gain.exponentialRampToValueAtTime(0.0001,t0+n[2]);o.connect(g);g.connect(c.destination);o.start(t0);o.stop(t0+n[2]+.05);});
   if(t==="tap"&&navigator.vibrate)navigator.vibrate(8);}catch(e){}}
-function toggleSnd(){var on=!sndOn();try{localStorage.setItem("cg_snd",on?"1":"0");}catch(e){}var b=document.getElementById("sndbtn");if(b)b.textContent=on?"Sons ligados":"Sons desligados";if(on)snd("chime");}
+function sndIco(){var b=document.getElementById("sndh");if(!b)return;var on=sndOn();b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/>'+(on?'<path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>':'<path d="M16 9l5 6M21 9l-5 6"/>')+'</svg>';b.setAttribute("aria-label",on?"Desligar sons":"Ligar sons");}
+function toggleSnd(){var on=!sndOn();try{localStorage.setItem("cg_snd",on?"1":"0");}catch(e){}var b=document.getElementById("sndbtn");if(b)b.textContent=on?"Sons ligados":"Sons desligados";sndIco();if(on)snd("chime");}
 document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest("button,a,.tool"))snd("tap");},true);
 /* lembrete de postar (arquivo de agenda, funciona no celular sem servidor) */
 function remindHtml(nm){return '<div class="card rm"><b>Lembrete de postar</b><p style="margin:6px 0 10px">Quando você quer postar esse conteúdo?</p><select id="rmt"><option value="h18">Hoje, às 18h</option><option value="a9">Amanhã, às 9h</option><option value="a12">Amanhã, ao meio-dia</option><option value="a19">Amanhã, às 19h</option></select><select id="rmn"><option>Instagram</option><option>TikTok</option><option>LinkedIn</option><option>Status do WhatsApp</option></select><button class="primary" onclick="remindMe(\''+nm+'\')">Criar lembrete no meu celular</button></div>';}
@@ -701,7 +703,7 @@ function done(k){if(!prog[k]){prog[k]=1;ls("cg_prog",prog);addPts(10);}}
 function count(){return (prog.quiz?1:0)+(prog.match?1:0)+(prog.cases?1:0)+(prog.wheel?1:0);}
 function waUrl(msg){return WHATSAPP?"https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg):INSTAGRAM;}
 function contactBtn(txt,msg,cls){return '<a class="'+(cls||"primary")+'" href="'+waUrl(msg||"Oi, Eve! Vi o app da CorAge e quero conversar.")+'" target="_blank" rel="noopener">'+txt+'</a>';}
-function go(v){stopGame();if(v==="demo")dMode=(DEMO.biz&&DEMO.area!=null)?"prev":"form";state.view=v;state.step=0;state.answers=[];if(v==="match"){state.match={g:(profile.goals&&profile.goals.length?profile.goals[0]:undefined)};}render();window.scrollTo(0,0);}
+function go(v){stopGame();snd("go");if(v==="demo")dMode=(DEMO.biz&&DEMO.area!=null)?"prev":"form";state.view=v;state.step=0;state.answers=[];if(v==="match"){state.match={g:(profile.goals&&profile.goals.length?profile.goals[0]:undefined)};}render();window.scrollTo(0,0);}
 function back(title,to){return '<div class="top"><button class="link" onclick="go(\''+(to||"home")+'\')">← Voltar</button><span class="small">'+(title||"")+'</span></div>';}
 function foot(){return '<footer>CorAge, por Eve, imagem e marca 🤎<br><button class="link" onclick="go(\'privacy\')">Privacidade e segurança</button> · <button class="link" onclick="go(\'access\')">Uso e acessibilidade</button></footer>';}
 function toggle(el){var all=document.querySelectorAll(".acc");for(var i=0;i<all.length;i++){if(all[i]===el){all[i].classList.toggle("open");}else{all[i].classList.remove("open");}}
@@ -737,8 +739,8 @@ function vHome(){
   h+=box("compass","Todos os passos","Escolha por onde quer ir",list);
   var why='<p>Um app não é só um site com outra cara. Ele fica com a cliente, do jeito da sua marca.</p><ul class="gain"><li>'+ico("phone",19)+'<span><b>Sua marca no bolso da cliente.</b> O ícone fica na tela dela todo dia.</span></li><li>'+ico("palette",19)+'<span><b>A experiência é sua.</b> Suas cores, sua voz e suas ferramentas.</span></li><li>'+ico("game",19)+'<span><b>Ela volta sozinha.</b> Jogos, desafios e lembretes criam hábito.</span></li><li>'+ico("sparkle",19)+'<span><b>Imagem de futuro.</b> Quem tem app passa modernidade e confiança.</span></li><li>'+ico("briefcase",19)+'<span><b>Uma agência de bolso.</b> Imagem, conteúdo, ideias e contato num só lugar, no seu celular.</span></li></ul><button class="primary glass-sm" onclick="go(\'demo\')">Veja o seu app</button>';
   function dg(t,c,html){return '<details class="grp" style="--gc:'+c+'" ontoggle="grpOne(this)"><summary>'+t+'<i>+</i></summary><div class="dgb">'+html+'</div></details>';}
-  var mais='<div class="grps">'+dg("Por que ter um app?","#6e2539",why)+dg("O que você ganha","#1f4e52",gain)+dg("Deixe no seu celular","#b5522a",'<p><b>iPhone:</b> Safari, Compartilhar, "Adicionar à Tela de Início".</p><p><b>Android:</b> Chrome, menu (três pontinhos), "Instalar aplicativo".</p>')+dg("Sons","#55683f",'<button class="primary glass-sm" id="sndbtn" onclick="toggleSnd()">'+(sndOn()?"Sons ligados":"Sons desligados")+'</button>')+dg("Sua opinião","#1f4e52",'<button class="primary glass-sm" onclick="go(\'feedback\')">Dar minha nota</button>')+'</div>';
-  h+=box("sparkle","Mais","Por que ter um app, celular, sons e opinião",mais).replace('class="acc"','class="acc quiet"');
+  var mais='<div class="grps">'+dg("Por que ter um app?","#6e2539",why)+dg("O que você ganha","#1f4e52",gain)+dg("Deixe no seu celular","#b5522a",'<p><b>iPhone:</b> Safari, Compartilhar, "Adicionar à Tela de Início".</p><p><b>Android:</b> Chrome, menu (três pontinhos), "Instalar aplicativo".</p>')+dg("Sua opinião","#1f4e52",'<button class="primary glass-sm" onclick="go(\'feedback\')">Dar minha nota</button>')+'</div>';
+  h+=box("sparkle","Mais","Por que ter um app, celular e opinião",mais).replace('class="acc"','class="acc quiet"');
   h+='<div style="text-align:center;margin-top:6px"><button class="link" onclick="go(\'contact\')">Deixar meu contato</button></div>';
   h+=foot();
   app.innerHTML=h;
@@ -831,9 +833,9 @@ function wheelSVG(){
     var x0=100+94*Math.cos(a0),y0=100+94*Math.sin(a0),x1=100+94*Math.cos(a1),y1=100+94*Math.sin(a1);
     s+='<path d="M100 100L'+x0.toFixed(2)+' '+y0.toFixed(2)+'A94 94 0 0 1 '+x1.toFixed(2)+' '+y1.toFixed(2)+'Z" fill="'+cols[i%4]+'" stroke="#f0d7a8" stroke-width="1"/>';
     var th=i*360/n+360/n/2;
-    var fl=(th>90&&th<270)?' transform="rotate(180 100 37)"':'';s+='<g transform="rotate('+th+' 100 100)"><text x="100" y="40" text-anchor="middle"'+fl+' font-size="11" font-weight="600" font-family="Georgia,serif" fill="#fff">'+wheel[i][0]+'</text></g>';
+    var fl=(th>90&&th<270)?' transform="rotate(180 100 39)"':'';s+='<g transform="rotate('+th+' 100 100)"><text x="100" y="42" text-anchor="middle"'+fl+' font-size="8" font-weight="400" letter-spacing=".3" font-family="Iowan Old Style,Palatino,Georgia,serif" fill="#fff">'+wheel[i][0]+'</text></g>';
   }
-  s+='</g><circle cx="100" cy="100" r="18" fill="#fbf8f3" stroke="#b08a57" stroke-width="2"/><text x="100" y="108" text-anchor="middle" font-size="22" font-family="Georgia,serif" font-weight="600" fill="#6e2539">C</text></svg>';
+  s+='</g><circle cx="100" cy="100" r="15" fill="#fbf8f3" stroke="#b08a57" stroke-width="2"/><text x="100" y="108" text-anchor="middle" font-size="17" font-family="Iowan Old Style,Palatino,Georgia,serif" font-weight="400" fill="#6e2539">C</text></svg>';
   return s;
 }
 function vWheel(){
@@ -1624,6 +1626,7 @@ function render(){
 }
 render();
 if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){});}
+sndIco();
 </script>
 </body>
 </html>
