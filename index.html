@@ -896,10 +896,10 @@ function vHome(){
   var gain='<p>Ao usar o CorAge, de graça, você leva:</p><ul class="gain"><li>'+ico("search",19)+'<span>Um Raio-X do seu trabalho</span></li><li>'+ico("bulb",19)+'<span>Ideias de post para usar hoje</span></li><li>'+ico("game",19)+'<span>Jogos com pontos e conquistas</span></li><li>'+ico("chat",19)+'<span>Uma conversa sem compromisso com a Eve</span></li><li>'+ico("lock",19)+'<span><b>Extras no app instalado:</b> Labirinto, Palavras cruzadas e o Vale Night</span></li></ul>';
   var prog2='<div class="ring" style="display:flex;align-items:center;gap:14px;margin-bottom:10px"><svg viewBox="0 0 76 76" style="width:64px;height:64px"><circle class="bg" cx="38" cy="38" r="30"/><circle class="fg" cx="38" cy="38" r="30" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'" id="fg"/></svg><div><b>Raio-X: '+n+' de 4</b><br>'+ptsTag()+'</div></div><h3 style="margin:4px 0 8px">Conquistas</h3>'+badgeRow();
   if(n===4)badge("raiox");
-  var list='';STEPS.forEach(function(s){list+='<button class="tool" onclick="go(\''+s[0]+'\')"><div class="ic">'+ico(s[3],26)+'</div><div><b>'+s[1]+'</b><span>'+s[2]+'</span></div>'+(prog[s[0]]?'<span class="ok">feito</span>':'')+'</button>';});
+  var list='';STEPS.forEach(function(s){if(s[0]==='match')return;list+='<button class="tool" onclick="go(\''+s[0]+'\')"><div class="ic">'+ico(s[3],26)+'</div><div><b>'+s[1]+'</b><span>'+s[2]+'</span></div>'+(prog[s[0]]?'<span class="ok">feito</span>':'')+'</button>';});
   list+='<button class="tool" onclick="go(\'feedback\')"><div class="ic">'+ico("heart",26)+'</div><div><b>O que você achou?</b><span>Dê de 1 a 5 estrelas</span></div></button>';
   h+=box("compass","2. Ferramentas","Raio-X, roda, jogos e mais",list);
-  h+='<button class="tool hl" onclick="go(\'demo\')"><div class="ic">'+ico("phone",26)+'</div><div><b>3. Veja o seu app</b><span>Uma prévia com o seu nome e a sua cor</span></div>'+(prog.demo?'<span class="ok">feito</span>':'')+'</button>';
+  h+='<button class="tool hl" onclick="go(\'conheca\')"><div class="ic">'+ico("phone",26)+'</div><div><b>3. Conheça o seu app</b><span>Teste, prévia e o app que combina com você</span></div>'+(prog.demo?'<span class="ok">feito</span>':'')+'</button>';
   h+='<div class="sp"></div><button class="primary" onclick="go(\'contact\')">Quero o meu app</button>';
   h+=foot();
   app.innerHTML=h;
@@ -950,19 +950,19 @@ function vQuizRes(){
 function vMatch(){
   var i=state.step;
   if(i===0){
-    var h=back("Escolha 1 de 2")+'<div class="bar"><i style="width:0"></i></div><h2>O que você mais quer agora?</h2>';
+    var h=back("Escolha 1 de 2","conheca")+'<div class="bar"><i style="width:0"></i></div><h2>O que você mais quer agora?</h2>';
     for(var k=0;k<goals.length;k++){h+='<button class="opt'+(state.match.g===k?' on':'')+'" onclick="mg('+k+')">'+goals[k][0]+'</button>';}
     h+='<div class="sp"></div><button class="primary'+(state.match.g!==undefined?' pulse':'')+'" '+(state.match.g===undefined?'disabled':'')+' onclick="nextStep()">Continuar</button>';
     app.innerHTML=h;
   }else if(i===1){
-    var h2=back("Escolha 2 de 2")+'<div class="bar"><i style="width:50%"></i></div><h2>O que suas clientes mais pedem?</h2>';
+    var h2=back("Escolha 2 de 2","conheca")+'<div class="bar"><i style="width:50%"></i></div><h2>O que suas clientes mais pedem?</h2>';
     for(var k2=0;k2<asks.length;k2++){h2+='<button class="opt'+(state.match.a===k2?' on':'')+'" onclick="ma('+k2+')">'+asks[k2][0]+'</button>';}
     h2+='<div class="sp"></div><button class="primary'+(state.match.a!==undefined?' pulse':'')+'" '+(state.match.a===undefined?'disabled':'')+' onclick="nextStep()">Ver resultado</button><div style="text-align:center"><button class="link" onclick="prevStep()">Voltar</button></div>';
     app.innerHTML=h2;
   }else{
     done("match");
     var g=goals[state.match.g],a=asks[state.match.a];
-    var h3=back("Resultado")+'<span class="tag">Combina com você</span><h2>'+g[1]+'</h2><p>'+g[2]+'</p><div class="card"><h3>Por onde começar</h3><p style="margin:0">'+a[1]+'</p></div>';
+    var h3=back("Resultado","conheca")+'<span class="tag">Combina com você</span><h2>'+g[1]+'</h2><p>'+g[2]+'</p><div class="card"><h3>Por onde começar</h3><p style="margin:0">'+a[1]+'</p></div>';
     if(profile.area){h3+='<div class="card"><h3>Ideias para '+profile.area+'</h3><p style="margin:0">'+(areaIdeas[profile.area]||areaIdeas["Outra área"])+'.</p></div>';}
     h3+='<p class="small">É uma sugestão geral. O melhor caminho aparece numa conversa sobre o seu trabalho.</p>'+nextAfter("match")+'<div class="sp"></div>'+contactBtn("Conversar com a CorAge","Oi, Eve! No Raio-X deu: "+g[1]+". Quero conversar.","ghost")+foot();
     app.innerHTML=h3;
@@ -1750,14 +1750,14 @@ function vDemo(){
   var h;
   if(dMode==="prev"){
     var c=DEMO.col||"#7a2e3f",tl=DTOOLS[DEMO.area]||DDEF,nm=dEsc(DEMO.biz);
-    h=back("Veja o seu app","home")+'<h2>O seu app, em prévia</h2><p>Toque nas partes para testar.</p>'+
+    h=back("Veja o seu app","conheca")+'<h2>O seu app, em prévia</h2><p>Toque nas partes para testar.</p>'+
      '<div class="dph"><div class="dh" style="background:'+c+'"><div class="dav">'+dEsc(DEMO.biz.charAt(0).toUpperCase())+'</div><div><b>'+nm+'</b><span>'+dEsc(ar)+'</span></div></div><div class="db"><p>Olá! O que você quer fazer hoje?</p><div class="dgr">';
     for(var i=0;i<tl.length;i++){var lk=(i<3);h+='<button class="dtl'+(lk?' lk':'')+'" onclick="dTap('+i+','+(lk?1:0)+')">'+(lk?'<span class="dl">'+ico("lock",16)+'</span>':'')+'<span class="di" style="color:'+c+'">'+ico(tl[i][0],22)+'</span><span class="dt">'+tl[i][1]+'</span></button>';}
     h+='</div><button class="dtl lk" style="width:100%;margin-top:10px;min-height:0;flex-direction:row;align-items:center;gap:12px" onclick="dTap(9,1)"><span class="dl">'+ico("lock",16)+'</span><span class="dav" style="width:42px;height:42px;font-size:20px;background:'+c+';color:#fff;border-radius:50%;display:grid;place-items:center;flex:none;font-family:Poppins,system-ui,sans-serif;font-weight:700">I</span><span class="dt" style="filter:none;opacity:1"><b style="display:block">Iasmin, sua assistente virtual</b>Cuida da sua imagem e do seu conteúdo</span></button></div></div><div id="dres"></div><p class="small">É uma prévia para você ver como pode ficar. No app de verdade, tudo abre.</p>'+dCatalog(ar)+'<div class="sp"></div>'+
      contactBtn("Quero liberar o meu app","Oi, Eve! Vi a prévia do app de "+DEMO.biz+" ("+ar+") e quero o meu Primeiro app.","primary pulse")+
      '<div class="sp"></div><button class="ghost" onclick="dNewCol()">Sortear outra cor</button><div class="sp"></div><button class="ghost" onclick="dEdit()">Mudar nome ou área</button><div class="sp"></div><button class="ghost" onclick="dAgain()">Fazer para outra pessoa</button>'+foot();
   }else{
-    h=back("Veja o seu app","home")+'<h2>Veja o seu app</h2><p>Responda em 2 toques e veja uma prévia do seu app.</p>'+
+    h=back("Veja o seu app","conheca")+'<h2>Veja o seu app</h2><p>Responda em 2 toques e veja uma prévia do seu app.</p>'+
      '<label class="l" for="dbiz">Nome do seu trabalho (ou o seu nome)</label><input type="text" id="dbiz" maxlength="40" placeholder="Pode deixar em branco" value="'+dEsc(DEMO.biz)+'" autocomplete="organization">'+
      '<label class="l">Sua área de atuação</label><div class="acc" '+AC+'><button><div><span>Escolha uma</span><b>'+(DEMO.area==null?"Toque para escolher":dEsc(ar))+'</b></div><em>+</em></button><div class="body">';
     for(var a=0;a<areas.length;a++){h+='<button class="opt'+(DEMO.area===areas[a]?' on':'')+'" onclick="dArea('+a+')">'+areas[a]+'</button>';}
@@ -1943,6 +1943,10 @@ function vChecklist(){
   h+=dg("Minhas tarefas","#b08a57",'<div id="ckm"></div><label class="l" for="ckn">Nova tarefa</label><input id="ckn" class="inp" placeholder="Ex.: Ligar para o fornecedor" style="'+BI+'"><button class="primary" style="margin-top:10px" onclick="ckAdd()">Adicionar tarefa</button>');
   app.innerHTML=back("Checklist da empreendedora","presente")+'<h2>Checklist da empreendedora</h2><p>Marque o que você já fez e veja o que falta para organizar o seu negócio. Fica salvo só no seu celular.</p><div class="card" id="ckp"></div><div class="grps" id="ckg" style="margin-top:12px">'+h+'</div><button class="link" style="display:block;margin:14px auto 0;color:#6e2539" onclick="ckReset()">Limpar marcações</button>'+starsBox("checklist")+foot();
   ckProg();ckMine();
+}
+function vConheca(){
+  var T=[["quiz","quiz","Seu trabalho precisa de um app?"],["match","phone","Que app combina com você?"],["demo","sparkle","Veja o seu app"]];
+  app.innerHTML=back("Conheça o seu app","home")+'<h2>Conheça o seu app</h2><p>Descubra se o seu trabalho precisa de um app, qual combina com você e veja uma prévia com o seu nome.</p><div class="tgrid">'+T.map(function(t){return '<button class="tile" onclick="go(\''+t[0]+'\')" style="--c:#1f4e52"><span class="ti">'+ico(t[1],26)+'</span><b>'+t[2]+'</b></button>';}).join('')+'</div>'+starsBox("conheca")+foot();
 }
 function vPresente(){
   var G=[
@@ -2307,7 +2311,7 @@ function crMetaDraw(){var g=gLoad(),e=document.getElementById("gb");if(!e)return
 function render(){
   var v=state.view;
   app.className="view";
-  if(v==="eve")vEve();else if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="mei")vMei();else if(v==="kanban")vKanban();else if(v==="rotina")vRotina();else if(v==="pros")vPros();else if(v==="lab")vLab();else if(v==="semana")vSemana();else if(v==="presente")vPresente();else if(v==="checklist")vChecklist();else if(v==="comercial")vComercial();else if(v==="google")vGoogle();else if(v==="apoio")vApoio();else if(v==="rede")vRede();else if(v==="eventos")vEventos();else if(v==="crm")vCrm();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
+  if(v==="eve")vEve();else if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="mei")vMei();else if(v==="kanban")vKanban();else if(v==="rotina")vRotina();else if(v==="pros")vPros();else if(v==="lab")vLab();else if(v==="semana")vSemana();else if(v==="presente")vPresente();else if(v==="conheca")vConheca();else if(v==="checklist")vChecklist();else if(v==="comercial")vComercial();else if(v==="google")vGoogle();else if(v==="apoio")vApoio();else if(v==="rede")vRede();else if(v==="eventos")vEventos();else if(v==="crm")vCrm();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
   var kids=app.children;for(var i=0;i<kids.length;i++){if(noA){kids[i].style.animation="none";}else{kids[i].style.animationDelay=(i*55)+"ms";}}
   noA=false;
   var tab=(v==="portfolio"||v==="plans")?v:"home";
