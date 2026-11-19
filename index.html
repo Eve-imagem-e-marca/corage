@@ -551,6 +551,17 @@ html body .view .acc .body .grps details.grp>summary,html body .view .acc .body 
 html body,html body button,html body input,html body select,html body textarea{font-family:"Poppins",system-ui,-apple-system,sans-serif}
 html body h1,html body h2,html body h3,html body .logo,html body .logo i,html body .tool b,html body .acc>button b,html body .big,html body details.grp>summary{font-family:"Poppins",system-ui,sans-serif !important;font-weight:700;letter-spacing:0}
 html body details.grp>summary{font-size:17px;padding-right:54px;line-height:1.3}
+/* verde petroleo nos detalhes */
+body::before{background:radial-gradient(circle at 10% 8%,rgba(110,37,57,.24),transparent 44%),radial-gradient(circle at 92% 26%,rgba(31,78,82,.38),transparent 48%),radial-gradient(circle at 12% 62%,rgba(31,78,82,.22),transparent 44%),radial-gradient(circle at 20% 92%,rgba(176,138,87,.30),transparent 46%),radial-gradient(circle at 90% 94%,rgba(31,78,82,.26),transparent 42%),#f6f0e4 !important}
+html body .view>h2::after,html body .view>h2+p::before{content:none}
+html body .view>h2{position:relative;padding-bottom:10px}
+html body .view>h2::after{content:"";display:block;position:absolute;left:0;bottom:0;width:52px;height:4px;border-radius:4px;background:#1f4e52}
+html body .view .primary,html body .view button.primary,html body .view a.primary{background:linear-gradient(180deg,#2a6166,#1f4e52)!important;color:#fff!important;-webkit-text-fill-color:#fff!important;border:1px solid rgba(255,255,255,.35)!important;box-shadow:0 8px 20px rgba(31,78,82,.28),inset 0 1px 0 rgba(255,255,255,.35)!important}
+html body .view .acc .body .primary,html body .view .acc .body .dgb .primary{color:#fff!important;-webkit-text-fill-color:#fff!important}
+html body .view .dpill.on,html body .view .dchip.on{border-color:#1f4e52!important;color:#1f4e52!important;background:rgba(31,78,82,.12)!important;-webkit-text-fill-color:#1f4e52!important}
+html body .view .card>b:first-child{color:#1f4e52}
+html body .hdr .logo i{background:#1f4e52!important}
+html body .view .stars button,html body .view .stars svg{color:#b08a57}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
