@@ -513,6 +513,16 @@ details.grp.why{margin:10px 0 14px}
 .view>.grps>details.grp,.view>.grps>details.grp[open]{background:#fffdf8!important}.view>.grps>details.grp>summary{background:#fffdf8!important;color:#6e2539!important;border:1px solid #d9c9a8!important}
 .view>.grps>details.grp>summary i{color:#6e2539!important;border-color:#6e2539!important}
 .view .acc .body .tool:not(.hl) .ic svg,.view .acc .body .tool:not(.hl) .ic svg *{stroke:#fff!important;color:#fff!important}.view .acc .body .tool:not(.hl) .ic{border-color:transparent!important}
+
+/* menos natalino: base creme, ícones em tom areia com marsala, topo neutro */
+.view .tool:not(.hl) .ic,.view .acc>button .cic{background:#efe4cf!important;border:1px solid #c9b48e!important;box-shadow:none!important}
+.view .tool:nth-of-type(even):not(.hl) .ic,.view .acc:nth-of-type(even)>button .cic{background:#f3e8d6!important}
+.view .tool:not(.hl) .ic svg,.view .tool:not(.hl) .ic svg *,.view .acc .body .tool:not(.hl) .ic svg,.view .acc .body .tool:not(.hl) .ic svg *,.view .acc>button .cic svg,.view .acc>button .cic svg *{stroke:#6e2539!important;color:#6e2539!important}
+.view .tool.g1 .ic,.view .tool.g2 .ic,.view .tool.g3 .ic,.view .tool.g4 .ic{background:#efe4cf!important;border:1px solid #c9b48e!important}
+.view .tool.g1 .ic svg,.view .tool.g2 .ic svg,.view .tool.g3 .ic svg,.view .tool.g4 .ic svg,.view .tool.g1 .ic svg *,.view .tool.g2 .ic svg *,.view .tool.g3 .ic svg *,.view .tool.g4 .ic svg *{stroke:#6e2539!important}
+.hdr .ib,.hdr .ib.on,.hdr button.ib,.hdr .ib+.ib,.hdr .ib#av{background:#fbf8f3!important;border:1px solid #c9b48e!important;box-shadow:0 4px 10px rgba(110,37,57,.12)!important}
+.hdr .ib svg,.hdr .ib svg *{stroke:#6e2539!important}
+.view .tool:nth-of-type(odd):not(.hl) .ic,.view .acc:nth-of-type(odd)>button .cic,.view .acc .body .tool:nth-of-type(odd):not(.hl) .ic{background:#efe4cf!important;border:1px solid #c9b48e!important}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -622,7 +632,7 @@ function badge(id){if(bdg[id])return;bdg[id]=1;ls("cg_badges",bdg);addPts(5);var
 function badgeRow(){var h='<div class="brow">';BADGES.forEach(function(b){h+='<div class="bd'+(bdg[b[0]]?' on':'')+'"><span>'+ico(b[1],24)+'</span><small>'+b[2]+'</small></div>';});return h+'</div>';}
 function level(){return pts<20?"Tomando coragem":pts<60?"Ganhando coragem":pts<120?"Coragem em ação":"Pura coragem";}
 function ptsTag(){return '<span class="tag">'+pts+'c · '+level()+'</span>';}
-var STEPS=[["quiz","Seu trabalho precisa de um app?","6 perguntas rápidas","quiz"],["match","Que app combina com você?","2 escolhas","phone"],["wheel","Roda do conteúdo","Gire e ganhe uma ideia de post","wheel"],["games","Jogos com recompensas","Vista a empreendedora, cobrinha e mais","game"],["cases","Apps que deram certo","Com números e link para abrir","trophy"]];
+var STEPS=[["quiz","Seu trabalho precisa de um app?","6 perguntas rápidas","quiz"],["match","Que app combina com você?","2 escolhas","phone"],["wheel","Roda do conteúdo","Gire e ganhe uma ideia de post","wheel"],["games","Jogos com recompensas","Vista a empreendedora, cobrinha e mais","game"]];
 function nextAfter(cur){return starsBox(cur)+nextAfter0(cur);}
 function nextAfter0(cur){var i=-1;STEPS.forEach(function(s,j){if(s[0]===cur)i=j;});var n=STEPS[i+1];
   if(!n)return '<div class="sp"></div><h2 style="margin:6px 0 4px">E você também pode ter o seu</h2><p>Veja agora uma prévia do seu app, com o seu nome e as suas cores. É de graça.</p><button class="primary pulse" onclick="go(\'demo\')">Veja o seu app</button><div class="sp"></div>'+contactBtn("Conversar com a CorAge","Oi, Eve! Fiz o passo a passo do app da CorAge e quero conversar.","ghost");
@@ -830,7 +840,7 @@ function vHome(){
   list+='<button class="tool" onclick="go(\'feedback\')"><div class="ic">'+ico("heart",26)+'</div><div><b>O que você achou?</b><span>Dê de 1 a 5 estrelas</span></div></button>';
   h+=box("compass","2. Ferramentas","Raio-X, roda, jogos e mais",list);
   h+='<button class="tool hl" onclick="go(\'demo\')"><div class="ic">'+ico("phone",26)+'</div><div><b>3. Veja o seu app</b><span>Uma prévia com o seu nome e a sua cor</span></div>'+(prog.demo?'<span class="ok">feito</span>':'')+'</button>';
-  var why='<p>Um app seu não é só um site com outra cara. Ele fica com a sua cliente, do jeito da sua marca.</p><ul class="gain"><li>'+ico("phone",19)+'<span><b>Sua marca no bolso da cliente.</b> O ícone fica na tela dela todo dia.</span></li><li>'+ico("palette",19)+'<span><b>A experiência é sua.</b> Suas cores, sua voz e suas ferramentas.</span></li><li>'+ico("game",19)+'<span><b>Ela volta sozinha.</b> Jogos, desafios e lembretes criam hábito.</span></li><li>'+ico("sparkle",19)+'<span><b>Imagem de futuro.</b> Quem tem app passa modernidade e confiança.</span></li><li>'+ico("briefcase",19)+'<span><b>Uma agência de bolso.</b> Imagem, conteúdo, ideias e contato num só lugar, no seu celular.</span></li></ul><button class="primary" onclick="go(\'demo\')">Quero o meu app</button>';
+  var why='<p>Um app seu não é só um site com outra cara. Ele fica com a sua cliente, do jeito da sua marca.</p><ul class="gain"><li>'+ico("phone",19)+'<span><b>Sua marca no bolso da cliente.</b> O ícone fica na tela dela todo dia.</span></li><li>'+ico("palette",19)+'<span><b>A experiência é sua.</b> Suas cores, sua voz e suas ferramentas.</span></li><li>'+ico("game",19)+'<span><b>Ela volta sozinha.</b> Jogos, desafios e lembretes criam hábito.</span></li><li>'+ico("sparkle",19)+'<span><b>Imagem de futuro.</b> Quem tem app passa modernidade e confiança.</span></li><li>'+ico("briefcase",19)+'<span><b>Uma agência de bolso.</b> Imagem, conteúdo, ideias e contato num só lugar, no seu celular.</span></li></ul><button class="ghost" style="width:100%;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px" onclick="go(\'cases\')">'+ico("trophy",20)+' Veja apps que deram certo</button><button class="primary" onclick="go(\'demo\')">Quero o meu app</button>';
   function dg(t,c,html){return '<details class="grp" style="--gc:'+c+'" ontoggle="grpOne(this)"><summary>'+t+'<i>+</i></summary><div class="dgb">'+html+'</div></details>';}
   var fin='<div class="grps">'+dg("Por que ter um app para o seu negócio?","#1f4e52",why)+'</div><button class="primary" style="margin-top:12px" onclick="go(\'contact\')">Quero o meu app</button>';
   h+='<div class="sp"></div>'+fin;
