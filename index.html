@@ -281,6 +281,26 @@ h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:0;color:var(--m
 .view .tool.hl .ic{border-color:rgba(255,255,255,.5);background:transparent;color:#fff}
 .dtl.lk{background:#f9f1ee}
 .sheet{border-radius:20px}
+
+/* verde petróleo + jogos */
+:root{--teal:#1f4e52}
+.cv{background:#fdf9f6;border:1px solid var(--gold);border-radius:14px;box-shadow:0 6px 20px rgba(31,78,82,.12)}
+.dpad button{background:rgba(255,255,255,.6);border:1px solid var(--teal);color:var(--teal);border-radius:12px;backdrop-filter:blur(8px)}
+.dpad button:active{background:var(--teal);color:#fff}
+.score{font-family:var(--serif);color:var(--teal)}
+.score b{color:var(--marsala)}
+.th{border:1px solid var(--line);border-radius:12px;font-family:var(--serif)}
+.th.on{background:var(--teal);border-color:var(--teal)}
+.tabs a.on,.tabs button.on,.tabs .on{color:var(--teal)}
+.tool .ic,.cic,.view .tool .ic,.view .acc>button .cic{border-color:var(--teal)!important;color:var(--teal)!important}
+.view .acc>button em{color:var(--teal);border-color:var(--teal)}
+.view .acc.open>button em{background:var(--teal);border-color:var(--teal)}
+.ghost{border-color:var(--teal);color:var(--teal)}
+.ib{border-color:var(--teal);color:var(--teal)}
+.logo i{border-color:var(--teal);color:var(--teal)}
+.tag{color:var(--teal);border-color:var(--teal)}
+.opt.on,.opt.sel{border-color:var(--teal)}
+.view .tool.hl .ic{border-color:rgba(255,255,255,.55)!important;color:#fff!important}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -692,7 +712,7 @@ function dpad(){return '<div class="dpad"><button class="u" onclick="if(G.dir)G.
 function swipe(cv){var sx,sy;cv.addEventListener("touchstart",function(e){var t=e.changedTouches[0];sx=t.clientX;sy=t.clientY;},{passive:true});
   cv.addEventListener("touchend",function(e){var t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.max(Math.abs(dx),Math.abs(dy))<24||!G.dir)return;if(Math.abs(dx)>Math.abs(dy)){G.dir(dx>0?"r":"l");}else{G.dir(dy>0?"d":"u");}},{passive:true});}
 function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
-function badgeDot(x,cx,cy,r){x.fillStyle="#f7dcd9";x.beginPath();x.arc(cx,cy,r,0,7);x.fill();x.lineWidth=Math.max(1.5,r*.18);x.strokeStyle="#7a2e3f";x.stroke();x.fillStyle="#7a2e3f";x.font="700 "+Math.round(r*1.35)+"px Georgia,serif";x.textAlign="center";x.textBaseline="middle";x.fillText("C",cx,cy+r*.06);}
+function badgeDot(x,cx,cy,r){x.fillStyle="#fdf9f6";x.beginPath();x.arc(cx,cy,r,0,7);x.fill();x.lineWidth=Math.max(1.5,r*.18);x.strokeStyle="#b08a57";x.stroke();x.fillStyle="#6e2539";x.font="700 "+Math.round(r*1.35)+"px Georgia,serif";x.textAlign="center";x.textBaseline="middle";x.fillText("C",cx,cy+r*.06);}
 
 function vGames(){
   prog.games=1;ls("cg_prog",prog);
@@ -716,12 +736,12 @@ function vSnake(){
   app.innerHTML=back("Cobrinha","games")+'<div class="score"><span>Capital de giro: R$ <b id="sc">0</b></span><span>Recorde: R$ <b id="bs">'+(best*100)+'</b></span></div><canvas id="cv" class="cv" width="320" height="320"></canvas>'+dpad()+'<button class="primary pulse" id="go" onclick="snakeStart()">Jogar</button><div id="res" style="margin-top:12px"></div><p class="small" style="margin-top:12px">Pegue clientes, conteúdo, contratos e capital de giro. Desvie dos obstáculos que toda empreendedora enfrenta: boletos, falta de tempo, insegurança, custos, cliente que some e algoritmo. O dinheiro é de brincadeira. A cobrinha atravessa as bordas, mas não pode bater em você nem nos obstáculos.</p>'+foot();
   var cv=document.getElementById("cv");swipe(cv);var n=snakeNew();snakeDraw(cv,n.s,{x:Math.floor(Math.random()*SN),y:Math.floor(Math.random()*SN)},FOODS[0],[]);
 }
-function snakeDraw(cv,s,f,fd,obs){var x=cv.getContext("2d"),S=cv.width/SN;x.fillStyle="#fff";x.fillRect(0,0,320,320);
-  x.fillStyle="#fbeceb";for(var i=0;i<SN;i++)for(var j=0;j<SN;j++){if((i+j)%2===0)x.fillRect(i*S,j*S,S,S);}
-  x.font=Math.round(S*.7)+"px sans-serif";x.textAlign="center";x.textBaseline="middle";
-  for(var o=0;o<obs.length;o++){x.fillStyle="#e3b1ae";rr(x,obs[o].x*S+1.5,obs[o].y*S+1.5,S-3,S-3,8);x.fill();x.fillText(obs[o].e,obs[o].x*S+S/2,obs[o].y*S+S/2+1);}
-  x.fillStyle="#f7dcd9";x.beginPath();x.arc(f.x*S+S/2,f.y*S+S/2,S*.46,0,7);x.fill();x.fillText(fd.e,f.x*S+S/2,f.y*S+S/2+1);
-  for(var k=s.length-1;k>=0;k--){x.fillStyle=k===0?"#5b1f2d":"#7a2e3f";rr(x,s[k].x*S+1.5,s[k].y*S+1.5,S-3,S-3,6);x.fill();}}
+function snakeDraw(cv,s,f,fd,obs){var x=cv.getContext("2d"),S=cv.width/SN;x.fillStyle="#fdf9f6";x.fillRect(0,0,320,320);
+  x.fillStyle="#f3e9e4";for(var i=0;i<SN;i++)for(var j=0;j<SN;j++){if((i+j)%2===0)x.fillRect(i*S,j*S,S,S);}
+  x.textAlign="center";x.textBaseline="middle";
+  for(var o=0;o<obs.length;o++){x.fillStyle="#1f4e52";rr(x,obs[o].x*S+2,obs[o].y*S+2,S-4,S-4,5);x.fill();x.fillStyle="#f3e9e4";x.font="600 "+Math.round(S*.6)+"px Georgia,serif";x.fillText("×",obs[o].x*S+S/2,obs[o].y*S+S/2+1);}
+  x.fillStyle="#b08a57";x.beginPath();x.arc(f.x*S+S/2,f.y*S+S/2,S*.42,0,7);x.fill();x.fillStyle="#fff";x.font="700 "+Math.round(S*.55)+"px Georgia,serif";x.fillText("+"+fd.v,f.x*S+S/2,f.y*S+S/2+1);
+  for(var k=s.length-1;k>=0;k--){x.fillStyle=k===0?"#4a1626":"#6e2539";rr(x,s[k].x*S+1.5,s[k].y*S+1.5,S-3,S-3,5);x.fill();}}
 function snakeStart(){
   stopGame();document.getElementById("res").innerHTML="";var gb=document.getElementById("go");gb.classList.remove("pulse");gb.style.display="none";
   var cv=document.getElementById("cv"),n=snakeNew(),s=n.s,d=n.d,nd=d,sc=0,ate=0,speed=260,f=null,fd=pickFood(),obs=[];
@@ -767,9 +787,9 @@ function mazeStart(lvl){
   document.getElementById("lv").textContent=lvl;document.getElementById("tm").textContent=0;document.getElementById("res").innerHTML="";
   var V={u:{x:0,y:-1},d:{x:0,y:1},l:{x:-1,y:0},r:{x:1,y:0}};
   function open(a,b){return a>=0&&b>=0&&a<T&&b<T&&g[b][a]===0;}
-  function draw(){x.fillStyle="#fff";x.fillRect(0,0,320,320);x.fillStyle="#7a2e3f";
+  function draw(){x.fillStyle="#fdf9f6";x.fillRect(0,0,320,320);x.fillStyle="#1f4e52";
     for(var j=0;j<T;j++)for(var i=0;i<T;i++){if(g[j][i]===1)x.fillRect(i*S,j*S,S+.5,S+.5);}
-    x.fillStyle="#7a2e3f";x.font="700 "+Math.round(S*1.3)+"px Georgia,serif";x.textAlign="center";x.textBaseline="middle";x.fillText("★",ex.x*S+S/2,ex.y*S+S/2+1);
+    x.fillStyle="#b08a57";x.font="700 "+Math.round(S*1.3)+"px Georgia,serif";x.textAlign="center";x.textBaseline="middle";x.fillText("★",ex.x*S+S/2,ex.y*S+S/2+1);
     badgeDot(x,p.x*S+S/2,p.y*S+S/2,S*.46);}
   function win(){clearInterval(G.tm);var pt=10*lvl;addPts(pt);G.dir=null;
     document.getElementById("res").innerHTML='<div class="card"><b>Fase '+lvl+' concluída em '+sec+'s.</b> Você ganhou '+pt+' pontos.</div><button class="primary pulse" onclick="mazeStart('+(lvl+1)+')">Próxima fase</button>';}
