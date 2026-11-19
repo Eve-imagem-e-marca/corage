@@ -1141,34 +1141,34 @@ function dollSvg(s){
   /* pernas */
   g+=GO;
   var legc=(P.t==="coat"||P.t==="sport"||(P.t==="blazer"&&P.bt==="pants"))?P.bot:sk;
-  g+=E("rect",{x:127,y:255,width:22,height:144,rx:9,fill:legc})+E("rect",{x:151,y:255,width:22,height:144,rx:9,fill:legc});
+  g+=E("path",{d:"M122 256Q150 266 151 262L148 398Q139 402 130 398Q128 330 122 256Z",fill:legc})+E("path",{d:"M178 256Q150 266 149 262L152 398Q161 402 170 398Q172 330 178 256Z",fill:legc});
   g+=E("path",{d:"M120 396c0 12 20 12 30 6v-8zM180 396c0 12-20 12-30 6v-8z",fill:sh});
   /* corpo */
   var sl="none",slen=0;
   if(P.t==="blazer"){
-    g+=E("path",{d:"M114 178Q150 166 186 178L182 258 118 258Z",fill:c1});
-    if(P.bt==="skirt")g+=E("path",{d:"M118 252L182 252 198 342 102 342Z",fill:P.bot});
+    g+=E("path",{d:"M114 180Q150 168 186 180Q184 204 177 224Q186 240 185 258L115 258Q114 240 123 224Q116 204 114 180Z",fill:c1});
+    if(P.bt==="skirt")g+=E("path",{d:"M116 250Q150 264 184 250Q196 300 202 344Q150 354 98 344Q104 300 116 250Z",fill:P.bot});
     g+=E("path",{d:"M134 172L150 216 166 172Z",fill:P.inner||"#fff"})+E("path",{d:"M134 172L150 216 130 198Z M166 172L150 216 170 198Z",fill:"#fff",opacity:.22})+E("circle",{cx:150,cy:238,r:3.5,fill:"#fff",opacity:.8});
-    g+=E("path",{d:"M114 178Q150 166 186 178L182 258 118 258Z",fill:"url(#dsh)"});
+    g+=E("path",{d:"M114 180Q150 168 186 180Q184 204 177 224Q186 240 185 258L115 258Q114 240 123 224Q116 204 114 180Z",fill:"url(#dsh)"});
     sl=c1;slen=88;
   }else if(P.t==="coat"){
     g+=E("path",{d:"M138 170L150 204 162 170Z",fill:c1});
-    g+=E("path",{d:"M112 178Q150 166 188 178L198 330 102 330Z",fill:P.coat,stroke:"#d9c9cc","stroke-width":1.5});
-    g+=E("path",{d:"M136 172L150 212 164 172",fill:c1,stroke:"none"})+E("path",{d:"M150 212V330",stroke:"#d9c9cc","stroke-width":2});
+    g+=E("path",{d:"M112 180Q150 168 188 180Q186 214 180 236L202 334Q150 342 98 334L120 236Q114 214 112 180Z",fill:P.coat,stroke:"#d9c9cc","stroke-width":1.5});
+    g+=E("path",{d:"M136 172L150 212 164 172",fill:c1,stroke:"none"})+E("path",{d:"M150 212V338",stroke:"#d9c9cc","stroke-width":2});
     g+=E("circle",{cx:144,cy:236,r:3,fill:"#c9b4b8"})+E("circle",{cx:144,cy:262,r:3,fill:"#c9b4b8"})+E("rect",{x:112,y:268,width:24,height:20,rx:4,fill:"none",stroke:"#d9c9cc","stroke-width":2});
-    g+=E("path",{d:"M112 178Q150 166 188 178L198 330 102 330Z",fill:"url(#dsh)"});
+    g+=E("path",{d:"M112 180Q150 168 188 180Q186 214 180 236L202 334Q150 342 98 334L120 236Q114 214 112 180Z",fill:"url(#dsh)"});
     sl=P.coat;slen=104;
   }else if(P.t==="sport"){
-    g+=E("path",{d:"M120 182Q150 170 180 182L180 244 120 244Z",fill:c1})+E("path",{d:"M126 176q-6 14 0 30M174 176q6 14 0 30",stroke:c1,"stroke-width":8,"stroke-linecap":"round",fill:"none"});
-    g+=E("path",{d:"M118 240h64l-2 22h-60z",fill:P.bot});
+    g+=E("path",{d:"M120 184Q150 172 180 184Q178 212 174 232L126 232Q122 212 120 184Z",fill:c1})+E("path",{d:"M126 176q-6 14 0 30M174 176q6 14 0 30",stroke:c1,"stroke-width":8,"stroke-linecap":"round",fill:"none"});
+    g+=E("path",{d:"M123 230Q150 238 177 230L183 262L152 258L148 258L117 262Z",fill:P.bot});
   }else{
-    g+=E("path",{d:"M114 178Q150 166 186 178L182 252 200 348 100 348 118 252Z",fill:c1})+E("rect",{x:117,y:246,width:66,height:9,rx:4,fill:"#fff",opacity:.5});
-    g+=E("path",{d:"M114 178Q150 166 186 178L182 252 200 348 100 348 118 252Z",fill:"url(#dsh)"});
+    g+=E("path",{d:"M114 180Q150 168 186 180Q184 204 177 224Q187 236 186 252L206 352Q150 362 94 352L114 252Q113 236 123 224Q116 204 114 180Z",fill:c1})+E("path",{d:"M123 224Q150 232 177 224",stroke:"#fff",opacity:.55,"stroke-width":5,fill:"none","stroke-linecap":"round"});
+    g+=E("path",{d:"M114 180Q150 168 186 180Q184 204 177 224Q187 236 186 252L206 352Q150 362 94 352L114 252Q113 236 123 224Q116 204 114 180Z",fill:"url(#dsh)"});
     sl=c1;slen=34;
   }
   /* braços */
-  g+=E("rect",{x:94,y:178,width:20,height:102,rx:10,fill:sk,transform:"rotate(3 104 180)"})+E("rect",{x:186,y:178,width:20,height:102,rx:10,fill:sk,transform:"rotate(-3 196 180)"});
-  if(sl!=="none"){g+=E("rect",{x:92,y:176,width:24,height:slen,rx:10,fill:sl,transform:"rotate(3 104 180)"})+E("rect",{x:184,y:176,width:24,height:slen,rx:10,fill:sl,transform:"rotate(-3 196 180)"});}
+  g+=E("path",{d:"M95 184Q90 235 97 280Q104 288 111 280Q114 235 112 186Z",fill:sk})+E("path",{d:"M205 184Q210 235 203 280Q196 288 189 280Q186 235 188 186Z",fill:sk});
+  if(sl!=="none"){g+=E("path",{d:"M93 182Q86 "+(182+slen*.55)+" 94 "+(178+slen)+"L114 "+(178+slen)+"Q115 "+(182+slen*.4)+" 113 184Z",fill:sl})+E("path",{d:"M207 182Q214 "+(182+slen*.55)+" 206 "+(178+slen)+"L186 "+(178+slen)+"Q185 "+(182+slen*.4)+" 187 184Z",fill:sl});}
   g+="</g>";
   /* pescoço, orelhas, cabeça */
   g+=E("path",{d:"M141 148h18l2 32h-22z",fill:sk})+E("path",{d:"M141 148h18l.5 12Q150 168 140.5 160z",fill:"#000",opacity:.1});
