@@ -1951,8 +1951,8 @@ function vPresente(){
   var G=[
    ["Organizar","#6e2539",[["biz","coin","Gestão do negócio"],["checklist","check","Checklist"],["kanban","puzzle","Quadro de tarefas"],["pros","compass","Prospecção"],["rotina","briefcase","Rotina comercial"],["semana","calendar","Agenda da semana"],["crm","heart","Clientes e metas"],["comercial","calendar","Calendário comercial"]]],
    ["Legalizar e crescer","#1f4e52",[["mei","file","MEI"],["apoio","briefcase","Onde buscar ajuda"],["rede","users","Rede de empreendedoras"],["eventos","calendar","Eventos grátis"]]],
-   ["Marca","#8a6630",[["google","search","Google grátis"],["lab","chat","Mensagens com assistente"],["mind","sparkle","Mentalidade"]]],
-   ["Para se divertir","#6b4a36",[["wheel","wheel","Roda do conteúdo"],["games","game","Jogos com recompensas"]]]
+   ["Marca","#8a6630",[["google","search","Google grátis"],["lab","chat","Mensagens com assistente"],["wheel","wheel","Roda do conteúdo"],["mind","sparkle","Mentalidade"]]],
+   ["Para se divertir","#6b4a36",[["games","game","Jogos com recompensas"]]]
   ],h='';
   G.forEach(function(g){h+='<div class="tlab" style="color:'+g[1]+'">'+g[0]+'</div><div class="tgrid">'+g[2].map(function(t){return '<button class="tile" onclick="go(\''+t[0]+'\')" style="--c:'+g[1]+'"><span class="ti">'+ico(t[1],26)+'</span><b>'+t[2]+'</b></button>';}).join('')+'</div>';});
   app.innerHTML=back("Seu presente","home")+'<h2>Seu presente</h2><p>17 ferramentas gratuitas para o seu negócio.</p>'+h+starsBox("presente")+foot();
