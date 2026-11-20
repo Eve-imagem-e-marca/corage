@@ -40,32 +40,22 @@ footer{text-align:center;font-size:14px;color:#6b4a36;margin-top:26px}
 var WA="5511981004617",KEY="cg_brief_social";
 var S=[
 ["1. Sobre você e o negócio","#6e2539",[
-["t","nome","Seu nome"],["t","negocio","Nome do negócio"],["t","insta","@ do Instagram"],["t","cidade","Cidade e bairro onde atende"],
-["a","oque","O que você vende ou oferece?","Explique como se contasse para uma amiga."],["a","hist","Como o negócio começou?","Se quiser, conte um pouco da sua história."],["t","tempo","Há quanto tempo atua?"]]],
+["t","nome","Seu nome"],["t","negocio","Nome do negócio"],["t","insta","@ do Instagram"],["a","oque","O que você vende ou oferece?","Conte como se fosse para uma amiga."]]],
 ["2. Sua cliente ideal","#1f4e52",[
-["a","quem","Quem é a cliente que você quer atrair?","Idade, profissão, estilo de vida."],["a","onde","Onde ela está?","Bairro, cidade, redes, grupos."],["a","dor","Qual problema dela você resolve?"],["a","valor","O que ela mais valoriza?"],["a","obj","O que faz ela hesitar na hora de comprar?","Preço, confiança, tempo, dúvidas."]]],
-["3. Produtos e preços","#b08a57",[
-["a","prod","Quais são os seus principais produtos ou serviços?"],["t","mais","O que mais vende?"],["t","ticket","Valor médio de uma venda (aproximado)"],["a","dif","O que te diferencia de quem faz parecido?"],["a","promo","Tem promoções, pacotes ou datas fortes de venda?"]]],
-["4. Objetivos","#6b4a36",[
-["c","meta","O que você quer com as redes?","Escolha quantas quiser.",["Vender mais","Ser mais conhecida","Atrair clientes novas","Fidelizar clientes","Lançar um produto","Organizar a rotina de posts"]],
-["a","meta3","Onde você quer estar em 3 meses?"],["s","tra","Já investiu em anúncios pagos?",["Nunca","Já fiz sozinha","Já contratei alguém","Faço hoje"]],["t","orc","Quanto pode investir por mês no meu trabalho? (opcional)"]]],
-["5. Marca e estilo","#6e2539",[
-["s","logo","Você já tem logo e identidade visual?",["Sim, completa","Só o logo","Ainda não"]],["t","cores","Cores da sua marca"],
+["a","quem","Quem é a cliente que você quer atrair?","Idade, estilo de vida, onde ela está."],["a","dor","Qual problema dela você resolve?"]]],
+["3. Objetivos","#b08a57",[
+["c","meta","O que você quer com as redes?","Escolha quantas quiser.",["Vender mais","Ser mais conhecida","Atrair clientes novas","Fidelizar clientes","Lançar um produto","Organizar os posts"]],
+["a","meta3","Onde você quer estar em 3 meses?"]]],
+["4. Marca e estilo","#6b4a36",[
 ["c","tom","Como você quer soar?","Escolha até 4.",["Acolhedora","Divertida","Elegante","Profissional","Direta","Inspiradora","Leve","Confiante"]],
 ["a","ref","Perfis que você admira","Cole 2 ou 3 @."],["a","nao","O que você NÃO quer ver nos seus posts?"]]],
-["6. Suas redes hoje","#1f4e52",[
-["c","redes","Onde você já está?","",["Instagram","WhatsApp","Facebook","TikTok","YouTube","LinkedIn","Google (perfil da empresa)","Site"]],
-["s","freq","Com que frequência posta?",["Todo dia","3 a 4 vezes por semana","1 ou 2 vezes","Quase nunca"]],["a","deu","O que já deu certo?"],["a","errou","O que não funcionou?"],["t","seg","Quantos seguidores tem hoje? (aproximado)"]]],
-["7. Conteúdo","#b08a57",[
-["s","video","Você aparece em vídeos?",["Sim, gosto","Sim, mas tenho vergonha","Prefiro não aparecer"]],["s","foto","Tem fotos boas do trabalho?",["Sim, bastante","Algumas","Quase nenhuma"]],
-["c","temas","Temas que você gosta de falar","",["Bastidores","Dicas","Antes e depois","Depoimentos","Rotina","Produtos","Educação da cliente","Datas especiais"]],
-["a","evita","Assuntos que prefere evitar"],["a","datas","Datas importantes para o seu negócio","Eventos, lançamentos, aniversário."]]],
-["8. Concorrência e inspirações","#6b4a36",[
-["a","conc","Quem faz algo parecido na sua região?","@ de 3 perfis."],["a","gost","O que você gosta neles?"],["a","melhor","O que você faria diferente?"]]],
-["9. Rotina e combinados","#6e2539",[
-["t","hor","Horário de atendimento"],["s","resp","Quem responde as mensagens?",["Eu mesma","Uma equipe","Ninguém ainda"]],["t","tsem","Quanto tempo por semana pode dedicar às redes?"],
-["s","aprova","Como prefere aprovar os posts?",["Eu aprovo tudo antes","Confio e aprovo só o plano do mês","Quero ver só os principais"]],["a","extra","Mais alguma coisa que eu precise saber?"]]]
+["5. Rotina e combinados","#6e2539",[
+["s","freq","Com que frequência posta hoje?",["Todo dia","3 a 4 vezes por semana","1 ou 2 vezes","Quase nunca"]],
+["s","video","Você aparece em vídeos?",["Sim, gosto","Sim, mas tenho vergonha","Prefiro não aparecer"]],
+["s","aprova","Como prefere aprovar os posts?",["Eu aprovo tudo antes","Aprovo só o plano do mês","Quero ver só os principais"]],
+["a","extra","Mais alguma coisa que eu precise saber?"]]]
 ];
+
 var A={};try{A=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){}
 function sv(){try{localStorage.setItem(KEY,JSON.stringify(A))}catch(e){}}
 function esc(x){return String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;")}
