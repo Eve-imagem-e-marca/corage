@@ -1984,7 +1984,7 @@ function vPresente(){
    ["Para se divertir","#6b4a36",[["games","game","Jogos com recompensas"]]]
   ],h='';
   G.forEach(function(g){h+='<div class="tlab" style="color:'+g[1]+'">'+g[0]+'</div><div class="tgrid">'+g[2].map(function(t){return '<button class="tile" onclick="plGo(\''+t[0]+'\')" style="--c:'+g[1]+'"><span class="ti">'+ico(t[1],26)+'</span><b>'+t[2]+'</b></button>';}).join('')+'</div>';});
-  app.innerHTML=back("Seu presente","home")+'<h2>O que a CorAge faz por você</h2><p>17 ferramentas que o seu app sob medida pode ter. Toque para ver como funciona.</p>'+h+starsBox("presente")+foot();
+  app.innerHTML=back("Seu presente","home")+'<h2>Um presente para você</h2><p>Para o seu negócio, você conta com ferramentas específicas que podem te ajudar. Toque em uma para ver como funciona.</p>'+h+starsBox("presente")+foot();
 }
 var KBC=[["A fazer","#6e2539"],["Fazendo","#1f4e52"],["Aguardando","#b08a57"],["Feito","#6b4a36"]],KBT=0;
 var KBA=[[["Começar",1],["Apagar",-1]],[["Concluir",3],["Aguardar",2],["Voltar",0]],[["Retomar",1],["Concluir",3]],[["Reabrir",0],["Apagar",-1]]];
