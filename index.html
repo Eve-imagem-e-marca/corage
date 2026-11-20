@@ -1919,6 +1919,7 @@ function eveCopyQ(){var u=new URL("questionario-social.html",location.href.split
 function eveSet(i,v){var pr=ls("cg_eveprice")||{};pr[i]=v;ls("cg_eveprice",pr);toast("Salvo.");}
 
 /* ===== Para quem empreende: MEI, apoio, rede, eventos ===== */
+function og(t,c,html){return '<div class="card" style="margin:0 0 12px;border-left:5px solid '+c+'"><b style="color:'+c+';font-size:18px;display:block;margin-bottom:6px">'+t+'</b>'+html+'</div>';}
 function dg(t,c,html){return '<details class="grp" style="--gc:'+c+'" ontoggle="grpOne(this)"><summary>'+t+'<i>+</i></summary><div class="dgb">'+html+'</div></details>';}
 function lk(u,t,d){return '<a class="card" href="'+u+'" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit"><b>'+t+'</b>'+(d?'<span class="small" style="display:block;margin-top:4px">'+d+'</span>':'')+'<span class="small" style="display:block;margin-top:6px;color:#1f4e52"><b>Abrir o site →</b></span></a>';}
 function meiIcs(){var d=new Date(),y=d.getFullYear(),m=d.getMonth()+1,dd=20;if(d.getDate()>20){m++;if(m>12){m=1;y++;}}
@@ -2121,8 +2122,8 @@ function vPratica(){
 }
 var HIST=[["Como tudo começou","Me formei em Marketing em 2012 e, em 2013, comecei a empreender. Trabalhei como educadora e dei aula. Desde então, nunca mais parei de criar."],["Os recomeços","Tive três ateliês, uma agência de viagens e negócios com sócios. Vendi roupa, buscando no Brás e entregando. Fui social media e criei um site meu. Alguns fecharam, e cada um me ensinou algo."],["Produtos digitais","Gravei curso, vendi e-book, fiz workshop e palestra, gravei no YouTube e tenho o podcast Podleve. Tudo isso me mostrou o que funciona para quem empreende."],["Imagem e marca","Desde 2018 sou mentora de imagem, posicionamento e marca pessoal. Fiz pós em marca pessoal e influência digital e estudo gestão de negócios com IA."],["Por que criei a CorAge","Percebi que quem empreende sozinha precisa de leveza, tempo e clientes. Criei a CorAge, com a ajuda da Programaria, para levar tecnologia a quem empreende."]];
 function vHistoria(){
-  var h=HIST.map(function(p,i){return dg(p[0],["#6e2539","#1f4e52","#6b4a36","#8a6630","#6e2539"][i],'<p>'+dEsc(p[1])+'</p>');}).join('');
-  app.innerHTML=back("Minha história","home")+'<h2>A minha história</h2><p>Sou a Evelin, mas pode me chamar de Éve. Toque para abrir.</p><div class="grps">'+h+'</div><button class="primary glass-sm pulse" style="width:100%;margin-top:14px" onclick="go(\'presente\')">Ver o que posso fazer por você</button>'+foot();
+  var h=HIST.map(function(p,i){return og(p[0],["#6e2539","#1f4e52","#6b4a36","#8a6630","#6e2539"][i],'<p>'+dEsc(p[1])+'</p>');}).join('');
+  app.innerHTML=back("Minha história","home")+'<h2>A minha história</h2><p>Sou a Evelin, mas pode me chamar de Éve. Toque para abrir.</p><div>'+h+'</div><button class="primary glass-sm pulse" style="width:100%;margin-top:14px" onclick="go(\'presente\')">Ver o que posso fazer por você</button>'+foot();
 }
 function vOque(){app.innerHTML=back("O que é a CorAge","home")+'<h2>O que é a CorAge</h2>'+'<div class="card">'+OQ_B2+'</div>'+foot();}
 function vUsar(){app.innerHTML=back("Como usar","home")+'<h2>Como usar no seu negócio</h2>'+'<div class="card">'+OQ_B4+'</div>'+foot();}
