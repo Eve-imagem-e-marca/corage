@@ -1979,8 +1979,8 @@ function vConheca(){
 function vPresente(){
   var G=[
    ["Organizar","#6e2539",[["biz","coin","Gestão do negócio"],["checklist","check","Checklist"],["kanban","puzzle","Quadro de tarefas"],["pros","compass","Prospecção"],["rotina","briefcase","Rotina comercial"],["semana","calendar","Agenda da semana"],["crm","heart","Clientes e metas"],["comercial","calendar","Calendário comercial"]]],
-   ["Legalizar e crescer","#1f4e52",[["mei","file","MEI"],["apoio","briefcase","Onde buscar ajuda"],["rede","users","Rede de empreendedoras"],["eventos","calendar","Eventos grátis"]]],
-   ["Marca","#8a6630",[["google","search","Google grátis"],["lab","chat","Mensagens com assistente"],["wheel","wheel","Roda do conteúdo"],["mind","sparkle","Mentalidade"]]],
+   ["Legalizar e crescer","#1f4e52",[["mei","file","MEI"],["apoio","briefcase","Onde buscar ajuda"],["rede","users","Rede de empreendedoras"],["eventos","calendar","Eventos"]]],
+   ["Marca","#8a6630",[["google","search","Google para o negócio"],["lab","chat","Mensagens com assistente"],["wheel","wheel","Roda do conteúdo"],["mind","sparkle","Mentalidade"]]],
    ["Para se divertir","#6b4a36",[["games","game","Jogos com recompensas"]]]
   ],h='';
   G.forEach(function(g){h+='<div class="tlab" style="color:'+g[1]+'">'+g[0]+'</div><div class="tgrid">'+g[2].map(function(t){return '<button class="tile" onclick="plGo(\''+t[0]+'\')" style="--c:'+g[1]+'"><span class="ti">'+ico(t[1],26)+'</span><b>'+t[2]+'</b></button>';}).join('')+'</div>';});
@@ -2142,7 +2142,7 @@ function vGoogle(){
   T.forEach(function(t){
     h+=dg(t[0],t[1],'<p>'+t[2]+'</p><ul class="gain">'+t[3].map(function(x,i){return st((i+1)+".",x);}).join('')+'</ul><a class="primary" style="display:block;text-align:center" href="'+t[4]+'" target="_blank" rel="noopener">'+t[5]+'</a>');
   });
-  app.innerHTML=back("Google grátis","presente")+'<h2>Google grátis</h2><p>Ferramentas gratuitas para o seu negócio, com link e passo a passo. Você só precisa de uma conta Gmail.</p>'+
+  app.innerHTML=back("Google para o negócio","presente")+'<h2>Google grátis</h2><p>Ferramentas gratuitas para o seu negócio, com link e passo a passo. Você só precisa de uma conta Gmail.</p>'+
    '<div id="gg">'+h+'</div><p class="small">Os menus do Google podem mudar de nome ou de lugar. Se algo estiver diferente, procure pelo botão com o mesmo nome.</p>'+contactBtn("Quero ajuda para configurar","Oi, Eve! Quero ajuda para configurar as ferramentas do Google no meu negócio.","ghost")+starsBox("google")+foot();
 }
 function vApoio(){
