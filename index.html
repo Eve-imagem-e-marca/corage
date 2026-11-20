@@ -585,6 +585,27 @@ html body .tile b{font-size:16px;line-height:1.25;color:#2f2024;-webkit-text-fil
 html body .tile .ti{width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:#efe4cf}
 html body .tile .ti svg,html body .tile .ti svg *{stroke:var(--c)!important}
 html body .tile:active{transform:scale(.97)}
+
+/* vidro e movimento suave */
+@keyframes shineX{0%,55%{left:-70%}100%{left:140%}}
+@keyframes ringP{0%{box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 0 0 rgba(31,78,82,.35),0 8px 22px rgba(31,78,82,.28)}70%,100%{box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 0 14px rgba(31,78,82,0),0 8px 22px rgba(31,78,82,.28)}}
+@keyframes bobY{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes tapR{0%{transform:scale(.6);opacity:.7}100%{transform:scale(2.2);opacity:0}}
+@keyframes popIn{0%{transform:translateY(8px);opacity:0}100%{transform:none;opacity:1}}
+.primary,.pulse,.cta{position:relative!important;overflow:hidden!important;background:linear-gradient(180deg,rgba(52,110,115,.94),rgba(31,78,82,.97))!important;border:1px solid rgba(255,255,255,.55)!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 8px 22px rgba(31,78,82,.28)!important;transition:transform .15s}
+.primary::after,.pulse::after,.cta::after{content:"";position:absolute;top:0;left:-70%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.38),transparent);transform:skewX(-20deg);animation:shineX 3.8s ease-in-out infinite;pointer-events:none}
+.pulse{animation:ringP 2.4s infinite!important}
+.primary:active,.tile:active,.tool:active,.ckl:active{transform:scale(.96)}
+.tool.hl{position:relative;overflow:hidden}
+.tile{background:rgba(255,253,248,.62)!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.7)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 6px 16px rgba(110,37,57,.1)!important;transition:transform .15s}
+.tgrid .tile{animation:popIn .45s both}.tgrid .tile:nth-child(2){animation-delay:.06s}.tgrid .tile:nth-child(3){animation-delay:.12s}.tgrid .tile:nth-child(4){animation-delay:.18s}
+.ckl{box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 4px 12px rgba(0,0,0,.12)!important;transition:transform .15s}
+.tut{display:flex;flex-direction:column;align-items:center;text-align:center;padding:10px 0}
+.tutic{position:relative;width:110px;height:110px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,253,248,.7);border:1px solid rgba(255,255,255,.8);box-shadow:inset 0 1px 0 #fff,0 10px 26px rgba(31,78,82,.2);color:#1f4e52;margin:10px 0 18px}
+.tutic i{position:absolute;inset:0;border-radius:50%;border:3px solid #1f4e52;animation:tapR 1.8s ease-out infinite}.tutic i+i{animation-delay:.9s}
+.tut ol{text-align:left;font-size:18px;line-height:1.5;padding-left:22px;margin:8px 0}
+.tdots{display:flex;gap:8px;justify-content:center;margin:6px 0 14px}.tdots b{width:10px;height:10px;border-radius:50%;background:#c9b48e}.tdots b.on{background:#6e2539;width:26px;border-radius:8px}
+@media (prefers-reduced-motion:reduce){.primary::after,.pulse::after,.cta::after,.tool.hl,.pulse,.tgrid .tile,.tutic i{animation:none!important}}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -889,7 +910,7 @@ function vHome(){
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
   function box(ic,title,sub,body){return '<div class="acc" '+AC+'><button><div class="cic" style="width:40px;height:40px;font-size:0">'+ico(ic,22)+'</div><div style="flex:1"><b>'+title+'</b><span>'+sub+'</span></div><em>+</em></button><div class="body">'+body+'</div></div>';}
   var hoje=(new Date().getMonth()===10&&new Date().getDate()===19)?'Hoje é o Dia do Empreendedorismo Feminino. ':'';
-  h+='<div class="card ia"><div class="iaw"><div class="iaav2">I</div><div><b>Oi! Eu sou a Iasmin</b><small>Assistente virtual da CorAge</small></div></div><p style="margin:0 0 12px">Que bom que você chegou aqui! '+hoje+'Preparei um presente: 17 ferramentas gratuitas para o seu negócio.</p><button class="primary glass-sm pulse" style="width:100%" onclick="go(\'presente\')">Abrir meu presente</button></div>';
+  h+='<div class="card ia"><div class="iaw"><div class="iaav2">I</div><div><b>Oi! Eu sou a Iasmin</b><small>Assistente virtual da CorAge</small></div></div><p style="margin:0 0 12px">Que bom que você chegou aqui! '+hoje+'Preparei um presente: 17 ferramentas gratuitas para o seu negócio.</p><button class="primary glass-sm pulse" style="width:100%" onclick="go(\'presente\')">Abrir meu presente</button><button class="ckl" style="--c:#6e2539;margin:12px 0 0" onclick="go(\'tutorial\')">Ver como funciona (30s)</button></div>';
   var gain='<p>Ao usar o CorAge, de graça, você leva:</p><ul class="gain"><li>'+ico("search",19)+'<span>Um Raio-X do seu trabalho</span></li><li>'+ico("bulb",19)+'<span>Ideias de post para usar hoje</span></li><li>'+ico("game",19)+'<span>Jogos com pontos e conquistas</span></li><li>'+ico("chat",19)+'<span>Uma conversa sem compromisso com a Eve</span></li><li>'+ico("lock",19)+'<span><b>Extras no app instalado:</b> Labirinto, Palavras cruzadas e o Vale Night</span></li></ul>';
   var gain='<p>Ao usar o CorAge, de graça, você leva:</p><ul class="gain"><li>'+ico("search",19)+'<span>Um Raio-X do seu trabalho</span></li><li>'+ico("bulb",19)+'<span>Ideias de post para usar hoje</span></li><li>'+ico("game",19)+'<span>Jogos com pontos e conquistas</span></li><li>'+ico("chat",19)+'<span>Uma conversa sem compromisso com a Eve</span></li><li>'+ico("lock",19)+'<span><b>Extras no app instalado:</b> Labirinto, Palavras cruzadas e o Vale Night</span></li></ul>';
   var prog2='<div class="ring" style="display:flex;align-items:center;gap:14px;margin-bottom:10px"><svg viewBox="0 0 76 76" style="width:64px;height:64px"><circle class="bg" cx="38" cy="38" r="30"/><circle class="fg" cx="38" cy="38" r="30" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'" id="fg"/></svg><div><b>Raio-X: '+n+' de 4</b><br>'+ptsTag()+'</div></div><h3 style="margin:4px 0 8px">Conquistas</h3>'+badgeRow();
@@ -2070,6 +2091,14 @@ function vRotina(){
   app.innerHTML=back("Rotina comercial","presente")+'<h2>Rotina comercial</h2><p>O que fazer todo dia, toda semana e todo mês para vender mais. Toque para marcar. A lista recomeça sozinha em cada período.</p><div id="rcl"></div><p class="small" style="margin-top:12px">Quer ir além? Veja também Prospecção, Quadro de tarefas e Agenda da semana. Salvo só no seu celular.</p>'+starsBox("rotina")+foot();
   rcDraw();
 }
+var TUT=0,TUS=[["Abra o seu presente","sparkle",["Na capa, toque em Abrir meu presente.","Escolha uma das ferramentas gratuitas.","Todas são grátis e funcionam no celular."]],
+["Use e marque o que fez","check",["Toque nos botões coloridos para avançar.","O que você escreve fica salvo só no seu celular.","Quando terminar, uma comemoração aparece."]],
+["Deixe na tela do celular","phone",["iPhone: no Safari, toque em Compartilhar e depois em Adicionar à Tela de Início.","Android: no Chrome, toque nos 3 pontinhos e depois em Instalar aplicativo.","Pronto! O ícone da CorAge fica no seu celular."]]];
+function tutGo(i){TUT=i;vTutorial();}
+function vTutorial(){var t=TUS[TUT];
+  app.innerHTML=back("Como funciona","home")+'<h2>Como funciona</h2><div class="tdots">'+TUS.map(function(x,i){return '<b class="'+(i===TUT?'on':'')+'"></b>';}).join('')+'</div><div class="tut"><div class="tutic"><i></i><i></i>'+ico(t[1],48)+'</div><h3 style="margin:0 0 6px">'+(TUT+1)+'. '+t[0]+'</h3><ol>'+t[2].map(function(x){return '<li>'+dEsc(x)+'</li>';}).join('')+'</ol></div>'+
+   '<div style="display:flex;gap:10px;margin-top:14px">'+(TUT>0?'<button class="ckl" style="--c:#6e2539;margin:0;flex:1" onclick="tutGo('+(TUT-1)+')">Voltar</button>':'')+(TUT<2?'<button class="primary" style="flex:2" onclick="tutGo('+(TUT+1)+')">Próximo</button>':'<button class="primary" style="flex:2" onclick="TUT=0;go(\'presente\')">Abrir meu presente</button>')+'</div>'+foot();
+}
 function vGoogle(){
   var st=function(n,t){return '<li>'+ico("check",19)+'<span><b>'+n+'</b> '+t+'</span></li>';};
   var T=[
@@ -2311,7 +2340,7 @@ function crMetaDraw(){var g=gLoad(),e=document.getElementById("gb");if(!e)return
 function render(){
   var v=state.view;
   app.className="view";
-  if(v==="eve")vEve();else if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="mei")vMei();else if(v==="kanban")vKanban();else if(v==="rotina")vRotina();else if(v==="pros")vPros();else if(v==="lab")vLab();else if(v==="semana")vSemana();else if(v==="presente")vPresente();else if(v==="conheca")vConheca();else if(v==="checklist")vChecklist();else if(v==="comercial")vComercial();else if(v==="google")vGoogle();else if(v==="apoio")vApoio();else if(v==="rede")vRede();else if(v==="eventos")vEventos();else if(v==="crm")vCrm();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
+  if(v==="eve")vEve();else if(v==="home")vHome();else if(v==="profile")vProfile();else if(v==="search")vSearch();else if(v==="mind")vMind();else if(v==="biz")vBiz();else if(v==="mei")vMei();else if(v==="kanban")vKanban();else if(v==="rotina")vRotina();else if(v==="pros")vPros();else if(v==="lab")vLab();else if(v==="semana")vSemana();else if(v==="tutorial"){TUT=0;vTutorial();}else if(v==="presente")vPresente();else if(v==="conheca")vConheca();else if(v==="checklist")vChecklist();else if(v==="comercial")vComercial();else if(v==="google")vGoogle();else if(v==="apoio")vApoio();else if(v==="rede")vRede();else if(v==="eventos")vEventos();else if(v==="crm")vCrm();else if(v==="locked")vLocked(state.lk);else if(v==="quiz")vQuiz();else if(v==="match")vMatch();else if(v==="cases")vCases();else if(v==="wheel")vWheel();else if(v==="portfolio")vPortfolio();else if(v==="plans")vPlans();else if(v==="games")vGames();else if(v==="snake")vSnake();else if(v==="maze")vMaze();else if(v==="cross")vCross();else if(v==="contact")vContact();else if(v==="doll")vDoll();else if(v==="feedback")vFeedback();else if(v==="demo")vDemo();else if(v==="privacy")vPrivacy();else if(v==="access")vAccess();
   var kids=app.children;for(var i=0;i<kids.length;i++){if(noA){kids[i].style.animation="none";}else{kids[i].style.animationDelay=(i*55)+"ms";}}
   noA=false;
   var tab=(v==="portfolio"||v==="plans")?v:"home";
