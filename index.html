@@ -2377,7 +2377,7 @@ function render(){
 }
 if(/[?&]eve(=|&|$)/.test(location.search))state.view="eve";
 render();
-if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){});}
+if("serviceWorker" in navigator){var hadSW=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener("controllerchange",function(){if(hadSW&&!window.__rl){window.__rl=1;location.reload();}});navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(r){try{r.update();}catch(e){}}).catch(function(){});}
 sndIco();
 
 try{history.replaceState({v:"home"},"");history.pushState({v:"home"},"");}catch(e){}
