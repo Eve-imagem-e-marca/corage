@@ -866,7 +866,7 @@ function waUrl(msg){return WHATSAPP?"https://wa.me/"+WHATSAPP+"?text="+encodeURI
 function contactBtn(txt,msg,cls){return '<a class="'+(cls||"primary")+'" href="'+waUrl(msg||"Oi, Eve! Vi o app da CorAge e quero conversar.")+'" target="_blank" rel="noopener">'+txt+'</a>';}
 function go(v){if(!window.__pop&&v!==state.view){try{history.pushState({v:v},"");}catch(e){}}stopGame();var LK={maze:"Labirinto",cross:"Palavras cruzadas"};if(LK[v]&&!isInst()){state.view="locked";state.lk=LK[v];musicFor("games");render();window.scrollTo(0,0);return;}snd("go");if(v==="demo")dMode=(DEMO.biz&&DEMO.area!=null)?"prev":"form";state.view=v;musicFor(v);state.step=0;state.answers=[];if(v==="match"){state.match={g:(profile.goals&&profile.goals.length?profile.goals[0]:undefined)};}render();window.scrollTo(0,0);}
 function back(title,to){return '<div class="top"><button class="link" onclick="go(\''+(to||"home")+'\')">← Voltar</button><span class="small">'+(title||"")+'</span></div>';}
-function foot(){return '<p class="small" style="text-align:center;margin:18px 0 0">Compartilhe com aquela amiga empreendedora que vai adorar saber dessa novidade. <button class="link" onclick="shareApp()">Compartilhar</button></p><footer>CorAge, por Eve, imagem e marca 🤎<br><button class="link" onclick="go(\'privacy\')">Privacidade e segurança</button> · <button class="link" onclick="go(\'access\')">Uso e acessibilidade</button></footer>';}
+function foot(){return '<p class="small" style="text-align:center;margin:18px 0 0"><button class="link" onclick="shareApp()">Compartilhar com uma amiga empreendedora</button></p><footer>CorAge, por Eve, imagem e marca 🤎<br><button class="link" onclick="go(\'privacy\')">Privacidade e segurança</button> · <button class="link" onclick="go(\'access\')">Uso e acessibilidade</button></footer>';}
 function toggle(el){var all=document.querySelectorAll(".acc");for(var i=0;i<all.length;i++){if(all[i]===el){all[i].classList.toggle("open");}else{all[i].classList.remove("open");}}
   var c=el.getAttribute("data-big");if(c&&el.classList.contains("open")){runCount(el.querySelector(".num"));}}
 function runCount(n){if(!n)return;var to=parseFloat(n.getAttribute("data-to")),dec=parseInt(n.getAttribute("data-dec")),pre=n.getAttribute("data-pre")||"",suf=n.getAttribute("data-suf")||"";
@@ -888,18 +888,15 @@ function vHome(){
   var h='<section class="hero" style="padding-bottom:0"><h1 style="margin-bottom:6px">'+nm+'</h1></section>';
   var AC="onclick=\"if(event.target.closest('button')&&event.target.closest('.acc')===this&&!event.target.closest('.body'))toggle(this)\"";
   function box(ic,title,sub,body){return '<div class="acc" '+AC+'><button><div class="cic" style="width:40px;height:40px;font-size:0">'+ico(ic,22)+'</div><div style="flex:1"><b>'+title+'</b><span>'+sub+'</span></div><em>+</em></button><div class="body">'+body+'</div></div>';}
-  h+='<div class="card giftc"><div class="giftk">'+ico("sparkle",22)+'</div><div style="flex:1"><b>Que bom que você chegou aqui!</b><p class="small" style="margin:4px 0 10px">'+(new Date().getMonth()===10&&new Date().getDate()===19?'Hoje é o Dia do Empreendedorismo Feminino. ':'')+'Seu presente: 15 ferramentas gratuitas.</p><button class="primary glass-sm" style="width:100%" onclick="go(\'presente\')">Abrir meu presente</button></div></div>';
-  h+='<div class="card ia"><div class="iaw"><div class="iaav2">I</div><div><b>1. Comece com a Iasmin</b><small>Assistente virtual da CorAge</small></div></div><p style="margin:0 0 12px">Em poucos passos você conhece o app e ganha um Raio-X do seu trabalho.</p>'+
-   (nx?'<div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><span class="small" style="margin:0">'+nx[1]+'</span><button class="primary glass-sm pulse" onclick="go(\''+nx[0]+'\')">'+(started?"Continuar":"Começar")+' →</button></div>':contactBtn("Conversar com a CorAge","Oi, Eve! Fiz o Raio-X completo e quero conversar.","primary glass-sm pulse"))+
-   '<div style="text-align:center"><button class="link" onclick="iaOpen()">Tirar uma dúvida com a Iasmin</button></div></div>';
+  var hoje=(new Date().getMonth()===10&&new Date().getDate()===19)?'Hoje é o Dia do Empreendedorismo Feminino. ':'';
+  h+='<div class="card ia"><div class="iaw"><div class="iaav2">I</div><div><b>Oi! Eu sou a Iasmin</b><small>Assistente virtual da CorAge</small></div></div><p style="margin:0 0 12px">Que bom que você chegou aqui! '+hoje+'Preparei um presente: 17 ferramentas gratuitas para o seu negócio.</p><button class="primary glass-sm pulse" style="width:100%" onclick="go(\'presente\')">Abrir meu presente</button></div>';
   var gain='<p>Ao usar o CorAge, de graça, você leva:</p><ul class="gain"><li>'+ico("search",19)+'<span>Um Raio-X do seu trabalho</span></li><li>'+ico("bulb",19)+'<span>Ideias de post para usar hoje</span></li><li>'+ico("game",19)+'<span>Jogos com pontos e conquistas</span></li><li>'+ico("chat",19)+'<span>Uma conversa sem compromisso com a Eve</span></li><li>'+ico("lock",19)+'<span><b>Extras no app instalado:</b> Labirinto, Palavras cruzadas e o Vale Night</span></li></ul>';
   var gain='<p>Ao usar o CorAge, de graça, você leva:</p><ul class="gain"><li>'+ico("search",19)+'<span>Um Raio-X do seu trabalho</span></li><li>'+ico("bulb",19)+'<span>Ideias de post para usar hoje</span></li><li>'+ico("game",19)+'<span>Jogos com pontos e conquistas</span></li><li>'+ico("chat",19)+'<span>Uma conversa sem compromisso com a Eve</span></li><li>'+ico("lock",19)+'<span><b>Extras no app instalado:</b> Labirinto, Palavras cruzadas e o Vale Night</span></li></ul>';
   var prog2='<div class="ring" style="display:flex;align-items:center;gap:14px;margin-bottom:10px"><svg viewBox="0 0 76 76" style="width:64px;height:64px"><circle class="bg" cx="38" cy="38" r="30"/><circle class="fg" cx="38" cy="38" r="30" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'" id="fg"/></svg><div><b>Raio-X: '+n+' de 4</b><br>'+ptsTag()+'</div></div><h3 style="margin:4px 0 8px">Conquistas</h3>'+badgeRow();
   if(n===4)badge("raiox");
   var list='';STEPS.forEach(function(s){if(s[0]==='match'||s[0]==='quiz')return;list+='<button class="tool" onclick="go(\''+s[0]+'\')"><div class="ic">'+ico(s[3],26)+'</div><div><b>'+s[1]+'</b><span>'+s[2]+'</span></div>'+(prog[s[0]]?'<span class="ok">feito</span>':'')+'</button>';});
   list+='<button class="tool" onclick="go(\'feedback\')"><div class="ic">'+ico("heart",26)+'</div><div><b>O que você achou?</b><span>Dê de 1 a 5 estrelas</span></div></button>';
-  h+=box("compass","2. Ferramentas","Roda do conteúdo e jogos",list);
-  h+='<button class="tool hl" onclick="go(\'conheca\')"><div class="ic">'+ico("phone",26)+'</div><div><b>3. Conheça o seu app</b><span>Teste, prévia e o app que combina com você</span></div>'+(prog.demo?'<span class="ok">feito</span>':'')+'</button>';
+  h+='<button class="tool hl" onclick="go(\'conheca\')"><div class="ic">'+ico("phone",26)+'</div><div><b>Conheça o seu app</b><span>Raio-X do seu trabalho, prévia e o app que combina com você</span></div>'+(prog.demo?'<span class="ok">feito</span>':'')+'</button>';
   h+='<div class="sp"></div><button class="primary" onclick="go(\'contact\')">Quero o meu app</button>';
   h+=foot();
   app.innerHTML=h;
@@ -1947,17 +1944,18 @@ function vChecklist(){
   ckProg();ckMine();
 }
 function vConheca(){
-  var T=[["quiz","quiz","Seu trabalho precisa de um app?"],["match","phone","Que app combina com você?"],["demo","sparkle","Veja o seu app"]];
-  app.innerHTML=back("Conheça o seu app","home")+'<h2>Conheça o seu app</h2><p>Descubra se o seu trabalho precisa de um app, qual combina com você e veja uma prévia com o seu nome.</p><div class="tgrid">'+T.map(function(t){return '<button class="tile" onclick="go(\''+t[0]+'\')" style="--c:#1f4e52"><span class="ti">'+ico(t[1],26)+'</span><b>'+t[2]+'</b></button>';}).join('')+'</div>'+starsBox("conheca")+foot();
+  var T=[["quiz","quiz","Raio-X do seu trabalho"],["match","phone","Que app combina com você?"],["demo","sparkle","Veja o seu app"]];
+  app.innerHTML=back("Conheça o seu app","home")+'<h2>Conheça o seu app</h2><p>Faça o Raio-X do seu trabalho, descubra qual app combina com você e veja uma prévia com o seu nome.</p><div class="tgrid">'+T.map(function(t){return '<button class="tile" onclick="go(\''+t[0]+'\')" style="--c:#1f4e52"><span class="ti">'+ico(t[1],26)+'</span><b>'+t[2]+'</b></button>';}).join('')+'</div>'+starsBox("conheca")+foot();
 }
 function vPresente(){
   var G=[
    ["Organizar","#6e2539",[["biz","coin","Gestão do negócio"],["checklist","check","Checklist"],["kanban","puzzle","Quadro de tarefas"],["pros","compass","Prospecção"],["rotina","briefcase","Rotina comercial"],["semana","calendar","Agenda da semana"],["crm","heart","Clientes e metas"],["comercial","calendar","Calendário comercial"]]],
    ["Legalizar e crescer","#1f4e52",[["mei","file","MEI"],["apoio","briefcase","Onde buscar ajuda"],["rede","users","Rede de empreendedoras"],["eventos","calendar","Eventos grátis"]]],
-   ["Marca","#8a6630",[["google","search","Google grátis"],["lab","chat","Mensagens com assistente"],["mind","sparkle","Mentalidade"]]]
+   ["Marca","#8a6630",[["google","search","Google grátis"],["lab","chat","Mensagens com assistente"],["mind","sparkle","Mentalidade"]]],
+   ["Para se divertir","#6b4a36",[["wheel","wheel","Roda do conteúdo"],["games","game","Jogos com recompensas"]]]
   ],h='';
   G.forEach(function(g){h+='<div class="tlab" style="color:'+g[1]+'">'+g[0]+'</div><div class="tgrid">'+g[2].map(function(t){return '<button class="tile" onclick="go(\''+t[0]+'\')" style="--c:'+g[1]+'"><span class="ti">'+ico(t[1],26)+'</span><b>'+t[2]+'</b></button>';}).join('')+'</div>';});
-  app.innerHTML=back("Seu presente","home")+'<h2>Seu presente</h2><p>15 ferramentas gratuitas para o seu negócio.</p>'+h+starsBox("presente")+foot();
+  app.innerHTML=back("Seu presente","home")+'<h2>Seu presente</h2><p>17 ferramentas gratuitas para o seu negócio.</p>'+h+starsBox("presente")+foot();
 }
 var KBC=[["A fazer","#6e2539"],["Fazendo","#1f4e52"],["Aguardando","#b08a57"],["Feito","#6b4a36"]],KBT=0;
 var KBA=[[["Começar",1],["Apagar",-1]],[["Concluir",3],["Aguardar",2],["Voltar",0]],[["Retomar",1],["Concluir",3]],[["Reabrir",0],["Apagar",-1]]];
