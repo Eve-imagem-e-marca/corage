@@ -886,7 +886,7 @@ function done(k){if(!prog[k]){prog[k]=1;ls("cg_prog",prog);addPts(10);}}
 function count(){return (prog.quiz?1:0)+(prog.match?1:0)+(prog.cases?1:0)+(prog.wheel?1:0);}
 function waUrl(msg){return WHATSAPP?"https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg):INSTAGRAM;}
 function contactBtn(txt,msg,cls){return '<a class="'+(cls||"primary")+'" href="'+waUrl(msg||"Oi, Eve! Vi o app da CorAge e quero conversar.")+'" target="_blank" rel="noopener">'+txt+'</a>';}
-var PLK=["biz","checklist","kanban","pros","rotina","semana","crm","comercial","mei","apoio","rede","eventos","google","lab","wheel","mind","games"];
+var PLK=[];
 function go(v){if(PLK.indexOf(v)>-1&&!window.__eveok&&!window.__plin){state.pl=v;v="plock";}if(!window.__pop&&v!==state.view){try{history.pushState({v:v},"");}catch(e){}}stopGame();var LK={maze:"Labirinto",cross:"Palavras cruzadas"};if(LK[v]&&!isInst()){state.view="locked";state.lk=LK[v];musicFor("games");render();window.scrollTo(0,0);return;}snd("go");if(v==="demo")dMode=(DEMO.biz&&DEMO.area!=null)?"prev":"form";state.view=v;musicFor(v);state.step=0;state.answers=[];if(v==="match"){state.match={g:(profile.goals&&profile.goals.length?profile.goals[0]:undefined)};}render();window.scrollTo(0,0);}
 function back(title,to){return '<div class="top"><button class="link" onclick="go(\''+(to||"home")+'\')">← Voltar</button><span class="small">'+(title||"")+'</span></div>';}
 function foot(){return '<p class="small" style="text-align:center;margin:18px 0 0"><button class="link" onclick="shareApp()">Compartilhar com uma amiga empreendedora</button></p><footer>CorAge, por Eve, imagem e marca 🤎<br><button class="link" onclick="go(\'privacy\')">Privacidade e segurança</button> · <button class="link" onclick="go(\'access\')">Uso e acessibilidade</button></footer>';}
@@ -1984,7 +1984,7 @@ function vPresente(){
    ["Para se divertir","#6b4a36",[["games","game","Jogos com recompensas"]]]
   ],h='';
   G.forEach(function(g){h+='<div class="tlab" style="color:'+g[1]+'">'+g[0]+'</div><div class="tgrid">'+g[2].map(function(t){return '<button class="tile" onclick="plGo(\''+t[0]+'\')" style="--c:'+g[1]+'"><span class="ti">'+ico(t[1],26)+'</span><b>'+t[2]+'</b></button>';}).join('')+'</div>';});
-  app.innerHTML=back("Seu presente","home")+'<h2>Um presente para você</h2><p>Para o seu negócio, você conta com ferramentas específicas que podem te ajudar. Toque em uma para ver como funciona.</p>'+h+starsBox("presente")+foot();
+  app.innerHTML=back("Seu presente","home")+'<h2>Um presente para você</h2><p>Para o seu negócio, você conta com ferramentas específicas que podem te ajudar. Toque em uma e use agora.</p>'+h+starsBox("presente")+foot();
 }
 var KBC=[["A fazer","#6e2539"],["Fazendo","#1f4e52"],["Aguardando","#b08a57"],["Feito","#6b4a36"]],KBT=0;
 var KBA=[[["Começar",1],["Apagar",-1]],[["Concluir",3],["Aguardar",2],["Voltar",0]],[["Retomar",1],["Concluir",3]],[["Reabrir",0],["Apagar",-1]]];
