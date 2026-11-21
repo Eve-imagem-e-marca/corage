@@ -2395,6 +2395,32 @@ function render(){
   var bs=document.querySelectorAll("#tabs button");for(var j=0;j<bs.length;j++){bs[j].classList.toggle("on",bs[j].getAttribute("data-t")===tab);}
   
 }
+
+var TEO={
+checklist:["Checklist do negócio","Uma lista de tudo o que o seu negócio precisa para funcionar de verdade.","O que não está escrito se perde. E ver o progresso dá ânimo para continuar.","Marque o que você já tem. Escolha um item pendente por semana e comemore cada um que concluir."],
+kanban:["Quadro de tarefas","Um quadro com colunas, que mostra o que falta fazer, o que está andando e o que já terminou.","A cabeça cansa quando guarda tudo. No quadro, você vê o que importa agora e para de se sentir atrasada.","Tire tudo da cabeça. Deixe no máximo 3 tarefas em Fazendo e termine antes de começar outra."],
+pros:["Prospecção","Procurar quem pode virar cliente, em vez de esperar que ela apareça.","Quem só espera vende por sorte. Quem procura todo dia vende com constância.","Defina uma meta pequena por semana, por exemplo 5 contatos. Faça a lista, mande uma mensagem curta e volte a falar com quem não respondeu."],
+rotina:["Rotina comercial","Pequenos hábitos de venda, repetidos todo dia, toda semana e todo mês.","Constância vale mais que intensidade. Um pouco todo dia gera mais resultado do que muito de vez em quando.","Separe 15 minutos por dia. Marque na agenda e, no fim da semana, veja o que funcionou."],
+semana:["Agenda da semana","Um plano da semana por horário, para cada coisa ter o seu lugar.","O urgente engole o importante quando não há plano. Com horário marcado, o que traz clientes não fica para depois.","Bloqueie primeiro vendas e conteúdo. Depois encaixe o resto e deixe uma folga para imprevistos."],
+crm:["Clientes e metas","Um registro de quem são os seus clientes, o que conversaram e quando falar de novo.","Vender de novo para quem já comprou costuma ser mais fácil do que conquistar alguém novo. Mas só funciona se você lembrar de chamar.","Anote a conversa e a data do próximo contato. Defina uma meta por mês e acompanhe."],
+comercial:["Calendário comercial","As datas do ano em que as pessoas mais compram, como Dia das Mães, Black Friday e Natal.","Nessas datas, a vontade de comprar já existe. Quem se prepara antes aproveita mais e sem correria.","Escolha 3 datas que combinam com o seu trabalho. Prepare a oferta 3 semanas antes e coloque na agenda."],
+mei:["MEI","A forma de formalizar um pequeno negócio, com CNPJ próprio.","Com CNPJ você emite nota, abre conta de empresa e tem direitos previdenciários. Também evita problemas por trabalhar sem registro.","Veja se a sua atividade pode ser MEI, respeite o limite de faturamento anual e pague a guia todo mês. Para dúvidas de imposto, fale com um contador."],
+apoio:["Onde buscar ajuda","Lugares que orientam, dão cursos e oferecem crédito para quem empreende.","Pedir ajuda também é estratégia. Quem se orienta erra menos e cresce com mais segurança.","Comece pelo que você precisa agora: orientação, curso, crédito ou espaço. Confira as regras e os juros antes de contratar."],
+rede:["Rede de empreendedoras","Um grupo de mulheres que se apoiam, trocam e indicam umas às outras.","Ninguém cresce sozinha. A maior parte das indicações vem de quem confia em você.","Converse com uma pessoa nova por semana. Indique alguém e peça indicação também."],
+eventos:["Eventos","Encontros, aulas e feiras para aprender e conhecer gente.","Evento bom gera aprendizado e contato, e contato vira cliente ou parceria.","Escolha um por mês. Leve o seu QR Code ou cartão e uma frase sobre o que você faz. Mande mensagem para quem conheceu em até 24 horas."],
+google:["Google para o negócio","O Perfil da Empresa no Google faz o seu negócio aparecer em buscas e no mapa.","Muita gente pesquisa antes de comprar. Se não achar você, procura outra pessoa.","Complete o perfil com fotos, horário e contato. Peça avaliações para as clientes satisfeitas."],
+lab:["Mensagens com assistente","Um jeito de pedir a um assistente que escreva o rascunho de mensagens e anúncios.","Economiza tempo, mas o texto só funciona se tiver o seu jeito de falar.","Diga para quem você fala e o que quer. Gere o texto e ajuste para ficar com a sua voz."],
+wheel:["Roda do conteúdo","Uma roda que sorteia ideias de post para você.","Faltar ideia é um dos motivos de parar de postar. Variar o formato mantém o perfil vivo.","Gire e adapte a ideia ao seu assunto. Publique em até um dia para não esfriar."],
+mind:["Mentalidade","Frases e ideias curtas para empreender com mais leveza.","O jeito de pensar muda o que você faz. Uma frase que faz sentido ajuda a seguir nos dias difíceis.","Escolha uma frase por dia. Ligue com uma ação pequena e, se quiser, poste nos stories."],
+games:["Jogos com recompensas","Jogos leves, com pontos de coragem e conquistas.","Pausa também faz parte do trabalho. E, no app de uma marca, o jogo traz a cliente de volta e cria o hábito de abrir.","Use como pausa de 5 minutos. Veja como um jogo pode fidelizar as suas clientes."]};
+function addTeo(id){
+  var t=TEO[id];if(!t||!app||app.querySelector("#teo"))return;
+  var d=document.createElement("div");d.id="teo";d.className="card";d.style.cssText="margin:12px 0;border-left:5px solid #1f4e52";
+  d.innerHTML='<b style="color:#1f4e52;font-size:18px;display:block;margin-bottom:6px">Entenda em 1 minuto</b><p style="margin:0 0 8px"><b>O que é:</b> '+t[1]+'</p><p style="margin:0 0 8px"><b>Por que importa:</b> '+t[2]+'</p><p style="margin:0"><b>Como usar:</b> '+t[3]+'</p>';
+  var h=app.querySelector("h2"),p=h&&h.nextElementSibling;
+  if(p&&p.tagName==="P")p.parentNode.insertBefore(d,p.nextSibling);else if(h)h.parentNode.insertBefore(d,h.nextSibling);
+}
+[["mind","vMind"],["mei","vMei"],["kanban","vKanban"],["rotina","vRotina"],["pros","vPros"],["lab","vLab"],["semana","vSemana"],["checklist","vChecklist"],["comercial","vComercial"],["google","vGoogle"],["apoio","vApoio"],["rede","vRede"],["eventos","vEventos"],["crm","vCrm"],["wheel","vWheel"],["games","vGames"]].forEach(function(x){var f=window[x[1]];if(typeof f==="function"){window[x[1]]=function(){f.apply(this,arguments);addTeo(x[0]);};}});
 if(/[?&]eve(=|&|$)/.test(location.search))state.view="eve";
 render();
 if("serviceWorker" in navigator){var hadSW=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener("controllerchange",function(){if(hadSW&&!window.__rl){window.__rl=1;location.reload();}});navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(r){try{r.update();}catch(e){}}).catch(function(){});}
