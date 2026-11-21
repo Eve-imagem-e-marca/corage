@@ -2262,21 +2262,37 @@ function mindShare(){
 }
 
 /* Gestão do negócio: calculadoras, mini planilha e agenda */
-var BZ={tab:"calc",s:null};
+var BZ={tab:"preco",s:null};
 function nBR(v){v=String(v==null?"":v).replace(/\./g,"").replace(",",".");var n=parseFloat(v);return isNaN(n)?0:n;}
 function fBR(n){return (isFinite(n)?n:0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});}
 function fPc(n){return (isFinite(n)?n:0).toLocaleString("pt-BR",{maximumFractionDigits:1})+"%";}
 function bzInp(id,l,ph,val){return '<label class="l" for="'+id+'">'+l+'</label><input id="'+id+'" class="inp" inputmode="decimal" placeholder="'+(ph||"0,00")+'" value="'+(val||"")+'" oninput="bzCalc()" style="width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024">';}
 function bzTab(t){BZ.tab=t;vBiz();}
 function vBiz(){
-  var tabs=[["calc","Calculadoras"],["sheet","Financeiro"],["agenda","Agenda"]],h=back("Gestão básica do negócio","presente")+'<h2>Gestão básica do negócio</h2><p>Calculadoras para precificar, controle financeiro mensal e agenda. Tudo fica só no seu celular.</p><div class="drow" style="margin-bottom:10px">';
+  var tabs=[["preco","Como precificar"],["calc","Calculadoras"],["sheet","Financeiro"],["agenda","Agenda"]],h=back("Gestão básica do negócio","presente")+'<h2>Gestão básica do negócio</h2><p>Aprenda a precificar, use as calculadoras e controle o mês. Tudo fica só no seu celular.</p><div class="drow" style="margin-bottom:10px">';
   tabs.forEach(function(t){h+='<button class="dpill'+(BZ.tab===t[0]?' on':'')+'" onclick="bzTab(\''+t[0]+'\')">'+t[1]+'</button>';});
   h+='</div>';
-  if(BZ.tab==="calc")h+=bzCalcHtml();else if(BZ.tab==="sheet")h+=bzSheetHtml();else h+=bzAgendaHtml();
+  if(BZ.tab==="preco")h+=bzPrecoHtml();else if(BZ.tab==="calc")h+=bzCalcHtml();else if(BZ.tab==="sheet")h+=bzSheetHtml();else h+=bzAgendaHtml();
   h+='<p class="small">São simulações para te orientar. Para decisões fiscais, fale com o seu contador.</p>'+starsBox("biz")+foot();
-  app.innerHTML=h;if(BZ.tab==="calc")bzCalc();if(BZ.tab==="sheet")bzSheetDraw();
+  app.innerHTML=h;if(BZ.tab==="preco")bzAj();if(BZ.tab==="calc")bzCalc();if(BZ.tab==="sheet")bzSheetDraw();
 }
 function bzBox(t,body){return '<details class="grp" style="--gc:#6e2539" ontoggle="grpOne(this)"><summary>'+t+'<i>+</i></summary><div class="dgb">'+body+'</div></details>';}
+function bzPrecoHtml(){
+  var P=function(t){return '<p style="margin:0 0 8px">'+t+'</p>';};
+  var sel=function(id,l,ops){return '<label class="l" for="'+id+'">'+l+'</label><select id="'+id+'" onchange="bzAj()" style="width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #c9b48e;background:#fffdf8;color:#2f2024">'+ops.map(function(o){return '<option value="'+o[0]+'">'+o[1]+'</option>';}).join('')+'</select>';};
+  return '<div class="grps">'+
+  bzBox("Preço não é só custo",P("Preço é o valor que a cliente enxerga, não só o que você gastou. Ele conta quem você é, o que entrega e o resultado que a cliente leva.")+P("Cobrar barato demais pode passar a ideia de pouca qualidade. Cobrar sem explicar o valor afasta a cliente. O caminho é ficar no meio: um preço justo para você e coerente com o que você entrega."))+
+  bzBox("Os 4 Ps do marketing",P("<b>Produto:</b> o que você vende e o que muda na vida da cliente. Quanto mais claro o resultado, mais fácil de justificar o preço.")+P("<b>Preço:</b> quanto cobrar. Junta custo, o seu tempo, o mercado e o valor percebido.")+P("<b>Praça:</b> onde e como a cliente compra: presencial, online, WhatsApp, app. Atender na casa da cliente ou em um lugar mais sofisticado muda o preço.")+P("<b>Promoção:</b> como você se mostra: conteúdo, depoimentos, indicações. Quem aparece bem e prova resultado pode cobrar mais."))+
+  bzBox("O que faz o preço subir",P("<b>Valor de mercado:</b> pesquise 3 a 5 profissionais parecidas com você e veja a faixa de preço. Ela é a sua referência.")+P("<b>Tempo de experiência:</b> quem tem mais anos de prática erra menos, resolve mais rápido e passa segurança.")+P("<b>Autoridade:</b> formação, resultados, depoimentos, aparições e conteúdo mostram que você é referência no assunto.")+P("<b>Demanda:</b> agenda cheia e lista de espera mostram que dá para cobrar mais.")+P("<b>Exclusividade:</b> um método seu, um atendimento diferente ou poucas vagas aumentam o valor."))+
+  bzBox("Passo a passo para definir o seu preço",'<ol style="margin:0 0 8px 18px;padding:0"><li>Calcule o seu custo e o valor da sua hora, na aba Calculadoras.</li><li>Pesquise a faixa de preço do mercado.</li><li>Ajuste pela sua experiência e autoridade, na simulação abaixo.</li><li>Teste o preço com as primeiras clientes e ajuste.</li></ol><button class="ckl" style="--c:#1f4e52;width:100%" onclick="bzTab(\'calc\')">Ir para as Calculadoras</button>')+
+  bzBox("Simule o seu preço",'<p class="small" style="margin:0 0 8px">Uma ideia de faixa para você começar. Ajuste com o que você sentir que faz sentido.</p>'+bzInp("pa_m","Preço médio do mercado (R$)")+sel("pa_e","Seu tempo de experiência",[["0","Menos de 1 ano"],["10","1 a 3 anos"],["20","3 a 7 anos"],["30","Mais de 7 anos"]])+sel("pa_a","Sua autoridade no assunto",[["0","Estou começando a me mostrar"],["10","Já tenho clientes e depoimentos"],["25","Sou referência, com conteúdo e resultados"]])+sel("pa_d","Sua agenda hoje",[["0","Tenho vagas sobrando"],["5","Agenda quase cheia"],["10","Agenda cheia ou lista de espera"]])+'<div class="card" id="pa_r" style="margin-top:14px"></div>')+'</div>';
+}
+function bzAj(){
+  var m=nBR((document.getElementById("pa_m")||{}).value||0),e=parseFloat((document.getElementById("pa_e")||{}).value||0),a=parseFloat((document.getElementById("pa_a")||{}).value||0),d=parseFloat((document.getElementById("pa_d")||{}).value||0),o=document.getElementById("pa_r");
+  if(!o)return;if(!m){o.innerHTML='<span class="small">Preencha o preço médio do mercado.</span>';return;}
+  var f=1+(e+a+d)/100,v=m*f;
+  o.innerHTML='<span class="small" style="display:block">Faixa sugerida</span><b style="font-size:22px;color:#6e2539">'+fBR(v*0.95)+' a '+fBR(v*1.05)+'</b><p style="margin:6px 0 0">Ajuste de '+Math.round((f-1)*100)+'% sobre o mercado. Confira se cobre o seu custo e o valor da sua hora.</p>';
+}
 function bzCalcHtml(){
   var N=function(t){return '<p class="small" style="margin:0 0 8px">'+t+'</p>';},R=function(i){return '<div class="card" id="'+i+'" style="margin-top:14px"></div>';};
   return '<div class="grps">'+
