@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tráfego pago guiado</title>
+<style>
+:root{--bg:#F6EFE6;--card:#FFFBF5;--ink:#3E2A20;--soft:#7A6556;--mar:#7A2E3B;--gold:#C9A24B;--line:#E4D5C0}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:20px 16px 48px}
+main{max-width:560px;margin:0 auto}
+h1{font:600 28px/1.15 Georgia,"Times New Roman",serif;margin:6px 0 4px}
+.sub{margin:0 0 18px;color:var(--soft);font-size:17px}
+.card{position:relative;background:linear-gradient(150deg,rgba(255,255,255,.85),rgba(250,238,224,.55));border:1px solid rgba(201,162,75,.5);border-radius:24px;padding:22px 18px 18px;box-shadow:inset 0 1px 0 #fff,0 16px 36px rgba(90,31,42,.09)}
+.card::before{content:"";position:absolute;left:24px;right:24px;top:-1px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.dots{display:flex;gap:6px;margin:0 0 14px}.dots i{flex:1;height:4px;border-radius:4px;background:#E9DCC8}.dots i.on{background:linear-gradient(90deg,var(--gold),#E3B94F)}
+.eb{font:700 12.5px/1 system-ui;letter-spacing:.14em;text-transform:uppercase;color:var(--mar);margin:0 0 10px}
+h2{font:600 24px/1.2 Georgia,serif;margin:0 0 12px}
+label{display:block;font-weight:600;margin:14px 0 6px}
+select,input[type=text]{width:100%;font:inherit;padding:14px;border-radius:14px;border:1px solid var(--line);background:#fff;color:var(--ink)}
+.op{display:block;width:100%;text-align:left;margin:0 0 10px;padding:15px 16px;border-radius:16px;border:1px solid rgba(201,162,75,.5);background:rgba(255,255,255,.55);font:inherit;color:var(--ink);cursor:pointer}
+.op.on{background:linear-gradient(180deg,#8E3748,#6A2230);color:#fff;border-color:rgba(232,200,120,.85)}
+.op small{display:block;opacity:.75;font-size:15px}
+.nav{display:flex;gap:10px;margin-top:18px}
+.b{flex:1;min-height:52px;border-radius:999px;font:600 17px system-ui;cursor:pointer;border:1px solid rgba(201,162,75,.75)}
+.b.p{color:#fff;background:linear-gradient(180deg,#8E3748,#6A2230);border-color:rgba(232,200,120,.85);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 8px 18px rgba(122,43,58,.28)}
+.b.g{color:var(--mar);background:rgba(255,255,255,.5)}
+.b:active{transform:scale(.97)}.b[disabled]{opacity:.45}
+.res{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin:0 0 12px}
+.res b.t{display:block;color:var(--mar);margin-bottom:4px}
+.big{font:600 30px/1.1 Georgia,serif;color:var(--mar)}
+details{background:rgba(255,255,255,.6);border:1px solid var(--line);border-radius:16px;margin:0 0 10px}
+summary{cursor:pointer;padding:14px 16px;font-weight:700;color:var(--mar);list-style:none}
+summary::-webkit-details-marker{display:none}summary::after{content:"+";float:right}details[open] summary::after{content:"−"}
+.in{padding:0 16px 14px}.in ol,.in ul{margin:0;padding-left:22px}.in li{margin:0 0 6px}
+.txt{white-space:pre-wrap;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;margin:8px 0;font-size:17px}
+.cp{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid rgba(201,162,75,.75);background:rgba(255,255,255,.55);color:var(--mar);font:600 15px system-ui;cursor:pointer}
+.aviso{font-size:15px;color:var(--soft)}
+.foot{margin-top:26px;text-align:center;font-size:13.5px;color:var(--soft)}
+</style>
+</head>
+<body>
+<main>
+<h1>Tráfego pago guiado</h1>
+<p class="sub">Seu anúncio pronto em 4 passos, sem complicação.</p>
+<div class="card" id="app"></div>
+<p class="foot">Corage produtos digitais, direitos reservados. Desenvolvido por @eve.imagememarca</p>
+</main>
+<script>
+(function(){
+var PROF={
+"Esteticista":{s:["Limpeza de pele","Design de sobrancelhas","Massagem","Depilação","Tratamento facial"],i:"beleza, cuidados com a pele, bem-estar",imagem:"uma foto real do seu espaço ou do seu trabalho, com boa luz"},
+"Maquiadora":{s:["Maquiagem para eventos","Maquiagem de noivas","Aula de automaquiagem","Maquiagem social"],i:"maquiagem, beleza, casamentos e eventos",imagem:"uma foto real de uma make pronta, com boa luz"},
+"Cabeleireira":{s:["Corte","Coloração","Escova","Tratamento capilar"],i:"cabelo, beleza, salão",imagem:"uma foto real do seu trabalho, com boa luz"},
+"Consultora de imagem":{s:["Consultoria de imagem","Organização de guarda-roupa","Compras guiadas","Coloração pessoal"],i:"moda, estilo, imagem pessoal, desenvolvimento",imagem:"uma foto sua trabalhando ou um look montado"},
+"Arteterapeuta ou terapeuta holística":{s:["Sessão de arteterapia","Oficina de pintura","Círculo de mulheres","Atendimento individual"],i:"arte, bem-estar, autoconhecimento",imagem:"uma foto real dos seus materiais ou do seu espaço acolhedor"},
+"Mentora ou coach":{s:["Mentoria individual","Mentoria em grupo","Workshop","Aula experimental"],i:"empreendedorismo, carreira, desenvolvimento pessoal",imagem:"uma foto sua, sorrindo, em um fundo simples"},
+"Loja de roupas ou acessórios":{s:["Nova coleção","Peças em destaque","Presentes","Atendimento no WhatsApp"],i:"moda feminina, compras, acessórios",imagem:"uma foto real das peças, com boa luz"}
+};
+var OBJ={
+"Mais mensagens no WhatsApp":{cta:"Toque no botão e me chame no WhatsApp.",med:"mensagens iniciadas e custo por mensagem",camp:"Mensagens"},
+"Mais pessoas me seguindo":{cta:"Siga o perfil e acompanhe o meu trabalho.",med:"novos seguidores e custo por seguidor",camp:"Tráfego (visitas ao perfil)"},
+"Mais agendamentos":{cta:"Toque em Saiba mais e reserve o seu horário.",med:"cliques no botão e custo por clique",camp:"Mensagens"}
+};
+var VERBA=[10,15,20,30,50],DIAS=[3,5,7];
+var S={p:0,prof:"",serv:"",obj:"",cid:"",verba:15,dias:5};
+var app=document.getElementById("app");
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function brl(n){return "R$ "+n.toLocaleString("pt-BR")}
+function dots(){var h='<div class="dots">';for(var i=0;i<4;i++)h+='<i class="'+(i<=S.p?"on":"")+'"></i>';return h+"</div>"}
+function nav(ok,ultimo){return '<div class="nav">'+(S.p>0?'<button class="b g" data-a="v">‹ Voltar</button>':"")+'<button class="b p" data-a="n"'+(ok?"":" disabled")+'>'+(ultimo?"Ver meu anúncio":"Continuar ›")+'</button></div>'}
+function textos(){var sv=S.serv.toLowerCase(),c=S.cid?" em "+S.cid:"",cta=OBJ[S.obj].cta;return[
+["Direto",S.serv+c+". "+cta],
+["Com pergunta","Você já pensou em tirar um tempo para você? Venha conhecer o meu trabalho com "+sv+c+". "+cta],
+["Convite leve","Um cuidado de cada vez muda o seu dia. Conheça o meu trabalho com "+sv+c+". "+cta]]}
+function passo(){var P=PROF[S.prof],h="";
+if(S.p===0){h='<p class="eb">Passo 1 de 4</p><h2>Quem é você?</h2>'+Object.keys(PROF).map(function(k){return '<button class="op'+(S.prof===k?" on":"")+'" data-prof="'+esc(k)+'">'+esc(k)+'</button>'}).join("");
+if(S.prof){h+='<label for="sv">O que você quer divulgar?</label><select id="sv"><option value="">Escolher…</option>'+PROF[S.prof].s.map(function(x){return '<option'+(S.serv===x?" selected":"")+'>'+esc(x)+'</option>'}).join("")+'</select>'}
+h+=nav(S.prof&&S.serv)}
+else if(S.p===1){h='<p class="eb">Passo 2 de 4</p><h2>O que você quer com o anúncio?</h2>'+Object.keys(OBJ).map(function(k){return '<button class="op'+(S.obj===k?" on":"")+'" data-obj="'+esc(k)+'">'+esc(k)+'</button>'}).join("")+'<label for="cid">Cidade ou bairro (opcional)</label><input type="text" id="cid" value="'+esc(S.cid)+'" placeholder="Ex.: São Paulo">'+nav(S.obj)}
+else if(S.p===2){h='<p class="eb">Passo 3 de 4</p><h2>Quanto quer investir?</h2><label for="vb">Por dia</label><select id="vb">'+VERBA.map(function(v){return '<option value="'+v+'"'+(S.verba===v?" selected":"")+'>'+brl(v)+' por dia</option>'}).join("")+'</select><label for="dd">Por quantos dias</label><select id="dd">'+DIAS.map(function(v){return '<option value="'+v+'"'+(S.dias===v?" selected":"")+'>'+v+' dias</option>'}).join("")+'</select><div class="res" style="margin-top:16px"><b class="t">Investimento total</b><span class="big">'+brl(S.verba*S.dias)+'</span></div><p class="aviso">Comece pequeno. Com pouco já dá para testar e aprender.</p>'+nav(true,true)}
+else{var T=textos(),O=OBJ[S.obj];
+h='<p class="eb">Passo 4 de 4</p><h2>Seu anúncio está pronto</h2>'+
+'<div class="res"><b class="t">Investimento</b><span class="big">'+brl(S.verba*S.dias)+'</span><br>'+brl(S.verba)+' por dia, durante '+S.dias+' dias.</div>'+
+'<details name="r" open><summary>Textos do anúncio</summary><div class="in">'+T.map(function(t,i){return '<b>'+t[0]+'</b><div class="txt" id="tx'+i+'">'+esc(t[1])+'</div><button class="cp" data-cp="tx'+i+'">Copiar</button> '}).join("<br><br>")+'<p class="aviso" style="margin-top:12px">Escolha um. Sem promessa de resultado e sem preço.</p></div></details>'+
+'<details name="r"><summary>Imagem e público</summary><div class="in"><p><b>Imagem:</b> use '+esc(P.imagem)+'. Sem muito texto sobre a foto.</p><p><b>Público (ponto de partida):</b> mulheres de 25 a 55 anos, num raio de 10 km'+(S.cid?" de "+esc(S.cid):"")+'. Interesses: '+esc(P.i)+'.</p><p><b>Onde aparecer:</b> deixe automático (Instagram e Facebook).</p></div></details>'+
+'<details name="r"><summary>Passo a passo no Gerenciador</summary><div class="in"><ol><li>Abra o <b>Gerenciador de Anúncios</b> da Meta e toque em <b>Criar</b>.</li><li>Objetivo: <b>'+O.camp+'</b>.</li><li>Defina o orçamento diário de <b>'+brl(S.verba)+'</b> e a duração de <b>'+S.dias+' dias</b>.</li><li>Público: use as sugestões da aba <b>Imagem e público</b>.</li><li>Cole o texto e envie a imagem.</li><li>Revise e toque em <b>Publicar</b>. A Meta analisa antes de começar.</li></ol><p><a href="https://adsmanager.facebook.com/" target="_blank" rel="noopener">Abrir o Gerenciador de Anúncios</a></p></div></details>'+
+'<details name="r"><summary>Como saber se está funcionando</summary><div class="in"><p>Olhe todo dia: <b>alcance</b>, <b>cliques</b> e <b>'+O.med+'</b>.</p><ul><li>Depois de 3 dias sem ninguém te chamar, troque a <b>imagem</b> ou o <b>texto</b>. Não aumente o valor ainda.</li><li>Se uma versão está melhor, deixe só ela.</li><li>Termine os '+S.dias+' dias antes de decidir.</li></ul></div></details>'+
+'<details name="r"><summary>Antes de anunciar</summary><div class="in"><ul><li>Este app prepara o texto. Ele <b>não cria nem publica</b> o anúncio.</li><li>Ninguém garante resultado.</li><li>Você paga direto à Meta.</li><li>Áreas da saúde e outras profissões com conselho têm regras de publicidade. Confirme com o seu conselho.</li></ul></div></details>'+
+'<div class="nav"><button class="b g" data-a="v">‹ Voltar</button><button class="b p" data-a="r">Fazer outro</button></div>'}
+app.innerHTML=dots()+h}
+app.addEventListener("click",function(e){var t=e.target.closest("button");if(!t)return;
+if(t.dataset.prof){if(S.prof!==t.dataset.prof){S.prof=t.dataset.prof;S.serv=""}passo();return}
+if(t.dataset.obj){S.obj=t.dataset.obj;passo();return}
+if(t.dataset.cp){var el=document.getElementById(t.dataset.cp);try{navigator.clipboard.writeText(el.textContent);t.textContent="Copiado ✓"}catch(x){t.textContent="Segure e copie o texto"}return}
+var a=t.dataset.a;if(a==="n"){S.p++;passo();scrollTo(0,0)}else if(a==="v"){S.p--;passo();scrollTo(0,0)}else if(a==="r"){S={p:0,prof:"",serv:"",obj:"",cid:"",verba:15,dias:5};passo();scrollTo(0,0)}});
+app.addEventListener("change",function(e){var t=e.target;if(t.id==="sv"){S.serv=t.value;passo()}else if(t.id==="vb"){S.verba=+t.value;passo()}else if(t.id==="dd"){S.dias=+t.value;passo()}});
+app.addEventListener("input",function(e){if(e.target.id==="cid")S.cid=e.target.value});
+passo();
+})();
+</script>
+</body>
+</html>
