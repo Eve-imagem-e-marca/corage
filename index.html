@@ -1910,11 +1910,13 @@ function vEve(){
   EVEP.forEach(function(r,i){h+='<div class="card"><b>'+r[0]+'</b><p class="small" style="margin:6px 0 8px">'+r[1]+'</p><input value="'+dEsc(pr[i]||r[2])+'" onchange="eveSet('+i+',this.value)" style="width:100%;font-size:20px;font-weight:700;color:#6e2539;padding:10px;border-radius:10px;border:1px solid #c9b48e;background:#fffdf8"></div>';});
   h+='<p class="small">Pontos de partida pelas regras de precificação: mercado, experiência, autoridade e demanda. Teste com as primeiras clientes e ajuste. Confira se cada valor cobre o seu custo e o valor da sua hora.</p>';
   h+='<h2 style="margin-top:22px">Questionário de social media</h2><p class="small">Briefing completo para uma cliente nova: 5 seções, 15 perguntas rápidas. Ela responde e envia para o seu WhatsApp.</p><a class="primary" style="display:block;text-align:center" href="questionario-social.html" target="_blank" rel="noopener">Abrir o questionário</a><button class="ckl" style="--c:#1f4e52;margin-top:10px" onclick="eveCopyQ()">Copiar link para a cliente</button>';
+  h+='<h2 style="margin-top:22px">Tráfego pago guiado</h2><p class="small">Passo a passo para a cliente montar o primeiro anúncio, com textos prontos e orientação do Gerenciador de Anúncios.</p><a class="primary" style="display:block;text-align:center" href="trafego.html" target="_blank" rel="noopener">Abrir o tráfego pago</a><button class="ckl" style="--c:#1f4e52;margin-top:10px" onclick="eveCopyT()">Copiar link para a cliente</button>';
   app.innerHTML=h+foot();
 }
 function eveGo(){var v=(document.getElementById("evep").value||"").trim(),pin=ls("cg_evepin");
   if(!pin){if(!/^\d{4,8}$/.test(v)){toast("Use de 4 a 8 números.");return;}ls("cg_evepin",eveH(v));window.__eveok=1;vEve();return;}
   if(eveH(v)===pin){window.__eveok=1;vEve();}else{toast("Senha incorreta.");}}
+function eveCopyT(){var u=new URL("trafego.html",location.href.split("?")[0]).href;if(navigator.clipboard)navigator.clipboard.writeText(u).then(function(){toast("Link copiado!");},function(){toast(u);});else toast(u);}
 function eveCopyQ(){var u=new URL("questionario-social.html",location.href.split("?")[0]).href;if(navigator.clipboard)navigator.clipboard.writeText(u).then(function(){toast("Link copiado!");},function(){toast(u);});else toast(u);}
 function eveSet(i,v){var pr=ls("cg_eveprice3")||{};pr[i]=v;ls("cg_eveprice3",pr);toast("Salvo.");}
 
