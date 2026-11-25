@@ -940,9 +940,9 @@ var PLK=[];
 function go(v){if(PLK.indexOf(v)>-1&&!window.__eveok&&!window.__plin){state.pl=v;v="plock";}if(!window.__pop&&v!==state.view){try{history.pushState({v:v},"");}catch(e){}}stopGame();var LK={maze:"Labirinto",cross:"Palavras cruzadas"};if(LK[v]&&!isInst()){state.view="locked";state.lk=LK[v];musicFor("games");render();window.scrollTo(0,0);return;}snd("go");if(v==="demo")dMode=(DEMO.biz&&DEMO.area!=null)?"prev":"form";state.view=v;musicFor(v);state.step=0;state.answers=[];if(v==="match"){state.match={g:(profile.goals&&profile.goals.length?profile.goals[0]:undefined)};}render();window.scrollTo(0,0);}
 function back(title,to){return '<div class="top"><button class="link" onclick="go(\''+(to||"home")+'\')">← Voltar</button><span class="small">'+(title||"")+'</span></div>';}
 function foot(){return '<p class="small" style="text-align:center;margin:18px 0 0"><button class="link" onclick="shareApp()">Compartilhar com uma amiga empreendedora</button></p><footer>CorAge | Produtos digitais 🤎<br><a href="'+INSTAGRAM+'" target="_blank" rel="noopener" style="font-size:12px;opacity:.8;color:inherit;text-decoration:none">@eve.imagememarca</a><br><button class="link" onclick="go(\'privacy\')">Privacidade e segurança</button> · <button class="link" onclick="go(\'access\')">Uso e acessibilidade</button></footer>';}
-var JOUR=["home","historia","oque","usar","conheca","presente","contact"];
+var JOUR=["home","oque","usar","presente","contact"];
 function miniFoot(){return '<footer>CorAge | Produtos digitais 🤎</footer>';}
-function jnav(v){var i=JOUR.indexOf(v),n=JOUR.length-1,h='<div class="jdots">';for(var k=0;k<n;k++){h+='<i class="'+(k===i?'on':'')+'"></i>';}h+='</div><div class="jnav">';if(i>0){h+='<button class="ckl jback" style="--c:#1f4e52" onclick="go(\''+JOUR[i-1]+'\')">Voltar</button>';}h+='<button class="primary jnext" onclick="go(\''+JOUR[i+1]+'\')">'+(v==="presente"?"Quero o meu app":"Próximo")+'</button></div>';return h;}
+function jnav(v){var i=JOUR.indexOf(v),n=JOUR.length-1,h='<div class="jdots">';for(var k=0;k<n;k++){h+='<i class="'+(k===i?'on':'')+'"></i>';}h+='</div><div class="jnav">';if(i>0){h+='<button class="ckl jback" style="--c:#1f4e52" onclick="go(\''+JOUR[i-1]+'\')">Voltar</button>';}h+='<button class="primary jnext" onclick="go(\''+JOUR[i+1]+'\')">'+(v==="presente"?"Deixar meu contato":"Próximo")+'</button></div>';return h;}
 function toggle(el){var all=document.querySelectorAll(".acc");for(var i=0;i<all.length;i++){if(all[i]===el){all[i].classList.toggle("open");}else{all[i].classList.remove("open");}}
   var c=el.getAttribute("data-big");if(c&&el.classList.contains("open")){runCount(el.querySelector(".num"));}}
 function runCount(n){if(!n)return;var to=parseFloat(n.getAttribute("data-to")),dec=parseInt(n.getAttribute("data-dec")),pre=n.getAttribute("data-pre")||"",suf=n.getAttribute("data-suf")||"";
@@ -972,7 +972,8 @@ function vHome(){
   var b4='<p>Um app só seu, no celular das suas clientes.</p><div class="grps" style="margin-top:10px">'+'<ul class="gain"><li>'+ico("calendar",19)+'<span><b>Mais tempo.</b> O app faz o que se repete.</span></li><li>'+ico("check",19)+'<span><b>Tudo num lugar.</b> Preços, contas e agenda.</span></li><li>'+ico("compass",19)+'<span><b>Mais clientes.</b> Mensagens prontas para vender.</span></li><li>'+ico("sparkle",19)+'<span><b>Marca forte.</b> A sua cara, sempre à vista.</span></li><li>'+ico("game",19)+'<span><b>Cliente que volta.</b> Jogos criam o hábito.</span></li><li>'+ico("phone",19)+'<span><b>Só seu.</b> Feito sob medida, com a sua marca.</span></li></ul></div>';
   function tl(c,ic,t,sub,go2){return '<button class="ckl" style="--c:'+c+';display:flex;align-items:center;gap:12px;text-align:left;width:100%;margin:0 0 10px;padding:14px 16px" onclick="go(\''+go2+'\')"><span style="flex:none;display:flex">'+ico(ic,26)+'</span><span style="flex:1;display:block"><b style="display:block;font-size:18px">'+t+'</b><span style="display:block;font-size:14px;font-weight:400;opacity:.92">'+sub+'</span></span><span style="font-size:20px">→</span></button>';}
   window.OQ_B2=b2;window.OQ_B4=b4;
-  h+='<div class="card ia">'+b1.replace(/<button class="ckl"[^>]*>Conheça a minha história<\/button>/,'')+'</div>'+jnav('home');
+  var hb=HIST.map(function(p){return '<p style="margin:0 0 10px"><b>'+p[0]+'.</b> '+dEsc(p[1])+'</p>';}).join('');
+  h+='<div class="card ia">'+b1.replace(/<button class="ckl"[^>]*>Conheça a minha história<\/button>/,'')+box("heart","Minha história","Toque para ler",hb)+'</div><div style="margin-top:14px">'+tl("#14363a","scan","Faça o Raio-X grátis","Veja em minutos o que já está forte no seu trabalho","quiz")+tl("#6e2539","heart","Um presente para você","Veja o que o seu app pode ter","presente")+'</div>'+jnav('home');
   h+=miniFoot();
   app.innerHTML=h;
   setTimeout(function(){var f=document.getElementById("fg");if(f)f.style.strokeDashoffset=off;},150);
@@ -1848,14 +1849,14 @@ function vDemo(){
 /* Contato */
 function vContact(){
   var opts=function(a,sel){var s='';for(var i=0;i<a.length;i++){s+='<option'+(a[i]===sel?' selected':'')+'>'+a[i]+'</option>';}return s;};
-  app.innerHTML=back("Contato","home")+'<h2>Deixe seu contato</h2><p>Eu respondo pelo WhatsApp.</p>'+
+  app.innerHTML=back("Contato","home")+'<h2>Vamos conversar?</h2><p>Deixe seu contato e nossa equipe fala com você. Depois, marcamos uma conversa rápida por Zoom para entender o seu negócio.</p>'+
    '<label class="l" for="fn">Seu nome</label><input type="text" id="fn" value="'+(profile.name||"")+'" autocomplete="given-name">'+
    '<label class="l" for="fw">Seu WhatsApp, com DDD</label><input type="text" inputmode="tel" id="fw" placeholder="11 90000-0000" autocomplete="tel">'+
-   '<label class="l" for="fa">Sua área de atuação</label><select id="fa" onchange="document.getElementById(\'fother\').style.display=(this.value===\'Outra área\'?\'block\':\'none\')">'+opts(areas,(profile.area&&areas.indexOf(profile.area)<0?"Outra área":profile.area))+'</select><input type="text" id="fother" maxlength="40" placeholder="Escreva a sua área" value="'+(profile.area&&areas.indexOf(profile.area)<0?dEsc(profile.area):"")+'" style="display:'+(profile.area&&areas.indexOf(profile.area)<0?'block':'none')+'">'+
+   '<label class="l" for="fa">Sua profissão</label><select id="fa" onchange="document.getElementById(\'fother\').style.display=(this.value===\'Outra área\'?\'block\':\'none\')">'+opts(areas,(profile.area&&areas.indexOf(profile.area)<0?"Outra área":profile.area))+'</select><input type="text" id="fother" maxlength="40" placeholder="Escreva a sua área" value="'+(profile.area&&areas.indexOf(profile.area)<0?dEsc(profile.area):"")+'" style="display:'+(profile.area&&areas.indexOf(profile.area)<0?'block':'none')+'">'+
    '<label class="l">O que você procura?</label><p class="small" style="margin:0 0 8px">Não sabe ainda? Sem problema, escolha a última.</p>'+needAcc()+
-   '<label class="l" for="fm">Quer contar mais? (opcional)</label><textarea id="fm" rows="3"></textarea>'+
+   '<label class="l" for="fi">Instagram ou site (opcional)</label><input type="text" id="fi" maxlength="80" placeholder="@seuperfil" autocapitalize="none">'+'<label class="l" for="fh">Melhor período para a conversa por Zoom</label><select id="fh"><option>Manhã</option><option>Tarde</option><option>Noite</option></select>'+'<label class="l" for="fm">Quer contar mais? (opcional)</label><textarea id="fm" rows="3"></textarea>'+
    '<label class="chk"><input type="checkbox" id="fc"><span>Concordo em ser contatada pela CorAge para falar sobre o meu app. Uso o seu contato só para isso.</span></label><button class="link" type="button" onclick="go(\'privacy\')" style="margin:-8px 0 12px">Ler a política de privacidade</button><p class="small">Não escreva dados de saúde, documentos ou senhas na mensagem.</p>'+
-   '<div id="fe" style="color:#b3261e;font-weight:600;margin-bottom:10px"></div><button class="primary pulse" onclick="sendForm()">Enviar</button><div style="margin-top:10px;text-align:center">'+contactBtn("Prefiro falar direto com a Eve no WhatsApp","Oi, Eve! Vi o app da CorAge e quero conversar.","ghost")+'</div>'+foot();
+   '<div id="fe" style="color:#b3261e;font-weight:600;margin-bottom:10px"></div><button class="primary pulse" onclick="sendForm()">Enviar</button><div style="margin-top:10px;text-align:center">'+contactBtn("Prefere falar agora? Chame no WhatsApp","Oi, Eve! Vi o app da CorAge e quero conversar.","ghost")+'</div>'+foot();
 }
 var NEEDS=["Ter um app para o meu negócio","Organizar o meu atendimento","Atrair mais clientes","Ainda não sei, quero conversar"],needSel=NEEDS[3];
 function needAcc(){
@@ -1871,15 +1872,16 @@ function gSend(o,cb){try{var fr=document.getElementById("gfr");if(!fr){fr=docume
   for(var k in o){var i=document.createElement("input");i.type="hidden";i.name=k;i.value=o[k];f.appendChild(i);}
   document.body.appendChild(f);f.submit();setTimeout(function(){try{document.body.removeChild(f);}catch(e){}cb(true);},1500);}catch(e){cb(false);}}
 function sendForm(){
-  var n=document.getElementById("fn").value.trim(),w=document.getElementById("fw").value.replace(/\D/g,""),a=document.getElementById("fa").value,fo=document.getElementById("fother"),nd=needSel,m=document.getElementById("fm").value.trim(),c=document.getElementById("fc").checked,e=document.getElementById("fe");
+  var n=document.getElementById("fn").value.trim(),w=document.getElementById("fw").value.replace(/\D/g,""),a=document.getElementById("fa").value,fo=document.getElementById("fother"),nd=needSel,m=document.getElementById("fm").value.trim(),ig=document.getElementById("fi").value.trim(),hr=document.getElementById("fh").value,c=document.getElementById("fc").checked,e=document.getElementById("fe");
   if(!n){e.textContent="Escreva o seu nome.";return;}
   if(a==="Outra área"&&fo&&fo.value.trim())a=fo.value.trim();
   if(w.length<10){e.textContent="Confira o WhatsApp, com DDD.";return;}
-  if(!c){e.textContent="Marque a caixinha para eu poder te chamar.";return;}
+  if(!c){e.textContent="Marque a caixinha para podermos te chamar.";return;}
+  m=(m?m+" | ":"")+(ig?"Instagram/site: "+ig+" | ":"")+"Melhor período para o Zoom: "+hr;
   var done_=function(msg){app.innerHTML='<h2>Recebi!</h2><div class="card"><p style="margin:0">'+msg+'</p></div><button class="primary" onclick="go(\'home\')">Voltar ao início</button>'+foot();window.scrollTo(0,0);};
   var txt="Oi, Eve! Sou "+n+" ("+a+"). Procuro: "+nd+"."+(m?" "+m:"")+" Meu WhatsApp: "+w;
   if(FORM.url){var o={};o[FORM.f.name]=n;o[FORM.f.whats]=w;o[FORM.f.area]=a||"-";o[FORM.f.need]=nd;o[FORM.f.msg]=m||"-";
-    gSend(o,function(ok){if(ok)done_("Seu contato chegou. Eu respondo pelo WhatsApp em breve.");else{window.open(waUrl(txt),"_blank");done_("Abri o seu WhatsApp com a mensagem pronta. É só enviar.");}});
+    gSend(o,function(ok){if(ok)done_("Seu contato chegou. Nossa equipe fala com você em breve para marcar a conversa por Zoom.");else{window.open(waUrl(txt),"_blank");done_("Abri o seu WhatsApp com a mensagem pronta. É só enviar.");}});
   }else{window.open(waUrl(txt),"_blank");done_("Abri o seu WhatsApp com a mensagem pronta. É só enviar.");}
 }
 
