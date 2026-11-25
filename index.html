@@ -641,6 +641,39 @@ main h2,#app>h2,#app h2{color:#5a1d2e}
 .ckl[style*="#14363a"] svg{stroke:#e6c98f!important;color:#e6c98f}
 .ckl[style*="#14363a"]:before{content:'';position:absolute;left:0;right:0;height:2px;top:0;background:linear-gradient(90deg,transparent,rgba(230,201,143,.9),transparent);box-shadow:0 0 12px rgba(230,201,143,.8);animation:scan 3.2s ease-in-out infinite;pointer-events:none}
 @keyframes scan{0%{top:6%;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:94%;opacity:0}}
+/* Vidro estilo iPhone (escuro): fundo verde petróleo profundo, vidro claro e texto branco */
+html,body{background:radial-gradient(70% 30% at 20% 0%,rgba(200,220,218,.55),transparent 70%),linear-gradient(180deg,#8fa9a6 0%,#4f7771 28%,#24463f 60%,#11261f 100%) fixed!important;color:#fff}
+.view .card,.view .acc,.view .tool:not(.hl),.view details.grp,.view .sharebox,.card{background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(255,255,255,.07))!important;-webkit-backdrop-filter:blur(28px) saturate(1.6);backdrop-filter:blur(28px) saturate(1.6);border:1px solid rgba(255,255,255,.38)!important;box-shadow:0 12px 34px rgba(0,0,0,.28),inset 0 1.5px 0 rgba(255,255,255,.5),inset 0 -1px 0 rgba(255,255,255,.12)!important;border-radius:28px}
+.view,.view h1,.view h2,.view h3,.view p,.view li,.view span,.view b,.view small,.view label,.view .small,.view .l,.view div{color:#fff;-webkit-text-fill-color:#fff}
+.view h2,#app h2{color:#fff!important;-webkit-text-fill-color:#fff!important;text-shadow:0 1px 8px rgba(0,0,0,.25)}
+.view .link,.view a.link{color:#f1d9a6!important;-webkit-text-fill-color:#f1d9a6!important}
+.view input,.view textarea,.view select{background:rgba(255,255,255,.18)!important;color:#fff!important;-webkit-text-fill-color:#fff!important;border:1px solid rgba(255,255,255,.4)!important}
+.view ::placeholder{color:rgba(255,255,255,.65)}
+.hdr{background:rgba(255,255,255,.14)!important;border-bottom:1px solid rgba(255,255,255,.3)!important}
+.hdr *{color:#fff}
+.cic svg,.view .li{color:#fff}
+.tabs{background:rgba(255,255,255,.16)!important;border:1px solid rgba(255,255,255,.4)!important}
+.tabs button{color:#fff!important}.tabs button.on{color:#14302f!important}
+.tabs:before{background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.7))}
+.ckl{background:linear-gradient(135deg,color-mix(in srgb,var(--c) 70%,transparent),color-mix(in srgb,var(--c) 42%,transparent))!important;border:1px solid rgba(255,255,255,.5)!important}
+html body .opt,html body .seg button,html body .dpill,html body .tile:not([style*="--c"]),html body .chip,html body .pill{background:rgba(255,255,255,.16)!important;color:#fff!important;-webkit-text-fill-color:#fff!important;border:1px solid rgba(255,255,255,.4)!important;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+html body .opt.on,html body .seg button.on,html body .dpill.on{background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.75))!important;color:#11302b!important;-webkit-text-fill-color:#11302b!important;border-color:#fff!important}
+html body .seg{background:rgba(255,255,255,.14)!important;border:1px solid rgba(255,255,255,.35)!important}
+html body .bar{background:rgba(255,255,255,.2)!important}
+html body .ib{background:rgba(255,255,255,.2)!important}
+html body .ib svg{stroke:#fff!important;color:#fff!important}
+html body .acc,html body .acc.lt,html body .acc.open{background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(255,255,255,.07))!important;border:1px solid rgba(255,255,255,.38)!important}
+html body .acc *:not(.ckl):not(.ckl *):not(.primary):not(svg):not(path){color:#fff!important;-webkit-text-fill-color:#fff!important}
+html body .acc svg{stroke:#f1d9a6!important}
+html body .acc .cic{background:rgba(255,255,255,.18)!important}
+html body .acc .body{background:transparent!important}
+html body .tile{background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(255,255,255,.08))!important;border:1px solid rgba(255,255,255,.38)!important;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+html body .tile b,html body .tile span{color:#fff!important;-webkit-text-fill-color:#fff!important}
+html body .tile .ti{background:rgba(255,255,255,.2)!important}
+html body .tile svg{stroke:#f1d9a6!important}
+html body .tlab{color:#f1d9a6!important;-webkit-text-fill-color:#f1d9a6!important}
+html body .view .acc.acc.acc,html body .view .acc.acc.open,html body .view .acc.acc.lt{background:rgba(255,255,255,.14)!important;background-image:linear-gradient(145deg,rgba(255,255,255,.22),rgba(255,255,255,.06))!important}
+html body .acc .acc *:not(svg):not(path){color:#fff!important;-webkit-text-fill-color:#fff!important}
 @media (prefers-reduced-motion:reduce){.ckl:before{animation:none!important;display:none}#app>*,.ckl:after,.tabs:before{animation:none;transition:none}.primary:active,.ghost:active,.ckl:active,.ib:active,.tile:active{transform:none}}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
