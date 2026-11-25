@@ -1877,12 +1877,14 @@ function sendForm(){
   if(a==="Outra área"&&fo&&fo.value.trim())a=fo.value.trim();
   if(w.length<10){e.textContent="Confira o WhatsApp, com DDD.";return;}
   if(!c){e.textContent="Marque a caixinha para podermos te chamar.";return;}
-  m=(m?m+" | ":"")+(ig?"Instagram/site: "+ig+" | ":"")+"Melhor período para o Zoom: "+hr;
+  var m0=m;m=(m?m+" | ":"")+(ig?"Instagram/site: "+ig+" | ":"")+"Melhor período para o Zoom: "+hr;
   var done_=function(msg){app.innerHTML='<h2>Recebi!</h2><div class="card"><p style="margin:0">'+msg+'</p></div><button class="primary" onclick="go(\'home\')">Voltar ao início</button>'+foot();window.scrollTo(0,0);};
-  var txt="Oi, Eve! Sou "+n+" ("+a+"). Procuro: "+nd+"."+(m?" "+m:"")+" Meu WhatsApp: "+w;
+  var txt="Oi, CorAge! Quero deixar meu contato.\n\n*Nome:* "+n+"\n*Profissão:* "+a+"\n*Procuro:* "+nd+(ig?"\n*Instagram/site:* "+ig:"")+"\n*Melhor período para o Zoom:* "+hr+(m0?"\n*Mensagem:* "+m0:"")+"\n*WhatsApp:* "+w;
+  var wa=window.open(waUrl(txt),"_blank");
+  var fin="Falta só um passo: no WhatsApp que abriu, toque em enviar. Nossa equipe fala com você em breve para marcar a conversa por Zoom.";
   if(FORM.url){var o={};o[FORM.f.name]=n;o[FORM.f.whats]=w;o[FORM.f.area]=a||"-";o[FORM.f.need]=nd;o[FORM.f.msg]=m||"-";
-    gSend(o,function(ok){if(ok)done_("Seu contato chegou. Nossa equipe fala com você em breve para marcar a conversa por Zoom.");else{window.open(waUrl(txt),"_blank");done_("Abri o seu WhatsApp com a mensagem pronta. É só enviar.");}});
-  }else{window.open(waUrl(txt),"_blank");done_("Abri o seu WhatsApp com a mensagem pronta. É só enviar.");}
+    gSend(o,function(ok){done_(fin);});
+  }else{done_(fin);}
 }
 
 var FB={n:0};
