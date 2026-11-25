@@ -611,18 +611,21 @@ html body .tile:active{transform:scale(.97)}
 .ckl{background:linear-gradient(135deg,color-mix(in srgb,var(--c) 90%,#fff),color-mix(in srgb,var(--c) 68%,transparent))!important;-webkit-backdrop-filter:blur(16px) saturate(1.5);backdrop-filter:blur(16px) saturate(1.5);border:1px solid rgba(255,255,255,.38)!important;box-shadow:0 14px 30px color-mix(in srgb,var(--c) 28%,transparent),inset 0 1px 0 rgba(255,255,255,.4),inset 0 -1px 0 rgba(0,0,0,.08)!important;position:relative;overflow:hidden}
 .ckl:after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-18deg);transition:left .7s var(--ease);pointer-events:none}
 .ckl:hover:after,.ckl:focus-visible:after{left:130%}
-.card,.acc{background:rgba(255,255,255,.62)!important;-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(255,255,255,.75)!important;box-shadow:0 10px 30px rgba(110,37,57,.08),inset 0 1px 0 rgba(255,255,255,.9)}
+.card,.acc{background:rgba(255,255,255,.94)!important;-webkit-backdrop-filter:blur(10px) saturate(1.2);backdrop-filter:blur(10px) saturate(1.2);border:1px solid rgba(255,255,255,.75)!important;box-shadow:0 10px 30px rgba(110,37,57,.08),inset 0 1px 0 rgba(255,255,255,.9)}
 .primary,.ghost,.ckl,.ib,.tabs button,.tile{transition:transform .35s var(--spring),box-shadow .25s,background .25s;-webkit-tap-highlight-color:transparent}
 .primary:active,.ghost:active,.ckl:active,.ib:active,.tile:active{transform:scale(.96)}
 .tabs{--i:0;position:fixed;overflow:hidden;-webkit-backdrop-filter:blur(22px) saturate(1.6)!important;backdrop-filter:blur(22px) saturate(1.6)!important;background:rgba(255,255,255,.5)!important;border:1px solid rgba(255,255,255,.8)!important;box-shadow:0 12px 34px rgba(110,37,57,.18),inset 0 1px 0 rgba(255,255,255,.9)!important}
 .tabs:before{content:'';position:absolute;top:5px;bottom:5px;left:6px;width:calc((100% - 12px)/3);border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.55));box-shadow:0 4px 14px rgba(110,37,57,.16),inset 0 1px 0 #fff;transform:translateX(calc(var(--i)*100%));transition:transform .45s var(--spring)}
 .tabs button{position:relative;z-index:1}
-.hdr{background:rgba(247,220,217,.62)!important;-webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);border-bottom:1px solid rgba(255,255,255,.6)}
+.hdr{background:rgba(250,236,233,.86)!important;-webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);border-bottom:1px solid rgba(255,255,255,.6)}
 .ib{-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-color:rgba(255,255,255,.7)!important;box-shadow:0 6px 18px rgba(110,37,57,.14),inset 0 1px 0 rgba(255,255,255,.9)!important}
 h1,h2{letter-spacing:-.015em}
 @keyframes rise{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
 #app>*{animation:rise .55s var(--ease) both}
 #app>*:nth-child(2){animation-delay:.05s}#app>*:nth-child(3){animation-delay:.1s}#app>*:nth-child(4){animation-delay:.15s}#app>*:nth-child(5){animation-delay:.2s}#app>*:nth-child(n+6){animation-delay:.25s}
+.view .card,.view .acc,.view .tool:not(.hl),.view details.grp,.view .sharebox{background:linear-gradient(160deg,rgba(255,255,255,.97),rgba(253,246,242,.92))!important;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.ckl{background:linear-gradient(135deg,color-mix(in srgb,var(--c) 96%,#fff),color-mix(in srgb,var(--c) 84%,transparent))!important}
+body,html{background:linear-gradient(180deg,#f9efe9 0%,#f3e6e0 100%) fixed!important}
 @media (prefers-reduced-motion:reduce){#app>*,.ckl:after,.tabs:before{animation:none;transition:none}.primary:active,.ghost:active,.ckl:active,.ib:active,.tile:active{transform:none}}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
