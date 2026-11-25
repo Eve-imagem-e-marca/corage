@@ -636,7 +636,13 @@ html,body{background:radial-gradient(45% 22% at 0% 0%,rgba(31,78,82,.38),transpa
 main h2,#app>h2,#app h2{color:#5a1d2e}
 .primary{background:linear-gradient(180deg,#c9a46a,#a67c45 55%,#8f6a35)!important;color:#fff!important;text-shadow:0 1px 1px rgba(60,35,10,.35);border:1px solid rgba(255,235,200,.65)!important;box-shadow:0 10px 24px rgba(143,106,53,.38),inset 0 1.5px 0 rgba(255,255,255,.55)!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .ckl.gold{--c:#a67c45}
-@media (prefers-reduced-motion:reduce){#app>*,.ckl:after,.tabs:before{animation:none;transition:none}.primary:active,.ghost:active,.ckl:active,.ib:active,.tile:active{transform:none}}
+/* Raio-X: vidro escuro com fio dourado e linha de varredura */
+.ckl[style*="#14363a"]{background:linear-gradient(135deg,rgba(14,38,41,.96),rgba(31,78,82,.9))!important;border:1px solid rgba(201,164,106,.85)!important;box-shadow:0 14px 30px rgba(14,38,41,.35),inset 0 1px 0 rgba(255,235,200,.35),0 0 0 3px rgba(201,164,106,.12)!important}
+.ckl[style*="#14363a"] svg{stroke:#e6c98f!important;color:#e6c98f}
+.ckl[style*="#14363a"] b{color:#fff7e6}
+.ckl[style*="#14363a"]:before{content:'';position:absolute;left:0;right:0;height:2px;top:0;background:linear-gradient(90deg,transparent,rgba(230,201,143,.9),transparent);box-shadow:0 0 12px rgba(230,201,143,.8);animation:scan 3.2s ease-in-out infinite;pointer-events:none}
+@keyframes scan{0%{top:6%;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:94%;opacity:0}}
+@media (prefers-reduced-motion:reduce){.ckl:before{animation:none!important;display:none}#app>*,.ckl:after,.tabs:before{animation:none;transition:none}.primary:active,.ghost:active,.ckl:active,.ib:active,.tile:active{transform:none}}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "a237ea8b496d4c9c8ea8725fd11d5b1a"}'></script>
 </head>
@@ -908,6 +914,7 @@ mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 
 pen:'<path d="M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19z"/>',
 sun:'<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/>',
 compass:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+scan:'<path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M4 12h16"/>',
 glasses:'<circle cx="7" cy="14" r="3.5"/><circle cx="17" cy="14" r="3.5"/><path d="M10.5 14h3M3.5 14L5 8M20.5 14L19 8"/>'
 };
 function ico(n,s){s=s||22;return '<svg class="li" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:'+s+'px;height:'+s+'px" aria-hidden="true">'+(LI[n]||"")+'</svg>';}
@@ -950,7 +957,7 @@ function vHome(){
   var b4='<p>Um app só seu, no celular das suas clientes.</p><button class="ckl" style="--c:#a67c45;margin:0 0 10px" onclick="go(\'conheca\')">Veja na prática</button><div class="grps" style="margin-top:10px">'+'<ul class="gain"><li>'+ico("calendar",19)+'<span><b>Mais tempo.</b> O app faz o que se repete.</span></li><li>'+ico("check",19)+'<span><b>Tudo num lugar.</b> Preços, contas e agenda.</span></li><li>'+ico("compass",19)+'<span><b>Mais clientes.</b> Mensagens prontas para vender.</span></li><li>'+ico("sparkle",19)+'<span><b>Marca forte.</b> A sua cara, sempre à vista.</span></li><li>'+ico("game",19)+'<span><b>Cliente que volta.</b> Jogos criam o hábito.</span></li><li>'+ico("phone",19)+'<span><b>Só seu.</b> Feito sob medida, com a sua marca.</span></li></ul><a class="link" href="'+INSTAGRAM+'" target="_blank" rel="noopener" style="font-weight:700">Seguir @eve.imagememarca</a>'+'</div><div class="sp"></div><button class="primary" onclick="go(\'contact\')">Quero o meu app</button>';
   function tl(c,ic,t,sub,go2){return '<button class="ckl" style="--c:'+c+';display:flex;align-items:center;gap:12px;text-align:left;width:100%;margin:0 0 10px;padding:14px 16px" onclick="go(\''+go2+'\')"><span style="flex:none;display:flex">'+ico(ic,26)+'</span><span style="flex:1;display:block"><b style="display:block;font-size:18px">'+t+'</b><span style="display:block;font-size:14px;font-weight:400;opacity:.92">'+sub+'</span></span><span style="font-size:20px">→</span></button>';}
   window.OQ_B2=b2;window.OQ_B4=b4;
-  h+='<div class="card ia">'+b1+'</div><div style="margin-top:14px">'+tl("#a67c45","check","Faça o Raio-X grátis","Veja em minutos o que já está forte no seu trabalho","quiz")+tl("#1f4e52","sparkle","O que é a CorAge","Agência de apps e a sua social media de bolso","oque")+tl("#6e2539","heart","Um presente para você","Veja o que o seu app pode ter","presente")+tl("#6b4a36","briefcase","Por que ter um app?","O que ele faz por você","usar")+'</div><p class="small" style="text-align:center;margin:4px 0 0">Funciona também offline, sem internet.</p><div style="margin-top:12px;text-align:center">'+contactBtn("Falar com a Eve no WhatsApp","Oi, Eve! Vi o app da CorAge e quero conversar.","ghost")+'</div>';
+  h+='<div class="card ia">'+b1+'</div><div style="margin-top:14px">'+tl("#14363a","scan","Faça o Raio-X grátis","Veja em minutos o que já está forte no seu trabalho","quiz")+tl("#1f4e52","sparkle","O que é a CorAge","Agência de apps e a sua social media de bolso","oque")+tl("#6e2539","heart","Um presente para você","Veja o que o seu app pode ter","presente")+tl("#6b4a36","briefcase","Por que ter um app?","O que ele faz por você","usar")+'</div><p class="small" style="text-align:center;margin:4px 0 0">Funciona também offline, sem internet.</p><div style="margin-top:12px;text-align:center">'+contactBtn("Falar com a Eve no WhatsApp","Oi, Eve! Vi o app da CorAge e quero conversar.","ghost")+'</div>';
   h+=foot();
   app.innerHTML=h;
   setTimeout(function(){var f=document.getElementById("fg");if(f)f.style.strokeDashoffset=off;},150);
